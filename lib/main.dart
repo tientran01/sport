@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
@@ -27,33 +28,37 @@ import 'helper/notification_service.dart';
 
 final GetIt getIt = GetIt.instance;
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  BlocModule.provider();
-  NotificationService.shared.setup();
-  await SharedPreferencesHelper.shared.setUpSharedPreferences();
-  FirebaseHelper.shared.registerNotification();
-  FirebaseHelper.shared.getToken();
-  FirebaseHelper.shared.setupInteractedMessage();
-  FlutterAppBadger.removeBadge();
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => SplashBloc()),
-        BlocProvider(create: (_) => LoginBloc()),
-        BlocProvider(create: (_) => SignUpBloc()),
-        BlocProvider(create: (_) => HomeBloc()),
-        BlocProvider(create: (_) => ProfileBloc()),
-        BlocProvider(create: (_) => PhoneAuthBloc()),
-        BlocProvider(create: (_) => VerifyOtpBloc()),
-        BlocProvider(create: (_) => ForgetPasswordBloc()),
-        BlocProvider(create: (_) => NotificationBloc()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    BlocModule.provider();
+    NotificationService.shared.setup();
+    await SharedPreferencesHelper.shared.setUpSharedPreferences();
+    FirebaseHelper.shared.registerNotification();
+    FirebaseHelper.shared.getToken();
+    FirebaseHelper.shared.setupInteractedMessage();
+    FlutterAppBadger.removeBadge();
+    runApp(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => SplashBloc()),
+          BlocProvider(create: (_) => LoginBloc()),
+          BlocProvider(create: (_) => SignUpBloc()),
+          BlocProvider(create: (_) => HomeBloc()),
+          BlocProvider(create: (_) => ProfileBloc()),
+          BlocProvider(create: (_) => PhoneAuthBloc()),
+          BlocProvider(create: (_) => VerifyOtpBloc()),
+          BlocProvider(create: (_) => ForgetPasswordBloc()),
+          BlocProvider(create: (_) => NotificationBloc()),
+        ],
+        child: const MyApp(),
+      ),
+    );
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
 class MyApp extends StatefulWidget {
