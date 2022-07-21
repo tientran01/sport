@@ -28,7 +28,8 @@ class AppStrings {
   static const String phoneGetOtp = "Code is sent to ";
   static const String emailInvalid = "Invalid email";
   static const String phoneInvalid = "Invalid phone";
-  static const String passwordInvalid = "Invalid password. Password have 8 - 15 characters!";
+  static const String passwordInvalid =
+      "Invalid password. Password have 8 - 15 characters!";
   static const String loginFail = "Login Fail";
   static const String loginSuccess = "Login Success";
   static const String signInWithGoogle = "Sign in with google";
@@ -64,11 +65,22 @@ class AppStrings {
   static const String channelName = "Channel Name";
   static const String showLocalNotification = "Show Local Notification";
   static const String showScheduledNotification = "Show Scheduled Notification";
-  static const String showNotificationWithPayload = "Show Notification With Payload";
+  static const String showNotificationWithPayload =
+      "Show Notification With Payload";
   static const String showPushNotification = "Show Push Notification";
   static const String localNotificationTitle = "Bloc Demo";
   static const String localNotificationBody = "Local Notification Body";
   static const String supported = "Supported";
   static const String notSupported = "Not supported";
   static const String failedSupport = "Failed to get badge support.";
+  static const String chooseProfilePhoto = "Choose Profile Photo";
+  static const String camera = "Camera";
+  static const String gallery = "Gallery";
+  static const String cancel = "Cancel";
+  static const String animationListDemo = "Animation List Demo";
+  static const String buyNowBarrierLabel = "Buy now";
+
+  //name button
+  static const String addToCart = "Add To Cart";
+  static const String buyNow = "Buy Now";
 }

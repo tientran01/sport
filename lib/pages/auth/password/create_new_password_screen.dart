@@ -1,14 +1,11 @@
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/foget_password/bloc/forget_password_state.dart';
 import '../../../component/custom_button.dart';
 import '../../../component/custom_text_field.dart';
-import '../../../resource/app_resource.dart';
-import '../../../resource/app_strings.dart';
-import '../../../resource/app_style.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget {
   const CreateNewPasswordScreen({Key? key}) : super(key: key);

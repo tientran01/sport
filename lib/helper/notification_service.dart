@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-import 'package:sport_app/resource/app_route_name.dart';
 import 'package:sport_app/resource/app_strings.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:timezone/timezone.dart' as tz;

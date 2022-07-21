@@ -6,10 +6,8 @@ class AppResource {
   static String pizza_1 = "${baseImagePath}im_pizza_1.png";
   static String pizza_2 = "${baseImagePath}im_pizza_2.png";
   static String pizza_3 = "${baseImagePath}im_pizza_3.png";
-  static String carousel_1 = "${baseImagePath}im_carousel_1.png";
-  static String carousel_2 = "${baseImagePath}im_carousel_2.png";
-  static String carousel_3 = "${baseImagePath}im_carousel_3.png";
-  static String carousel_4 = "${baseImagePath}im_carousel_4.png";
+  static String coffee1 = "${baseImagePath}im_coffee_logo.png";
+  static String coffee2 = "${baseImagePath}im_coffee_2_logo.png";
 
   static String baseIconPath = 'assets/icons/';
   static String facebookIcon = "${baseIconPath}ic_facebook.png";
@@ -29,4 +27,7 @@ class AppResource {
   static String notification = '${baseIconPath}ic_notification.png';
   static String more = '${baseIconPath}ic_more.png';
   static String edit = '${baseIconPath}ic_edit.png';
+  static String error = '${baseIconPath}ic_error.png';
+
+  static String coffeeJson = "assets/json/coffee.json";
 }

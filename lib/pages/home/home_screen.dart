@@ -8,14 +8,9 @@ import 'package:sport_app/component/home/header_app_bar.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/product/widgets/custom_product_item.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_key_name.dart';
-import 'package:sport_app/resource/app_strings.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../resource/app_route_name.dart';
+import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
 
 class HomeScreen extends StatefulWidget {

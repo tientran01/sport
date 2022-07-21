@@ -1,12 +1,8 @@
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_text_field.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/app_strings.dart';
-import 'package:sport_app/resource/app_style.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_bloc.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_event.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_state.dart';

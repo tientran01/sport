@@ -1,6 +1,5 @@
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_style.dart';
 import 'package:flutter/material.dart';
+import '../resource/resource.dart';
 
 class CustomButton extends StatelessWidget {
   final Function()? onTap;
@@ -41,6 +40,41 @@ class CustomButton extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class Button extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final String text;
+  final Color? bgColor;
+  final Color? textColor;
+  final double? width;
+  final double? height;
+  const Button({
+    Key? key,
+    this.onPressed,
+    required this.text,
+    this.bgColor,
+    this.width,
+    this.height, this.textColor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateProperty.all<Color>(bgColor ?? AppColor.h000000),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(Constants.size20),
+        child: Text(
+          text,
+          style: AppStyle.title.copyWith(color: textColor),
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../resource/app_key_name.dart';
 
@@ -26,15 +27,17 @@ class SharedPreferencesHelper {
     return prefs!.setInt(key, data);
   }
 
-  saveInfo(String displayName, String email, String uid) {
-    prefs!.setString(AppKeyName.displayName, displayName);
-    prefs!.setString(AppKeyName.email, email);
-    prefs!.setString(AppKeyName.uid, uid);
+  saveInfo(User user) {
+    prefs!.setString(AppKeyName.uid, user.uid);
+    prefs!.setString(AppKeyName.email, user.email ?? "");
+    prefs!.setString(AppKeyName.displayName, user.displayName ?? "");
+    prefs!.setString(AppKeyName.photoUrl, user.photoURL ?? "");
   }
 
   logout() async {
     prefs!.remove(AppKeyName.uid);
     prefs!.remove(AppKeyName.displayName);
     prefs!.remove(AppKeyName.email);
+    prefs!.remove(AppKeyName.takeImage);
   }
 }

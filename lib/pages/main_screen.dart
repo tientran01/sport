@@ -16,16 +16,23 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
-  List<Widget> bottomTab = [
-    const HomeScreen(),
-    const ChatScreen(),
-    const ShoppingScreen(),
-    const ProfileScreen()
-  ];
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: bottomTab.elementAt(selectIndex),
+      body: PageView(
+        controller: _pageController,
+        children: const [
+          HomeScreen(),
+          ChatScreen(),
+          ShoppingScreen(),
+          ProfileScreen()
+        ],
+        onPageChanged: (pageIndex) {
+          pageChanged(pageIndex);
+          selectIndex = pageIndex;
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         elevation: 0.00,
@@ -71,7 +78,18 @@ class _MainScreenState extends State<MainScreen> {
     setState(
       () {
         selectIndex = index;
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
       },
     );
+  }
+
+  void pageChanged(int pageIndex) {
+    setState(() {
+      selectIndex = pageIndex;
+    });
   }
 }

@@ -47,11 +47,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       if (user != null) {
         Loading.dismiss();
-        SharedPreferencesHelper.shared.saveInfo(
-          user.displayName ?? "", 
-          user.email ?? "", 
-          user.uid,
-        );
+        SharedPreferencesHelper.shared.saveInfo(user);
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
@@ -76,7 +72,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     SignInWithPhoneNumberEvent event,
     Emitter<void> emitter,
   ) async {
-    NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.phoneInput);
+    NavigationService.navigatorKey.currentState
+        ?.pushNamed(AppRouteName.phoneInput);
   }
 
   Future<void> _onSignInWithGoogle(
@@ -100,9 +97,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       FirebaseHelper.shared.signOut();
       SharedPreferencesHelper.shared.logout();
-      NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
+      NavigationService.navigatorKey.currentState
+          ?.pushNamed(AppRouteName.login);
     } catch (e) {}
   }
 
-  static LoginBloc of(BuildContext context) => BlocProvider.of<LoginBloc>(context);
+  static LoginBloc of(BuildContext context) =>
+      BlocProvider.of<LoginBloc>(context);
 }

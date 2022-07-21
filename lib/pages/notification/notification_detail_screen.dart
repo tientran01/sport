@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/resource/app_strings.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class NotificationDetailScreen extends StatelessWidget {
   const NotificationDetailScreen({Key? key}) : super(key: key);

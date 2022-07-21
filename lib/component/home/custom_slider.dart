@@ -1,5 +1,6 @@
+import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_resource.dart';
+import 'package:sport_app/resource/app_network.dart';
 import 'package:sport_app/resource/app_strings.dart';
 import 'package:sport_app/resource/app_style.dart';
 import 'package:sport_app/resource/constants.dart';
@@ -16,33 +17,35 @@ class CustomSlider extends StatefulWidget {
 
 class _CustomSliderState extends State<CustomSlider> {
   final images = [
-    AppResource.carousel_1,
-    AppResource.carousel_2,
-    AppResource.carousel_3,
-    AppResource.carousel_4,
-    AppResource.carousel_1,
-    AppResource.carousel_2,
-    AppResource.carousel_3,
-    AppResource.carousel_4
+    AppNetwork.carouselImage_1,
+    AppNetwork.carouselImage_2,
+    AppNetwork.carouselImage_3,
+    AppNetwork.carouselImage_4,
+    AppNetwork.carouselImage_5
   ];
   int activeIndex = 0;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CarouselSlider.builder(
             itemCount: images.length,
-            itemBuilder: (context, index, realIndex) =>
-                buildSliderItem(images.elementAt(index), index),
+            itemBuilder: (context, index, realIndex) => buildSliderItem(
+              images.elementAt(index),
+              size.width,
+              index,
+            ),
             options: CarouselOptions(
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 2),
               viewportFraction: 1,
               height: Constants.heightCarousel,
-              onPageChanged: (index, reason) =>
-                  setState(() => activeIndex = index),
+              onPageChanged: (index, reason) => setState(
+                () => activeIndex = index,
+              ),
             ),
           ),
           buildIndicator(),
@@ -53,34 +56,16 @@ class _CustomSliderState extends State<CustomSlider> {
 
   Widget buildSliderItem(
     String imagePath,
+    double width,
     int index,
   ) =>
       Stack(
         fit: StackFit.expand,
         children: [
-          SizedBox(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(Constants.size15),
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Constants.size15),
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Colors.black,
-                  Colors.black45,
-                  Colors.black12,
-                  Colors.black.withOpacity(0),
-                ],
-              ),
-            ),
+          CustomImage(
+            imageUrl: imagePath,
+            width: width,
+            height: Constants.heightCarousel,
           ),
           Positioned(
             left: 30,

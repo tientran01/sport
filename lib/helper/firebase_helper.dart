@@ -127,11 +127,7 @@ class FirebaseHelper {
           AppRouteName.main,
           arguments: user,
         );
-        SharedPreferencesHelper.shared.saveInfo(
-          user?.displayName ?? "",
-          user?.email ?? "",
-          user?.uid ?? "",
-        );
+        SharedPreferencesHelper.shared.saveInfo(user!);
       } on FirebaseException {
         Loading.showError(AppStrings.error);
       }
@@ -156,11 +152,7 @@ class FirebaseHelper {
           AppRouteName.main,
           arguments: user,
         );
-        SharedPreferencesHelper.shared.saveInfo(
-          user.displayName ?? "",
-          user.email ?? "",
-          user.uid,
-        );
+        SharedPreferencesHelper.shared.saveInfo(user);
       } else {
         Loading.showError(AppStrings.error);
       }

@@ -4,13 +4,10 @@ import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/app_style.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/foget_password/bloc/forget_password_state.dart';
-import '../../../resource/app_strings.dart';
 
 class InputEmailResetScreen extends StatelessWidget {
   const InputEmailResetScreen({Key? key}) : super(key: key);
