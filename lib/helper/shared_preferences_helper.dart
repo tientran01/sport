@@ -39,5 +39,6 @@ class SharedPreferencesHelper {
     prefs!.remove(AppKeyName.displayName);
     prefs!.remove(AppKeyName.email);
     prefs!.remove(AppKeyName.takeImage);
+    prefs!.remove(AppKeyName.token);
   }
 }

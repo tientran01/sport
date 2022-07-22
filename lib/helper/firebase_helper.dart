@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
@@ -172,13 +173,24 @@ class FirebaseHelper {
       badge: true,
       sound: true,
     );
-    print(settings.authorizationStatus);
+    settings.authorizationStatus;
   }
 
-  Future<void> getToken() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    print(fcmToken);
+  Future<void> saveTokenToDatabase(String token) async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    await FirebaseFirestore.instance.collection('users').doc(userId).update(
+      {
+        'tokens': FieldValue.arrayUnion([token]),
+      },
+    );
+  }
+
+  Future<void> setupToken() async {
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
     SharedPreferencesHelper.shared.setString(AppKeyName.token, fcmToken!);
+    await saveTokenToDatabase(fcmToken);
+    FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
   }
 
   Future<void> setupInteractedMessage() async {

@@ -26,6 +26,10 @@ import 'bloc/login/bloc/login_bloc.dart';
 import 'helper/notification_service.dart';
 
 final GetIt getIt = GetIt.instance;
+// Future<void> _firebaseMessagingBackgroundHandle(RemoteMessage message) async {
+//   print("Background message: ${message.messageId}");
+// }
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -35,9 +39,10 @@ Future<void> main() async {
   NotificationService.shared.setup();
   await SharedPreferencesHelper.shared.setUpSharedPreferences();
   FirebaseHelper.shared.registerNotification();
-  FirebaseHelper.shared.getToken();
+  FirebaseHelper.shared.setupToken();
   FirebaseHelper.shared.setupInteractedMessage();
-  FlutterAppBadger.removeBadge();
+  // FlutterAppBadger.removeBadge();
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandle);
   runApp(
     MultiBlocProvider(
       providers: [
