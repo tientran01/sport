@@ -6,12 +6,12 @@ import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
-class HeaderAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
   final String? displayName;
   final String? email;
   final VoidCallback? onTap;
   final int? notificationCount;
-  const HeaderAppBar({
+  const HeaderHome({
     Key? key,
     this.displayName,
     this.email,
@@ -53,21 +53,19 @@ class HeaderAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (displayName != null) {
       return Text(
         "Hello $displayName",
-        style: AppStyle.title,
+        style: AppStyle.darkText(),
       );
     }
     return Text(
       "Hello",
-      style: AppStyle.title,
+      style: AppStyle.darkText(),
     );
   }
 
   Widget buildEmail({String? email}) {
     return Text(
       email ?? "",
-      style: AppStyle.lightTitle.copyWith(
-        fontSize: 14,
-      ),
+      style: AppStyle.lightDarkText(),
     );
   }
 

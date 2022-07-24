@@ -1,11 +1,10 @@
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/resource/resource.dart';
 
-class CustomDivider extends StatelessWidget {
+class DividerCustom extends StatelessWidget {
   final String textDisplay;
   final bool isOr;
-  const CustomDivider({
+  const DividerCustom({
     Key? key,
     required this.textDisplay,
     this.isOr = false,
@@ -21,16 +20,12 @@ class CustomDivider extends StatelessWidget {
           children: [
             buildDivider(),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: Constants.size10),
               child: Text(
                 textDisplay,
-                style: isOr
-                    ? AppStyle.title.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.hDDDDDD,
-                      )
-                    : AppStyle.title
-                        .copyWith(color: AppColor.h413F42, fontSize: 15.0),
+                style: AppStyle.grayText(
+                  fontSize: Constants.titleFontSize,
+                ),
               ),
             ),
             buildDivider()

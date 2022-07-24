@@ -1,5 +1,5 @@
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_button.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +20,10 @@ class CheckEmailScreen extends StatelessWidget {
             children: [
               Text(
                 AppStrings.messCheckEmail.toUpperCase(),
-                style: AppStyle.title,
+                style: AppStyle.darkText(),
               ),
               SizedBox(height: Constants.size30),
-              CustomButton(
+              Button(
                 text: AppStrings.login.toUpperCase(),
                 onTap: () => NavigationService.navigatorKey.currentState
                     ?.pushNamed(AppRouteName.login),

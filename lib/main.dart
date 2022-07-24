@@ -41,8 +41,8 @@ Future<void> main() async {
   FirebaseHelper.shared.registerNotification();
   FirebaseHelper.shared.setupToken();
   FirebaseHelper.shared.setupInteractedMessage();
-  // FlutterAppBadger.removeBadge();
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandle);
+  FlutterAppBadger.removeBadge();
+  FirebaseHelper.shared.getCurrentUser();
   runApp(
     MultiBlocProvider(
       providers: [

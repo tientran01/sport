@@ -5,7 +5,7 @@ import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_button.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           .getString(AppKeyName.displayName),
                     ),
                     SizedBox(height: Constants.size30),
-                    CustomButton(
+                    Button(
                       text: AppStrings.signOut,
                       onTap: () {
                         getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
@@ -121,12 +121,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           displayName ?? "",
-          style: AppStyle.nameSection,
+          style: AppStyle.darkText(),
         ),
         SizedBox(height: Constants.size5),
         Text(
           email ?? "",
-          style: AppStyle.lightTitle,
+          style: AppStyle.lightDarkText(),
         ),
       ],
     );

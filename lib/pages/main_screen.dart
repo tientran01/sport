@@ -1,7 +1,6 @@
 import 'package:sport_app/pages/chat/chat_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
-import 'package:sport_app/pages/shopping/shopping_screen.dart';
 import 'package:sport_app/resource/app_color.dart';
 import 'package:sport_app/resource/app_resource.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
         children: const [
           HomeScreen(),
           ChatScreen(),
-          ShoppingScreen(),
+          HomeScreen(),
           ProfileScreen()
         ],
         onPageChanged: (pageIndex) {

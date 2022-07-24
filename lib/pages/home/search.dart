@@ -4,8 +4,8 @@ import 'package:sport_app/resource/app_strings.dart';
 import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 
-class CustomSearch extends StatelessWidget {
-  const CustomSearch({Key? key}) : super(key: key);
+class Search extends StatelessWidget {
+  const Search({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,6 @@
-import 'package:sport_app/component/custom_button.dart';
-import 'package:sport_app/resource/constants.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:flutter/material.dart';
-
-import '../resource/app_color.dart';
-import '../resource/app_strings.dart';
-import '../resource/app_style.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class CustomShowProfile extends StatelessWidget {
   final String? photoURL;
@@ -54,19 +50,23 @@ class CustomShowProfile extends StatelessWidget {
             SizedBox(height: Constants.size30),
             Text(
               displayName ?? "",
-              style: AppStyle.header,
+              style: AppStyle.darkText(
+                fontSize: Constants.headerFontSize,
+              ),
             ),
             SizedBox(height: Constants.size10),
             Text(
               email ?? "",
-              style: AppStyle.title,
+              style: AppStyle.darkText(
+                fontSize: Constants.titleFontSize
+              ),
             ),
             SizedBox(height: Constants.size10),
             Text(
               phoneNumber ?? "",
-              style: AppStyle.title,
+              style: AppStyle.darkText(),
             ),
-            CustomButton(
+            Button(
               text: AppStrings.signOut,
               bgColor: AppColor.h413F42,
               onTap: onPressed,

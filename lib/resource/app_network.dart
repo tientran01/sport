@@ -2,7 +2,7 @@ class AppNetwork {
   static String imageAvatar =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNxf7EpLw4SUEqRsZYkp_GjHL7ChuGR9CNKQ&usqp=CAU";
   static String carouselImage_1 =
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL1N4JkP6OWVlFM0z6KJiLu4c-OKmFVrSUow&usqp=CAU";
+      "https://arobaokhanh.com.vn/datafiles/thumb_1593404711_15.jpg";
   static String carouselImage_2 =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQsitJSE5C9x3MHKkF_qnj5FqtJvFKnJnUPA&usqp=CAU";
   static String carouselImage_3 =

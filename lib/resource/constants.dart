@@ -16,4 +16,9 @@ class Constants {
   static int twoSecondDelay = 2;
   static int fiveSecondDelay = 5;
   static int fourHundred = 400;
+
+  static double heightButton = 56.0;
+  static double subtitleFontSize = 16.0;
+  static double titleFontSize = 18.0;
+  static double headerFontSize = 25.0;
 }

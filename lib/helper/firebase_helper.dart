@@ -40,6 +40,11 @@ class FirebaseHelper {
     return user;
   }
 
+  Future<void> getCurrentUser() async {
+    User? user = auth.currentUser;
+    print("======$user");
+  }
+
   Future<User?> signUpWithEmailAndPassword({
     String? email,
     String? password,

@@ -25,7 +25,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       title: Text(
         title ?? "",
-        style: AppStyle.title,
+        style: AppStyle.darkText(
+          fontSize: Constants.titleFontSize,
+        ),
       ),
       leading: IconButton(
         onPressed: onPressedLeft,

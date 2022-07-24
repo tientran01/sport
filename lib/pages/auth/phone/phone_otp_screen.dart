@@ -3,7 +3,7 @@ import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_bloc.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_event.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_button.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_otp_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,7 +71,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
               children: [
                 Text(
                   "${AppStrings.phoneGetOtp} $phoneNumber",
-                  style: AppStyle.title,
+                  style: AppStyle.darkText(),
                 ),
                 SizedBox(height: Constants.size30),
                 Container(
@@ -93,7 +93,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                   children: [
                     Text(
                       AppStrings.sendOTPfail,
-                      style: AppStyle.lightTitle,
+                      style: AppStyle.lightDarkText(),
                     ),
                     IgnorePointer(
                       ignoring: ignoring,
@@ -109,7 +109,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                         },
                         child: Text(
                           AppStrings.requestAgain,
-                          style: AppStyle.title.copyWith(
+                          style: AppStyle.darkText().copyWith(
                             color: ignoring
                                 ? AppColor.hDDDDDD.withOpacity(0.6)
                                 : AppColor.h413F42,
@@ -120,7 +120,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                   ],
                 ),
                 SizedBox(height: Constants.size30),
-                CustomButton(
+                Button(
                   text: AppStrings.signUp,
                   bgColor: AppColor.h413F42,
                   onTap: () => getIt
@@ -133,17 +133,17 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                     children: [
                       TextSpan(
                         text: AppStrings.resendOtpCode,
-                        style: AppStyle.title,
+                        style: AppStyle.darkText(),
                       ),
                       TextSpan(
                         text: time,
-                        style: AppStyle.title.copyWith(
+                        style: AppStyle.darkText().copyWith(
                           color: AppColor.hEB4747,
                         ),
                       ),
                       TextSpan(
                         text: AppStrings.sec,
-                        style: AppStyle.title,
+                        style: AppStyle.darkText(),
                       )
                     ],
                   ),

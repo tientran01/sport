@@ -1,21 +1,17 @@
-import 'package:sport_app/resource/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class CustomSocialButton extends StatelessWidget {
   final String socialIconPath;
   final Color? iconColor;
   final Function() onTap;
   final Color? bgColor;
-  final double? height;
-  final double? width;
   const CustomSocialButton(
       {Key? key,
       required this.socialIconPath,
       required this.onTap,
       this.bgColor,
-      this.iconColor,
-      this.height,
-      this.width})
+      this.iconColor})
       : super(key: key);
 
   @override
@@ -25,14 +21,14 @@ class CustomSocialButton extends StatelessWidget {
       child: Container(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-              border: Border.all(color: AppColor.hDDDDDD),
-              color: bgColor ?? Colors.transparent,
-              shape: BoxShape.circle),
+            color: bgColor ?? AppColor.h686D76,
+            shape: BoxShape.circle,
+          ),
           child: Image.asset(
             socialIconPath,
-            width: width ?? 30.0,
-            height: height ?? 30.0,
-            color: iconColor ?? AppColor.h413F42,
+            width: Constants.size30,
+            height: Constants.size30,
+            color: iconColor ?? AppColor.hFFFFFF,
           )),
     );
   }

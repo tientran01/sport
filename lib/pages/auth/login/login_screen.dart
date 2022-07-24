@@ -1,20 +1,16 @@
 import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_bloc.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
-import 'package:sport_app/component/custom_button.dart';
+import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/component/divider_custom.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_style.dart';
-import 'package:sport_app/resource/constants.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../component/custom_divider.dart';
 import '../../../component/custom_social_button.dart';
-import '../../../resource/app_resource.dart';
-import '../../../resource/app_route_name.dart';
-import '../../../resource/app_strings.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -35,6 +31,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: AppStrings.login,
+        onPressedLeft: () => NavigationService.navigatorKey.currentState?.pop(),
+      ),
       body: BlocBuilder<LoginBloc, LoginState>(
         builder: (_, state) {
           return Center(
@@ -48,11 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: Constants.size30),
-                      const Text(
-                        AppStrings.login,
-                        style: TextStyle(fontSize: 25.0, color: Colors.black),
-                      ),
-                      SizedBox(height: Constants.size30),
                       CustomTextField(
                         textEditingController: emailController,
                         type: TextFieldType.email,
@@ -64,30 +59,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                   email: email),
                             ),
                       ),
-                      SizedBox(height: Constants.size10),
+                      SizedBox(height: Constants.size30),
                       CustomTextField(
                         textEditingController: passwordController,
                         title: AppStrings.password,
                         type: TextFieldType.password,
                         hintText: AppStrings.passwordInput,
-                        onChanged: (String password) =>
-                            getIt.get<LoginBloc>().add(
-                                  GetEmailAndPasswordFormTextFieldEvent(
-                                      password: password),
-                                ),
+                        onChanged: (String password) {
+                          getIt.get<LoginBloc>().add(
+                              GetEmailAndPasswordFormTextFieldEvent(
+                                  password: password));
+                        },
                       ),
                       buildForgetPassword(),
                       SizedBox(height: Constants.size30),
-                      CustomButton(
+                      Button(
                         text: AppStrings.login,
                         onTap: () {
                           tryLogin();
                         },
                       ),
                       SizedBox(height: Constants.size30),
-                      const CustomDivider(
+                      const DividerCustom(
                         textDisplay: AppStrings.or,
-                        isOr: true,
                       ),
                       SizedBox(height: Constants.size30),
                       Row(
@@ -95,23 +89,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           CustomSocialButton(
                             socialIconPath: AppResource.phoneIcon,
-                            onTap: () => getIt
-                                .get<LoginBloc>()
-                                .add(SignInWithPhoneNumberEvent()),
+                            bgColor: AppColor.hB9E3C6,
+                            onTap: () {
+                              getIt
+                                  .get<LoginBloc>()
+                                  .add(SignInWithPhoneNumberEvent());
+                            },
                           ),
                           SizedBox(width: Constants.size10),
                           CustomSocialButton(
                             socialIconPath: AppResource.facebookIcon,
-                            onTap: () => getIt.get<LoginBloc>().add(
-                                  SignInWithFacebookEvent(),
-                                ),
+                            bgColor: AppColor.h0077C0,
+                            onTap: () {
+                              getIt
+                                  .get<LoginBloc>()
+                                  .add(SignInWithFacebookEvent());
+                            },
                           ),
                           SizedBox(width: Constants.size10),
                           CustomSocialButton(
                             socialIconPath: AppResource.googleIcon,
-                            onTap: () => getIt.get<LoginBloc>().add(
-                                  SignInWithGoogleEvent(),
-                                ),
+                            bgColor: AppColor.hFFD24C,
+                            onTap: () {
+                              getIt
+                                  .get<LoginBloc>()
+                                  .add(SignInWithGoogleEvent());
+                            },
                           ),
                           SizedBox(width: Constants.size10),
                         ],
@@ -122,16 +125,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Text(
                             AppStrings.noAccount,
-                            style: AppStyle.lightTitle,
+                            style: AppStyle.lightDarkText(),
+                          ),
+                          SizedBox(
+                            width: Constants.size5,
                           ),
                           GestureDetector(
-                            onTap: () =>
-                                getIt.get<LoginBloc>().add(SignUpEvent()),
+                            onTap: () {
+                              getIt.get<LoginBloc>().add(SignUpEvent());
+                            },
                             child: Text(
                               AppStrings.signUp,
-                              style: AppStyle.title,
+                              style: AppStyle.darkText(),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ],
@@ -168,15 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
         AppRouteName.inputEmailReset,
       ),
       child: Container(
-        margin: const EdgeInsets.only(top: 10.0, right: 10.0),
+        margin: EdgeInsets.only(
+          top: Constants.size10,
+          right: Constants.size10,
+        ),
         alignment: Alignment.bottomRight,
         child: Text(
           AppStrings.forgetPassword,
-          style: AppStyle.title.copyWith(
-            fontSize: 16,
-            decoration: TextDecoration.underline,
-            color: AppColor.borderOTPColor,
-          ),
+          style: AppStyle.lightDarkText(),
         ),
       ),
     );

@@ -1,22 +1,35 @@
 class AppStrings {
-  static const String username = "Username";
-  static const String usernameInput = "Enter your username";
+  static const String username = "Tên đăng nhập";
+  static const String usernameInput = "Nhập tên đăng nhập";
+  static const String nameStore = "Tên cửa hàng";
+  static const String nameStoreInput = "Nhập tên cửa hàng";
   static const String email = "Email";
-  static const String emailInput = "Enter your email";
-  static const String phone = "Phone";
-  static const String phoneInput = "Enter your phone number";
-  static const String desc = "Description";
-  static const String descInput = "Enter description";
-  static const String password = "Password";
-  static const String passwordInput = "Enter your password";
-  static const String confirmPassword = "Confirm Password";
-  static const String confirmPasswordInput = "Enter password again";
-  static const String login = "Login";
-  static const String signUp = "Sign Up";
-  static const String signOut = "Sign Out";
-  static const String noAccount = "Don't have account?";
+  static const String emailInput = "Nhập email";
+  static const String phone = "Số điện thoại";
+  static const String phoneInput = "Nhập số điện thoại";
+  static const String password = "Mật khẩu";
+  static const String passwordInput = "Nhập mật khẩu";
+  static const String confirmPassword = "Xác nhận mật khẩu";
+  static const String confirmPasswordInput = "Nhập lại mật khẩu";
+  static const String citizenID = "Chứng minh thư/ Căn cước công dân";
+  static const String photoSelfie = "Ảnh selfie";
+  static const String frontFace = "Mặt trước";
+  static const String backSide = "Mặt sau";
+
+  static const String login = "Đăng nhập";
+  static const String signUp = "Đăng ký";
+  static const String signOut = "Đăng xuất";
+  static const String forgetPassword = "Quên mật khẩu?";
+
+  static const String emailInvalid = "Email không đúng định dạng";
+  static const String phoneInvalid = "Số điện thoại không đúng định dạng";
+  static const String passwordInvalid = "Mật khẩu không đủ điều kiện";
+  static const String passwordRequired =
+      "Mật khẩu phải dài từ 8-16 kí tự, có chữ viết hoa và viết thường, chứa các ký tự đặc biệt(@,#,?,...)";
+
+  static const String noAccount = "Chưa có tài khoản?";
   static const String haveAccount = "Already have an account?";
-  static const String forgetPassword = "Forget password?";
+
   static const String or = 'OR';
   static const String send = "Send";
   static const String requestInputOTP = "Enter your 6 digit OTP";
@@ -24,12 +37,8 @@ class AppStrings {
   static const String requestAgain = "Request again";
   static const String verifyPhone = "Verify Phone";
   static const String required = "Required";
-  static const String passwordError = "Enter a password with length at least 6";
+
   static const String phoneGetOtp = "Code is sent to ";
-  static const String emailInvalid = "Invalid email";
-  static const String phoneInvalid = "Invalid phone";
-  static const String passwordInvalid =
-      "Invalid password. Password have 8 - 15 characters!";
   static const String loginFail = "Login Fail";
   static const String loginSuccess = "Login Success";
   static const String signInWithGoogle = "Sign in with google";
@@ -45,11 +54,7 @@ class AppStrings {
   static const String splashScreen = "Splash Screen";
   static const String checkValidEmail = "Verify Your Email";
   static const String messCheckEmail = "Please check your email";
-  static const String blocDemo = "Bloc Demo";
-  static const String getDataById = "Get Data By ID";
-  static const String getDataByUserId = "Get Data By UserId";
-  static const String demoCubit = "Demo Cubit";
-  static const String demoGetX = "Demo getx";
+
   static const String searchInput = "What would you like to eat?";
   static const String carouselTitle_1 = "Black Friday";
   static const String popularFood = "Popular Food";
@@ -57,8 +62,6 @@ class AppStrings {
   static const String home = "Home";
   static const String chat = "Chat";
   static const String shopping = "Shopping";
-  static const String category = "Category";
-  static const String detailProduct = "Detail product";
   static const String notification = "Notification";
   static const String channelDescription = "Channel Description";
   static const String channelId = "Channel Id";
@@ -83,4 +86,7 @@ class AppStrings {
   //name button
   static const String addToCart = "Add To Cart";
   static const String buyNow = "Buy Now";
+
+  static const String desc = "Description";
+  static const String descInput = "Enter description";
 }

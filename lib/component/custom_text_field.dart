@@ -1,8 +1,6 @@
-import 'package:sport_app/resource/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../resource/app_strings.dart';
+import 'package:sport_app/resource/resource.dart';
 
 enum TextFieldType {
   email,
@@ -59,10 +57,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       obscureText: isHidden,
       decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: Constants.size15,
+          vertical: Constants.size20,
+        ),
         labelText: widget.title,
+        labelStyle: AppStyle.darkText(
+          fontSize: Constants.subtitleFontSize,
+        ),
         hintText: widget.hintText,
+        hintStyle: AppStyle.grayText(),
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon ??
             GestureDetector(
@@ -71,6 +75,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
         border: outlineInputBorder(color: Colors.transparent),
         focusedBorder: outlineInputBorder(color: AppColor.h413F42),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onChanged: widget.onChanged,
       inputFormatters: widget.inputFormatters,
@@ -105,7 +110,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         break;
       case TextFieldType.password:
         if (value == null || value.isEmpty) {
-          return AppStrings.required;
+          return AppStrings.passwordRequired;
         } else if (!isPasswordValid(value)) {
           return AppStrings.passwordInvalid;
         }
@@ -146,9 +151,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   OutlineInputBorder outlineInputBorder({Color? color}) {
     return OutlineInputBorder(
-      borderSide:
-          BorderSide(color: color ?? AppColor.borderOTPColor, width: 1.0),
-      borderRadius: BorderRadius.circular(20.0),
+      borderSide: BorderSide(
+        color: color ?? AppColor.h686D76,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(
+        Constants.size5,
+      ),
     );
   }
 }

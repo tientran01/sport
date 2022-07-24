@@ -1,13 +1,11 @@
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
-import 'package:sport_app/component/home/custom_name_section.dart';
-import 'package:sport_app/component/home/custom_search.dart';
-import 'package:sport_app/component/home/custom_slider.dart';
-import 'package:sport_app/component/home/header_app_bar.dart';
+import 'package:sport_app/pages/home/header_home.dart';
+import 'package:sport_app/pages/home/search.dart';
+import 'package:sport_app/pages/home/custom_slider.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/pages/product/widgets/custom_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -35,11 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (_, state) {
         return Scaffold(
           backgroundColor: AppColor.hF9F9F9,
-          appBar: HeaderAppBar(
-            displayName: SharedPreferencesHelper.shared.getString(AppKeyName.displayName),
+          appBar: HeaderHome(
+            displayName: SharedPreferencesHelper.shared
+                .getString(AppKeyName.displayName),
             email: SharedPreferencesHelper.shared.getString(AppKeyName.email),
             notificationCount: state.badge,
-            onTap: () => NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.notification),
+            onTap: () => NavigationService.navigatorKey.currentState
+                ?.pushNamed(AppRouteName.notification),
           ),
           body: LayoutBuilder(
             builder: (context, constraint) {
@@ -56,24 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         const CustomSlider(),
                         SizedBox(height: Constants.size20),
-                        const CustomSearch(),
-                        SizedBox(height: Constants.size20),
-                        const CustomNameSection(
-                          nameSection: AppStrings.category,
-                        ),
-                        const CustomNameSection(
-                          nameSection: AppStrings.popularFood,
-                        ),
+                        const Search(),
                         SizedBox(
-                          height: Constants.size200,
-                          child: ListView.builder(
-                            itemCount: 5,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) =>
-                                const CustomProductItem(),
-                          ),
+                          height: Constants.size30,
                         ),
-                        SizedBox(height: Constants.size20),
                       ],
                     ),
                   ),

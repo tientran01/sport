@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/foget_password/bloc/forget_password_state.dart';
-import '../../../component/custom_button.dart';
+import '../../../component/button.dart';
 import '../../../component/custom_text_field.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget {
@@ -28,10 +28,9 @@ class CreateNewPasswordScreen extends StatelessWidget {
                 Center(
                   child: Text(
                     AppStrings.createNewPassword,
-                    style: AppStyle.header.copyWith(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: AppStyle.darkText(
+                      fontSize: Constants.headerFontSize,
+                    )
                   ),
                 ),
                 SizedBox(height: Constants.size30),
@@ -47,7 +46,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   hintText: AppStrings.confirmPassword,
                 ),
                 SizedBox(height: Constants.size30),
-                const CustomButton(
+                const Button(
                   text: AppStrings.resetPassword,
                 )
               ],

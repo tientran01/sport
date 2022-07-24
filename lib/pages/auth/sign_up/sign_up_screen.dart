@@ -1,4 +1,5 @@
-import 'package:sport_app/component/custom_button.dart';
+import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -17,68 +18,75 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: AppStrings.signUp,
+        onPressedLeft: () {
+          NavigationService.navigatorKey.currentState?.pop();
+        },
+      ),
       body: BlocBuilder<SignUpBloc, SignUpState>(
         builder: (_, state) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppStrings.signUp,
-                    style: AppStyle.header,
-                  ),
-                  SizedBox(height: Constants.size30),
-                  CustomTextField(
-                    type: TextFieldType.email,
-                    title: AppStrings.email,
-                    hintText: AppStrings.emailInput,
-                    suffixIcon: const Icon(Icons.email),
-                    onChanged: (String email) => getIt.get<SignUpBloc>().add(
-                          GetEmailAndPasswordFormTextFieldEvent(email: email),
-                        ),
-                  ),
-                  SizedBox(height: Constants.size10),
-                  CustomTextField(
-                    textEditingController: passwordController,
-                    type: TextFieldType.password,
-                    title: AppStrings.password,
-                    hintText: AppStrings.usernameInput,
-                    onChanged: (String password) => getIt.get<SignUpBloc>().add(
-                          GetEmailAndPasswordFormTextFieldEvent(
-                            password: password,
+          return SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              margin: EdgeInsets.only(top: Constants.size45),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomTextField(
+                      hintText: AppStrings.nameStoreInput,
+                      type: TextFieldType.normal,
+                      title: AppStrings.nameStore,
+                    ),
+                    SizedBox(height: Constants.size30),
+                    CustomTextField(
+                      type: TextFieldType.email,
+                      title: AppStrings.email,
+                      hintText: AppStrings.emailInput,
+                      suffixIcon: const Icon(Icons.email),
+                      onChanged: (String email) => getIt.get<SignUpBloc>().add(
+                            GetEmailAndPasswordFormTextFieldEvent(email: email),
                           ),
-                        ),
-                  ),
-                  SizedBox(height: Constants.size30),
-                  CustomButton(
-                    text: AppStrings.signUp,
-                    onTap: () {
-                      trySignUp();
-                    },
-                  ),
-                  SizedBox(height: Constants.size30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        AppStrings.haveAccount,
-                        style: AppStyle.lightTitle,
-                      ),
-                      GestureDetector(
-                        onTap: () => NavigationService.navigatorKey.currentState
-                            ?.pushNamed("/login"),
-                        child: Text(
-                          AppStrings.login,
-                          style: AppStyle.title,
-                        ),
-                      )
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(height: Constants.size30),
+                    CustomTextField(
+                      textEditingController: passwordController,
+                      type: TextFieldType.password,
+                      title: AppStrings.password,
+                      hintText: AppStrings.passwordInput,
+                      onChanged: (String password) =>
+                          getIt.get<SignUpBloc>().add(
+                                GetEmailAndPasswordFormTextFieldEvent(
+                                  password: password,
+                                ),
+                              ),
+                    ),
+                    SizedBox(height: Constants.size30),
+                    CustomTextField(
+                      textEditingController: passwordController,
+                      type: TextFieldType.password,
+                      title: AppStrings.confirmPassword,
+                      hintText: AppStrings.confirmPasswordInput,
+                      onChanged: (String password) =>
+                          getIt.get<SignUpBloc>().add(
+                                GetEmailAndPasswordFormTextFieldEvent(
+                                  password: password,
+                                ),
+                              ),
+                    ),
+                    SizedBox(height: Constants.size30),
+                    Button(
+                      text: AppStrings.signUp,
+                      onTap: () {
+                        trySignUp();
+                      },
+                    ),
+                    SizedBox(height: Constants.size30),
+                  ],
+                ),
               ),
             ),
           );

@@ -24,10 +24,7 @@ class PhoneInputScreen extends StatelessWidget {
               children: [
                 Text(
                   AppStrings.signInWithPhoneNumber.toUpperCase(),
-                  style: AppStyle.header.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: AppStyle.darkText()
                 ),
                 SizedBox(height: Constants.size30),
                 CustomTextField(

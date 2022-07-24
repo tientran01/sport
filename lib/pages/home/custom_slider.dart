@@ -1,12 +1,8 @@
 import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_network.dart';
-import 'package:sport_app/resource/app_strings.dart';
-import 'package:sport_app/resource/app_style.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider({Key? key}) : super(key: key);
@@ -72,7 +68,7 @@ class _CustomSliderState extends State<CustomSlider> {
             top: 40,
             child: Text(
               AppStrings.carouselTitle_1,
-              style: AppStyle.carouselTitle,
+              style: AppStyle.lightDarkText(),
             ),
           ),
         ],
