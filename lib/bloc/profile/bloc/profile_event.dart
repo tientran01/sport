@@ -6,3 +6,5 @@ abstract class ProfileEvent extends Equatable {
 }
 
 class ButtonSignOutEvent extends ProfileEvent {}
+
+class EditProfileImageEvent extends ProfileEvent {}

@@ -1,10 +1,10 @@
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
+import 'package:sport_app/pages/home/drawer_home.dart';
 import 'package:sport_app/pages/home/header_home.dart';
 import 'package:sport_app/pages/home/search.dart';
 import 'package:sport_app/pages/home/custom_slider.dart';
-import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,13 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           backgroundColor: AppColor.hF9F9F9,
           appBar: HeaderHome(
-            displayName: SharedPreferencesHelper.shared
-                .getString(AppKeyName.displayName),
-            email: SharedPreferencesHelper.shared.getString(AppKeyName.email),
             notificationCount: state.badge,
             onTap: () => NavigationService.navigatorKey.currentState
                 ?.pushNamed(AppRouteName.notification),
           ),
+          drawer: const DrawerHome(),
           body: LayoutBuilder(
             builder: (context, constraint) {
               return SingleChildScrollView(

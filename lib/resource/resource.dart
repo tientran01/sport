@@ -6,3 +6,4 @@ export 'package:sport_app/resource/app_route_name.dart';
 export 'package:sport_app/resource/app_strings.dart';
 export 'package:sport_app/resource/app_style.dart';
 export 'package:sport_app/resource/constants.dart';
+export 'package:sport_app/resource/app_collection.dart';

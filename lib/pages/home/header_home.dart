@@ -1,22 +1,13 @@
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/app_route_name.dart';
-import 'package:sport_app/resource/app_style.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_app/router/navigation_service.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
-  final String? displayName;
-  final String? email;
-  final VoidCallback? onTap;
   final int? notificationCount;
+  final VoidCallback? onTap;
   const HeaderHome({
     Key? key,
-    this.displayName,
-    this.email,
-    this.onTap,
     this.notificationCount,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -27,15 +18,13 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       centerTitle: false,
       title: InkWell(
-        onTap: () => NavigationService.navigatorKey.currentState
-            ?.pushNamed(AppRouteName.profile),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildDisplayName(displayName: displayName),
-            buildEmail(email: email),
-          ],
+        child: Image.asset(
+          AppResource.menu,
+          width: Constants.sizeIcon,
         ),
+        onTap: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       actions: [
         buildNotification(
@@ -47,27 +36,7 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(Constants.heightAppBar);
-
-  Widget buildDisplayName({String? displayName}) {
-    if (displayName != null) {
-      return Text(
-        "Hello $displayName",
-        style: AppStyle.darkText(),
-      );
-    }
-    return Text(
-      "Hello",
-      style: AppStyle.darkText(),
-    );
-  }
-
-  Widget buildEmail({String? email}) {
-    return Text(
-      email ?? "",
-      style: AppStyle.lightDarkText(),
-    );
-  }
+  Size get preferredSize => Size.fromHeight(Constants.size60);
 
   Widget buildNotification({
     VoidCallback? onTap,

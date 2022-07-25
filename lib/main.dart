@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:sport_app/bloc/drawer/bloc/drawer_bloc.dart';
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/notification/bloc/notification_bloc.dart';
@@ -26,9 +27,6 @@ import 'bloc/login/bloc/login_bloc.dart';
 import 'helper/notification_service.dart';
 
 final GetIt getIt = GetIt.instance;
-// Future<void> _firebaseMessagingBackgroundHandle(RemoteMessage message) async {
-//   print("Background message: ${message.messageId}");
-// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +40,6 @@ Future<void> main() async {
   FirebaseHelper.shared.setupToken();
   FirebaseHelper.shared.setupInteractedMessage();
   FlutterAppBadger.removeBadge();
-  FirebaseHelper.shared.getCurrentUser();
   runApp(
     MultiBlocProvider(
       providers: [
@@ -55,6 +52,7 @@ Future<void> main() async {
         BlocProvider(create: (_) => VerifyOtpBloc()),
         BlocProvider(create: (_) => ForgetPasswordBloc()),
         BlocProvider(create: (_) => NotificationBloc()),
+        BlocProvider(create: (_) => DrawerBloc()),
       ],
       child: const MyApp(),
     ),

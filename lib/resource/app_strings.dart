@@ -30,6 +30,19 @@ class AppStrings {
   static const String noAccount = "Chưa có tài khoản?";
   static const String haveAccount = "Already have an account?";
 
+  //drawer name
+  static const String sync = "Đồng bộ dữ liệu";
+  static const String notification = "Thông báo";
+  static const String paymentRequest = "Yêu cầu thanh toán";
+  static const String history = "Lịch sử đơn hàng";
+  static const String chartReport = "Báo cáo cuối ngày";
+  static const String setting = "Thiết lập cài đặt";
+  static const String info = "Điều khoản";
+  static const String logout = "Đăng xuất";
+
+  //demo
+  static const String profileTest = "Profile test";
+
   static const String or = 'OR';
   static const String send = "Send";
   static const String requestInputOTP = "Enter your 6 digit OTP";
@@ -62,7 +75,7 @@ class AppStrings {
   static const String home = "Home";
   static const String chat = "Chat";
   static const String shopping = "Shopping";
-  static const String notification = "Notification";
+
   static const String channelDescription = "Channel Description";
   static const String channelId = "Channel Id";
   static const String channelName = "Channel Name";

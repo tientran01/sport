@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sport_app/helper/firebase_helper.dart';
 
 class OpenImagePicker {
   OpenImagePicker._();
@@ -25,6 +28,9 @@ class OpenImagePicker {
           final pickerFileCamera = await ImagePicker().pickImage(
             source: ImageSource.camera,
           );
+          final fileName = File(pickerFileCamera?.path ?? "");
+          final destination = 'files/$fileName';
+          FirebaseHelper.shared.uploadImageFile(destination, fileName);
           if (pickerFileCamera != null) {
             value!(pickerFileCamera.path);
           }
@@ -36,6 +42,10 @@ class OpenImagePicker {
           final pickerFileCamera = await ImagePicker().pickImage(
             source: ImageSource.gallery,
           );
+          final fileName = File(pickerFileCamera?.path ?? "");
+          final destination = 'files/$fileName';
+          print("====$destination");
+          FirebaseHelper.shared.uploadImageFile(destination, fileName);
           if (pickerFileCamera != null) {
             value!(pickerFileCamera.path);
           }

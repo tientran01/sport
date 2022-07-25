@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +8,10 @@ import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
+import 'package:sport_app/model/users.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -25,60 +28,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-        bloc: getIt.get(),
-        builder: (context, state) {
-          return Scaffold(
-            appBar: CustomAppBar(
-              title: AppStrings.profile,
-              rightIconPath: AppResource.more,
-              onPressedLeft: () => NavigationService.navigatorKey.currentState
-                  ?.pushNamed(AppRouteName.main),
-            ),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    SizedBox(height: Constants.size30),
-                    Stack(
+    return StreamBuilder<DocumentSnapshot>(
+      stream: FirebaseHelper.shared.getUserByUid(),
+      builder: (context, snapshot) {
+        return BlocBuilder<ProfileBloc, ProfileState>(
+          bloc: getIt.get(),
+          builder: (context, state) {
+            if (snapshot.hasData && snapshot.data!.exists) {
+              DocumentSnapshot data = snapshot.data as DocumentSnapshot;
+              Users user = Users.fromJson(data.data() as Map<String, dynamic>);
+              return Scaffold(
+                appBar: CustomAppBar(
+                  title: AppStrings.profile,
+                  rightIconPath: AppResource.more,
+                  onPressedLeft: () => NavigationService
+                      .navigatorKey.currentState
+                      ?.pushNamed(AppRouteName.main),
+                ),
+                body: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       children: [
-                        buildImage(
-                          imagePath: imagePath ??
-                              SharedPreferencesHelper.shared
-                                  .getString(AppKeyName.takeImage),
+                        SizedBox(height: Constants.size30),
+                        Stack(
+                          children: [
+                            buildImage(
+                              imagePath: imagePath ??
+                                  SharedPreferencesHelper.shared
+                                      .getString(AppKeyName.imageFile),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: GestureDetector(
+                                onTap: () => _showActionSheet(context),
+                                child: buildEditImage(),
+                              ),
+                            ),
+                          ],
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: GestureDetector(
-                            onTap: () => _showActionSheet(context),
-                            child: buildEditImage(),
-                          ),
+                        SizedBox(height: Constants.size20),
+                        buildName(
+                          email: user.email,
+                          displayName: user.displayName,
                         ),
+                        SizedBox(height: Constants.size30),
+                        Button(
+                          text: AppStrings.signOut,
+                          onTap: () {
+                            getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
+                          },
+                        ),
+                        SizedBox(height: Constants.size30),
                       ],
                     ),
-                    SizedBox(height: Constants.size20),
-                    buildName(
-                      email: SharedPreferencesHelper.shared
-                          .getString(AppKeyName.email),
-                      displayName: SharedPreferencesHelper.shared
-                          .getString(AppKeyName.displayName),
-                    ),
-                    SizedBox(height: Constants.size30),
-                    Button(
-                      text: AppStrings.signOut,
-                      onTap: () {
-                        getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
-                      },
-                    ),
-                    SizedBox(height: Constants.size30),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          );
-        });
+              );
+            }
+            return Container();
+          },
+        );
+      },
+    );
   }
 
   Widget buildImage({String? imagePath}) {
@@ -145,10 +158,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 setState(() {
                   imagePath = image;
                 });
-                SharedPreferencesHelper.shared.setString(
-                  AppKeyName.takeImage,
-                  imagePath ?? "",
-                );
               },
             ),
             child: const Text(
@@ -162,10 +171,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 setState(() {
                   imagePath = image;
                 });
-                SharedPreferencesHelper.shared.setString(
-                  AppKeyName.takeImage,
-                  imagePath ?? "",
-                );
               },
             ),
             child: const Text(

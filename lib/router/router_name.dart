@@ -14,6 +14,7 @@ import 'package:sport_app/pages/notification/notification_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/test_firebase/profile_test.dart';
 
 class RouteName {
   static Map<String, WidgetBuilder> route = {
@@ -31,5 +32,6 @@ class RouteName {
     AppRouteName.checkEmail: (BuildContext context) => const CheckEmailScreen(),
     AppRouteName.notification: (BuildContext context) => const NotificationScreen(),
     AppRouteName.notificationDetail: (BuildContext context) => const NotificationDetailScreen(),
+    AppRouteName.profileTest: (BuildContext context) => const ProfileTest(),
   };
 }

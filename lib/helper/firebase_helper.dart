@@ -1,21 +1,25 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/resource/app_key_name.dart';
-import 'package:sport_app/resource/app_route_name.dart';
+import 'package:sport_app/model/users.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../resource/app_strings.dart';
 
 class FirebaseHelper {
   static final FirebaseHelper shared = FirebaseHelper._internal();
+  static final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  static final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   FirebaseHelper._internal();
   String? verificationId;
   int? resendToken;
@@ -40,9 +44,10 @@ class FirebaseHelper {
     return user;
   }
 
-  Future<void> getCurrentUser() async {
-    User? user = auth.currentUser;
-    print("======$user");
+  Future<User> getCurrentUser() async {
+    User currentUser;
+    currentUser = auth.currentUser!;
+    return currentUser;
   }
 
   Future<User?> signUpWithEmailAndPassword({
@@ -118,7 +123,9 @@ class FirebaseHelper {
   Future<User?> signInWithGoogle() async {
     User? user;
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    Loading.show(AppStrings.loading);
     if (googleUser != null) {
+      Loading.dismiss();
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleUser.authentication;
       authCredential = GoogleAuthProvider.credential(
@@ -129,11 +136,13 @@ class FirebaseHelper {
         final UserCredential userCredential =
             await auth.signInWithCredential(authCredential);
         user = userCredential.user;
+        SharedPreferencesHelper.shared
+            .setString(AppKeyName.uid, user?.uid ?? "");
+        createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
         );
-        SharedPreferencesHelper.shared.saveInfo(user!);
       } on FirebaseException {
         Loading.showError(AppStrings.error);
       }
@@ -144,8 +153,8 @@ class FirebaseHelper {
   Future signInWithFacebook() async {
     OAuthCredential facebookAuthCredential;
     final LoginResult loginResult = await FacebookAuth.instance.login();
-    Loading.show(AppStrings.loading);
     if (loginResult.status == LoginStatus.success) {
+      Loading.show(AppStrings.loading);
       facebookAuthCredential = FacebookAuthProvider.credential(
         loginResult.accessToken?.token ?? "",
       );
@@ -154,11 +163,12 @@ class FirebaseHelper {
       User? user = userCredential.user;
       if (user != null) {
         Loading.showSuccess(AppStrings.success);
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        await FirebaseHelper.shared.createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
         );
-        SharedPreferencesHelper.shared.saveInfo(user);
       } else {
         Loading.showError(AppStrings.error);
       }
@@ -230,5 +240,36 @@ class FirebaseHelper {
   void removeBadge() {
     FlutterAppBadger.removeBadge();
     SharedPreferencesHelper.shared.prefs?.remove(AppKeyName.badgeCount);
+  }
+
+  Future<void> createUser() async {
+    User? currentUser = auth.currentUser;
+    CollectionReference userCollection =
+        firebaseFirestore.collection(AppCollection.users);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    final user = Users(
+      uid: currentUser?.uid,
+      displayName: currentUser?.displayName,
+      email: currentUser?.email,
+      photoUrl: currentUser?.photoURL,
+    );
+    await userDocument.set(user.toJson());
+  }
+
+  Stream<DocumentSnapshot> getUserByUid() {
+    User? currentUser = auth.currentUser;
+    CollectionReference userCollection =
+        firebaseFirestore.collection(AppCollection.users);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    return userDocument.snapshots();
+  }
+
+  UploadTask? uploadImageFile(String destination, File imageFile) {
+    try {
+      final ref = firebaseStorage.ref(destination);
+      return ref.putFile(imageFile);
+    } on FirebaseException catch (e) {
+      return null;
+    }
   }
 }

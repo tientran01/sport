@@ -12,7 +12,7 @@ class Search extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
-      height: Constants.heightAppBar,
+      height: Constants.size60,
       child: TextFormField(
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(

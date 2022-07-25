@@ -15,4 +15,6 @@ class AppRouteName {
   static const String showUser = "/show_user";
   static const String notification = "/notification";
   static const String notificationDetail = "/notification_detail";
+
+  static const String profileTest = "/profile_test";
 }

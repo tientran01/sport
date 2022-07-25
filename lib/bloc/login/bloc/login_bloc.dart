@@ -5,13 +5,12 @@ import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/helper/error.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
-import 'package:sport_app/resource/app_route_name.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../helper/loading.dart';
-import '../../../resource/app_strings.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoginState.initState()) {
@@ -47,7 +46,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       if (user != null) {
         Loading.dismiss();
-        SharedPreferencesHelper.shared.saveInfo(user);
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        await FirebaseHelper.shared.createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,

@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
             index: 1,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.shoppingBag,
+            iconPath: AppResource.chart,
             index: 2,
           ),
           bottomNavigationBarItem(

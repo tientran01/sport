@@ -14,8 +14,8 @@ class AppResource {
   static String bottomNavigationIcon = '${baseIconPath}bottom_navigation';
   static String profile = '$bottomNavigationIcon/ic_profile.png';
   static String home = '$bottomNavigationIcon/ic_home.png';
-  static String shoppingBag = '$bottomNavigationIcon/ic_shopping_bag.png';
   static String chat = '$bottomNavigationIcon/ic_chat.png';
+  static String add = '$bottomNavigationIcon/ic_add.png';
 
   static String socialIcon = '${baseIconPath}social';
   static String facebookIcon = '$socialIcon/ic_facebook.png';
@@ -32,6 +32,7 @@ class AppResource {
   static String notification = '$drawerIcon/ic_notification.png';
   static String setting = '$drawerIcon/ic_setting.png';
   static String sync = '$drawerIcon/ic_sync.png';
+  static String close = '$drawerIcon/ic_close.png';
 
   static String sendIcon = '${baseIconPath}ic_send.png';
   static String leftArrow = '${baseIconPath}ic_left_arrow.png';
