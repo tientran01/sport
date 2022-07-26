@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
+import 'package:sport_app/helper/loading.dart';
+import 'package:sport_app/main.dart';
+import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import '../../../helper/shared_preferences_helper.dart';
@@ -14,7 +17,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ButtonSignOutEvent>(_onButtonSignOut);
     on<GetDisplayNameFromTextFieldEvent>(_onGetDisplayNameFromTextField);
     on<EditDisplayNameEvent>(_onEditDisplayName);
+    on<GetUserProfile>(_onGetUser);
   }
+
+  Future<void> _onGetUser(
+    GetUserProfile event,
+    Emitter<void> emitter,
+  ) async {
+    UserInformation? user = await FirebaseHelper.shared.getUserByUid();
+    Loading.dismiss();
+    emitter(state.copyWith(user: user));
+  }
+
   Future<void> _onButtonSignOut(
     ButtonSignOutEvent event,
     Emitter<void> emitter,
@@ -35,15 +49,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     Emitter<void> emitter,
   ) async {
     User? currentUser = FirebaseHelper.shared.auth.currentUser;
-    CollectionReference userCollection = FirebaseHelper.firebaseFirestore.collection(AppCollection.users);
+    CollectionReference userCollection = FirebaseHelper.firebaseFirestore
+        .collection(AppCollection.userInformation);
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
-    String displayName = state.displayName ?? "";
     userDocument.update(
       {
-        AppFieldName.displayName: displayName,
+        AppFieldName.displayName: state.displayName,
       },
     );
+    getIt.get<ProfileBloc>().add(GetUserProfile());
   }
 
-  static ProfileBloc of(BuildContext context) => BlocProvider.of<ProfileBloc>(context);
+  static ProfileBloc of(BuildContext context) =>
+      BlocProvider.of<ProfileBloc>(context);
 }

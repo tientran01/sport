@@ -2,6 +2,7 @@ import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_bloc.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_event.dart';
@@ -14,7 +15,9 @@ class PhoneInputScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(
+        title: AppStrings.signInWithPhoneNumber,
+      ),
       body: BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
         builder: (_, state) {
           return Container(
@@ -22,10 +25,6 @@ class PhoneInputScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  AppStrings.signInWithPhoneNumber.toUpperCase(),
-                  style: AppStyle.darkText()
-                ),
                 SizedBox(height: Constants.size30),
                 CustomTextField(
                   type: TextFieldType.phoneNumber,
@@ -33,18 +32,23 @@ class PhoneInputScreen extends StatelessWidget {
                   onChanged: (String phoneNumber) =>
                       getIt.get<PhoneAuthBloc>().add(
                             GetPhoneFromFieldAndValidateEvent(
-                                phoneNumber: phoneNumber),
+                              phoneNumber: phoneNumber,
+                            ),
                           ),
+                  prefix: const TextView(
+                    text: "+84 ",
+                    textColor: AppColor.black,
+                  ),
                   suffixIcon: InkWell(
                     onTap: () => getIt.get<PhoneAuthBloc>().add(
                           const SendOtpToPhoneAuthEvent(),
                         ),
                     customBorder: const CircleBorder(),
-                    splashColor: AppColor.h413F42,
+                    splashColor: AppColor.arsenic,
                     child: Image.asset(
                       AppResource.sendIcon,
-                      width: 10.0,
-                      height: 10.0,
+                      width: Constants.size10,
+                      height: Constants.size10,
                     ),
                   ),
                 ),

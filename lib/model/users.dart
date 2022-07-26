@@ -1,21 +1,21 @@
-class Users {
+class UserInformation {
   String? displayName;
   String? email;
   String? photoUrl;
   String? uid;
 
-  Users({
+  UserInformation({
     this.displayName,
     this.email,
     this.photoUrl,
     this.uid,
   });
 
-  Users.fromJson(Map<String, dynamic> json) 
-    : displayName = json['displayName'],
-      email = json['email'],
-      photoUrl = json['photoUrl'],
-      uid = json['uid'];
+  UserInformation.fromJson(Map<String, dynamic> json) {
+    displayName = json['displayName'];
+    email = json['email'];
+    photoUrl = json['photoUrl'];
+  }
 
   Map<String, dynamic> toJson() => {
         'displayName': displayName,

@@ -1,14 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/drawer/bloc/drawer_bloc.dart';
-import 'package:sport_app/bloc/drawer/bloc/drawer_event.dart';
-import 'package:sport_app/bloc/drawer/bloc/drawer_state.dart';
+import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
+import 'package:sport_app/bloc/home/bloc/home_state.dart';
+import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
+import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/helper/firebase_helper.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
+
+import '../../bloc/profile/bloc/profile_event.dart';
 
 class DrawerHome extends StatefulWidget {
   const DrawerHome({Key? key}) : super(key: key);
@@ -22,40 +24,39 @@ class _DrawerHomeState extends State<DrawerHome> {
   @override
   void initState() {
     super.initState();
+    getIt.get<ProfileBloc>().add(GetUserProfile());
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseHelper.shared.getUserByUid(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData && snapshot.data!.exists) {
-          DocumentSnapshot data = snapshot.data as DocumentSnapshot;
-          Users user = Users.fromJson(data.data() as Map<String, dynamic>);
-          return BlocBuilder<DrawerBloc, DrawerState>(
-            builder: (context, state) {
-              return Drawer(
-                backgroundColor: AppColor.hFFFFFF,
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        getIt.get<DrawerBloc>().add(ButtonProfileEvent());
-                      },
-                      child: DrawerHeader(
-                        decoration: const BoxDecoration(
-                          color: AppColor.hB9E3C6,
-                        ),
-                        child: Stack(
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Drawer(
+          backgroundColor: AppColor.white,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  NavigationService.navigatorKey.currentState
+                      ?.pushNamed(AppRouteName.profile);
+                },
+                child: DrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: AppColor.jetStream,
+                  ),
+                  child: Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          BlocBuilder<ProfileBloc, ProfileState>(
+                              bloc: getIt.get<ProfileBloc>(),
+                              builder: ((context, state) {
+                                return Row(
                                   children: [
                                     CustomImageCircle(
-                                      imageUrl: user.photoUrl,
+                                      imageUrl: state.user?.photoUrl,
                                       width: Constants.sizeImage,
                                       height: Constants.sizeImage,
                                     ),
@@ -67,90 +68,81 @@ class _DrawerHomeState extends State<DrawerHome> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            user.displayName ?? "",
-                                            style: AppStyle.darkText(
-                                              fontSize: Constants.titleFontSize,
-                                            ),
+                                          TextView(
+                                            text: state.user?.displayName ?? "",
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: Constants.titleFontSize,
                                           ),
                                           SizedBox(
                                             height: Constants.size5,
                                           ),
-                                          Text(
-                                            user.email ?? "",
-                                            style: AppStyle.lightDarkText(
-                                              fontSize: Constants.smallFontSize,
-                                            ).copyWith(
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            maxLines: Constants.maxLine,
+                                          TextView(
+                                            text: state.user?.email ?? "",
+                                            fontSize: Constants.smallFontSize,
                                           ),
                                         ],
                                       ),
                                     ),
                                   ],
-                                )
-                              ],
-                            ),
-                            Positioned(
-                              top: 0,
-                              right: 0,
-                              child: GestureDetector(
-                                child: Image.asset(
-                                  AppResource.close,
-                                  color: AppColor.h686D76,
-                                  width: Constants.size20,
-                                ),
-                                onTap: () {
-                                  Scaffold.of(context).closeDrawer();
-                                },
-                              ),
-                            ),
-                          ],
+                                );
+                              })),
+                        ],
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          child: Image.asset(
+                            AppResource.close,
+                            color: AppColor.darkSilver,
+                            width: Constants.size20,
+                          ),
+                          onTap: () {
+                            Scaffold.of(context).closeDrawer();
+                          },
                         ),
                       ),
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.sync,
-                      iconPath: AppResource.sync,
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.notification,
-                      iconPath: AppResource.notification,
-                      onTap: () {},
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.paymentRequest,
-                      iconPath: AppResource.money,
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.history,
-                      iconPath: AppResource.history,
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.chartReport,
-                      iconPath: AppResource.chart,
-                    ),
-                    const Divider(),
-                    buildDrawerItem(
-                      title: AppStrings.setting,
-                      iconPath: AppResource.setting,
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.info,
-                      iconPath: AppResource.info,
-                    ),
-                    buildDrawerItem(
-                      title: AppStrings.logout,
-                      iconPath: AppResource.logout,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              );
-            },
-          );
-        }
-        return Container();
+              ),
+              buildDrawerItem(
+                title: AppStrings.sync,
+                iconPath: AppResource.sync,
+              ),
+              buildDrawerItem(
+                title: AppStrings.notification,
+                iconPath: AppResource.notification,
+                onTap: () {},
+              ),
+              buildDrawerItem(
+                title: AppStrings.paymentRequest,
+                iconPath: AppResource.money,
+              ),
+              buildDrawerItem(
+                title: AppStrings.history,
+                iconPath: AppResource.history,
+              ),
+              buildDrawerItem(
+                title: AppStrings.chartReport,
+                iconPath: AppResource.chart,
+              ),
+              const Divider(),
+              buildDrawerItem(
+                title: AppStrings.setting,
+                iconPath: AppResource.setting,
+              ),
+              buildDrawerItem(
+                title: AppStrings.info,
+                iconPath: AppResource.info,
+              ),
+              buildDrawerItem(
+                title: AppStrings.logout,
+                iconPath: AppResource.logout,
+              ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -165,11 +157,9 @@ class _DrawerHomeState extends State<DrawerHome> {
         iconPath ?? "",
         width: Constants.sizeIcon,
       ),
-      title: Text(
-        title ?? "",
-        style: AppStyle.darkText(
-          fontSize: Constants.subtitleFontSize,
-        ),
+      title: TextView(
+        text: title ?? "",
+        fontSize: Constants.subtitleFontSize,
       ),
       onTap: () {
         onTap;

@@ -1,5 +1,5 @@
 class AppCollection {
-  static const String users = "users";
+  static const String userInformation = "users";
 }
 
 class AppFolder {

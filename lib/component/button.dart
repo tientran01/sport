@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/text_view.dart';
 import '../resource/resource.dart';
 
 class Button extends StatelessWidget {
@@ -22,25 +23,22 @@ class Button extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 1.0,
-            color: Colors.transparent,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1.0,
+              color: Colors.transparent,
+            ),
+            borderRadius: BorderRadius.circular(Constants.size5),
+            color: bgColor ?? AppColor.arsenic,
           ),
-          borderRadius: BorderRadius.circular(Constants.size5),
-          color: bgColor ?? AppColor.h413F42,
-        ),
-        alignment: Alignment.center,
-        width: width ?? size.width,
-        height: height ?? Constants.heightButton,
-        child: Text(
-          text.toUpperCase(),
-          style: AppStyle.whiteText(
-            fontSize: Constants.subtitleFontSize,
+          alignment: Alignment.center,
+          width: width ?? size.width,
+          height: height ?? Constants.heightButton,
+          child: TextView(
+            text: text.toUpperCase(),
             fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+            textColor: AppColor.white,
+          )),
     );
   }
 }

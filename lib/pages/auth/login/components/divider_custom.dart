@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class DividerCustom extends StatelessWidget {
@@ -21,11 +22,10 @@ class DividerCustom extends StatelessWidget {
             buildDivider(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Constants.size10),
-              child: Text(
-                textDisplay,
-                style: AppStyle.grayText(
-                  fontSize: Constants.titleFontSize,
-                ),
+              child: TextView(
+                text: textDisplay,
+                textColor: AppColor.gainsboro,
+                fontWeight: FontWeight.w600,
               ),
             ),
             buildDivider()
@@ -38,7 +38,7 @@ class DividerCustom extends StatelessWidget {
   Expanded buildDivider() {
     return const Expanded(
       child: Divider(
-        color: AppColor.hDDDDDD,
+        color: AppColor.gainsboro,
         height: 1.5,
       ),
     );

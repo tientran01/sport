@@ -2,6 +2,7 @@ import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/foget_password/bloc/forget_password_state.dart';
 import '../../../component/button.dart';
@@ -19,18 +20,16 @@ class CreateNewPasswordScreen extends StatelessWidget {
       body: BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
         builder: (_, state) {
           return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
+            padding: EdgeInsets.symmetric(
+              horizontal:Constants.size20,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Text(
-                    AppStrings.createNewPassword,
-                    style: AppStyle.darkText(
-                      fontSize: Constants.headerFontSize,
-                    )
+                  child: TextView(
+                    text: AppStrings.createNewPassword,
+                    fontSize: Constants.headerFontSize,
                   ),
                 ),
                 SizedBox(height: Constants.size30),

@@ -1,5 +1,6 @@
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,8 @@ class CheckEmailScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                AppStrings.messCheckEmail.toUpperCase(),
-                style: AppStyle.darkText(),
+              TextView(
+                text: AppStrings.messCheckEmail.toUpperCase(),
               ),
               SizedBox(height: Constants.size30),
               Button(

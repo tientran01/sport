@@ -2,7 +2,6 @@
 
 import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
-import 'package:sport_app/helper/error.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -34,12 +33,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
-  Future<User?> _onLoginWithFirebase(
+  Future<void> _onLoginWithFirebase(
     LoginWithFirebaseEvent event,
     Emitter<void> emitter,
   ) async {
     try {
-      Loading.show(AppStrings.loading);
+      Loading.show(msg: AppStrings.loading);
       User? user = await FirebaseHelper.shared.loginWithEmailAndPassword(
         email: state.email,
         password: state.password,
@@ -51,12 +50,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           AppRouteName.main,
           arguments: user,
         );
-        return Future.value(user);
       }
-      return Future.error(Error.loginWithFirebaseError);
     } on FirebaseAuthException catch (e) {
-      Loading.showError(AppStrings.error);
-      return Future.error(e.message!);
+      Loading.showError(e.toString());
     }
   }
 
@@ -98,9 +94,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       SharedPreferencesHelper.shared.logout();
       NavigationService.navigatorKey.currentState
           ?.pushNamed(AppRouteName.login);
-    } catch (e) {}
+    } catch (e) {
+      Loading.showError(e.toString());
+    }
   }
 
-  static LoginBloc of(BuildContext context) =>
-      BlocProvider.of<LoginBloc>(context);
+  static LoginBloc of(BuildContext context) => BlocProvider.of<LoginBloc>(context);
 }

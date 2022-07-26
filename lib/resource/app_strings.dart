@@ -88,13 +88,4 @@ class AppStrings {
   static const String camera = "Camera";
   static const String gallery = "Gallery";
   static const String cancel = "Cancel";
-  static const String animationListDemo = "Animation List Demo";
-  static const String buyNowBarrierLabel = "Buy now";
-
-  //name button
-  static const String addToCart = "Add To Cart";
-  static const String buyNow = "Buy Now";
-
-  static const String desc = "Description";
-  static const String descInput = "Enter description";
 }

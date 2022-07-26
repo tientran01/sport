@@ -15,3 +15,5 @@ class GetDisplayNameFromTextFieldEvent extends ProfileEvent {
 }
 
 class EditDisplayNameEvent extends ProfileEvent {}
+
+class GetUserProfile extends ProfileEvent {}

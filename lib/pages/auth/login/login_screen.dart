@@ -4,13 +4,14 @@ import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
-import 'package:sport_app/component/divider_custom.dart';
+import 'package:sport_app/pages/auth/login/components/divider_custom.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../component/custom_social_button.dart';
+import 'components/custom_social_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           CustomSocialButton(
                             socialIconPath: AppResource.phoneIcon,
-                            bgColor: AppColor.hB9E3C6,
+                            bgColor: AppColor.jetStream,
                             onTap: () {
                               getIt
                                   .get<LoginBloc>()
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(width: Constants.size10),
                           CustomSocialButton(
                             socialIconPath: AppResource.facebookIcon,
-                            bgColor: AppColor.h0077C0,
+                            bgColor: AppColor.blue,
                             onTap: () {
                               getIt
                                   .get<LoginBloc>()
@@ -110,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(width: Constants.size10),
                           CustomSocialButton(
                             socialIconPath: AppResource.googleIcon,
-                            bgColor: AppColor.hFFD24C,
+                            bgColor: AppColor.gargoyleGas,
                             onTap: () {
                               getIt
                                   .get<LoginBloc>()
@@ -124,9 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            AppStrings.noAccount,
-                            style: AppStyle.lightDarkText(),
+                          const TextView(
+                            text: AppStrings.noAccount,
+                            textColor: AppColor.gainsboro,
                           ),
                           SizedBox(
                             width: Constants.size5,
@@ -135,9 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () {
                               getIt.get<LoginBloc>().add(SignUpEvent());
                             },
-                            child: Text(
-                              AppStrings.signUp,
-                              style: AppStyle.darkText(),
+                            child: const TextView(
+                              text: AppStrings.signUp,
+                              fontWeight: FontWeight.w600,
                             ),
                           )
                         ],
@@ -181,9 +182,9 @@ class _LoginScreenState extends State<LoginScreen> {
           right: Constants.size10,
         ),
         alignment: Alignment.bottomRight,
-        child: Text(
-          AppStrings.forgetPassword,
-          style: AppStyle.lightDarkText(),
+        child: const TextView(
+          text: AppStrings.forgetPassword,
+          textColor: AppColor.gainsboro,
         ),
       ),
     );

@@ -68,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
         icon: Image.asset(
           iconPath,
           width: Constants.sizeIcon,
-          color: selectIndex == index ? AppColor.h413F42 : AppColor.hDDDDDD,
+          color: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
         ),
         label: "",
       );

@@ -57,7 +57,7 @@ class CustomImage extends StatelessWidget {
         errorWidget: (context, url, error) => Image.asset(
           AppResource.error,
           width: Constants.sizeIcon,
-          color: AppColor.hDDDDDD,
+          color: AppColor.gainsboro,
         ),
       ),
     );
@@ -83,14 +83,14 @@ class CustomImageCircle extends StatelessWidget {
       height: height,
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
-        color: AppColor.hDDDDDD,
+        color: AppColor.gainsboro,
       ),
       child: CachedNetworkImage(
         imageUrl: imageUrl ?? "",
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: AppColor.hFFFFFF,
+              color: AppColor.white,
               width: Constants.size5,
             ),
             shape: BoxShape.circle,
@@ -122,7 +122,7 @@ class ImageFile extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: AppColor.hFFFFFF,
+          color: AppColor.white,
           width: Constants.size5,
         ),
       ),

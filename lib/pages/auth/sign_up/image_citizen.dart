@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class ImageCitizen extends StatelessWidget {
@@ -10,9 +11,8 @@ class ImageCitizen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          AppStrings.citizenID,
-          style: AppStyle.darkText(),
+        const TextView(
+          text: AppStrings.citizenID,
         ),
         SizedBox(
           height: Constants.size20,
@@ -44,7 +44,7 @@ class ImageCitizen extends StatelessWidget {
   }) {
     return DottedBorder(
       radius: Radius.circular(Constants.size5),
-      color: AppColor.hDDDDDD,
+      color: AppColor.gainsboro,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: Constants.size20,
@@ -59,9 +59,9 @@ class ImageCitizen extends StatelessWidget {
             SizedBox(
               height: Constants.size10,
             ),
-            Text(
-              text,
-              style: AppStyle.lightDarkText(),
+            TextView(
+              text: text,
+              textColor: AppColor.darkSilver,
             ),
           ],
         ),

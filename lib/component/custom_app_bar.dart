@@ -1,5 +1,5 @@
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/app_style.dart';
 import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -23,11 +23,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       elevation: 0.0,
       backgroundColor: Colors.transparent,
-      title: Text(
-        title ?? "",
-        style: AppStyle.darkText(
-          fontSize: Constants.titleFontSize,
-        ),
+      title: TextView(
+        text: title ?? "",
+        fontSize: Constants.titleFontSize,
+        fontWeight: FontWeight.w600,
       ),
       leading: IconButton(
         onPressed: onPressedLeft,

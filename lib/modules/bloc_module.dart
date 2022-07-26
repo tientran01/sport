@@ -1,4 +1,3 @@
-import 'package:sport_app/bloc/drawer/bloc/drawer_bloc.dart';
 import 'package:sport_app/bloc/notification/bloc/notification_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
 import 'package:sport_app/main.dart';
@@ -22,6 +21,5 @@ class BlocModule {
     getIt.registerLazySingleton<VerifyOtpBloc>(() => VerifyOtpBloc());
     getIt.registerLazySingleton<ForgetPasswordBloc>(() => ForgetPasswordBloc());
     getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
-    getIt.registerLazySingleton<DrawerBloc>(() => DrawerBloc());
   }
 }

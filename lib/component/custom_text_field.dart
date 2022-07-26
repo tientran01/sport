@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 
 enum TextFieldType {
@@ -13,6 +14,7 @@ class CustomTextField extends StatefulWidget {
   final String? title;
   final String hintText;
   final Widget? suffixIcon;
+  final Widget? prefix;
   final bool obscureText;
   final Function(String)? onChanged;
   final Function()? onTapSuffixIcon;
@@ -35,6 +37,7 @@ class CustomTextField extends StatefulWidget {
     this.inputFormatters,
     this.textEditingController,
     this.isPassword,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -61,12 +64,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
           horizontal: Constants.size15,
           vertical: Constants.size20,
         ),
-        labelText: widget.title,
-        labelStyle: AppStyle.darkText(
-          fontSize: Constants.subtitleFontSize,
+        label: TextView(
+          text: widget.title,
+          fontWeight: FontWeight.w600,
         ),
         hintText: widget.hintText,
-        hintStyle: AppStyle.grayText(),
+        hintStyle: const TextStyle(
+          color: AppColor.gainsboro,
+        ),
+        prefix: widget.prefix,
         suffixIcon: widget.isPassword == true
             ? GestureDetector(
                 onTap: widget.onTapSuffixIcon ?? changeSuffixIcon,
@@ -74,7 +80,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : widget.suffixIcon,
         border: outlineInputBorder(color: Colors.transparent),
-        focusedBorder: outlineInputBorder(color: AppColor.h413F42),
+        focusedBorder: outlineInputBorder(color: AppColor.arsenic),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onChanged: widget.onChanged,
@@ -154,7 +160,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   OutlineInputBorder outlineInputBorder({Color? color}) {
     return OutlineInputBorder(
       borderSide: BorderSide(
-        color: color ?? AppColor.h686D76,
+        color: color ?? AppColor.darkSilver,
         width: 1.0,
       ),
       borderRadius: BorderRadius.circular(

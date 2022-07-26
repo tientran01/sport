@@ -21,7 +21,7 @@ class Search extends StatelessWidget {
           hintText: AppStrings.searchInput,
           border: outlineInputBorder(),
           focusedBorder: outlineInputBorder(),
-          fillColor: AppColor.hFFFFFF,
+          fillColor: AppColor.white,
           filled: true,
           suffixIcon: Container(
             padding: EdgeInsets.all(Constants.size10),

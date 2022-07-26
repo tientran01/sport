@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bloc: getIt<HomeBloc>(),
       builder: (_, state) {
         return Scaffold(
-          backgroundColor: AppColor.hF9F9F9,
+          backgroundColor: AppColor.ghostWhite,
           appBar: HeaderHome(
             notificationCount: state.badge,
             onTap: () => NavigationService.navigatorKey.currentState

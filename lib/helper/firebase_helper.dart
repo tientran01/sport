@@ -43,19 +43,12 @@ class FirebaseHelper {
     return user;
   }
 
-  Future<User> getCurrentUser() async {
-    User currentUser;
-    currentUser = auth.currentUser!;
-    return currentUser;
-  }
-
   Future<User?> signUpWithEmailAndPassword({
     String? email,
     String? password,
   }) async {
     User? user;
-    UserCredential userCredential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email ?? "",
       password: password ?? "",
     );
@@ -97,13 +90,11 @@ class FirebaseHelper {
       smsCode: smsCode ?? '',
     );
     try {
-      Loading.show(AppStrings.loading);
-      var result =
-          await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+      Loading.show(msg: AppStrings.loading);
+      var result = await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
       if (result.user != null) {
         Loading.dismiss();
-        NavigationService.navigatorKey.currentState
-            ?.pushNamed(AppRouteName.main);
+        NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.main);
       }
     } on FirebaseAuthException {
       Loading.showError(AppStrings.error);
@@ -122,21 +113,18 @@ class FirebaseHelper {
   Future<User?> signInWithGoogle() async {
     User? user;
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    Loading.show(AppStrings.loading);
+    Loading.show(msg: AppStrings.loading);
     if (googleUser != null) {
       Loading.dismiss();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleUser.authentication;
       authCredential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
       try {
-        final UserCredential userCredential =
-            await auth.signInWithCredential(authCredential);
+        final UserCredential userCredential = await auth.signInWithCredential(authCredential);
         user = userCredential.user;
-        SharedPreferencesHelper.shared
-            .setString(AppKeyName.uid, user?.uid ?? "");
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user?.uid ?? "");
         createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
@@ -153,7 +141,7 @@ class FirebaseHelper {
     OAuthCredential facebookAuthCredential;
     final LoginResult loginResult = await FacebookAuth.instance.login();
     if (loginResult.status == LoginStatus.success) {
-      Loading.show(AppStrings.loading);
+      Loading.show(msg: AppStrings.loading);
       facebookAuthCredential = FacebookAuthProvider.credential(
         loginResult.accessToken?.token ?? "",
       );
@@ -187,15 +175,16 @@ class FirebaseHelper {
       badge: true,
       sound: true,
     );
-    settings.authorizationStatus;
+    // ignore: avoid_print
+    print("Authorization status: ${settings.authorizationStatus}");
   }
 
   Future<void> setupToken() async {
     String? fcmToken = await FirebaseMessaging.instance.getToken();
-    String userId = FirebaseAuth.instance.currentUser!.uid;
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? "";
 
     await FirebaseFirestore.instance
-        .collection(AppCollection.users)
+        .collection(AppCollection.userInformation)
         .doc(userId)
         .update(
       {
@@ -207,9 +196,7 @@ class FirebaseHelper {
   Future<void> setupInteractedMessage() async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMessage != null) {
-      print(initialMessage);
-    }
+    if (initialMessage != null) {}
 
     FirebaseMessaging.onMessageOpenedApp.listen(
       (RemoteMessage message) {
@@ -224,7 +211,11 @@ class FirebaseHelper {
       (RemoteMessage message) {
         number++;
         addBadge(number);
-        getIt.get<HomeBloc>().add(UpdateBadgeEvent(badgeCount: number));
+        getIt.get<HomeBloc>().add(
+              UpdateBadgeEvent(
+                badgeCount: number,
+              ),
+            );
       },
     );
   }
@@ -241,9 +232,9 @@ class FirebaseHelper {
   Future<void> createUser() async {
     User? currentUser = auth.currentUser;
     CollectionReference userCollection =
-        firebaseFirestore.collection(AppCollection.users);
+        firebaseFirestore.collection(AppCollection.userInformation);
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
-    final user = Users(
+    final user = UserInformation(
       uid: currentUser?.uid,
       displayName: currentUser?.displayName,
       email: currentUser?.email,
@@ -252,23 +243,27 @@ class FirebaseHelper {
     await userDocument.set(user.toJson());
   }
 
-  Stream<DocumentSnapshot> getUserByUid() {
+  Future<UserInformation?> getUserByUid() async {
     User? currentUser = auth.currentUser;
     CollectionReference userCollection =
-        firebaseFirestore.collection(AppCollection.users);
+        firebaseFirestore.collection(AppCollection.userInformation);
+    UserInformation? user;
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
-    return userDocument.snapshots();
+    await userDocument.get().then((DocumentSnapshot doc) {
+      user = UserInformation.fromJson(doc.data() as Map<String, dynamic>);
+    });
+    return user;
   }
 
   Future<void> uploadImageUser({String? imagePath}) async {
     User? currentUser = FirebaseHelper.shared.auth.currentUser;
-    CollectionReference userCollection =
-        FirebaseHelper.firebaseFirestore.collection(AppCollection.users);
+    CollectionReference userCollection = FirebaseHelper.firebaseFirestore
+        .collection(AppCollection.userInformation);
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
     Reference imageReference =
         FirebaseHelper.firebaseStorage.ref().child(AppFolder.imageUser);
     UploadTask uploadTask = imageReference
-        .child("${DateTime.now().millisecondsSinceEpoch.toString()}.png")
+        .child("${currentUser?.uid}.png")
         .putFile(
           File(imagePath ?? ""),
         );

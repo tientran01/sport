@@ -61,12 +61,12 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.all(Constants.size5),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColor.h413F42,
+                      color: AppColor.arsenic,
                     ),
                     child: Text(
                       notificationCount.toString(),
                       style: const TextStyle(
-                        color: AppColor.hFFFFFF,
+                        color: AppColor.white,
                       ),
                     ),
                   ),

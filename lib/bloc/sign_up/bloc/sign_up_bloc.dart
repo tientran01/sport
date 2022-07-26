@@ -28,10 +28,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     );
   }
 
-  Future<User?> _onCreateNewAccount(
+  Future<void> _onCreateNewAccount(
       CreateNewAccountEvent event, Emitter<void> emitter) async {
     try {
-      Loading.show(AppStrings.loading);
+      Loading.show();
       User? user = await FirebaseHelper.shared.signUpWithEmailAndPassword(
         email: event.email ?? state.email,
         password: event.password ?? state.password,
@@ -44,11 +44,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           AppRouteName.main,
           arguments: user,
         );
-        return Future.value(user);
       }
-      return Future.error(AppStrings.error);
+      Loading.showError(AppStrings.error);
     } on FirebaseAuthException catch (e) {
-      return Future.error(e.message!);
+      Loading.showError(e.message ?? '');
     }
   }
 

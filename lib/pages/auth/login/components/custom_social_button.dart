@@ -21,14 +21,14 @@ class CustomSocialButton extends StatelessWidget {
       child: Container(
           padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
-            color: bgColor ?? AppColor.h686D76,
+            color: bgColor ?? AppColor.darkSilver,
             shape: BoxShape.circle,
           ),
           child: Image.asset(
             socialIconPath,
             width: Constants.size30,
             height: Constants.size30,
-            color: iconColor ?? AppColor.hFFFFFF,
+            color: iconColor ?? AppColor.white,
           )),
     );
   }
