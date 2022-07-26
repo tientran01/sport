@@ -37,16 +37,15 @@ class SignUpScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const CustomTextField(
-                      hintText: AppStrings.nameStoreInput,
+                      hintText: AppStrings.displayNameInput,
+                      title: AppStrings.displayName,
                       type: TextFieldType.normal,
-                      title: AppStrings.nameStore,
                     ),
                     SizedBox(height: Constants.size30),
                     CustomTextField(
                       type: TextFieldType.email,
                       title: AppStrings.email,
                       hintText: AppStrings.emailInput,
-                      suffixIcon: const Icon(Icons.email),
                       onChanged: (String email) => getIt.get<SignUpBloc>().add(
                             GetEmailAndPasswordFormTextFieldEvent(email: email),
                           ),
@@ -56,20 +55,8 @@ class SignUpScreen extends StatelessWidget {
                       textEditingController: passwordController,
                       type: TextFieldType.password,
                       title: AppStrings.password,
+                      isPassword: true,
                       hintText: AppStrings.passwordInput,
-                      onChanged: (String password) =>
-                          getIt.get<SignUpBloc>().add(
-                                GetEmailAndPasswordFormTextFieldEvent(
-                                  password: password,
-                                ),
-                              ),
-                    ),
-                    SizedBox(height: Constants.size30),
-                    CustomTextField(
-                      textEditingController: passwordController,
-                      type: TextFieldType.password,
-                      title: AppStrings.confirmPassword,
-                      hintText: AppStrings.confirmPasswordInput,
                       onChanged: (String password) =>
                           getIt.get<SignUpBloc>().add(
                                 GetEmailAndPasswordFormTextFieldEvent(

@@ -1,11 +1,12 @@
 import 'package:sport_app/bloc/sign_up/bloc/sign_up_event.dart';
 import 'package:sport_app/bloc/sign_up/bloc/sign_up_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
-import 'package:sport_app/resource/app_route_name.dart';
-import 'package:sport_app/resource/app_strings.dart';
+import 'package:sport_app/helper/loading.dart';
+import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/resource/resource.dart';
 
 import '../../../router/navigation_service.dart';
 
@@ -30,13 +31,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<User?> _onCreateNewAccount(
       CreateNewAccountEvent event, Emitter<void> emitter) async {
     try {
+      Loading.show(AppStrings.loading);
       User? user = await FirebaseHelper.shared.signUpWithEmailAndPassword(
         email: event.email ?? state.email,
         password: event.password ?? state.password,
       );
       if (user != null) {
-        NavigationService.navigatorKey.currentState
-            ?.pushNamed(AppRouteName.main);
+        Loading.dismiss();
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        await FirebaseHelper.shared.createUser();
+        NavigationService.navigatorKey.currentState?.pushNamed(
+          AppRouteName.main,
+          arguments: user,
+        );
         return Future.value(user);
       }
       return Future.error(AppStrings.error);

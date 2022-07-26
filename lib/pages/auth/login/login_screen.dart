@@ -53,7 +53,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         type: TextFieldType.email,
                         title: AppStrings.email,
                         hintText: AppStrings.emailInput,
-                        suffixIcon: const Icon(Icons.email),
                         onChanged: (email) => getIt.get<LoginBloc>().add(
                               GetEmailAndPasswordFormTextFieldEvent(
                                   email: email),
@@ -65,10 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         title: AppStrings.password,
                         type: TextFieldType.password,
                         hintText: AppStrings.passwordInput,
+                        isPassword: true,
                         onChanged: (String password) {
                           getIt.get<LoginBloc>().add(
-                              GetEmailAndPasswordFormTextFieldEvent(
-                                  password: password));
+                                GetEmailAndPasswordFormTextFieldEvent(
+                                    password: password),
+                              );
                         },
                       ),
                       buildForgetPassword(),

@@ -8,8 +8,8 @@ import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
-import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/users.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
@@ -25,7 +25,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   String? imagePath;
-
+  String imageUrl = '';
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
@@ -47,41 +47,105 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 body: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        SizedBox(height: Constants.size30),
-                        Stack(
-                          children: [
-                            buildImage(
-                              imagePath: imagePath ??
-                                  SharedPreferencesHelper.shared
-                                      .getString(AppKeyName.imageFile),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: GestureDetector(
-                                onTap: () => _showActionSheet(context),
-                                child: buildEditImage(),
+                    padding: EdgeInsets.all(Constants.size10),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: Constants.size30),
+                          Stack(
+                            children: [
+                              buildImage(
+                                imagePath: user.photoUrl,
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: Constants.size20),
-                        buildName(
-                          email: user.email,
-                          displayName: user.displayName,
-                        ),
-                        SizedBox(height: Constants.size30),
-                        Button(
-                          text: AppStrings.signOut,
-                          onTap: () {
-                            getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
-                          },
-                        ),
-                        SizedBox(height: Constants.size30),
-                      ],
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () => _showActionSheet(context),
+                                  child: buildEditImage(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: Constants.size20),
+                          buildName(
+                            email: user.email,
+                            displayName: user.displayName,
+                          ),
+                          SizedBox(height: Constants.size30),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Button(
+                                width: MediaQuery.of(context).size.width / 2,
+                                text: AppStrings.signOut,
+                                onTap: () {
+                                  getIt
+                                      .get<ProfileBloc>()
+                                      .add(ButtonSignOutEvent());
+                                },
+                              ),
+                              Button(
+                                text: AppStrings.edit,
+                                bgColor: AppColor.h413F42,
+                                width: MediaQuery.of(context).size.width / 3,
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (_) => AlertDialog(
+                                      content: Container(
+                                        padding:
+                                            EdgeInsets.all(Constants.size5),
+                                        height: Constants.size200,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "${AppStrings.edit} ${AppStrings.displayName}",
+                                              style: AppStyle.darkText(),
+                                            ),
+                                            SizedBox(
+                                              height: Constants.size20,
+                                            ),
+                                            CustomTextField(
+                                              hintText: user.displayName ??
+                                                  AppStrings.displayNameInput,
+                                              title: AppStrings.displayName,
+                                              type: TextFieldType.normal,
+                                              onChanged: (String displayName) {
+                                                getIt.get<ProfileBloc>().add(
+                                                      GetDisplayNameFromTextFieldEvent(
+                                                        displayName:
+                                                            displayName,
+                                                      ),
+                                                    );
+                                              },
+                                            ),
+                                            SizedBox(
+                                              height: Constants.size20,
+                                            ),
+                                            Button(
+                                              text: AppStrings.edit,
+                                              onTap: () {
+                                                getIt.get<ProfileBloc>().add(
+                                                      EditDisplayNameEvent(),
+                                                    );
+                                                NavigationService
+                                                    .navigatorKey.currentState
+                                                    ?.pop();
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: Constants.size30),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -95,15 +159,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget buildImage({String? imagePath}) {
-    return (imagePath != null)
-        ? ImageFile(
-            imageFile: imagePath,
-          )
-        : CustomImageCircle(
-            imageUrl: imagePath,
-            width: Constants.sizeImage,
-            height: Constants.sizeImage,
-          );
+    return CustomImageCircle(
+      imageUrl: imagePath,
+      width: Constants.sizeImage,
+      height: Constants.sizeImage,
+    );
   }
 
   Widget buildEditImage() {
@@ -134,12 +194,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           displayName ?? "",
-          style: AppStyle.darkText(),
+          style: AppStyle.darkText(
+            fontSize: Constants.titleFontSize,
+          ),
         ),
         SizedBox(height: Constants.size5),
         Text(
           email ?? "",
-          style: AppStyle.lightDarkText(),
+          style: AppStyle.lightDarkText(
+            fontSize: Constants.subtitleFontSize,
+          ),
         ),
       ],
     );
@@ -157,6 +221,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               value: (String image) {
                 setState(() {
                   imagePath = image;
+                  NavigationService.navigatorKey.currentState?.pop();
+                  FirebaseHelper.shared.uploadImageUser(imagePath: imagePath);
                 });
               },
             ),
@@ -170,6 +236,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               value: (String image) {
                 setState(() {
                   imagePath = image;
+                  NavigationService.navigatorKey.currentState?.pop();
+                  FirebaseHelper.shared.uploadImageUser(imagePath: imagePath);
                 });
               },
             ),

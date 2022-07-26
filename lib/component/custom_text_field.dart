@@ -13,7 +13,6 @@ class CustomTextField extends StatefulWidget {
   final String? title;
   final String hintText;
   final Widget? suffixIcon;
-  final Widget? prefixIcon;
   final bool obscureText;
   final Function(String)? onChanged;
   final Function()? onTapSuffixIcon;
@@ -21,6 +20,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? textEditingController;
+  final bool? isPassword;
 
   const CustomTextField({
     Key? key,
@@ -31,10 +31,10 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.type = TextFieldType.normal,
     this.onTapSuffixIcon,
-    this.prefixIcon,
     this.keyboardType,
     this.inputFormatters,
     this.textEditingController,
+    this.isPassword,
   }) : super(key: key);
 
   @override
@@ -55,7 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       controller: widget.textEditingController,
       keyboardType: widget.keyboardType,
-      obscureText: isHidden,
+      obscureText: widget.isPassword == true ? !isHidden : isHidden,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           horizontal: Constants.size15,
@@ -67,12 +67,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         hintText: widget.hintText,
         hintStyle: AppStyle.grayText(),
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon ??
-            GestureDetector(
-              onTap: widget.onTapSuffixIcon ?? changeSuffixIcon,
-              child: suffixIconPassword(),
-            ),
+        suffixIcon: widget.isPassword == true
+            ? GestureDetector(
+                onTap: widget.onTapSuffixIcon ?? changeSuffixIcon,
+                child: suffixIconPassword(),
+              )
+            : widget.suffixIcon,
         border: outlineInputBorder(color: Colors.transparent),
         focusedBorder: outlineInputBorder(color: AppColor.h413F42),
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -85,15 +85,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   void changeSuffixIcon() {
-    setState(() => isHidden = !isHidden);
+    setState(
+      () => isHidden = !isHidden,
+    );
   }
 
   Widget suffixIconPassword() {
     if (type == TextFieldType.password) {
       if (isHidden) {
-        return const Icon(Icons.visibility_off_rounded);
-      } else {
         return const Icon(Icons.remove_red_eye);
+      } else {
+        return const Icon(Icons.visibility_off_rounded);
       }
     }
     return Container();

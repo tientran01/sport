@@ -47,7 +47,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (user != null) {
         Loading.dismiss();
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
-        await FirebaseHelper.shared.createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,

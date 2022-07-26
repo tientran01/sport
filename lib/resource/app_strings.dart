@@ -1,8 +1,6 @@
 class AppStrings {
-  static const String username = "Tên đăng nhập";
-  static const String usernameInput = "Nhập tên đăng nhập";
-  static const String nameStore = "Tên cửa hàng";
-  static const String nameStoreInput = "Nhập tên cửa hàng";
+  static const String displayName = "Họ và tên";
+  static const String displayNameInput = "Nhập tên";
   static const String email = "Email";
   static const String emailInput = "Nhập email";
   static const String phone = "Số điện thoại";
@@ -24,8 +22,7 @@ class AppStrings {
   static const String emailInvalid = "Email không đúng định dạng";
   static const String phoneInvalid = "Số điện thoại không đúng định dạng";
   static const String passwordInvalid = "Mật khẩu không đủ điều kiện";
-  static const String passwordRequired =
-      "Mật khẩu phải dài từ 8-16 kí tự, có chữ viết hoa và viết thường, chứa các ký tự đặc biệt(@,#,?,...)";
+  static const String passwordRequired = "Mật khẩu phải dài từ 8-16 kí tự";
 
   static const String noAccount = "Chưa có tài khoản?";
   static const String haveAccount = "Already have an account?";
@@ -39,9 +36,7 @@ class AppStrings {
   static const String setting = "Thiết lập cài đặt";
   static const String info = "Điều khoản";
   static const String logout = "Đăng xuất";
-
-  //demo
-  static const String profileTest = "Profile test";
+  static const String edit = "Edit";
 
   static const String or = 'OR';
   static const String send = "Send";

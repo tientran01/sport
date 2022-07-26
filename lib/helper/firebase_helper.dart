@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -191,21 +190,18 @@ class FirebaseHelper {
     settings.authorizationStatus;
   }
 
-  Future<void> saveTokenToDatabase(String token) async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
-
-    await FirebaseFirestore.instance.collection('users').doc(userId).update(
-      {
-        'tokens': FieldValue.arrayUnion([token]),
-      },
-    );
-  }
-
   Future<void> setupToken() async {
     String? fcmToken = await FirebaseMessaging.instance.getToken();
-    SharedPreferencesHelper.shared.setString(AppKeyName.token, fcmToken!);
-    await saveTokenToDatabase(fcmToken);
-    FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    await FirebaseFirestore.instance
+        .collection(AppCollection.users)
+        .doc(userId)
+        .update(
+      {
+        AppFieldName.tokens: fcmToken,
+      },
+    );
   }
 
   Future<void> setupInteractedMessage() async {
@@ -264,12 +260,19 @@ class FirebaseHelper {
     return userDocument.snapshots();
   }
 
-  UploadTask? uploadImageFile(String destination, File imageFile) {
-    try {
-      final ref = firebaseStorage.ref(destination);
-      return ref.putFile(imageFile);
-    } on FirebaseException catch (e) {
-      return null;
-    }
+  Future<void> uploadImageUser({String? imagePath}) async {
+    User? currentUser = FirebaseHelper.shared.auth.currentUser;
+    CollectionReference userCollection =
+        FirebaseHelper.firebaseFirestore.collection(AppCollection.users);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    Reference imageReference =
+        FirebaseHelper.firebaseStorage.ref().child(AppFolder.imageUser);
+    UploadTask uploadTask = imageReference
+        .child("${DateTime.now().millisecondsSinceEpoch.toString()}.png")
+        .putFile(
+          File(imagePath ?? ""),
+        );
+    var imageUrl = await (await uploadTask).ref.getDownloadURL();
+    userDocument.update({AppFieldName.photoUrl: imageUrl});
   }
 }

@@ -12,28 +12,38 @@ import '../../../helper/shared_preferences_helper.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc() : super(const ProfileState.initState()) {
     on<ButtonSignOutEvent>(_onButtonSignOut);
-    on<EditProfileImageEvent>(_onEditProfileImage);
+    on<GetDisplayNameFromTextFieldEvent>(_onGetDisplayNameFromTextField);
+    on<EditDisplayNameEvent>(_onEditDisplayName);
   }
   Future<void> _onButtonSignOut(
-      ButtonSignOutEvent event, Emitter<void> emitter) async {
+    ButtonSignOutEvent event,
+    Emitter<void> emitter,
+  ) async {
     SharedPreferencesHelper.shared.logout();
     NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
-    SharedPreferencesHelper.shared.logout();
   }
 
-  Future<void> _onEditProfileImage(
-    EditProfileImageEvent event,
+  Future<void> _onGetDisplayNameFromTextField(
+    GetDisplayNameFromTextFieldEvent event,
+    Emitter<void> emitter,
+  ) async {
+    emitter(state.copyWith(displayName: event.displayName));
+  }
+
+  Future<void> _onEditDisplayName(
+    EditDisplayNameEvent event,
     Emitter<void> emitter,
   ) async {
     User? currentUser = FirebaseHelper.shared.auth.currentUser;
-    CollectionReference userCollection =
-        FirebaseHelper.firebaseFirestore.collection(AppCollection.users);
+    CollectionReference userCollection = FirebaseHelper.firebaseFirestore.collection(AppCollection.users);
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
-    userDocument.update({
-      AppFieldName.photoUrl: ""
-    });
+    String displayName = state.displayName ?? "";
+    userDocument.update(
+      {
+        AppFieldName.displayName: displayName,
+      },
+    );
   }
 
-  static ProfileBloc of(BuildContext context) =>
-      BlocProvider.of<ProfileBloc>(context);
+  static ProfileBloc of(BuildContext context) => BlocProvider.of<ProfileBloc>(context);
 }

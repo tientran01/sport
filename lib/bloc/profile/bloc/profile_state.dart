@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class ProfileState extends Equatable {
-  final String? photoUrl;
-  const ProfileState({this.photoUrl});
+  final String? displayName;
+  const ProfileState({this.displayName});
   ProfileState copyWith({
-    String? photoUrl,
+    String? displayName,
   }) {
     return ProfileState(
-      photoUrl: photoUrl,
+      displayName: displayName,
     );
   }
 
   const ProfileState.initState() : this();
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [displayName];
 }

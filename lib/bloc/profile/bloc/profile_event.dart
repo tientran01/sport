@@ -7,4 +7,11 @@ abstract class ProfileEvent extends Equatable {
 
 class ButtonSignOutEvent extends ProfileEvent {}
 
-class EditProfileImageEvent extends ProfileEvent {}
+class GetDisplayNameFromTextFieldEvent extends ProfileEvent {
+  final String? displayName;
+  GetDisplayNameFromTextFieldEvent({this.displayName});
+  @override
+  List<Object?> get props => [displayName];
+}
+
+class EditDisplayNameEvent extends ProfileEvent {}
