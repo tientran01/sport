@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: Constants.size30),
-                    // ImageCircle(
+                    ImageCircle(
                       imageUrl: state.user?.photoUrl,
                       width: Constants.sizeImage,
                       height: Constants.sizeImage,
