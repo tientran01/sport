@@ -38,6 +38,7 @@ Future<void> main() async {
     NotificationService.shared.setup();
     await SharedPreferencesHelper.shared.setUpSharedPreferences();
     FirebaseHelper.shared.registerNotification();
+    FirebaseHelper.shared.setupToken();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
     runApp(
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // ignore: avoid_print 
+    // ignore: avoid_print
     print('isAppbageSupport${FlutterAppBadger.isAppBadgeSupported()}');
   }
 
