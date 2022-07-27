@@ -3,15 +3,13 @@ import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_bloc.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_event.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_button.dart';
-import 'package:sport_app/component/custom_otp_field.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_style.dart';
+import 'package:sport_app/component/button.dart';
+import 'package:sport_app/pages/auth/phone/components/custom_otp_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/resource/resource.dart';
 import '../../../main.dart';
-import '../../../resource/app_strings.dart';
-import '../../../resource/constants.dart';
 
 class PhoneOTPScreen extends StatefulWidget {
   const PhoneOTPScreen({Key? key}) : super(key: key);
@@ -72,9 +70,8 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "${AppStrings.phoneGetOtp} $phoneNumber",
-                  style: AppStyle.title,
+                TextView(
+                  text: "${AppStrings.phoneGetOtp} (+84) $phoneNumber",
                 ),
                 SizedBox(height: Constants.size30),
                 Container(
@@ -83,7 +80,9 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                     textEditingController: pinController,
                     onChanged: (String otpCode) {
                       getIt.get<VerifyOtpBloc>().add(
-                            GetOtpFormFieldEvent(otpCode: otpCode),
+                            GetOtpFormFieldEvent(
+                              otpCode: otpCode,
+                            ),
                           );
                     },
                   ),
@@ -94,9 +93,9 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      AppStrings.sendOTPfail,
-                      style: AppStyle.lightTitle,
+                    const TextView(
+                      text: AppStrings.sendOTPfail,
+                      textColor: AppColor.darkSilver,
                     ),
                     IgnorePointer(
                       ignoring: ignoring,
@@ -110,46 +109,39 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                               );
                           startTimer();
                         },
-                        child: Text(
-                          AppStrings.requestAgain,
-                          style: AppStyle.title.copyWith(
-                            color: ignoring
-                                ? AppColor.hDDDDDD.withOpacity(0.6)
-                                : AppColor.h413F42,
-                          ),
+                        child: TextView(
+                          text: AppStrings.requestAgain,
+                          textColor: ignoring
+                              ? AppColor.gainsboro.withOpacity(0.6)
+                              : AppColor.arsenic,
                         ),
                       ),
                     )
                   ],
                 ),
                 SizedBox(height: Constants.size30),
-                CustomButton(
+                Button(
                   text: AppStrings.signUp,
-                  bgColor: AppColor.h413F42,
+                  bgColor: AppColor.arsenic,
                   onTap: () => getIt
                       .get<VerifyOtpBloc>()
                       .add(SignUpWithPhoneNumberEvent()),
                 ),
                 SizedBox(height: Constants.size30),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: AppStrings.resendOtpCode,
-                        style: AppStyle.title,
-                      ),
-                      TextSpan(
-                        text: time,
-                        style: AppStyle.title.copyWith(
-                          color: AppColor.hEB4747,
-                        ),
-                      ),
-                      TextSpan(
-                        text: AppStrings.sec,
-                        style: AppStyle.title,
-                      )
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const TextView(
+                      text: AppStrings.resendOtpCode,
+                    ),
+                    TextView(
+                      text: time,
+                      textColor: AppColor.carminePink,
+                    ),
+                    const TextView(
+                      text: AppStrings.sec,
+                    ),
+                  ],
                 )
               ],
             ),

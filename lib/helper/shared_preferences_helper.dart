@@ -26,15 +26,8 @@ class SharedPreferencesHelper {
     return prefs!.setInt(key, data);
   }
 
-  saveInfo(String displayName, String email, String uid) {
-    prefs!.setString(AppKeyName.displayName, displayName);
-    prefs!.setString(AppKeyName.email, email);
-    prefs!.setString(AppKeyName.uid, uid);
-  }
-
   logout() async {
     prefs!.remove(AppKeyName.uid);
-    prefs!.remove(AppKeyName.displayName);
-    prefs!.remove(AppKeyName.email);
+    prefs!.remove(AppKeyName.imageFile);
   }
 }

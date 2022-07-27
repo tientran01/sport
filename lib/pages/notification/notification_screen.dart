@@ -1,10 +1,9 @@
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_button.dart';
+import 'package:sport_app/component/button.dart';
 import 'package:sport_app/helper/notification_service.dart';
-import 'package:sport_app/resource/app_route_name.dart';
-import 'package:sport_app/resource/app_strings.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -12,15 +11,16 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         title: AppStrings.notification,
+        onPressedLeft: () => NavigationService.navigatorKey.currentState?.pop(),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Constants.size20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomButton(
+            Button(
               text: AppStrings.showScheduledNotification,
               onTap: () {
                 NotificationService.shared.showScheduledNotification(
@@ -31,7 +31,7 @@ class NotificationScreen extends StatelessWidget {
               },
             ),
             SizedBox(height: Constants.size20),
-            CustomButton(
+            Button(
               text: AppStrings.showNotificationWithPayload,
               onTap: () {
                 NotificationService.shared.showNotificationWithPayload(

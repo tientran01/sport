@@ -2,16 +2,14 @@
 
 import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
-import 'package:sport_app/helper/error.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
-import 'package:sport_app/resource/app_route_name.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../helper/loading.dart';
-import '../../../resource/app_strings.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoginState.initState()) {
@@ -35,33 +33,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
   }
 
-  Future<User?> _onLoginWithFirebase(
+  Future<void> _onLoginWithFirebase(
     LoginWithFirebaseEvent event,
     Emitter<void> emitter,
   ) async {
     try {
-      Loading.show(AppStrings.loading);
+      Loading.show(msg: AppStrings.loading);
       User? user = await FirebaseHelper.shared.loginWithEmailAndPassword(
         email: state.email,
         password: state.password,
       );
       if (user != null) {
         Loading.dismiss();
-        SharedPreferencesHelper.shared.saveInfo(
-          user.displayName ?? "", 
-          user.email ?? "", 
-          user.uid,
-        );
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
         );
-        return Future.value(user);
       }
-      return Future.error(Error.loginWithFirebaseError);
     } on FirebaseAuthException catch (e) {
-      Loading.showError(AppStrings.error);
-      return Future.error(e.message!);
+      Loading.showError(e.toString());
     }
   }
 
@@ -76,7 +67,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     SignInWithPhoneNumberEvent event,
     Emitter<void> emitter,
   ) async {
-    NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.phoneInput);
+    NavigationService.navigatorKey.currentState
+        ?.pushNamed(AppRouteName.phoneInput);
   }
 
   Future<void> _onSignInWithGoogle(
@@ -100,8 +92,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       FirebaseHelper.shared.signOut();
       SharedPreferencesHelper.shared.logout();
-      NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
-    } catch (e) {}
+      NavigationService.navigatorKey.currentState
+          ?.pushNamed(AppRouteName.login);
+    } catch (e) {
+      Loading.showError(e.toString());
+    }
   }
 
   static LoginBloc of(BuildContext context) => BlocProvider.of<LoginBloc>(context);

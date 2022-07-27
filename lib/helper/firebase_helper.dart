@@ -1,20 +1,24 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/resource/app_key_name.dart';
-import 'package:sport_app/resource/app_route_name.dart';
+import 'package:sport_app/model/users.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../resource/app_strings.dart';
 
 class FirebaseHelper {
   static final FirebaseHelper shared = FirebaseHelper._internal();
+  static final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  static final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   FirebaseHelper._internal();
   String? verificationId;
   int? resendToken;
@@ -87,7 +91,7 @@ class FirebaseHelper {
       smsCode: smsCode ?? '',
     );
     try {
-      Loading.show(AppStrings.loading);
+      Loading.show(msg: AppStrings.loading);
       var result =
           await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
       if (result.user != null) {
@@ -112,7 +116,9 @@ class FirebaseHelper {
   Future<User?> signInWithGoogle() async {
     User? user;
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    Loading.show(msg: AppStrings.loading);
     if (googleUser != null) {
+      Loading.dismiss();
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleUser.authentication;
       authCredential = GoogleAuthProvider.credential(
@@ -123,14 +129,12 @@ class FirebaseHelper {
         final UserCredential userCredential =
             await auth.signInWithCredential(authCredential);
         user = userCredential.user;
+        SharedPreferencesHelper.shared
+            .setString(AppKeyName.uid, user?.uid ?? "");
+        createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
-        );
-        SharedPreferencesHelper.shared.saveInfo(
-          user?.displayName ?? "",
-          user?.email ?? "",
-          user?.uid ?? "",
         );
       } on FirebaseException {
         Loading.showError(AppStrings.error);
@@ -142,8 +146,8 @@ class FirebaseHelper {
   Future signInWithFacebook() async {
     OAuthCredential facebookAuthCredential;
     final LoginResult loginResult = await FacebookAuth.instance.login();
-    Loading.show(AppStrings.loading);
     if (loginResult.status == LoginStatus.success) {
+      Loading.show(msg: AppStrings.loading);
       facebookAuthCredential = FacebookAuthProvider.credential(
         loginResult.accessToken?.token ?? "",
       );
@@ -152,14 +156,11 @@ class FirebaseHelper {
       User? user = userCredential.user;
       if (user != null) {
         Loading.showSuccess(AppStrings.success);
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        await FirebaseHelper.shared.createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
-        );
-        SharedPreferencesHelper.shared.saveInfo(
-          user.displayName ?? "",
-          user.email ?? "",
-          user.uid,
         );
       } else {
         Loading.showError(AppStrings.error);
@@ -180,21 +181,28 @@ class FirebaseHelper {
       badge: true,
       sound: true,
     );
-    print(settings.authorizationStatus);
+    // ignore: avoid_print
+    print("Authorization status: ${settings.authorizationStatus}");
   }
 
-  Future<void> getToken() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    print(fcmToken);
-    SharedPreferencesHelper.shared.setString(AppKeyName.token, fcmToken!);
+  Future<void> setupToken() async {
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
+    String userId = FirebaseAuth.instance.currentUser?.uid ?? "";
+
+    await FirebaseFirestore.instance
+        .collection(AppCollection.userInformation)
+        .doc(userId)
+        .update(
+      {
+        AppFieldName.tokens: fcmToken,
+      },
+    );
   }
 
   Future<void> setupInteractedMessage() async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMessage != null) {
-      print(initialMessage);
-    }
+    if (initialMessage != null) {}
 
     FirebaseMessaging.onMessageOpenedApp.listen(
       (RemoteMessage message) {
@@ -209,7 +217,11 @@ class FirebaseHelper {
       (RemoteMessage message) {
         number++;
         addBadge(number);
-        getIt.get<HomeBloc>().add(UpdateBadgeEvent(badgeCount: number));
+        getIt.get<HomeBloc>().add(
+              UpdateBadgeEvent(
+                badgeCount: number,
+              ),
+            );
       },
     );
   }
@@ -221,5 +233,56 @@ class FirebaseHelper {
   void removeBadge() {
     FlutterAppBadger.removeBadge();
     SharedPreferencesHelper.shared.prefs?.remove(AppKeyName.badgeCount);
+  }
+
+  Future<void> createUser() async {
+    User? currentUser = auth.currentUser;
+    CollectionReference userCollection =
+        firebaseFirestore.collection(AppCollection.userInformation);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    final user = UserInformation(
+      uid: currentUser?.uid,
+      displayName: currentUser?.displayName,
+      email: currentUser?.email,
+      photoUrl: currentUser?.photoURL,
+    );
+    await userDocument.set(user.toJson());
+  }
+
+  Future<UserInformation?> getUserByUid() async {
+    User? currentUser = auth.currentUser;
+    CollectionReference userCollection =
+        firebaseFirestore.collection(AppCollection.userInformation);
+    UserInformation? user;
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    await userDocument.get().then((DocumentSnapshot doc) {
+      user = UserInformation.fromJson(doc.data() as Map<String, dynamic>);
+    });
+    return user;
+  }
+
+  Future<void> uploadImageUser({String? imagePath}) async {
+    User? currentUser = FirebaseHelper.shared.auth.currentUser;
+    CollectionReference userCollection = FirebaseHelper.firebaseFirestore
+        .collection(AppCollection.userInformation);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    Reference imageReference =
+        FirebaseHelper.firebaseStorage.ref().child(AppFolder.imageUser);
+    UploadTask uploadTask =
+        imageReference.child("${currentUser?.uid}.png").putFile(
+              File(imagePath ?? ""),
+            );
+    var imageUrl = await (await uploadTask).ref.getDownloadURL();
+    userDocument.update({AppFieldName.photoUrl: imageUrl});
+  }
+
+  Future<void> updateUser({String? displayName}) async {
+    User? currentUser = FirebaseHelper.shared.auth.currentUser;
+    CollectionReference userCollection = FirebaseHelper.firebaseFirestore
+        .collection(AppCollection.userInformation);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    userDocument.update({
+      AppFieldName.displayName: displayName,
+    });
   }
 }

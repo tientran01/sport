@@ -12,8 +12,6 @@ class AppRouteName {
   static const String inputEmailReset = "/input_email_reset";
   static const String createNewPassword = "/create_new_password";
   static const String checkEmail = "/check_email";
-  static const String showUser = "/show_user";
-  static const String detaiProduct = "detail_product";
   static const String notification = "/notification";
   static const String notificationDetail = "/notification_detail";
 }

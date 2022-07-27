@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
@@ -13,7 +12,6 @@ import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/modules/bloc_module.dart';
 import 'package:sport_app/resource/app_route_name.dart';
-import 'package:sport_app/resource/app_strings.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:sport_app/router/router_name.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,6 +24,7 @@ import 'bloc/login/bloc/login_bloc.dart';
 import 'helper/notification_service.dart';
 
 final GetIt getIt = GetIt.instance;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -35,7 +34,7 @@ Future<void> main() async {
   NotificationService.shared.setup();
   await SharedPreferencesHelper.shared.setUpSharedPreferences();
   FirebaseHelper.shared.registerNotification();
-  FirebaseHelper.shared.getToken();
+  FirebaseHelper.shared.setupToken();
   FirebaseHelper.shared.setupInteractedMessage();
   FlutterAppBadger.removeBadge();
   runApp(
@@ -67,22 +66,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
-  }
-
-  initPlatformState() async {
-    String appBadgeSupported;
-    try {
-      bool res = await FlutterAppBadger.isAppBadgeSupported();
-      if (res) {
-        appBadgeSupported = AppStrings.supported;
-      } else {
-        appBadgeSupported = AppStrings.notSupported;
-      }
-    } on PlatformException {
-      appBadgeSupported = AppStrings.failedSupport;
-    }
-    if (!mounted) return;
+    // ignore: avoid_print 
+    print('isAppbageSupport${FlutterAppBadger.isAppBadgeSupported()}');
   }
 
   @override

@@ -1,8 +1,7 @@
-import 'package:sport_app/resource/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import '../resource/app_strings.dart';
+import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/resource/resource.dart';
 
 enum TextFieldType {
   email,
@@ -15,7 +14,7 @@ class CustomTextField extends StatefulWidget {
   final String? title;
   final String hintText;
   final Widget? suffixIcon;
-  final Widget? prefixIcon;
+  final Widget? prefix;
   final bool obscureText;
   final Function(String)? onChanged;
   final Function()? onTapSuffixIcon;
@@ -23,6 +22,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? textEditingController;
+  final bool? isPassword;
 
   const CustomTextField({
     Key? key,
@@ -33,10 +33,11 @@ class CustomTextField extends StatefulWidget {
     this.onChanged,
     this.type = TextFieldType.normal,
     this.onTapSuffixIcon,
-    this.prefixIcon,
     this.keyboardType,
     this.inputFormatters,
     this.textEditingController,
+    this.isPassword,
+    this.prefix,
   }) : super(key: key);
 
   @override
@@ -57,20 +58,30 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       controller: widget.textEditingController,
       keyboardType: widget.keyboardType,
-      obscureText: isHidden,
+      obscureText: widget.isPassword == true ? !isHidden : isHidden,
       decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-        labelText: widget.title,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: Constants.size15,
+          vertical: Constants.size20,
+        ),
+        label: TextView(
+          text: widget.title,
+          fontWeight: FontWeight.w600,
+        ),
         hintText: widget.hintText,
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon ??
-            GestureDetector(
-              onTap: widget.onTapSuffixIcon ?? changeSuffixIcon,
-              child: suffixIconPassword(),
-            ),
+        hintStyle: const TextStyle(
+          color: AppColor.gainsboro,
+        ),
+        prefix: widget.prefix,
+        suffixIcon: widget.isPassword == true
+            ? GestureDetector(
+                onTap: widget.onTapSuffixIcon ?? changeSuffixIcon,
+                child: suffixIconPassword(),
+              )
+            : widget.suffixIcon,
         border: outlineInputBorder(color: Colors.transparent),
-        focusedBorder: outlineInputBorder(color: AppColor.h413F42),
+        focusedBorder: outlineInputBorder(color: AppColor.arsenic),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onChanged: widget.onChanged,
       inputFormatters: widget.inputFormatters,
@@ -80,15 +91,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   void changeSuffixIcon() {
-    setState(() => isHidden = !isHidden);
+    setState(
+      () => isHidden = !isHidden,
+    );
   }
 
   Widget suffixIconPassword() {
     if (type == TextFieldType.password) {
       if (isHidden) {
-        return const Icon(Icons.visibility_off_rounded);
-      } else {
         return const Icon(Icons.remove_red_eye);
+      } else {
+        return const Icon(Icons.visibility_off_rounded);
       }
     }
     return Container();
@@ -105,7 +118,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         break;
       case TextFieldType.password:
         if (value == null || value.isEmpty) {
-          return AppStrings.required;
+          return AppStrings.passwordRequired;
         } else if (!isPasswordValid(value)) {
           return AppStrings.passwordInvalid;
         }
@@ -146,9 +159,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   OutlineInputBorder outlineInputBorder({Color? color}) {
     return OutlineInputBorder(
-      borderSide:
-          BorderSide(color: color ?? AppColor.borderOTPColor, width: 1.0),
-      borderRadius: BorderRadius.circular(20.0),
+      borderSide: BorderSide(
+        color: color ?? AppColor.darkSilver,
+        width: 1.0,
+      ),
+      borderRadius: BorderRadius.circular(
+        Constants.size5,
+      ),
     );
   }
 }

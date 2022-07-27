@@ -1,7 +1,6 @@
 import 'package:sport_app/pages/chat/chat_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
-import 'package:sport_app/pages/shopping/shopping_screen.dart';
 import 'package:sport_app/resource/app_color.dart';
 import 'package:sport_app/resource/app_resource.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +15,23 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
-  List<Widget> bottomTab = [
-    const HomeScreen(),
-    const ChatScreen(),
-    const ShoppingScreen(),
-    const ProfileScreen()
-  ];
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: bottomTab.elementAt(selectIndex),
+      body: PageView(
+        controller: _pageController,
+        children: const [
+          HomeScreen(),
+          ChatScreen(),
+          HomeScreen(),
+          ProfileScreen()
+        ],
+        onPageChanged: (pageIndex) {
+          pageChanged(pageIndex);
+          selectIndex = pageIndex;
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.shifting,
         elevation: 0.00,
@@ -42,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
             index: 1,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.shoppingBag,
+            iconPath: AppResource.chart,
             index: 2,
           ),
           bottomNavigationBarItem(
@@ -62,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
         icon: Image.asset(
           iconPath,
           width: Constants.sizeIcon,
-          color: selectIndex == index ? AppColor.h413F42 : AppColor.hDDDDDD,
+          color: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
         ),
         label: "",
       );
@@ -71,7 +77,18 @@ class _MainScreenState extends State<MainScreen> {
     setState(
       () {
         selectIndex = index;
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
       },
     );
+  }
+
+  void pageChanged(int pageIndex) {
+    setState(() {
+      selectIndex = pageIndex;
+    });
   }
 }

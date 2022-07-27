@@ -1,94 +1,143 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/application/application.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_button.dart';
-import 'package:sport_app/helper/shared_preferences_helper.dart';
+import 'package:sport_app/component/button.dart';
+import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/helper/firebase_helper.dart';
+import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_key_name.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/app_strings.dart';
-import 'package:sport_app/resource/app_style.dart';
-import 'package:sport_app/resource/constants.dart';
+import 'package:sport_app/permission/open_image_picker.dart';
+import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String? imagePath;
+  String imageUrl = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getIt.get<ProfileBloc>().add(GetUserProfile());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: AppStrings.profile,
-        rightIconPath: AppResource.more,
-      ),
-      body: BlocBuilder<ProfileBloc, ProfileState>(builder: (context, state) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SizedBox(height: Constants.size30),
-                Stack(
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      bloc: getIt.get<ProfileBloc>(),
+      builder: (context, state) {
+        return Scaffold(
+          appBar: CustomAppBar(
+            title: AppStrings.profile,
+            rightIconPath: AppResource.more,
+            onPressedLeft: () => NavigationService.navigatorKey.currentState
+                ?.pushNamed(AppRouteName.main),
+          ),
+          body: Center(
+            child: Padding(
+              padding: EdgeInsets.all(Constants.size10),
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    buildImage(),
-                    Positioned(
-                      bottom: 2,
-                      right: 2,
-                      child: buildEditImage(),
+                    SizedBox(height: Constants.size30),
+                    // ImageCircle(
+                      imageUrl: state.user?.photoUrl,
+                      width: Constants.sizeImage,
+                      height: Constants.sizeImage,
+                      onTap: () => _showActionSheet(context),
                     ),
+                    SizedBox(height: Constants.size20),
+                    buildName(
+                      email: state.user?.email,
+                      displayName: state.user?.displayName,
+                    ),
+                    SizedBox(height: Constants.size30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Button(
+                          width: MediaQuery.of(context).size.width / 2,
+                          text: AppStrings.signOut,
+                          onTap: () {
+                            getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
+                          },
+                        ),
+                        Button(
+                          text: AppStrings.edit,
+                          bgColor: AppColor.arsenic,
+                          width: MediaQuery.of(context).size.width / 3,
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                content: Container(
+                                  padding: EdgeInsets.all(Constants.size5),
+                                  height: Constants.size200,
+                                  child: Column(
+                                    children: [
+                                      const TextView(
+                                        text:
+                                            "${AppStrings.edit} ${AppStrings.displayName}",
+                                      ),
+                                      SizedBox(
+                                        height: Constants.size20,
+                                      ),
+                                      CustomTextField(
+                                        hintText: state.user?.displayName ??
+                                            AppStrings.displayNameInput,
+                                        title: AppStrings.displayName,
+                                        type: TextFieldType.normal,
+                                        onChanged: (String displayName) {
+                                          getIt.get<ProfileBloc>().add(
+                                                GetDisplayNameFromTextFieldEvent(
+                                                  displayName: displayName,
+                                                ),
+                                              );
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: Constants.size20,
+                                      ),
+                                      Button(
+                                        text: AppStrings.edit,
+                                        onTap: () {
+                                          getIt.get<ProfileBloc>().add(
+                                                EditDisplayNameEvent(),
+                                              );
+                                          NavigationService
+                                              .navigatorKey.currentState
+                                              ?.pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: Constants.size30),
                   ],
                 ),
-                SizedBox(height: Constants.size20),
-                buildName(),
-                SizedBox(height: Constants.size30),
-                CustomButton(
-                  text: AppStrings.signOut,
-                  onTap: () {
-                    getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
-                  },
-                ),
-              ],
+              ),
             ),
           ),
         );
-      }),
-    );
-  }
-
-  Widget buildImage({
-    String? photoUrl,
-    VoidCallback? onTap,
-  }) {
-    return ClipOval(
-      child: Image.network(
-        photoUrl ?? Application.imageAvatar,
-        fit: BoxFit.cover,
-        width: Constants.sizeImage,
-        height: Constants.sizeImage,
-      ),
-    );
-  }
-
-  Widget buildEditImage() {
-    return Container(
-      padding: EdgeInsets.all(Constants.size5),
-      decoration: BoxDecoration(
-        color: AppColor.hDDDDDD,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: AppColor.hFFFFFF,
-          width: Constants.size5,
-        ),
-      ),
-      child: Image.asset(
-        AppResource.edit,
-        color: AppColor.h413F42,
-        width: Constants.sizeIcon,
-      ),
+      },
     );
   }
 
@@ -97,20 +146,72 @@ class ProfileScreen extends StatelessWidget {
     String? email,
     String? phoneNumber,
   }) {
-    String? displayName = SharedPreferencesHelper.shared.getString(AppKeyName.displayName);
-    String? email = SharedPreferencesHelper.shared.getString(AppKeyName.email);
     return Column(
       children: [
-        Text(
-          displayName ?? "",
-          style: AppStyle.nameSection,
+        TextView(
+          text: displayName ?? "",
+          fontSize: Constants.titleFontSize,
+          fontWeight: FontWeight.w600,
         ),
         SizedBox(height: Constants.size5),
-        Text(
-          email ?? "",
-          style: AppStyle.lightTitle,
+        TextView(
+          text: email ?? "",
+          textColor: AppColor.darkSilver,
         ),
       ],
+    );
+  }
+
+  void _showActionSheet(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        title: const Text(AppStrings.chooseProfilePhoto),
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            onPressed: () => OpenImagePicker.getImage(
+              getImageFromCamera: true,
+              value: (String image) {
+                setState(() {
+                  imagePath = image;
+                  NavigationService.navigatorKey.currentState?.pop();
+                  FirebaseHelper.shared.uploadImageUser(imagePath: imagePath);
+                });
+              },
+            ),
+            child: const Text(
+              AppStrings.camera,
+            ),
+          ),
+          CupertinoActionSheetAction(
+            onPressed: () => OpenImagePicker.getImage(
+              getImageFromCamera: false,
+              value: (String image) {
+                setState(() {
+                  imagePath = image;
+                  NavigationService.navigatorKey.currentState?.pop();
+                  Loading.show();
+                  FirebaseHelper.shared
+                      .uploadImageUser(imagePath: imagePath)
+                      .then((value) {
+                    getIt.get<ProfileBloc>().add(GetUserProfile());
+                  });
+                });
+              },
+            ),
+            child: const Text(
+              AppStrings.gallery,
+            ),
+          ),
+          CupertinoActionSheetAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(AppStrings.cancel),
+          )
+        ],
+      ),
     );
   }
 }
