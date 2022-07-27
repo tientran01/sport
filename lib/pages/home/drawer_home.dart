@@ -55,7 +55,7 @@ class _DrawerHomeState extends State<DrawerHome> {
                               builder: ((context, state) {
                                 return Row(
                                   children: [
-                                    CustomImageCircle(
+                                    ImageCircle(
                                       imageUrl: state.user?.photoUrl,
                                       width: Constants.sizeImage,
                                       height: Constants.sizeImage,

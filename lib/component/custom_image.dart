@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_overrides
 
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/app_color.dart';
@@ -64,75 +62,86 @@ class CustomImage extends StatelessWidget {
   }
 }
 
-class CustomImageCircle extends StatelessWidget {
+
+
+class ImageCircle extends StatelessWidget {
   final String? imageUrl;
   final double? height;
   final double? width;
+  final bool? isEdit;
+  final String? iconPath;
+  final VoidCallback? onTap;
 
-  const CustomImageCircle({
+  const ImageCircle({
     Key? key,
     this.imageUrl,
     this.height,
     this.width,
+    this.isEdit,
+    this.iconPath, this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: AppColor.gainsboro,
-      ),
-      child: CachedNetworkImage(
-        imageUrl: imageUrl ?? "",
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: AppColor.white,
-              width: Constants.size5,
-            ),
+    return Stack(
+      children: [
+        Container(
+          width: width,
+          height: height,
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
+            color: AppColor.gainsboro,
+          ),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl ?? "",
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: AppColor.white,
+                  width: Constants.size5,
+                ),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Image.asset(
+              AppResource.profile,
+              width: Constants.sizeIcon,
             ),
           ),
         ),
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        errorWidget: (context, url, error) => Image.asset(
-          AppResource.profile,
-          width: Constants.sizeIcon,
-        ),
-      ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: GestureDetector(
+            onTap: onTap,
+            child: Container(
+              padding: EdgeInsets.all(Constants.size5),
+              decoration: BoxDecoration(
+                color: AppColor.gainsboro,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppColor.white,
+                  width: Constants.size5,
+                ),
+              ),
+              child: Image.asset(
+                iconPath ?? AppResource.edit,
+                color: AppColor.arsenic,
+                width: Constants.size20,
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
 
-class ImageFile extends StatelessWidget {
-  final String? imageFile;
-  const ImageFile({Key? key, this.imageFile}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: AppColor.white,
-          width: Constants.size5,
-        ),
-      ),
-      child: CircleAvatar(
-        radius: Constants.size45,
-        backgroundColor: Colors.white,
-        backgroundImage: FileImage(
-          File(imageFile ?? ""),
-        ),
-      ),
-    );
-  }
-}

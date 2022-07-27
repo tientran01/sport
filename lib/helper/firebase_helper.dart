@@ -48,7 +48,8 @@ class FirebaseHelper {
     String? password,
   }) async {
     User? user;
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    UserCredential userCredential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email ?? "",
       password: password ?? "",
     );
@@ -91,10 +92,12 @@ class FirebaseHelper {
     );
     try {
       Loading.show(msg: AppStrings.loading);
-      var result = await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
+      var result =
+          await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
       if (result.user != null) {
         Loading.dismiss();
-        NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.main);
+        NavigationService.navigatorKey.currentState
+            ?.pushNamed(AppRouteName.main);
       }
     } on FirebaseAuthException {
       Loading.showError(AppStrings.error);
@@ -116,15 +119,18 @@ class FirebaseHelper {
     Loading.show(msg: AppStrings.loading);
     if (googleUser != null) {
       Loading.dismiss();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleUser.authentication;
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleUser.authentication;
       authCredential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
       try {
-        final UserCredential userCredential = await auth.signInWithCredential(authCredential);
+        final UserCredential userCredential =
+            await auth.signInWithCredential(authCredential);
         user = userCredential.user;
-        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user?.uid ?? "");
+        SharedPreferencesHelper.shared
+            .setString(AppKeyName.uid, user?.uid ?? "");
         createUser();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
@@ -262,12 +268,21 @@ class FirebaseHelper {
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
     Reference imageReference =
         FirebaseHelper.firebaseStorage.ref().child(AppFolder.imageUser);
-    UploadTask uploadTask = imageReference
-        .child("${currentUser?.uid}.png")
-        .putFile(
-          File(imagePath ?? ""),
-        );
+    UploadTask uploadTask =
+        imageReference.child("${currentUser?.uid}.png").putFile(
+              File(imagePath ?? ""),
+            );
     var imageUrl = await (await uploadTask).ref.getDownloadURL();
     userDocument.update({AppFieldName.photoUrl: imageUrl});
+  }
+
+  Future<void> updateUser({String? displayName}) async {
+    User? currentUser = FirebaseHelper.shared.auth.currentUser;
+    CollectionReference userCollection = FirebaseHelper.firebaseFirestore
+        .collection(AppCollection.userInformation);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    userDocument.update({
+      AppFieldName.displayName: displayName,
+    });
   }
 }

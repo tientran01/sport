@@ -52,20 +52,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: Constants.size30),
-                    Stack(
-                      children: [
-                        buildImage(
-                          imagePath: state.user?.photoUrl ?? '',
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: GestureDetector(
-                            onTap: () => _showActionSheet(context),
-                            child: buildEditImage(),
-                          ),
-                        ),
-                      ],
+                    // ImageCircle(
+                      imageUrl: state.user?.photoUrl,
+                      width: Constants.sizeImage,
+                      height: Constants.sizeImage,
+                      onTap: () => _showActionSheet(context),
                     ),
                     SizedBox(height: Constants.size20),
                     buildName(
@@ -147,33 +138,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget buildImage({String? imagePath}) {
-    return CustomImageCircle(
-      imageUrl: imagePath,
-      width: Constants.sizeImage,
-      height: Constants.sizeImage,
-    );
-  }
-
-  Widget buildEditImage() {
-    return Container(
-      padding: EdgeInsets.all(Constants.size5),
-      decoration: BoxDecoration(
-        color: AppColor.gainsboro,
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: AppColor.white,
-          width: Constants.size5,
-        ),
-      ),
-      child: Image.asset(
-        AppResource.edit,
-        color: AppColor.arsenic,
-        width: Constants.size20,
-      ),
     );
   }
 

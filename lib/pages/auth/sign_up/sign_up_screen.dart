@@ -1,5 +1,6 @@
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
+import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -33,9 +34,15 @@ class SignUpScreen extends StatelessWidget {
               child: Form(
                 key: _formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    ImageCircle(
+                      width: Constants.sizeImage,
+                      height: Constants.sizeImage,
+                      iconPath: AppResource.camera,
+                    ),
+                    SizedBox(height: Constants.size30),
                     const CustomTextField(
                       hintText: AppStrings.displayNameInput,
                       title: AppStrings.displayName,

@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
@@ -48,15 +46,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     EditDisplayNameEvent event,
     Emitter<void> emitter,
   ) async {
-    User? currentUser = FirebaseHelper.shared.auth.currentUser;
-    CollectionReference userCollection = FirebaseHelper.firebaseFirestore
-        .collection(AppCollection.userInformation);
-    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
-    userDocument.update(
-      {
-        AppFieldName.displayName: state.displayName,
-      },
-    );
+    FirebaseHelper.shared.updateUser(displayName: state.displayName);
     getIt.get<ProfileBloc>().add(GetUserProfile());
   }
 
