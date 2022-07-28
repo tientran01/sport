@@ -10,9 +10,7 @@ class ApiClient {
     Map<String, dynamic> param = {
       'access_key': Application.accessKey,
     };
-    Map<String, dynamic> a = await NetWorkManager.shared.get('news', {
-      'access_key': Application.accessKey,
-    });
+    Map<String, dynamic> a = await NetWorkManager.shared.get('news', param);
     return News.fromJson(a);
   }
 }
