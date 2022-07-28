@@ -21,7 +21,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
         builder: (_, state) {
           return Padding(
             padding: EdgeInsets.symmetric(
-              horizontal:Constants.size20,
+              horizontal: Constants.size20,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +29,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                 Center(
                   child: TextView(
                     text: AppStrings.createNewPassword,
-                    fontSize: Constants.headerFontSize,
+                    fontSize: Constants.size25,
                   ),
                 ),
                 SizedBox(height: Constants.size30),

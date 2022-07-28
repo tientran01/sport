@@ -1,4 +1,4 @@
 class Application {
-  static String baseUrl = 'https://api.doctruyenaudio.net';
-  static String getDataUrl = 'https://jsonplaceholder.typicode.com';
+  static String accessKey = "a308124678a07df4ebf6154c9c1dc0c9";
+  static String football = "football";
 }

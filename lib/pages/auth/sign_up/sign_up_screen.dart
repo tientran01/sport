@@ -38,8 +38,8 @@ class SignUpScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ImageCircle(
-                      width: Constants.sizeImage,
-                      height: Constants.sizeImage,
+                      width: Constants.size100,
+                      height: Constants.size100,
                       iconPath: AppResource.camera,
                     ),
                     SizedBox(height: Constants.size30),
@@ -77,6 +77,7 @@ class SignUpScreen extends StatelessWidget {
                       onTap: () {
                         trySignUp();
                       },
+                      textColor: AppColor.white,
                     ),
                     SizedBox(height: Constants.size30),
                   ],

@@ -1,13 +1,15 @@
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
-import 'package:sport_app/pages/home/drawer_home.dart';
-import 'package:sport_app/pages/home/header_home.dart';
-import 'package:sport_app/pages/home/search.dart';
-import 'package:sport_app/pages/home/custom_slider.dart';
+import 'package:sport_app/component/name_section.dart';
+import 'package:sport_app/pages/home/component/custom_slider.dart';
+import 'package:sport_app/pages/home/component/header_home.dart';
 import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/pages/home/component/article_item_section.dart';
+import 'package:sport_app/pages/home/drawer_home.dart';
+import 'package:sport_app/pages/home/home_category_bar.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
 
@@ -32,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bloc: getIt<HomeBloc>(),
       builder: (_, state) {
         return Scaffold(
-          backgroundColor: AppColor.ghostWhite,
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: HeaderHome(
             notificationCount: state.badge,
             onTap: () => NavigationService.navigatorKey.currentState
@@ -52,12 +54,44 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Column(
                       children: [
-                        const CustomSlider(),
-                        SizedBox(height: Constants.size20),
-                        const Search(),
+                        const HomeCategoryBar(),
                         SizedBox(
-                          height: Constants.size30,
+                          height: Constants.size25,
                         ),
+                        const CustomSlider(),
+                        SizedBox(
+                          height: Constants.size25,
+                        ),
+                        NameSection(
+                          titleSection: AppStrings.justForYou,
+                          onTap: () {},
+                          text: AppStrings.seeMore,
+                        ),
+                        SizedBox(
+                          height: Constants.size10,
+                        ),
+                        Column(
+                          children: [
+                            ArticleItemSection(
+                              category: "general",
+                              title: AppStrings.newsTitleDemo,
+                              author: "Monica-Saia",
+                              onTap: () {
+                                NavigationService.navigatorKey.currentState
+                                    ?.pushNamed(AppRouteName.detailArticle);
+                              },
+                            ),
+                            ArticleItemSection(
+                              category: "general",
+                              title: AppStrings.newsTitleDemo,
+                              author: "Monica-Saia",
+                              onTap: () {
+                                NavigationService.navigatorKey.currentState
+                                    ?.pushNamed(AppRouteName.detailArticle);
+                              },
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ),

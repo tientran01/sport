@@ -11,4 +11,5 @@ class AppColor {
   static const darkSilver = Color(0xFF686D76);
   static const blue = Color(0xFF0077C0);
   static const jetStream = Color(0xFFB9E3C6);
+  static const azure = Color(0xFFF2FCFC);
 }

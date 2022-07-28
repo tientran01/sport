@@ -44,7 +44,7 @@ class CustomImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(Constants.size15),
             image: DecorationImage(
               image: imageProvider,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               scale: 1.0,
             ),
           ),
@@ -54,15 +54,13 @@ class CustomImage extends StatelessWidget {
         ),
         errorWidget: (context, url, error) => Image.asset(
           AppResource.error,
-          width: Constants.sizeIcon,
+          width: Constants.size27,
           color: AppColor.gainsboro,
         ),
       ),
     );
   }
 }
-
-
 
 class ImageCircle extends StatelessWidget {
   final String? imageUrl;
@@ -78,7 +76,8 @@ class ImageCircle extends StatelessWidget {
     this.height,
     this.width,
     this.isEdit,
-    this.iconPath, this.onTap,
+    this.iconPath,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -110,9 +109,12 @@ class ImageCircle extends StatelessWidget {
             placeholder: (context, url) => const Center(
               child: CircularProgressIndicator(),
             ),
-            errorWidget: (context, url, error) => Image.asset(
-              AppResource.profile,
-              width: Constants.sizeIcon,
+            errorWidget: (context, url, error) => Center(
+              child: Image.asset(
+                AppResource.profile,
+                width: Constants.size27,
+                height: Constants.size27,
+              ),
             ),
           ),
         ),
@@ -143,5 +145,3 @@ class ImageCircle extends StatelessWidget {
     );
   }
 }
-
-

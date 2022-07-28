@@ -1,6 +1,6 @@
-import 'package:sport_app/pages/chat/chat_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
+import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/resource/app_color.dart';
 import 'package:sport_app/resource/app_resource.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +23,9 @@ class _MainScreenState extends State<MainScreen> {
         controller: _pageController,
         children: const [
           HomeScreen(),
-          ChatScreen(),
           HomeScreen(),
-          ProfileScreen()
+          ProfileScreen(),
+          SettingScreen(),
         ],
         onPageChanged: (pageIndex) {
           pageChanged(pageIndex);
@@ -44,15 +44,15 @@ class _MainScreenState extends State<MainScreen> {
             index: 0,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.chat,
+            iconPath: AppResource.compass,
             index: 1,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.chart,
+            iconPath: AppResource.profile,
             index: 2,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.profile,
+            iconPath: AppResource.setting,
             index: 3,
           ),
         ],
@@ -67,7 +67,7 @@ class _MainScreenState extends State<MainScreen> {
       BottomNavigationBarItem(
         icon: Image.asset(
           iconPath,
-          width: Constants.sizeIcon,
+          width: Constants.size27,
           color: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
         ),
         label: "",

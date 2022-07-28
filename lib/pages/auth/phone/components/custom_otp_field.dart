@@ -24,7 +24,7 @@ class CustomOTPField extends StatelessWidget {
           ),
         ),
         textStyle: TextStyle(
-          fontSize: Constants.titleFontSize,
+          fontSize: Constants.size20,
           fontWeight: FontWeight.bold,
         ),
       ),

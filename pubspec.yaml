@@ -102,7 +102,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/bottom_navigation/
-    - assets/icons/drawer/
+    - assets/icons/component/
     - assets/icons/social/
     - assets/json/
 

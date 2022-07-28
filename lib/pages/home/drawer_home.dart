@@ -3,14 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
+import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
-
-import '../../bloc/profile/bloc/profile_event.dart';
 
 class DrawerHome extends StatefulWidget {
   const DrawerHome({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class _DrawerHomeState extends State<DrawerHome> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Drawer(
-          backgroundColor: AppColor.white,
+          backgroundColor: Theme.of(context).backgroundColor,
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
@@ -45,70 +44,49 @@ class _DrawerHomeState extends State<DrawerHome> {
                   decoration: const BoxDecoration(
                     color: AppColor.jetStream,
                   ),
-                  child: Stack(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BlocBuilder<ProfileBloc, ProfileState>(
-                              bloc: getIt.get<ProfileBloc>(),
-                              builder: ((context, state) {
-                                return Row(
-                                  children: [
-                                    ImageCircle(
-                                      imageUrl: state.user?.photoUrl,
-                                      width: Constants.sizeImage,
-                                      height: Constants.sizeImage,
-                                    ),
-                                    SizedBox(
-                                      width: Constants.size10,
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          TextView(
-                                            text: state.user?.displayName ?? "",
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: Constants.titleFontSize,
-                                          ),
-                                          SizedBox(
-                                            height: Constants.size5,
-                                          ),
-                                          TextView(
-                                            text: state.user?.email ?? "",
-                                            fontSize: Constants.smallFontSize,
-                                          ),
-                                        ],
+                      BlocBuilder<ProfileBloc, ProfileState>(
+                          bloc: getIt.get<ProfileBloc>(),
+                          builder: ((context, state) {
+                            return Row(
+                              children: [
+                                ImageCircle(
+                                  imageUrl: state.user?.photoUrl,
+                                  width: Constants.size100,
+                                  height: Constants.size100,
+                                  iconPath: AppResource.crown,
+                                ),
+                                SizedBox(
+                                  width: Constants.size10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      TextView(
+                                        text: state.user?.displayName ?? "",
+                                        fontSize: Constants.size20,
                                       ),
-                                    ),
-                                  ],
-                                );
-                              })),
-                        ],
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: GestureDetector(
-                          child: Image.asset(
-                            AppResource.close,
-                            color: AppColor.darkSilver,
-                            width: Constants.size20,
-                          ),
-                          onTap: () {
-                            Scaffold.of(context).closeDrawer();
-                          },
-                        ),
-                      ),
+                                      SizedBox(
+                                        height: Constants.size5,
+                                      ),
+                                      TextView(
+                                        text: state.user?.email ?? "",
+                                        fontSize: Constants.size10,
+                                        textColor: AppColor.darkSilver,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          })),
                     ],
                   ),
                 ),
-              ),
-              buildDrawerItem(
-                title: AppStrings.sync,
-                iconPath: AppResource.sync,
               ),
               buildDrawerItem(
                 title: AppStrings.notification,
@@ -116,25 +94,8 @@ class _DrawerHomeState extends State<DrawerHome> {
                 onTap: () {},
               ),
               buildDrawerItem(
-                title: AppStrings.paymentRequest,
-                iconPath: AppResource.money,
-              ),
-              buildDrawerItem(
-                title: AppStrings.history,
-                iconPath: AppResource.history,
-              ),
-              buildDrawerItem(
-                title: AppStrings.chartReport,
-                iconPath: AppResource.chart,
-              ),
-              const Divider(),
-              buildDrawerItem(
                 title: AppStrings.setting,
                 iconPath: AppResource.setting,
-              ),
-              buildDrawerItem(
-                title: AppStrings.info,
-                iconPath: AppResource.info,
               ),
               buildDrawerItem(
                 title: AppStrings.logout,
@@ -155,11 +116,11 @@ class _DrawerHomeState extends State<DrawerHome> {
     return ListTile(
       leading: Image.asset(
         iconPath ?? "",
-        width: Constants.sizeIcon,
+        width: Constants.size27,
       ),
       title: TextView(
         text: title ?? "",
-        fontSize: Constants.subtitleFontSize,
+        fontSize: Constants.size15,
       ),
       onTap: () {
         onTap;

@@ -25,18 +25,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       title: TextView(
         text: title ?? "",
-        fontSize: Constants.titleFontSize,
-        fontWeight: FontWeight.w600,
+        fontSize: Constants.size17,
       ),
-      leading: IconButton(
-        onPressed: onPressedLeft,
-        icon: Image.asset(leadingIconPath ?? AppResource.leftArrow),
-      ),
+      leading: onPressedLeft != null
+          ? IconButton(
+              onPressed: onPressedLeft,
+              icon: Image.asset(
+                leadingIconPath ?? AppResource.leftArrow,
+                width: Constants.size27,
+                height: Constants.size27,
+              ),
+            )
+          : Container(),
       actions: [
         rightIconPath != null
             ? IconButton(
                 onPressed: () {},
-                icon: Image.asset(rightIconPath ?? ""),
+                icon: Image.asset(
+                  rightIconPath ?? "",
+                  width: Constants.size27,
+                ),
               )
             : Container()
       ],

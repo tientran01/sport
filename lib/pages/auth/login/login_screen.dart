@@ -32,9 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: AppStrings.login,
-        onPressedLeft: () => NavigationService.navigatorKey.currentState?.pop(),
       ),
       body: BlocBuilder<LoginBloc, LoginState>(
         builder: (_, state) {
@@ -80,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {
                           tryLogin();
                         },
+                        textColor: AppColor.white,
                       ),
                       SizedBox(height: Constants.size30),
                       const DividerCustom(
