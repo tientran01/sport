@@ -1,17 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/model/article.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class DetailAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String? imageUrl;
-  final String? title;
+  final Article? article;
   final VoidCallback? onTap;
   const DetailAppBar({
     Key? key,
-    this.imageUrl,
-    this.title,
-    this.onTap,
+    this.onTap, this.article,
   }) : super(key: key);
 
   @override
@@ -41,8 +39,8 @@ class DetailAppBar extends StatelessWidget implements PreferredSizeWidget {
               Container(
                 margin: EdgeInsets.only(left: Constants.size5),
                 width: Constants.size180,
-                child: const TextView(
-                  text: AppStrings.newsTitleDemo,
+                child: TextView(
+                  text: article?.title ?? "",
                 ),
               )
             ],
@@ -50,7 +48,7 @@ class DetailAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       flexibleSpace: CachedNetworkImage(
-        imageUrl: imageUrl ?? AppNetwork.carouselImage_2,
+        imageUrl: article?.imageUrl ?? AppNetwork.carouselImage_3,
         fit: BoxFit.fill,
       ),
       backgroundColor: Colors.transparent,

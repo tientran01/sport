@@ -66,9 +66,11 @@ class _CustomSliderState extends State<CustomSlider> {
           Positioned(
             left: Constants.size30,
             top: Constants.size45,
-            child: const TextView(
+            child: TextView(
               text: AppStrings.calendar,
-              textColor: AppColor.darkSilver,
+              textColor: AppColor.white,
+              fontSize: Constants.size30,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],

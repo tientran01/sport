@@ -5,12 +5,19 @@ abstract class SignUpEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetEmailAndPasswordFormTextFieldEvent extends SignUpEvent {
+class GetUserEvent extends SignUpEvent {
   final String? email;
   final String? password;
-  GetEmailAndPasswordFormTextFieldEvent({this.email, this.password});
+  final String? displayName;
+  final String? photoUrl;
+  GetUserEvent({
+    this.email,
+    this.password,
+    this.displayName,
+    this.photoUrl,
+  });
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [email, password, displayName, photoUrl];
 }
 
 class CreateNewAccountEvent extends SignUpEvent {

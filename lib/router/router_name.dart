@@ -1,4 +1,7 @@
+import 'package:sport_app/pages/article/article_screen.dart';
+import 'package:sport_app/pages/article/create_new_article.dart';
 import 'package:sport_app/pages/article/detail_article_screen.dart';
+import 'package:sport_app/pages/article/your_article_screen.dart';
 import 'package:sport_app/pages/auth/password/check_email_screen.dart';
 import 'package:sport_app/pages/auth/password/create_new_password_screen.dart';
 import 'package:sport_app/pages/auth/password/input_email_reset_screen.dart';
@@ -12,7 +15,6 @@ import 'package:sport_app/pages/main_screen.dart';
 import 'package:sport_app/pages/notification/notification_detail_screen.dart';
 import 'package:sport_app/pages/notification/notification_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
-import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/pages/task/create_new_task.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +23,9 @@ class RouteName {
   static Map<String, WidgetBuilder> route = {
     AppRouteName.splash: (BuildContext context) => const SplashScreen(),
     AppRouteName.login: (BuildContext context) => const LoginScreen(),
-    AppRouteName.signUp: (BuildContext context) => SignUpScreen(),
+    AppRouteName.signUp: (BuildContext context) => const SignUpScreen(),
     AppRouteName.main: (BuildContext context) => const MainScreen(),
     AppRouteName.home: (BuildContext context) => const HomeScreen(),
-    AppRouteName.setting: (BuildContext context) => const SettingScreen(),
     AppRouteName.profile: (BuildContext context) => const ProfileScreen(),
     AppRouteName.phoneInput: (BuildContext context) => const PhoneInputScreen(),
     AppRouteName.phoneOtp: (BuildContext context) => const PhoneOTPScreen(),
@@ -35,5 +36,8 @@ class RouteName {
     AppRouteName.notificationDetail: (BuildContext context) => const NotificationDetailScreen(),
     AppRouteName.createNewTask: (BuildContext context) => const CreateNewTask(),
     AppRouteName.detailArticle: (BuildContext context) => const DetailArticleScreen(),
+    AppRouteName.article: (BuildContext context) => const ArticleScreen(),
+    AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),
+    AppRouteName.createNewArticle: (BuildContext context) => const CreateNewArticle(),
   };
 }

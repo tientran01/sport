@@ -2,9 +2,8 @@ class AppRouteName {
   static const String splash = "/";
   static const String login = "/login";
   static const String signUp = "/sign_up";
-  static const String main = "main";
+  static const String main = "/main";
   static const String home = "/home";
-  static const String setting = "/setting";
   static const String profile = "/profile";
   static const String phoneInput = "/phone_input";
   static const String phoneOtp = "/phone_otp";
@@ -15,4 +14,7 @@ class AppRouteName {
   static const String notificationDetail = "/notification_detail";
   static const String createNewTask = "/create_new_task";
   static const String detailArticle = "/detail_article";
+  static const String article = "/article";
+  static const String yourArticle = "/your_article";
+  static const String createNewArticle = "/create_new_article";
 }

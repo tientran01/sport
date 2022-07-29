@@ -15,6 +15,7 @@ class AppResource {
   static String setting = '$bottomNavigationIcon/ic_setting.png';
   static String home = '$bottomNavigationIcon/ic_home.png';
   static String compass = '$bottomNavigationIcon/ic_compass.png';
+  static String create = '$bottomNavigationIcon/ic_create.png';
 
   static String socialIcon = '${baseIconPath}social';
   static String facebookIcon = '$socialIcon/ic_facebook.png';
@@ -38,6 +39,8 @@ class AppResource {
   static String crown = '$componentIcon/ic_crown.png';
   static String eye = '$componentIcon/ic_eye.png';
   static String invisible = '$componentIcon/ic_invisible.png';
-  
+  static String bookmark = '$componentIcon/ic_bookmark.png';
+  static String close = '$componentIcon/ic_close.png';
+
   static String coffeeJson = "assets/json/coffee.json";
 }

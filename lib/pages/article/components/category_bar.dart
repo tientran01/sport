@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 
-class HomeCategoryBar extends StatefulWidget {
-  const HomeCategoryBar({Key? key}) : super(key: key);
+class CategoryBar extends StatefulWidget {
+  const CategoryBar({Key? key}) : super(key: key);
 
   @override
-  State<HomeCategoryBar> createState() => _HomeCategoryBarState();
+  State<CategoryBar> createState() => _CategoryBarState();
 }
 
-class _HomeCategoryBarState extends State<HomeCategoryBar> {
+class _CategoryBarState extends State<CategoryBar> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

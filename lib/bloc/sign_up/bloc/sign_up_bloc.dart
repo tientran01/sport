@@ -12,18 +12,17 @@ import '../../../router/navigation_service.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc() : super(const SignUpState.initState()) {
-    on<GetEmailAndPasswordFormTextFieldEvent>(
-        _onGetEmailAndPasswordFormTextField);
+    on<GetUserEvent>(_onGetUser);
     on<CreateNewAccountEvent>(_onCreateNewAccount);
   }
 
-  Future<void> _onGetEmailAndPasswordFormTextField(
-      GetEmailAndPasswordFormTextFieldEvent event,
-      Emitter<void> emitter) async {
+  Future<void> _onGetUser(GetUserEvent event, Emitter<void> emitter) async {
     emitter(
       state.copyWith(
-        email: event.email ?? state.email,
-        password: event.password ?? state.password,
+        email: event.email,
+        password: event.password,
+        displayName: event.displayName,
+        photoUrl: event.photoUrl,
       ),
     );
   }

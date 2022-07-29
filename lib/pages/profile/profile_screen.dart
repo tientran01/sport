@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
+import 'package:sport_app/component/action.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
@@ -26,7 +26,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   String? imagePath;
-  String imageUrl = '';
 
   @override
   void initState() {
@@ -42,8 +41,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Scaffold(
           appBar: CustomAppBar(
             title: AppStrings.profile,
-            onPressedLeft: () =>
-                NavigationService.navigatorKey.currentState?.pop(),
+            onPressedLeft: () {
+              NavigationService.navigatorKey.currentState
+                  ?.pushNamed(AppRouteName.main);
+            },
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -63,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: Constants.size100,
                       height: Constants.size100,
                       onTap: () {
-                        _showActionSheet(context);
+                        _showActionSheet();
                       },
                     ),
                   ),
@@ -139,56 +140,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void _showActionSheet(BuildContext context) {
-    showCupertinoModalPopup<void>(
+  void _showActionSheet() {
+    ActionComponent.shared.showActionUploadImage(
       context: context,
-      builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text(AppStrings.chooseProfilePhoto),
-        actions: <CupertinoActionSheetAction>[
-          CupertinoActionSheetAction(
-            onPressed: () => OpenImagePicker.getImage(
-              getImageFromCamera: true,
-              value: (String image) {
-                setState(() {
-                  imagePath = image;
-                  NavigationService.navigatorKey.currentState?.pop();
-                  FirebaseHelper.shared.uploadImageUser(imagePath: imagePath);
-                });
+      onCamera: () {
+        OpenImagePicker.getImage(
+          getImageFromCamera: true,
+          value: (String image) {
+            setState(
+              () {
+                imagePath = image;
+                NavigationService.navigatorKey.currentState?.pop();
+                FirebaseHelper.shared.uploadImageUser(imagePath: imagePath);
               },
-            ),
-            child: const Text(
-              AppStrings.camera,
-            ),
-          ),
-          CupertinoActionSheetAction(
-            onPressed: () => OpenImagePicker.getImage(
-              getImageFromCamera: false,
-              value: (String image) {
-                setState(() {
-                  imagePath = image;
-                  NavigationService.navigatorKey.currentState?.pop();
-                  Loading.show();
-                  FirebaseHelper.shared
-                      .uploadImageUser(imagePath: imagePath)
-                      .then((value) {
+            );
+          },
+        );
+      },
+      onGalley: () {
+        OpenImagePicker.getImage(
+          getImageFromCamera: false,
+          value: (String image) {
+            setState(
+              () {
+                imagePath = image;
+                NavigationService.navigatorKey.currentState?.pop();
+                Loading.show();
+                FirebaseHelper.shared
+                    .uploadImageUser(imagePath: imagePath)
+                    .then(
+                  (value) {
                     getIt.get<ProfileBloc>().add(GetUserProfile());
-                  });
-                });
+                  },
+                );
               },
-            ),
-            child: const Text(
-              AppStrings.gallery,
-            ),
-          ),
-          CupertinoActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(AppStrings.cancel),
-          )
-        ],
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
+import 'package:sport_app/pages/article/article_screen.dart';
+import 'package:sport_app/pages/article/your_article_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
-import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/resource/app_color.dart';
 import 'package:sport_app/resource/app_resource.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +24,9 @@ class _MainScreenState extends State<MainScreen> {
         controller: _pageController,
         children: const [
           HomeScreen(),
-          HomeScreen(),
-          ProfileScreen(),
-          SettingScreen(),
+          ArticleScreen(),
+          YourArticleScreen(),
+          ProfileScreen()
         ],
         onPageChanged: (pageIndex) {
           pageChanged(pageIndex);
@@ -48,11 +49,11 @@ class _MainScreenState extends State<MainScreen> {
             index: 1,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.profile,
+            iconPath: AppResource.create,
             index: 2,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.setting,
+            iconPath: AppResource.profile,
             index: 3,
           ),
         ],

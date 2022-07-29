@@ -23,6 +23,8 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? textEditingController;
   final bool? isPassword;
+  final bool? isMaxLine;
+  final int? maxLine;
 
   const CustomTextField({
     Key? key,
@@ -38,6 +40,8 @@ class CustomTextField extends StatefulWidget {
     this.textEditingController,
     this.isPassword,
     this.prefix,
+    this.isMaxLine = false,
+    this.maxLine,
   }) : super(key: key);
 
   @override
@@ -87,6 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputFormatters,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validatorText,
+      maxLines: widget.isMaxLine == true ? widget.maxLine : 1,
     );
   }
 

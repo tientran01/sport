@@ -6,11 +6,21 @@ class ApiClient {
   static final ApiClient api = ApiClient._internal();
   ApiClient._internal();
 
-  Future<News> getNews() async {
-    Map<String, dynamic> param = {
-      'access_key': Application.accessKey,
+  Future<News?> getAllNews() async {
+    Map<String, dynamic>? param = {
+      Application.apiToken: Application.apiTokenNumber,
     };
-    Map<String, dynamic> a = await NetWorkManager.shared.get('news', param);
-    return News.fromJson(a);
+    final data = await NetWorkManager.shared.get(Application.newsAllUrl, param);
+    News news = News.fromJson(data);
+    return news;
+  }
+
+  Future<News?> getTopNews() async {
+    Map<String, dynamic>? param = {
+      Application.apiToken: Application.apiTokenNumber,
+    };
+    final data = await NetWorkManager.shared.get(Application.newsTopUrl, param);
+    News news = News.fromJson(data);
+    return news;
   }
 }

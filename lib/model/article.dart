@@ -1,51 +1,61 @@
+// ignore_for_file: prefer_void_to_null
+
 class Article {
-  String? author;
+  String? uuid;
   String? title;
   String? description;
+  String? keywords;
+  String? snippet;
   String? url;
-  String? source;
-  String? image;
-  String? category;
+  String? imageUrl;
   String? language;
-  String? country;
   String? publishedAt;
+  String? source;
+  List<String>? categories;
+  Null relevanceScore;
 
   Article({
-    this.author,
-    this.title,
-    this.description,
-    this.url,
-    this.source,
-    this.image,
-    this.category,
-    this.language,
-    this.country,
-    this.publishedAt,
+    uuid,
+    title,
+    description,
+    keywords,
+    snippet,
+    url,
+    imageUrl,
+    language,
+    publishedAt,
+    source,
+    categories,
+    relevanceScore,
   });
 
   Article.fromJson(Map<String, dynamic> json) {
-    author = json['author'];
+    uuid = json['uuid'];
     title = json['title'];
     description = json['description'];
+    keywords = json['keywords'];
+    snippet = json['snippet'];
     url = json['url'];
-    source = json['source'];
-    image = json['image'];
-    category = json['category'];
+    imageUrl = json['image_url'];
     language = json['language'];
-    country = json['country'];
     publishedAt = json['published_at'];
+    source = json['source'];
+    categories = json['categories'].cast<String>();
+    relevanceScore = json['relevance_score'];
   }
 
   Map<String, dynamic> toJson() => {
-        'author': author,
+        'uuid': uuid,
         'title': title,
         'description': description,
+        'keywords': keywords,
+        'snippet': snippet,
         'url': url,
-        'source': source,
-        'image': image,
-        'category': category,
+        'image_url': imageUrl,
         'language': language,
-        'country': country,
         'published_at': publishedAt,
+        'source': source,
+        'categories': categories,
+        'relevance_score': relevanceScore,
       };
 }

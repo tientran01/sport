@@ -7,9 +7,16 @@ abstract class ArticleEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetArticleEvent extends ArticleEvent {
+class GetAllArticleEvent extends ArticleEvent {
   final Article? article;
-  const GetArticleEvent({this.article});
+  const GetAllArticleEvent({this.article});
+  @override
+  List<Object?> get props => [article];
+}
+
+class GetTopArticleEvent extends ArticleEvent {
+  final Article? article;
+  const GetTopArticleEvent({this.article});
   @override
   List<Object?> get props => [article];
 }

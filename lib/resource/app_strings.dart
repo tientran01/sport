@@ -65,10 +65,14 @@ class AppStrings {
   static const String feeds = "Feeds";
   static const String popular = "Popular";
   static const String following = "Following";
-  static const String newsTitleDemo =
-      "Football : L'international marocain Nayef Aguerd opéré avec succès";
-  static const String newsDescDemo =
-      "Leggi l'Articolo - In ogni angolo del pianeta Wimbledon è sinonimo di tennis. Sulla sacra erba del campo centrale più famoso del Pianeta si svolge il torneo che tutti i tennisti sognano di […]L'articolo Il football a Wimbledon proviene da il manifesto....";
+  static const String news = "Tin tức";
+  static const String createNewArticle = "Tạo bài viết mới";
+  static const String yourArticle = "Bài viết của bạn";
+  static const String titleArticle = "Tiêu đề bài viết";
+  static const String titleArticleInput = ".....";
+  static const String descArticle = "Mô tả bài viết";
+  static const String descArticleInput = "Bạn đang nghĩ gì đấy?";
+  static const String postArticle = "Đăng";
   static const String channelDescription = "Channel Description";
   static const String channelId = "Channel Id";
   static const String channelName = "Channel Name";

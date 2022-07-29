@@ -2,17 +2,17 @@ import 'package:equatable/equatable.dart';
 import 'package:sport_app/model/article.dart';
 
 class ArticleState extends Equatable {
-  final Article? article;
-  const ArticleState({this.article});
+  final List<Article>? articles;
+  const ArticleState({this.articles});
   const ArticleState.initState() : this();
   ArticleState copyWith({
-    Article? article,
+    List<Article>? articles,
   }) {
     return ArticleState(
-      article: article
+      articles: articles
     );
   }
 
   @override
-  List<Object?> get props => [article];
+  List<Object?> get props => [articles];
 }

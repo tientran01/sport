@@ -1,4 +1,6 @@
-import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
+import 'package:sport_app/bloc/article/bloc/article_event.dart';
+import 'package:sport_app/bloc/article/bloc/article_state.dart';
+import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
 import 'package:sport_app/component/name_section.dart';
@@ -9,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/pages/home/component/article_item_section.dart';
 import 'package:sport_app/pages/home/drawer_home.dart';
-import 'package:sport_app/pages/home/home_category_bar.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
 
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getIt.get<HomeBloc>().add(const UpdateBadgeEvent());
+    getIt.get<ArticleBloc>().add(const GetTopArticleEvent());
   }
 
   @override
@@ -41,63 +43,59 @@ class _HomeScreenState extends State<HomeScreen> {
                 ?.pushNamed(AppRouteName.notification),
           ),
           drawer: const DrawerHome(),
-          body: LayoutBuilder(
-            builder: (context, constraint) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    minHeight: constraint.maxHeight,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Constants.size15,
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 300,
+                    child: CustomSlider(),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Constants.size15,
-                    ),
-                    child: Column(
-                      children: [
-                        const HomeCategoryBar(),
-                        SizedBox(
-                          height: Constants.size25,
-                        ),
-                        const CustomSlider(),
-                        SizedBox(
-                          height: Constants.size25,
-                        ),
-                        NameSection(
-                          titleSection: AppStrings.justForYou,
-                          onTap: () {},
-                          text: AppStrings.seeMore,
-                        ),
-                        SizedBox(
-                          height: Constants.size10,
-                        ),
-                        Column(
-                          children: [
-                            ArticleItemSection(
-                              category: "general",
-                              title: AppStrings.newsTitleDemo,
-                              author: "Monica-Saia",
+                  SizedBox(
+                    height: Constants.size25,
+                  ),
+                  NameSection(
+                    titleSection: AppStrings.justForYou,
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState
+                          ?.pushNamed(AppRouteName.article);
+                    },
+                    text: AppStrings.seeMore,
+                  ),
+                  SizedBox(
+                    height: Constants.size10,
+                  ),
+                  BlocBuilder<ArticleBloc, ArticleState>(
+                    bloc: getIt.get<ArticleBloc>(),
+                    builder: (context, state) {
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.articles?.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            height: 150,
+                            child: ArticleItemSection(
+                              article: state.articles?.elementAt(index),
                               onTap: () {
                                 NavigationService.navigatorKey.currentState
-                                    ?.pushNamed(AppRouteName.detailArticle);
+                                    ?.pushNamed(
+                                  AppRouteName.detailArticle,
+                                  arguments: state.articles?.elementAt(index),
+                                );
                               },
                             ),
-                            ArticleItemSection(
-                              category: "general",
-                              title: AppStrings.newsTitleDemo,
-                              author: "Monica-Saia",
-                              onTap: () {
-                                NavigationService.navigatorKey.currentState
-                                    ?.pushNamed(AppRouteName.detailArticle);
-                              },
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                          );
+                        },
+                      );
+                    },
                   ),
-                ),
-              );
-            },
+                ],
+              ),
+            ),
           ),
         );
       },

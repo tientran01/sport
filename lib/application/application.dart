@@ -1,4 +1,7 @@
 class Application {
-  static String accessKey = "a308124678a07df4ebf6154c9c1dc0c9";
-  static String football = "football";
+  static String baseUrl = "https://api.thenewsapi.com/v1";
+  static String newsAllUrl = "/news/all";
+  static String newsTopUrl = "/news/top";
+  static String apiToken = "api_token";
+  static String apiTokenNumber = "PgMPsuSRvhwlC3OhWdGQHZvtHNWuHbuKssYD3tRT";
 }

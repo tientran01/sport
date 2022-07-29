@@ -1,22 +1,22 @@
-class Pagination {
+class Meta {
+  int? found;
+  int? returned;
   int? limit;
-  int? offset;
-  int? count;
-  int? total;
+  int? page;
 
-  Pagination({this.limit, this.offset, this.count, this.total});
+  Meta({this.found, this.returned, this.limit, this.page});
 
-  Pagination.fromJson(Map<String, dynamic> json) {
+  Meta.fromJson(Map<String, dynamic> json) {
+    found = json['found'];
+    returned = json['returned'];
     limit = json['limit'];
-    offset = json['offset'];
-    count = json['count'];
-    total = json['total'];
+    page = json['page'];
   }
 
   Map<String, dynamic> toJson() => {
+        'found': found,
+        'returned': returned,
         'limit': limit,
-        'offset': offset,
-        'count': count,
-        'total': total,
+        'page': page,
       };
 }
