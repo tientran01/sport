@@ -1,10 +1,6 @@
-import 'package:sport_app/component/action.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
-import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/custom_text_field.dart';
-import 'package:sport_app/helper/firebase_helper.dart';
-import 'package:sport_app/permission/open_image_picker.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -48,16 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ImageCircle(
-                      width: Constants.size100,
-                      height: Constants.size100,
-                      iconPath: AppResource.camera,
-                      imageUrl: imagePath,
-                      onTap: () {
-                        showActionUploadImage(context);
-                      },
-                    ),
-                    SizedBox(height: Constants.size30),
                     CustomTextField(
                       hintText: AppStrings.displayNameInput,
                       title: AppStrings.displayName,
@@ -118,38 +104,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
     } else {
       passwordController.clear();
     }
-  }
-
-  void showActionUploadImage(BuildContext context) {
-    ActionComponent.shared.showActionUploadImage(
-      context: context,
-      onCamera: () {
-        OpenImagePicker.getImage(
-          getImageFromCamera: true,
-          value: (String image) {
-            setState(
-              () {
-                imagePath = image;
-                NavigationService.navigatorKey.currentState?.pop();
-                FirebaseHelper.shared.uploadImageUser(imagePath: imagePath);
-              },
-            );
-          },
-        );
-      },
-      onGalley: () {
-        OpenImagePicker.getImage(
-          getImageFromCamera: false,
-          value: (String image) {
-            setState(
-              () {
-                imagePath = image;
-                NavigationService.navigatorKey.currentState?.pop();
-              },
-            );
-          },
-        );
-      },
-    );
   }
 }

@@ -1,7 +1,10 @@
 class Constants {
+  static double size350 = 350.0;
+  static double size300 = 300.0;
   static double size250 = 250.0;
   static double size200 = 200.0;
   static double size180 = 180.0;
+  static double size150 = 150.0;
   static double size120 = 120.0;
   static double size100 = 100.0;
   static double size60 = 60.0;

@@ -20,3 +20,14 @@ class GetTopArticleEvent extends ArticleEvent {
   @override
   List<Object?> get props => [article];
 }
+
+class GetArticleFromTextFieldEvent extends ArticleEvent {
+  final String? title;
+  final String? description;
+  final String? imageUrl;
+  const GetArticleFromTextFieldEvent({this.title, this.imageUrl, this.description});
+  @override
+  List<Object?> get props => [title, imageUrl, description];
+}
+
+class CreateNewArticleEvent extends ArticleEvent {}

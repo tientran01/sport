@@ -6,6 +6,7 @@ import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 
 import '../../../router/navigation_service.dart';
@@ -19,10 +20,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<void> _onGetUser(GetUserEvent event, Emitter<void> emitter) async {
     emitter(
       state.copyWith(
-        email: event.email,
-        password: event.password,
-        displayName: event.displayName,
-        photoUrl: event.photoUrl,
+        email: event.email ?? state.email,
+        password: event.password ?? state.password,
+        displayName: event.displayName ?? state.displayName,
+        photoUrl: event.photoUrl ?? state.photoUrl,
       ),
     );
   }
@@ -37,8 +38,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       );
       if (user != null) {
         Loading.dismiss();
+        UserInformation userInformation = UserInformation(
+          displayName: state.displayName,
+          email: state.email,
+          photoUrl: state.photoUrl,
+        );
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
-        await FirebaseHelper.shared.createUser();
+        await FirebaseHelper.shared.createUserInformation(userInformation);
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,

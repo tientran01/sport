@@ -16,18 +16,23 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
+  List<Widget> screens = const [
+    HomeScreen(),
+    ArticleScreen(),
+    YourArticleScreen(),
+    ProfileScreen()
+  ];
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
+      body: PageView.builder(
         controller: _pageController,
-        children: const [
-          HomeScreen(),
-          ArticleScreen(),
-          YourArticleScreen(),
-          ProfileScreen()
-        ],
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return screens.elementAt(index);
+        },
+        itemCount: screens.length,
         onPageChanged: (pageIndex) {
           pageChanged(pageIndex);
           selectIndex = pageIndex;

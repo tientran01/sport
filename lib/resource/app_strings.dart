@@ -53,6 +53,7 @@ class AppStrings {
   static const String profile = "Tài khoản";
   static const String avatar = "Ảnh đại diện";
   static const String nickName = "Biệt danh";
+  static const String uploadImage = "Tải ảnh lên";
   static const String splashScreen = "Splash Screen";
   static const String checkValidEmail = "Verify Your Email";
   static const String messCheckEmail = "Please check your email";

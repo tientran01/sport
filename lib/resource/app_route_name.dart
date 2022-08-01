@@ -12,7 +12,6 @@ class AppRouteName {
   static const String checkEmail = "/check_email";
   static const String notification = "/notification";
   static const String notificationDetail = "/notification_detail";
-  static const String createNewTask = "/create_new_task";
   static const String detailArticle = "/detail_article";
   static const String article = "/article";
   static const String yourArticle = "/your_article";

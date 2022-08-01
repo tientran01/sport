@@ -15,7 +15,6 @@ import 'package:sport_app/pages/main_screen.dart';
 import 'package:sport_app/pages/notification/notification_detail_screen.dart';
 import 'package:sport_app/pages/notification/notification_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
-import 'package:sport_app/pages/task/create_new_task.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +33,6 @@ class RouteName {
     AppRouteName.checkEmail: (BuildContext context) => const CheckEmailScreen(),
     AppRouteName.notification: (BuildContext context) => const NotificationScreen(),
     AppRouteName.notificationDetail: (BuildContext context) => const NotificationDetailScreen(),
-    AppRouteName.createNewTask: (BuildContext context) => const CreateNewTask(),
     AppRouteName.detailArticle: (BuildContext context) => const DetailArticleScreen(),
     AppRouteName.article: (BuildContext context) => const ArticleScreen(),
     AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),

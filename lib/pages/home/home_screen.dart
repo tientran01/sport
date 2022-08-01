@@ -4,12 +4,13 @@ import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
 import 'package:sport_app/component/name_section.dart';
+import 'package:sport_app/pages/home/component/article_item.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
 import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/pages/home/component/article_item_section.dart';
+import 'package:sport_app/pages/home/component/search.dart';
 import 'package:sport_app/pages/home/drawer_home.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
@@ -44,41 +45,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           drawer: const DrawerHome(),
           body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: Constants.size15,
               ),
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 300,
-                    child: CustomSlider(),
+                  const Search(),
+                  SizedBox(
+                    height: Constants.size15,
                   ),
+                  const CustomSlider(),
                   SizedBox(
                     height: Constants.size25,
                   ),
                   NameSection(
                     titleSection: AppStrings.justForYou,
+                    text: AppStrings.seeMore,
                     onTap: () {
                       NavigationService.navigatorKey.currentState
                           ?.pushNamed(AppRouteName.article);
                     },
-                    text: AppStrings.seeMore,
                   ),
                   SizedBox(
                     height: Constants.size10,
                   ),
-                  BlocBuilder<ArticleBloc, ArticleState>(
-                    bloc: getIt.get<ArticleBloc>(),
-                    builder: (context, state) {
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.articles?.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 150,
-                            child: ArticleItemSection(
+                  SizedBox(
+                    height: Constants.size250,
+                    child: BlocBuilder<ArticleBloc, ArticleState>(
+                        bloc: getIt.get<ArticleBloc>(),
+                        builder: (context, state) {
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) => ArticleItem(
                               article: state.articles?.elementAt(index),
                               onTap: () {
                                 NavigationService.navigatorKey.currentState
@@ -88,11 +88,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                             ),
+                            itemCount: state.articles?.length ?? 0,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                width: Constants.size10,
+                              );
+                            },
                           );
-                        },
-                      );
-                    },
-                  ),
+                        }),
+                  )
                 ],
               ),
             ),

@@ -10,14 +10,16 @@ class GetUserEvent extends SignUpEvent {
   final String? password;
   final String? displayName;
   final String? photoUrl;
+  final String? phoneNumber;
   GetUserEvent({
     this.email,
     this.password,
     this.displayName,
     this.photoUrl,
+    this.phoneNumber,
   });
   @override
-  List<Object?> get props => [email, password, displayName, photoUrl];
+  List<Object?> get props => [email, password, displayName, photoUrl, phoneNumber,];
 }
 
 class CreateNewAccountEvent extends SignUpEvent {

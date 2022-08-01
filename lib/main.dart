@@ -34,6 +34,7 @@ Future<void> main() async {
     FirebaseHelper.shared.setupToken();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
+    FirebaseHelper.shared.auth.currentUser;
     runApp(
       MultiBlocProvider(
         providers: [
@@ -84,7 +85,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         navigatorKey: NavigationService.navigatorKey,
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRouteName.home,
+        initialRoute: AppRouteName.splash,
         routes: RouteName.route,
         builder: EasyLoading.init(),
         theme: ThemeData(

@@ -12,13 +12,6 @@ class News {
 
   News.fromJson(Map<String, dynamic> json) {
     meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
-    if (json['data'] != null) {
-      articles = <Article>[];
-      json['data'].forEach(
-        (v) {
-          articles!.add(Article.fromJson(v));
-        },
-      );
-    }
+    articles = List<Article>.from(json['data'].map((e) => Article.fromJson(e)));
   }
 }

@@ -41,6 +41,7 @@ class AppResource {
   static String invisible = '$componentIcon/ic_invisible.png';
   static String bookmark = '$componentIcon/ic_bookmark.png';
   static String close = '$componentIcon/ic_close.png';
+  static String delete = '$componentIcon/ic_delete.png';
 
   static String coffeeJson = "assets/json/coffee.json";
 }

@@ -8,6 +8,7 @@ import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
+import 'package:sport_app/model/article.dart';
 import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -129,9 +130,15 @@ class FirebaseHelper {
         final UserCredential userCredential =
             await auth.signInWithCredential(authCredential);
         user = userCredential.user;
+        final userInformation = UserInformation(
+          email: user?.email,
+          displayName: user?.displayName,
+          photoUrl: user?.photoURL,
+          phoneNumber: user?.phoneNumber,
+        );
         SharedPreferencesHelper.shared
             .setString(AppKeyName.uid, user?.uid ?? "");
-        createUser();
+        createUserInformation(userInformation);
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
@@ -157,7 +164,13 @@ class FirebaseHelper {
       if (user != null) {
         Loading.showSuccess(AppStrings.success);
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
-        await FirebaseHelper.shared.createUser();
+        final userInformation = UserInformation(
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          phoneNumber: user.phoneNumber,
+        );
+        await FirebaseHelper.shared.createUserInformation(userInformation);
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,
@@ -235,17 +248,17 @@ class FirebaseHelper {
     SharedPreferencesHelper.shared.prefs?.remove(AppKeyName.badgeCount);
   }
 
-  Future<void> createUser() async {
+  Future<void> createUserInformation(UserInformation? userInformation) async {
     User? currentUser = auth.currentUser;
     CollectionReference userCollection =
         firebaseFirestore.collection(AppCollection.userInformation);
     DocumentReference userDocument = userCollection.doc(currentUser?.uid);
     final user = UserInformation(
-      uid: currentUser?.uid,
-      displayName: currentUser?.displayName,
-      email: currentUser?.email,
-      photoUrl: currentUser?.photoURL,
-    );
+        uid: currentUser?.uid ?? userInformation?.uid,
+        displayName: currentUser?.displayName ?? userInformation?.displayName,
+        email: currentUser?.email ?? userInformation?.email,
+        photoUrl: currentUser?.photoURL ?? userInformation?.photoUrl,
+        phoneNumber: currentUser?.phoneNumber ?? userInformation?.phoneNumber);
     await userDocument.set(user.toJson());
   }
 
@@ -284,5 +297,16 @@ class FirebaseHelper {
     userDocument.update({
       AppFieldName.displayName: displayName,
     });
+  }
+
+  Future<void> createNewArticle({String? title, String? description}) async {
+    CollectionReference articleCollection = FirebaseHelper.firebaseFirestore
+        .collection(AppCollection.articleCollection);
+    DocumentReference articleDocument = articleCollection.doc();
+    final newArticle = <String, dynamic>{
+      'title': title,
+      'description': description,
+    };
+    await articleDocument.set(newArticle);
   }
 }
