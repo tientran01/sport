@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/slide_route/slide_right_route.dart';
+import 'package:sport_app/pages/category/category_screen.dart';
 import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
 
 class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
   final int? notificationCount;
@@ -23,7 +26,11 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
           width: Constants.size27,
         ),
         onTap: () {
-          Scaffold.of(context).openDrawer();
+          NavigationService.navigatorKey.currentState?.push(
+            SlideRightRoute(
+              page: const CategoryScreen(),
+            ),
+          );
         },
       ),
       actions: [

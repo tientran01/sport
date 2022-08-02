@@ -1,7 +1,7 @@
 import 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
 import 'package:sport_app/bloc/splash/bloc/splash_event.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/component/circular_loading.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -18,11 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
     splashBloc.add(const CheckLoginEvent());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text(AppStrings.splashScreen),
+        child: CircularLoading(),
       ),
     );
   }

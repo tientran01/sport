@@ -1,61 +1,45 @@
 // ignore_for_file: prefer_void_to_null
 
+import 'package:sport_app/model/source.dart';
+
 class Article {
-  String? uuid;
+  Source? source;
+  String? author;
   String? title;
   String? description;
-  String? keywords;
-  String? snippet;
   String? url;
-  String? imageUrl;
-  String? language;
+  String? urlToImage;
   String? publishedAt;
-  String? source;
-  List<String>? categories;
-  Null relevanceScore;
+  String? content;
 
-  Article({
-    uuid,
-    title,
-    description,
-    keywords,
-    snippet,
-    url,
-    imageUrl,
-    language,
-    publishedAt,
-    source,
-    categories,
-    relevanceScore,
-  });
+  Article(
+      {this.source,
+      this.author,
+      this.title,
+      this.description,
+      this.url,
+      this.urlToImage,
+      this.publishedAt,
+      this.content});
 
   Article.fromJson(Map<String, dynamic> json) {
-    uuid = json['uuid'];
+    source = json['source'] != null ? Source.fromJson(json['source']) : null;
+    author = json['author'];
     title = json['title'];
     description = json['description'];
-    keywords = json['keywords'];
-    snippet = json['snippet'];
     url = json['url'];
-    imageUrl = json['image_url'];
-    language = json['language'];
-    publishedAt = json['published_at'];
-    source = json['source'];
-    categories = json['categories'].cast<String>();
-    relevanceScore = json['relevance_score'];
+    urlToImage = json['urlToImage'];
+    publishedAt = json['publishedAt'];
+    content = json['content'];
   }
 
   Map<String, dynamic> toJson() => {
-        'uuid': uuid,
+        'author': author,
         'title': title,
         'description': description,
-        'keywords': keywords,
-        'snippet': snippet,
         'url': url,
-        'image_url': imageUrl,
-        'language': language,
-        'published_at': publishedAt,
-        'source': source,
-        'categories': categories,
-        'relevance_score': relevanceScore,
+        'urlToImage': urlToImage,
+        'publishedAt': publishedAt,
+        'content': content,
       };
 }

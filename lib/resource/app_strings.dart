@@ -59,7 +59,9 @@ class AppStrings {
   static const String messCheckEmail = "Please check your email";
 
   static const String searchInput = "Tìm kiếm";
+  static const String category = "Chuyên mục";
   static const String justForYou = "Dành cho bạn";
+  static const String hotNews = "Tin nổi bật";
   static const String seeMore = "Xem thêm";
   static const String yourCollections = "Bộ sưu tập của bạn";
   static const String showAll = "Hiển thị tất cả";

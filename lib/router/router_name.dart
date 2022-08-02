@@ -9,6 +9,7 @@ import 'package:sport_app/pages/auth/phone/phone_input_screen.dart';
 import 'package:sport_app/pages/auth/phone/phone_otp_screen.dart';
 import 'package:sport_app/pages/auth/sign_up/sign_up_screen.dart';
 import 'package:sport_app/pages/auth/login/login_screen.dart';
+import 'package:sport_app/pages/category/category_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/auth/splash/splash_screen.dart';
 import 'package:sport_app/pages/main_screen.dart';
@@ -37,5 +38,6 @@ class RouteName {
     AppRouteName.article: (BuildContext context) => const ArticleScreen(),
     AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),
     AppRouteName.createNewArticle: (BuildContext context) => const CreateNewArticle(),
+    AppRouteName.category: (BuildContext context) => const CategoryScreen(),
   };
 }

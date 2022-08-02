@@ -7,16 +7,16 @@ abstract class ArticleEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetAllArticleEvent extends ArticleEvent {
+class GetTopHeadlinesEvent extends ArticleEvent {
   final Article? article;
-  const GetAllArticleEvent({this.article});
+  const GetTopHeadlinesEvent({this.article});
   @override
   List<Object?> get props => [article];
 }
 
-class GetTopArticleEvent extends ArticleEvent {
+class GetTopHeadlinesWithSourceEvent extends ArticleEvent {
   final Article? article;
-  const GetTopArticleEvent({this.article});
+  const GetTopHeadlinesWithSourceEvent({this.article});
   @override
   List<Object?> get props => [article];
 }
@@ -25,9 +25,21 @@ class GetArticleFromTextFieldEvent extends ArticleEvent {
   final String? title;
   final String? description;
   final String? imageUrl;
-  const GetArticleFromTextFieldEvent({this.title, this.imageUrl, this.description});
+  const GetArticleFromTextFieldEvent(
+      {this.title, this.imageUrl, this.description});
   @override
   List<Object?> get props => [title, imageUrl, description];
+}
+
+class GetAppleEvent extends ArticleEvent {}
+class GetBitcoinEvent extends ArticleEvent {}
+class GetTestaEvent extends ArticleEvent {}
+
+class GetCategoryNameEvent extends ArticleEvent {
+  final String? nameCategory;
+  const GetCategoryNameEvent({this.nameCategory});
+  @override
+  List<Object?> get props => [nameCategory];
 }
 
 class CreateNewArticleEvent extends ArticleEvent {}

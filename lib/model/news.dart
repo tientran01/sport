@@ -1,17 +1,24 @@
 import 'package:sport_app/model/article.dart';
-import 'package:sport_app/model/pagination.dart';
 
 class News {
-  Meta? meta;
+  String? status;
+  int? totalResults;
   List<Article>? articles;
 
   News({
-    this.meta,
+    this.status,
+    this.totalResults,
     this.articles,
   });
 
   News.fromJson(Map<String, dynamic> json) {
-    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
-    articles = List<Article>.from(json['data'].map((e) => Article.fromJson(e)));
+    status = json['status'];
+    totalResults = json['totalResults'];
+    if (json['articles'] != null) {
+      articles = <Article>[];
+      json['articles'].forEach((article) {
+        articles!.add(Article.fromJson(article));
+      });
+    }
   }
 }

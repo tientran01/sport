@@ -7,7 +7,6 @@ class TextView extends StatelessWidget {
   final Color? textColor;
   final double? fontSize;
   final FontWeight? fontWeight;
-  final bool? isMaxLine;
   final int? lineNumber;
   const TextView({
     Key? key,
@@ -15,7 +14,6 @@ class TextView extends StatelessWidget {
     this.textColor,
     this.fontSize,
     this.fontWeight,
-    this.isMaxLine = false,
     this.lineNumber,
   }) : super(key: key);
 
@@ -29,7 +27,7 @@ class TextView extends StatelessWidget {
         color: textColor ?? AppColor.black,
       ),
       overflow: TextOverflow.ellipsis,
-      maxLines: isMaxLine == true ? lineNumber : 1,
+      maxLines: lineNumber ,
     );
   }
 }

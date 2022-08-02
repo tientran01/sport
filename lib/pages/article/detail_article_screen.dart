@@ -16,63 +16,83 @@ class DetailArticleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Article? article = ModalRoute.of(context)?.settings.arguments as Article?;
     return BlocBuilder<ArticleBloc, ArticleState>(
-        bloc: getIt.get<ArticleBloc>(),
-        builder: (context, state) {
-          return Scaffold(
-            appBar: DetailAppBar(
-              article: article,
-              onTap: () {
-                NavigationService.navigatorKey.currentState?.pop();
-              },
-            ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size30,
-                  vertical: Constants.size25,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: Constants.size10),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Constants.size10,
-                        vertical: Constants.size5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColor.gainsboro,
-                        borderRadius: BorderRadius.circular(Constants.size20),
-                      ),
-                      child: TextView(
-                        text: article?.categories?.first,
-                        textColor: AppColor.arsenic,
-                        fontSize: Constants.size15,
-                      ),
+      bloc: getIt.get<ArticleBloc>(),
+      builder: (context, state) {
+        return Scaffold(
+          appBar: DetailAppBar(
+            article: article,
+            onTap: () {
+              NavigationService.navigatorKey.currentState?.pop();
+            },
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Constants.size30,
+                vertical: Constants.size25,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: Constants.size10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Constants.size10,
+                      vertical: Constants.size5,
                     ),
-                    TextView(
-                      text: article?.title,
-                      textColor: AppColor.black,
-                      fontSize: Constants.size20,
-                      fontWeight: FontWeight.w800,
-                      isMaxLine: true,
-                      lineNumber: 4,
+                    decoration: BoxDecoration(
+                      color: AppColor.gainsboro,
+                      borderRadius: BorderRadius.circular(Constants.size20),
                     ),
-                    SizedBox(
-                      height: Constants.size25,
-                    ),
-                    TextView(
-                      text: article?.description,
-                      textColor: AppColor.darkSilver,
+                    child: TextView(
+                      text: article?.source?.name,
+                      textColor: AppColor.arsenic,
                       fontSize: Constants.size15,
-                      isMaxLine: true,
+                    ),
+                  ),
+                  TextView(
+                    text: article?.title,
+                    textColor: AppColor.black,
+                    fontSize: Constants.size20,
+                    fontWeight: FontWeight.w800,
+                    lineNumber: 4,
+                  ),
+                  SizedBox(
+                    height: Constants.size25,
+                  ),
+                  TextView(
+                    text: article?.description,
+                    textColor: AppColor.darkSilver,
+                    fontSize: Constants.size15,
+                    lineNumber: 6,
+                  ),
+                  SizedBox(
+                    height: Constants.size10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.zero,
+                    child: SizedBox(
+                      child: Image.asset(
+                        AppResource.quote,
+                        width: Constants.size25,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: Constants.size5),
+                    child: TextView(
+                      text: article?.content,
+                      textColor: AppColor.gainsboro,
+                      fontSize: Constants.size15,
                       lineNumber: 6,
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/component/shimmer.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/article.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -33,7 +34,7 @@ class ArticleItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomImage(
-                  imageUrl: article?.imageUrl,
+                  imageUrl: article?.urlToImage,
                   width: Constants.size250,
                   height: Constants.size150,
                 ),
@@ -59,7 +60,7 @@ class ArticleItem extends StatelessWidget {
                         color: AppColor.gainsboro,
                       ),
                       child: CachedNetworkImage(
-                        imageUrl: article?.imageUrl ?? "",
+                        imageUrl: article?.urlToImage ?? "",
                         imageBuilder: (context, imageProvider) => Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -106,7 +107,7 @@ class ArticleItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Constants.size10),
                 ),
                 child: TextView(
-                  text: article?.categories?.last,
+                  text: article?.source?.name,
                   textColor: AppColor.black,
                   fontSize: Constants.size10,
                 ),
@@ -114,6 +115,62 @@ class ArticleItem extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ArticleItemShimmer extends StatelessWidget {
+  const ArticleItemShimmer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(Constants.size5),
+      width: Constants.size250,
+      height: Constants.size350,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Constants.size15),
+        color: AppColor.gainsboro.withOpacity(0.3),
+      ),
+      child: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Shimmer(
+                width: Constants.size250,
+                height: Constants.size150,
+              ),
+              SizedBox(
+                height: Constants.size10,
+              ),
+              Shimmer(
+                width: Constants.size250,
+                height: Constants.size17,
+              ),
+              SizedBox(
+                height: Constants.size5,
+              ),
+              Row(
+                children: [
+                  ShimmerCircle(
+                    width: Constants.size45,
+                    height: Constants.size45,
+                  ),
+                  SizedBox(
+                    width: Constants.size10,
+                  ),
+                  Shimmer(
+                    width: Constants.size150,
+                    height: Constants.size17,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

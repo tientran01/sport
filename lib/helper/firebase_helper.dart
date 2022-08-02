@@ -8,7 +8,6 @@ import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/model/article.dart';
 import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';

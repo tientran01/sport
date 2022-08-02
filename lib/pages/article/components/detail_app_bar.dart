@@ -48,7 +48,7 @@ class DetailAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       flexibleSpace: CachedNetworkImage(
-        imageUrl: article?.imageUrl ?? AppNetwork.carouselImage_3,
+        imageUrl: article?.urlToImage ?? AppNetwork.carouselImage_3,
         fit: BoxFit.fill,
       ),
       backgroundColor: Colors.transparent,

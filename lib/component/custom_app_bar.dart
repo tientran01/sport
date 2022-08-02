@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         rightIconPath != null
             ? IconButton(
-                onPressed: () {},
+                onPressed: onPressedRight,
                 icon: Image.asset(
                   rightIconPath ?? "",
                   width: Constants.size27,

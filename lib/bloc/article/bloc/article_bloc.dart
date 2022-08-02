@@ -4,6 +4,7 @@ import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
+import 'package:sport_app/main.dart';
 import 'package:sport_app/model/news.dart';
 import 'package:sport_app/repositories/api_client.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -11,17 +12,21 @@ import 'package:sport_app/router/navigation_service.dart';
 
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
   ArticleBloc() : super(const ArticleState.initState()) {
-    on<GetAllArticleEvent>(_onGetAllArticle);
-    on<GetTopArticleEvent>(_onGetTopArticle);
+    on<GetTopHeadlinesEvent>(_onGetTopHeadlines);
     on<GetArticleFromTextFieldEvent>(_onGetArticleFromTextField);
     on<CreateNewArticleEvent>(_onCreateNewArticle);
+    on<GetTopHeadlinesWithSourceEvent>(_onGetTopHeadlinesWithSource);
+    on<GetAppleEvent>(_onGetApple);
+    on<GetBitcoinEvent>(_onGetBitcoin);
+    on<GetTestaEvent>(_onGetTesla);
+    on<GetCategoryNameEvent>(_onGetCategoryName);
   }
 
-  Future<void> _onGetAllArticle(
-    GetAllArticleEvent event,
+  Future<void> _onGetTopHeadlines(
+    GetTopHeadlinesEvent event,
     Emitter<void> emitter,
   ) async {
-    News? news = await ApiClient.api.getAllNews();
+    News? news = await ApiClient.api.getTopHeadlines();
     if (news != null) {
       Loading.dismiss();
       emitter(state.copyWith(articles: news.articles));
@@ -30,12 +35,11 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     }
   }
 
-  Future<void> _onGetTopArticle(
-    GetTopArticleEvent event,
+  Future<void> _onGetTopHeadlinesWithSource(
+    GetTopHeadlinesWithSourceEvent event,
     Emitter<void> emitter,
   ) async {
-    Loading.show();
-    News? news = await ApiClient.api.getTopNews();
+    News? news = await ApiClient.api.getTopHeadlinesWithSource();
     if (news != null) {
       Loading.dismiss();
       emitter(state.copyWith(articles: news.articles));
@@ -64,6 +68,53 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       description: state.description,
     );
     NavigationService.navigatorKey.currentState?.pop();
+  }
+
+  Future<void> _onGetApple(
+    GetAppleEvent event,
+    Emitter<void> emitter,
+  ) async {
+    News? news = await ApiClient.api.getApple();
+    if (news != null) {
+      Loading.dismiss();
+      emitter(state.copyWith(articles: news.articles));
+    } else {
+      Loading.showError(AppStrings.error);
+    }
+  }
+
+  Future<void> _onGetBitcoin(
+    GetBitcoinEvent event,
+    Emitter<void> emitter,
+  ) async {
+    News? news = await ApiClient.api.getBitcoin();
+    if (news != null) {
+      Loading.dismiss();
+      emitter(state.copyWith(articles: news.articles));
+    } else {
+      Loading.showError(AppStrings.error);
+    }
+  }
+
+  Future<void> _onGetTesla(
+    GetTestaEvent event,
+    Emitter<void> emitter,
+  ) async {
+    News? news = await ApiClient.api.getTesla();
+    if (news != null) {
+      Loading.dismiss();
+      emitter(state.copyWith(articles: news.articles));
+    } else {
+      Loading.showError(AppStrings.error);
+    }
+  }
+
+  Future<void> _onGetCategoryName(
+    GetCategoryNameEvent event,
+    Emitter<void> emitter,
+  ) async {
+    emitter(state.copyWith(nameCategory: event.nameCategory));
+    getIt.get<ArticleBloc>().add(GetAppleEvent());
   }
 
   static ArticleBloc of(BuildContext context) =>

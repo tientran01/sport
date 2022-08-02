@@ -1,9 +1,12 @@
+import 'package:shimmer/shimmer.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
+import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/name_section.dart';
+import 'package:sport_app/model/article.dart';
 import 'package:sport_app/pages/home/component/article_item.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
@@ -11,7 +14,6 @@ import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/pages/home/component/search.dart';
-import 'package:sport_app/pages/home/drawer_home.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
 
@@ -28,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getIt.get<HomeBloc>().add(const UpdateBadgeEvent());
-    getIt.get<ArticleBloc>().add(const GetTopArticleEvent());
   }
 
   @override
@@ -43,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: () => NavigationService.navigatorKey.currentState
                 ?.pushNamed(AppRouteName.notification),
           ),
-          drawer: const DrawerHome(),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(
@@ -56,12 +56,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: Constants.size15,
                   ),
-                  const CustomSlider(),
+                  BlocProvider<ArticleBloc>(
+                    create: (context) =>
+                        ArticleBloc()..add(const GetTopHeadlinesEvent()),
+                    child: const CustomSlider(),
+                  ),
                   SizedBox(
                     height: Constants.size25,
                   ),
                   NameSection(
-                    titleSection: AppStrings.justForYou,
+                    titleSection: AppStrings.hotNews,
                     text: AppStrings.seeMore,
                     onTap: () {
                       NavigationService.navigatorKey.currentState
@@ -71,33 +75,71 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: Constants.size10,
                   ),
-                  SizedBox(
-                    height: Constants.size250,
-                    child: BlocBuilder<ArticleBloc, ArticleState>(
-                        bloc: getIt.get<ArticleBloc>(),
-                        builder: (context, state) {
-                          return ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => ArticleItem(
-                              article: state.articles?.elementAt(index),
-                              onTap: () {
-                                NavigationService.navigatorKey.currentState
-                                    ?.pushNamed(
-                                  AppRouteName.detailArticle,
-                                  arguments: state.articles?.elementAt(index),
-                                );
-                              },
-                            ),
-                            itemCount: state.articles?.length ?? 0,
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                width: Constants.size10,
+                  BlocProvider<ArticleBloc>(
+                    create: (context) => ArticleBloc()
+                      ..add(const GetTopHeadlinesWithSourceEvent()),
+                    child: SizedBox(
+                      height: Constants.size250,
+                      child: BlocConsumer<ArticleBloc, ArticleState>(
+                        listener: (BuildContext context, ArticleState state) {},
+                        builder: (context, articleHomeState) {
+                          if (articleHomeState is LoadingArticle) {
+                            return const CircularLoading();
+                          } else if (articleHomeState is FailureArticle) {
+                            return Text("${articleHomeState.error}");
+                          }
+                          // ignore: unnecessary_type_check
+                          if (articleHomeState is ArticleState) {
+                            if (articleHomeState.articles == null) {
+                              return Shimmer.fromColors(
+                                  baseColor: AppColor.black,
+                                  highlightColor: AppColor.jetStream,
+                                  child: ListView.separated(
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return const ArticleItemShimmer();
+                                    },
+                                    itemCount:
+                                        articleHomeState.articles?.length ?? 0,
+                                    separatorBuilder:
+                                        (BuildContext context, int index) {
+                                      return SizedBox(
+                                        width: Constants.size10,
+                                      );
+                                    },
+                                  ));
+                            } else {
+                              List<Article>? articles =
+                                  articleHomeState.articles;
+                              return ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) => ArticleItem(
+                                  article: articles?.elementAt(index),
+                                  onTap: () {
+                                    NavigationService.navigatorKey.currentState
+                                        ?.pushNamed(
+                                      AppRouteName.detailArticle,
+                                      arguments: articles?.elementAt(index),
+                                    );
+                                  },
+                                ),
+                                itemCount:
+                                    articleHomeState.articles?.length ?? 0,
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return SizedBox(
+                                    width: Constants.size10,
+                                  );
+                                },
                               );
-                            },
-                          );
-                        }),
-                  )
+                            }
+                          } else {
+                            return const CircularLoading();
+                          }
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
