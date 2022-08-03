@@ -22,6 +22,17 @@ class _ArticleScreenState extends State<ArticleScreen>
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    tabController.animation!.addListener(() {
+      setState(() {
+        selectIndex = tabController.index;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,12 +45,9 @@ class _ArticleScreenState extends State<ArticleScreen>
           text: AppStrings.news,
           fontSize: Constants.size17,
         ),
-        automaticallyImplyLeading: false,
         bottom: TabBar(
           controller: tabController,
-          onTap: (int index) {
-            _onTapItem(index);
-          },
+          isScrollable: true,
           indicatorColor: AppColor.black,
           tabs: [
             _buildTabBarItem(text: Application.appleParamValue, index: 0),
@@ -52,15 +60,30 @@ class _ArticleScreenState extends State<ArticleScreen>
         controller: tabController,
         children: [
           BlocProvider<ArticleBloc>(
-            create: (context) => ArticleBloc()..add(GetAppleEvent()),
+            create: (context) => ArticleBloc()
+              ..add(
+                GetEverythingEvent(
+                  nameCategory: Application.appleParamValue,
+                ),
+              ),
             child: const Articles(),
           ),
           BlocProvider<ArticleBloc>(
-            create: (context) => ArticleBloc()..add(GetBitcoinEvent()),
+            create: (context) => ArticleBloc()
+              ..add(
+                GetEverythingEvent(
+                  nameCategory: Application.bitcoinParamValue,
+                ),
+              ),
             child: const Articles(),
           ),
           BlocProvider<ArticleBloc>(
-            create: (context) => ArticleBloc()..add(GetTestaEvent()),
+            create: (context) => ArticleBloc()
+              ..add(
+                GetEverythingEvent(
+                  nameCategory: Application.teslaParamValue,
+                ),
+              ),
             child: const Articles(),
           ),
         ],
@@ -70,24 +93,10 @@ class _ArticleScreenState extends State<ArticleScreen>
 
   Tab _buildTabBarItem({required String text, required int index}) {
     return Tab(
-      child: AnimatedBuilder(
-        animation: tabController,
-        builder: (context, chiild) {
-          return TextView(
-            text: text,
-            textColor:
-                selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
-          );
-        },
+      child: TextView(
+        text: text,
+        textColor: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
       ),
-    );
-  }
-
-  void _onTapItem(int index) {
-    setState(
-      () {
-        selectIndex = index;
-      },
     );
   }
 }

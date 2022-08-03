@@ -1,10 +1,11 @@
 class AppCollection {
   static const String userInformation = "users";
-  static const String articleCollection = "article";
+  static const String yourArticleCollection = "yourArticle";
 }
 
 class AppFolder {
   static const String imageUser = "imageUser/";
+  static const String imageArticle = "imageArticle/";
 }
 
 class AppFieldName {

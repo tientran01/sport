@@ -26,16 +26,6 @@ class CustomImage extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Constants.size15),
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            Colors.black,
-            Colors.black45,
-            Colors.black12,
-            Colors.black.withOpacity(0),
-          ],
-        ),
       ),
       child: CachedNetworkImage(
         imageUrl: imageUrl ?? "",
@@ -52,10 +42,12 @@ class CustomImage extends StatelessWidget {
         placeholder: (context, url) => const Center(
           child: CircularProgressIndicator(),
         ),
-        errorWidget: (context, url, error) => Image.asset(
-          AppResource.error,
-          width: Constants.size27,
-          color: AppColor.gainsboro,
+        errorWidget: (context, url, error) => Center(
+          child: Image.asset(
+            AppResource.error,
+            width: Constants.size27,
+            color: AppColor.gainsboro,
+          ),
         ),
       ),
     );

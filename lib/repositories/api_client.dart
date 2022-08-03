@@ -28,29 +28,9 @@ class ApiClient {
     return news;
   }
 
-  Future<News?> getApple() async {
+  Future<News?> getEverything({required String endpoint}) async {
     Map<String, dynamic>? param = {
-      Application.qParamKey: Application.appleParamValue,
-      Application.apiKey: Application.apiKeyNumber,
-    };
-    final data = await NetWorkManager.shared.get(Application.everything, param);
-    News news = News.fromJson(data);
-    return news;
-  }
-
-  Future<News?> getBitcoin() async {
-    Map<String, dynamic>? param = {
-      Application.qParamKey: Application.bitcoinParamValue,
-      Application.apiKey: Application.apiKeyNumber,
-    };
-    final data = await NetWorkManager.shared.get(Application.everything, param);
-    News news = News.fromJson(data);
-    return news;
-  }
-
-  Future<News?> getTesla() async {
-    Map<String, dynamic>? param = {
-      Application.qParamKey: Application.teslaParamValue,
+      Application.qParamKey: endpoint,
       Application.apiKey: Application.apiKeyNumber,
     };
     final data = await NetWorkManager.shared.get(Application.everything, param);

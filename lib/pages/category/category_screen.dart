@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/application/application.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/main.dart';
+import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/category/components/category_item.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -23,11 +23,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     super.initState();
   }
 
-  List<String> nameCategory = [
-    Application.appleParamValue,
-    Application.teslaParamValue,
-    Application.bitcoinParamValue,
-  ];
+  var categories = Category.categories;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +31,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         title: AppStrings.category,
         rightIconPath: AppResource.rightArrow,
         onPressedRight: () {
-          NavigationService.navigatorKey.currentState
-              ?.pushNamed(AppRouteName.main);
+          NavigationService.navigatorKey.currentState?.pop();
         },
       ),
       body: GridView.builder(
@@ -47,18 +42,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
           crossAxisCount: 2,
           crossAxisSpacing: Constants.size5,
         ),
-        itemCount: nameCategory.length,
+        itemCount: categories.length,
         itemBuilder: (BuildContext context, int index) {
           return Center(
             child: CategoryItem(
-              name: nameCategory.elementAt(index),
+              category: categories.elementAt(index),
               onTap: () {
                 getIt.get<ArticleBloc>().add(
                       GetCategoryNameEvent(
-                        nameCategory: nameCategory.elementAt(index),
+                        nameCategory: categories.elementAt(index).text,
                       ),
                     );
-                NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.article, arguments: nameCategory.elementAt(index));
+                NavigationService.navigatorKey.currentState?.pushNamed(
+                  AppRouteName.article,
+                  arguments: categories.elementAt(index),
+                );
               },
             ),
           );

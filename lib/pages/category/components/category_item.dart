@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/model/category.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class CategoryItem extends StatelessWidget {
   final VoidCallback? onTap;
-  final String? name;
-  final String? imageUrl;
-
+  final Category? category;
   const CategoryItem({
     Key? key,
     this.onTap,
-    this.name,
-    this.imageUrl,
+    this.category,
   }) : super(key: key);
 
   @override
@@ -23,21 +22,31 @@ class CategoryItem extends StatelessWidget {
         width: Constants.size180,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(Constants.size10),
-          color: AppColor.white,
-          image: DecorationImage(
-            image: NetworkImage(
-              imageUrl ?? AppNetwork.carouselImage_1,
-            ),
-            fit: BoxFit.fill,
-            opacity: 0.8,
-          ),
+          color: category?.color,
         ),
         child: Center(
-          child: TextView(
-            text: name,
-            fontSize: Constants.size17,
-            textColor: AppColor.white,
-            fontWeight: FontWeight.w700,
+          child: Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    Constants.size10,
+                  ),
+                ),
+                child: CustomImage(
+                  imageUrl: category?.imageUrl ?? AppNetwork.carouselImage_1,
+                  height: Constants.size180,
+                ),
+              ),
+              Center(
+                child: TextView(
+                  text: category?.text,
+                  fontSize: Constants.size17,
+                  textColor: AppColor.white,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -21,19 +21,13 @@ class GetTopHeadlinesWithSourceEvent extends ArticleEvent {
   List<Object?> get props => [article];
 }
 
-class GetArticleFromTextFieldEvent extends ArticleEvent {
-  final String? title;
-  final String? description;
-  final String? imageUrl;
-  const GetArticleFromTextFieldEvent(
-      {this.title, this.imageUrl, this.description});
-  @override
-  List<Object?> get props => [title, imageUrl, description];
-}
 
-class GetAppleEvent extends ArticleEvent {}
-class GetBitcoinEvent extends ArticleEvent {}
-class GetTestaEvent extends ArticleEvent {}
+class GetEverythingEvent extends ArticleEvent {
+  final String? nameCategory;
+  const GetEverythingEvent({this.nameCategory});
+  @override
+  List<Object?> get props => [nameCategory];
+}
 
 class GetCategoryNameEvent extends ArticleEvent {
   final String? nameCategory;
@@ -41,5 +35,3 @@ class GetCategoryNameEvent extends ArticleEvent {
   @override
   List<Object?> get props => [nameCategory];
 }
-
-class CreateNewArticleEvent extends ArticleEvent {}

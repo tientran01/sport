@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/modules/bloc_module.dart';
@@ -34,7 +35,6 @@ Future<void> main() async {
     FirebaseHelper.shared.setupToken();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
-    FirebaseHelper.shared.auth.currentUser;
     runApp(
       MultiBlocProvider(
         providers: [
@@ -48,6 +48,7 @@ Future<void> main() async {
           BlocProvider(create: (_) => ForgetPasswordBloc()),
           BlocProvider(create: (_) => NotificationBloc()),
           BlocProvider(create: (_) => ArticleBloc()),
+          BlocProvider(create: (_) => YourArticleBloc()),
         ],
         child: const MyApp(),
       ),

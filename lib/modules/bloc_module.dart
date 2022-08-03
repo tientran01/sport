@@ -1,4 +1,5 @@
 import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 import 'package:sport_app/main.dart';
 
 class BlocModule {
@@ -14,5 +15,6 @@ class BlocModule {
     getIt.registerLazySingleton<ForgetPasswordBloc>(() => ForgetPasswordBloc());
     getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
     getIt.registerLazySingleton<ArticleBloc>(() => ArticleBloc());
+    getIt.registerLazySingleton<YourArticleBloc>(() => YourArticleBloc());
   }
 }
