@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/slide_route/slide_right_route.dart';
-import 'package:sport_app/pages/category/category_screen.dart';
+import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/pages/profile/profile_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
@@ -20,15 +21,21 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       centerTitle: false,
-      title: InkWell(
-        child: Image.asset(
-          AppResource.menu,
-          width: Constants.size27,
+      title: GestureDetector(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TextView(
+              text: AppStrings.hello,
+              fontSize: Constants.size17,
+              fontWeight: FontWeight.w700,
+            ),
+          ],
         ),
         onTap: () {
           NavigationService.navigatorKey.currentState?.push(
             SlideRightRoute(
-              page: const CategoryScreen(),
+              page: const ProfileScreen(),
             ),
           );
         },

@@ -9,6 +9,10 @@ class Category {
   Category({this.text, this.imageUrl, this.color});
   static List<Category> categories = [
     Category(
+      text: Application.top,
+      color: AppColor.gargoyleGas,
+    ),
+    Category(
       text: Application.appleParamValue,
       color: AppColor.blue,
     ),

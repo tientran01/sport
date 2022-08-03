@@ -11,4 +11,5 @@ class Application {
   static String appleParamValue = "apple";
   static String teslaParamValue = "tesla";
   static String bitcoinParamValue = "bitcoin";
+  static String top = "top";
 }

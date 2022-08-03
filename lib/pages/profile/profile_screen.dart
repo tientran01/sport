@@ -42,8 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           appBar: CustomAppBar(
             title: AppStrings.profile,
             onPressedLeft: () {
-              NavigationService.navigatorKey.currentState
-                  ?.pushNamed(AppRouteName.main);
+              NavigationService.navigatorKey.currentState?.pop();
             },
           ),
           body: SingleChildScrollView(

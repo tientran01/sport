@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/article.dart';
@@ -28,60 +27,43 @@ class _CustomSliderState extends State<CustomSlider> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<ArticleBloc, ArticleState>(
-      listener: (context, state) {},
+      listener: (BuildContext context, ArticleState state) {},
       builder: (context, state) {
-        if (state is LoadingArticle) {
-          return const CircularLoading();
-        } else if (state is FailureArticle) {
-          return Center(
-            child: Text("${state.error}"),
-          );
-        }
-        // ignore: unnecessary_type_check
-        if (state is ArticleState) {
-          if (state.articles == null) {
-            return const CircularLoading();
-          } else {
-            List<Article>? articles = state.articles;
-            return SizedBox(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CarouselSlider.builder(
-                    itemCount: articles?.length,
-                    itemBuilder: (context, index, realIndex) {
-                      return GestureDetector(
-                        onTap: () {
-                          NavigationService.navigatorKey.currentState
-                              ?.pushNamed(
-                            AppRouteName.detailArticle,
-                            arguments: articles?.elementAt(index),
-                          );
-                        },
-                        child: buildSliderItem(
-                          articles?.elementAt(index),
-                          size.width,
-                          index,
-                        ),
+        List<Article>? articles = state.articles;
+        return SizedBox(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CarouselSlider.builder(
+                itemCount: articles?.length ?? 5,
+                itemBuilder: (context, index, realIndex) {
+                  return GestureDetector(
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState?.pushNamed(
+                        AppRouteName.detailArticle,
+                        arguments: articles?.elementAt(index),
                       );
                     },
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 2),
-                      viewportFraction: 1,
-                      height: Constants.size200,
-                      onPageChanged: (index, reason) => setState(
-                        () => activeIndex = index,
-                      ),
+                    child: buildSliderItem(
+                      articles?.elementAt(index),
+                      size.width,
+                      index,
                     ),
+                  );
+                },
+                options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 2),
+                  viewportFraction: 1,
+                  height: Constants.size200,
+                  onPageChanged: (index, reason) => setState(
+                    () => activeIndex = index,
                   ),
-                ],
+                ),
               ),
-            );
-          }
-        } else {
-          return const CircularLoading();
-        }
+            ],
+          ),
+        );
       },
     );
   }

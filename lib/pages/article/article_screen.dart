@@ -4,6 +4,7 @@ import 'package:sport_app/application/application.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/articles.dart';
 import 'package:sport_app/resource/resource.dart';
 
@@ -18,10 +19,12 @@ class _ArticleScreenState extends State<ArticleScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   int selectIndex = 0;
+  List<Category> categories = Category.categories;
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    tabController =
+        TabController(length: categories.length, vsync: this, initialIndex: 0);
     tabController.animation!.addListener(() {
       setState(() {
         selectIndex = tabController.index;
@@ -47,18 +50,24 @@ class _ArticleScreenState extends State<ArticleScreen>
         ),
         bottom: TabBar(
           controller: tabController,
-          isScrollable: true,
           indicatorColor: AppColor.black,
+          isScrollable: true,
           tabs: [
-            _buildTabBarItem(text: Application.appleParamValue, index: 0),
-            _buildTabBarItem(text: Application.bitcoinParamValue, index: 1),
-            _buildTabBarItem(text: Application.teslaParamValue, index: 2),
+            _buildTabBarItem(category: categories.elementAt(0), index: 0),
+            _buildTabBarItem(category: categories.elementAt(1), index: 1),
+            _buildTabBarItem(category: categories.elementAt(2), index: 2),
+            _buildTabBarItem(category: categories.elementAt(3), index: 3),
           ],
         ),
       ),
       body: TabBarView(
         controller: tabController,
         children: [
+          BlocProvider<ArticleBloc>(
+            create: (context) =>
+                ArticleBloc()..add(const GetTopHeadlinesEvent()),
+            child: const Articles(),
+          ),
           BlocProvider<ArticleBloc>(
             create: (context) => ArticleBloc()
               ..add(
@@ -91,10 +100,10 @@ class _ArticleScreenState extends State<ArticleScreen>
     );
   }
 
-  Tab _buildTabBarItem({required String text, required int index}) {
+  Tab _buildTabBarItem({required Category category, required int index}) {
     return Tab(
       child: TextView(
-        text: text,
+        text: category.text,
         textColor: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
       ),
     );

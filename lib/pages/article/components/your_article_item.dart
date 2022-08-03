@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/your_article.dart';
@@ -17,16 +16,8 @@ class YourArticleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<ArticleBloc, ArticleState>(
-      listener: (BuildContext context, ArticleState state) {},
+    return BlocBuilder<ArticleBloc, ArticleState>(
       builder: (context, state) {
-        if (state is LoadingArticle) {
-          return const CircularLoading();
-        } else if (state is FailureArticle) {
-          return Text("${state.error}");
-        }
-        // ignore: unnecessary_type_check
-        if (state is ArticleState) {
           return Padding(
             padding: EdgeInsets.symmetric(
               horizontal: Constants.size10,
@@ -142,9 +133,6 @@ class YourArticleItem extends StatelessWidget {
               ),
             ),
           );
-        } else {
-          return const CircularLoading();
-        }
       },
     );
   }

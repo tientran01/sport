@@ -29,6 +29,7 @@ class AppStrings {
   static const String logout = "Đăng xuất";
   static const String edit = "Chỉnh sửa";
   static const String calendar = "Lên lịch";
+  static const String hello = "Xin chào";
 
   static const String or = 'OR';
   static const String send = "Gửi";
