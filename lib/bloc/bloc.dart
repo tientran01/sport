@@ -8,3 +8,4 @@ export 'package:sport_app/bloc/sign_up/bloc/sign_up_bloc.dart';
 export 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
 export 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_bloc.dart';
 export 'package:sport_app/bloc/article/bloc/article_bloc.dart';
+export 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';

@@ -4,8 +4,9 @@ import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
 import 'package:sport_app/component/name_section.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/article.dart';
-import 'package:sport_app/pages/home/component/article_item.dart';
+import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
 import 'package:sport_app/main.dart';
@@ -83,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           List<Article>? articles = articleHomeState.articles;
                           return ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => ArticleItem(
+                            itemBuilder: (context, index) => ArticleItemOfColumn(
                               article: articles?.elementAt(index),
                               onTap: () {
                                 NavigationService.navigatorKey.currentState
@@ -105,6 +106,70 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: Constants.size20,
+                  ),
+                  const NameSection(
+                    titleSection: AppStrings.mostInterested,
+                  ),
+                  BlocProvider<ArticleBloc>(
+                    create: (context) => ArticleBloc()
+                      ..add(const GetTopHeadlinesWithSourceEvent()),
+                    child: SizedBox(
+                      height: Constants.size470,
+                      child: BlocBuilder<ArticleBloc, ArticleState>(
+                        builder: (context, articleHomeState) {
+                          List<Article>? articles = articleHomeState.articles;
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: ListView(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  children:
+                                      List<int>.generate(3, (index) => index)
+                                          .map((e) => ArticleItemOfRow(
+                                                article: articles?.elementAt(e),
+                                              ))
+                                          .toList(),
+                                ),
+                              ),
+                              SizedBox(
+                                height: Constants.size10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  NavigationService.navigatorKey.currentState
+                                      ?.pushNamed(
+                                    AppRouteName.articleSortByName,
+                                    arguments: AppStrings.mostInterested,
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.zero,
+                                  height: Constants.size60,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    color: AppColor.gainsboro,
+                                    border: Border.symmetric(
+                                      horizontal: BorderSide(
+                                        color: AppColor.gainsboro,
+                                      ),
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: TextView(
+                                      text: AppStrings.seeMore,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  
                 ],
               ),
             ),

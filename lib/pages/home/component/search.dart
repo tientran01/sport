@@ -16,9 +16,6 @@ class Search extends StatelessWidget {
       child: TextFormField(
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(
-            Constants.size20,
-          ),
           hintText: AppStrings.searchInput,
           hintStyle: TextStyle(
             color: AppColor.arsenic.withOpacity(0.3),

@@ -1,5 +1,4 @@
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 import 'package:sport_app/main.dart';
 
 class BlocModule {

@@ -10,12 +10,14 @@ import 'package:sport_app/pages/auth/phone/phone_otp_screen.dart';
 import 'package:sport_app/pages/auth/sign_up/sign_up_screen.dart';
 import 'package:sport_app/pages/auth/login/login_screen.dart';
 import 'package:sport_app/pages/category/category_screen.dart';
+import 'package:sport_app/pages/home/article_sort_by_name.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/auth/splash/splash_screen.dart';
 import 'package:sport_app/pages/main_screen.dart';
 import 'package:sport_app/pages/notification/notification_detail_screen.dart';
 import 'package:sport_app/pages/notification/notification_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
+import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -39,5 +41,7 @@ class RouteName {
     AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),
     AppRouteName.createNewArticle: (BuildContext context) => const CreateNewArticle(),
     AppRouteName.category: (BuildContext context) => const CategoryScreen(),
+    AppRouteName.setting: (BuildContext context) => const SettingScreen(),
+    AppRouteName.articleSortByName: (BuildContext context) => ArticleSortByName(),
   };
 }

@@ -1,7 +1,7 @@
 import 'package:sport_app/pages/article/article_screen.dart';
 import 'package:sport_app/pages/article/your_article_screen.dart';
-import 'package:sport_app/pages/home/home_screen.dart';
-import 'package:sport_app/pages/profile/profile_screen.dart';
+import 'package:sport_app/pages/setting/setting_screen.dart';
+import 'package:sport_app/pages/video_player/video_player_screen.dart';
 import 'package:sport_app/resource/app_color.dart';
 import 'package:sport_app/resource/app_resource.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +17,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
   List<Widget> screens = const [
-    HomeScreen(),
+    VideoPlayerScreen(),
     ArticleScreen(),
     YourArticleScreen(),
-    ProfileScreen()
+    SettingScreen()
   ];
   final PageController _pageController = PageController();
   @override
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
             index: 2,
           ),
           bottomNavigationBarItem(
-            iconPath: AppResource.profile,
+            iconPath: AppResource.setting,
             index: 3,
           ),
         ],

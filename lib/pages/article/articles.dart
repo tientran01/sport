@@ -18,14 +18,19 @@ class Articles extends StatelessWidget {
         return ListView.builder(
           itemCount: articles?.length,
           itemBuilder: (context, index) {
-            return ArticleItemSection(
-              article: articles?.elementAt(index),
-              onTap: () {
-                NavigationService.navigatorKey.currentState?.pushNamed(
-                  AppRouteName.detailArticle,
-                  arguments: articles?.elementAt(index),
-                );
-              },
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Constants.size15,
+              ),
+              child: ArticleItemOfRow(
+                article: articles?.elementAt(index),
+                onTap: () {
+                  NavigationService.navigatorKey.currentState?.pushNamed(
+                    AppRouteName.detailArticle,
+                    arguments: articles?.elementAt(index),
+                  );
+                },
+              ),
             );
           },
         );

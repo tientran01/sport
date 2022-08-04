@@ -17,4 +17,6 @@ class AppRouteName {
   static const String yourArticle = "/your_article";
   static const String createNewArticle = "/create_new_article";
   static const String category = "/category";
+  static const String setting = "/setting";
+  static const String articleSortByName = "/article_sort_by_name";
 }

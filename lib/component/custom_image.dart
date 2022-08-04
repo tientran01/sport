@@ -101,13 +101,6 @@ class ImageCircle extends StatelessWidget {
             placeholder: (context, url) => const Center(
               child: CircularProgressIndicator(),
             ),
-            errorWidget: (context, url, error) => Center(
-              child: Image.asset(
-                AppResource.profile,
-                width: Constants.size27,
-                height: Constants.size27,
-              ),
-            ),
           ),
         ),
         Positioned(

@@ -21,12 +21,8 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: AppStrings.yourArticle,
-        onPressedLeft: () {
-          NavigationService.navigatorKey.currentState
-              ?.pushNamed(AppRouteName.main);
-        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.black,
