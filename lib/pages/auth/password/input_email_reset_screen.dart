@@ -45,6 +45,7 @@ class InputEmailResetScreen extends StatelessWidget {
                 SizedBox(height: Constants.size30),
                 Button(
                   text: AppStrings.send,
+                  textColor: AppColor.white,
                   onTap: () => getIt.get<ForgetPasswordBloc>().add(
                         SendEmailEvent(),
                       ),

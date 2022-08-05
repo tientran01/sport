@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -14,7 +13,8 @@ class VideoPlayerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Video> videos = Video.videos;
+    List<Video> videos = AppStrings.videos;
+    Video video = ModalRoute.of(context)?.settings.arguments as Video;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -41,49 +41,13 @@ class VideoPlayerScreen extends StatelessWidget {
                 top: Constants.size60,
                 bottom: Constants.size45,
               ),
-              child: playArea == true
-                  ? CachedNetworkImage(
-                      imageUrl:
-                          videos.first.thumbnailUrl ?? AppNetwork.imageAvatar,
+              child:CachedNetworkImage(
+                      imageUrl: video.thumbnailUrl ?? AppNetwork.imageAvatar,
                       height: Constants.size300,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.fill,
                     )
-                  : Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Constants.size25),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextView(
-                            text: AppStrings.hotNews,
-                            fontSize: Constants.size25,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          SizedBox(
-                            height: Constants.size20,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(Constants.size10),
-                                decoration: BoxDecoration(
-                                  color: AppColor.gainsboro,
-                                  borderRadius: BorderRadius.circular(
-                                    Constants.size20,
-                                  ),
-                                ),
-                                child: TextView(
-                                  text: "${videos.length} videos",
-                                  fontSize: Constants.size15,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  
             ),
           ],
         ),

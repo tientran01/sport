@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
+import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/model/your_article.dart';
 
 import '../../../router/navigation_service.dart';
@@ -17,7 +18,9 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     GetYourArticleEvent event,
     Emitter<void> emitter,
   ) async {
+    Loading.show();
     YourArticle? yourArticle = await FirebaseHelper.shared.getYourArticle();
+    Loading.dismiss();
     emitter(state.copyWith(yourArticle: yourArticle));
   }
 
@@ -25,7 +28,9 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     CreateNewYourArticleEvent event,
     Emitter<void> emitter,
   ) async {
+    Loading.show();
     FirebaseHelper.shared.createYourArticle(yourArticle: event.yourArticle);
+    Loading.dismiss();
     NavigationService.navigatorKey.currentState?.pop();
   }
 

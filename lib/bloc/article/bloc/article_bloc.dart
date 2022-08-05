@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/model/news.dart';
 import 'package:sport_app/repositories/api_client.dart';
@@ -34,11 +33,12 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     Emitter<void> emitter,
   ) async {
     News? news = await ApiClient.api.getTopHeadlinesWithSource();
-    emitter(
-      news == null
-          ? const CircularLoading()
-          : state.copyWith(articles: news.articles),
-    );
+    if (news != null) {
+      Loading.dismiss();
+      emitter(state.copyWith(articles: news.articles));
+    } else {
+      Loading.showError(AppStrings.error);
+    }
   }
 
   Future<void> _onGetCategoryName(

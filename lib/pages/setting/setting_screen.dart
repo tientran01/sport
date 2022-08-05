@@ -38,66 +38,60 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
         child: Column(
           children: [
-            BlocProvider<ProfileBloc>(
-              create: (context) => ProfileBloc()
-                ..add(
-                  GetUserProfile(),
-                ),
-              child: BlocBuilder<ProfileBloc, ProfileState>(
-                bloc: getIt.get<ProfileBloc>(),
-                builder: (context, state) {
-                  return GestureDetector(
-                    onTap: () {
-                      NavigationService.navigatorKey.currentState
-                          ?.pushNamed(AppRouteName.profile);
-                    },
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ImageCircle(
-                            width: Constants.size100,
-                            height: Constants.size100,
-                            imageUrl: state.user?.photoUrl,
-                            iconPath: AppResource.crown,
-                          ),
+            BlocBuilder<ProfileBloc, ProfileState>(
+              bloc: getIt.get<ProfileBloc>(),
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () {
+                    NavigationService.navigatorKey.currentState
+                        ?.pushNamed(AppRouteName.profile);
+                  },
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ImageCircle(
+                          width: Constants.size100,
+                          height: Constants.size100,
+                          imageUrl: state.user?.photoUrl,
+                          iconPath: AppResource.crown,
                         ),
-                        SizedBox(
-                          width: Constants.size15,
+                      ),
+                      SizedBox(
+                        width: Constants.size15,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextView(
+                              text: state.user?.displayName,
+                              fontSize: Constants.size20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                            TextView(
+                              text: state.user?.email,
+                              fontSize: Constants.size15,
+                              textColor: AppColor.darkSilver,
+                            )
+                          ],
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextView(
-                                text: state.user?.displayName,
-                                fontSize: Constants.size20,
-                                fontWeight: FontWeight.w800,
-                              ),
-                              TextView(
-                                text: state.user?.email,
-                                fontSize: Constants.size15,
-                                textColor: AppColor.darkSilver,
-                              )
-                            ],
-                          ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          NavigationService.navigatorKey.currentState
+                              ?.pushNamed(AppRouteName.profile);
+                        },
+                        child: Image.asset(
+                          AppResource.rightArrow,
+                          width: Constants.size20,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            NavigationService.navigatorKey.currentState
-                                ?.pushNamed(AppRouteName.profile);
-                          },
-                          child: Image.asset(
-                            AppResource.rightArrow,
-                            width: Constants.size20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ],
         ),

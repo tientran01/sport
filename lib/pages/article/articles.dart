@@ -22,7 +22,7 @@ class Articles extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 horizontal: Constants.size15,
               ),
-              child: ArticleItemOfRow(
+              child: ArticleItem(
                 article: articles?.elementAt(index),
                 onTap: () {
                   NavigationService.navigatorKey.currentState?.pushNamed(

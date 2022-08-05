@@ -19,7 +19,7 @@ class _ArticleScreenState extends State<ArticleScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   int selectIndex = 0;
-  List<Category> categories = Category.categories;
+  List<Category> categories = AppStrings.categories;
   @override
   void initState() {
     super.initState();

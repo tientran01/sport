@@ -2,15 +2,6 @@ class AppResource {
   static String baseImagePath = 'assets/images/';
   static String baseIconPath = 'assets/icons/';
 
-  static String bugger_1 = "${baseImagePath}im_bugger_1.png";
-  static String bugger_2 = "${baseImagePath}im_bugger_2.png";
-  static String bugger_3 = "${baseImagePath}im_bugger_3.png";
-  static String pizza_1 = "${baseImagePath}im_pizza_1.png";
-  static String pizza_2 = "${baseImagePath}im_pizza_2.png";
-  static String pizza_3 = "${baseImagePath}im_pizza_3.png";
-  static String coffee1 = "${baseImagePath}im_coffee_logo.png";
-  static String coffee2 = "${baseImagePath}im_coffee_2_logo.png";
-
   static String bottomNavigationIcon = '${baseIconPath}bottom_navigation';
   static String setting = '$bottomNavigationIcon/ic_setting.png';
   static String home = '$bottomNavigationIcon/ic_home.png';

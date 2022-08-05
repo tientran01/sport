@@ -11,6 +11,7 @@ class Constants {
   static double size120 = 120.0;
   static double size100 = 100.0;
   static double size80 = 80.0;
+  static double size65 = 65.0;
   static double size60 = 60.0;
   static double heightButton = 56.0;
   static double size45 = 45.0;

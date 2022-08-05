@@ -40,7 +40,9 @@ class CustomImage extends StatelessWidget {
           ),
         ),
         placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: AppColor.gainsboro,
+          ),
         ),
         errorWidget: (context, url, error) => Center(
           child: Image.asset(
@@ -84,24 +86,41 @@ class ImageCircle extends StatelessWidget {
             color: AppColor.gainsboro,
           ),
           child: CachedNetworkImage(
-            imageUrl: imageUrl ?? "",
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColor.white,
-                  width: Constants.size5,
-                ),
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
+              imageUrl: imageUrl ?? "",
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColor.white,
+                      width: Constants.size5,
+                    ),
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+              placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              errorWidget: (context, url, error) {
+                return Container(
+                  padding: EdgeInsets.all(Constants.size10),
+                  decoration: const BoxDecoration(
+                    color: AppColor.gainsboro,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      AppResource.profile,
+                      fit: BoxFit.fill,
+                      width: Constants.size60,
+                    ),
+                  ),
+                );
+              }),
         ),
         Positioned(
           bottom: 0,

@@ -35,119 +35,129 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
     return BlocBuilder<YourArticleBloc, YourArticleState>(
       bloc: getIt.get<YourArticleBloc>(),
       builder: (context, state) {
-        return Scaffold(
-          appBar: CustomAppBar(
-            title: AppStrings.createNewArticle,
-            onPressedLeft: () {
-              NavigationService.navigatorKey.currentState?.pop();
-            },
-          ),
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Constants.size30,
-                vertical: Constants.size45,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextField(
-                    title: AppStrings.titleArticle,
-                    hintText: AppStrings.titleArticleInput,
-                    onChanged: (String title) {
-                      setState(() {
-                        yourArticle?.title = title;
-                      });
-                      getIt.get<YourArticleBloc>().add(
-                            GetYourArticleEvent(
-                              yourArticle: yourArticle,
-                            ),
-                          );
-                    },
-                  ),
-                  SizedBox(
-                    height: Constants.size25,
-                  ),
-                  CustomTextField(
-                    title: AppStrings.descArticle,
-                    hintText: AppStrings.descArticleInput,
-                    isMaxLine: true,
-                    maxLine: 5,
-                    onChanged: (String description) {
-                      setState(() {
-                        yourArticle?.description = description;
-                      });
+        return GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.focusedChild?.unfocus();
+            }
+          },
+          child: Scaffold(
+            appBar: CustomAppBar(
+              title: AppStrings.createNewArticle,
+              onPressedLeft: () {
+                NavigationService.navigatorKey.currentState?.pop();
+              },
+            ),
+            body: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Constants.size30,
+                  vertical: Constants.size45,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomTextField(
+                      title: AppStrings.titleArticle,
+                      hintText: AppStrings.titleArticleInput,
+                      onChanged: (String title) {
+                        setState(() {
+                          yourArticle?.title = title;
+                        });
+                        getIt.get<YourArticleBloc>().add(
+                              GetYourArticleEvent(
+                                yourArticle: yourArticle,
+                              ),
+                            );
+                      },
+                    ),
+                    SizedBox(
+                      height: Constants.size25,
+                    ),
+                    CustomTextField(
+                      title: AppStrings.descArticle,
+                      hintText: AppStrings.descArticleInput,
+                      isMaxLine: true,
+                      maxLine: 5,
+                      onChanged: (String description) {
+                        setState(() {
+                          yourArticle?.description = description;
+                        });
 
-                      getIt.get<YourArticleBloc>().add(
-                            GetYourArticleEvent(
-                              yourArticle: yourArticle,
-                            ),
-                          );
-                    },
-                  ),
-                  SizedBox(
-                    height: Constants.size20,
-                  ),
-                  TextView(
-                    text: AppStrings.uploadImage,
-                    fontSize: Constants.size17,
-                  ),
-                  SizedBox(
-                    height: Constants.size10,
-                  ),
-                  imagePath == "" && imagePath.isEmpty
-                      ? GestureDetector(
-                          onTap: () {
-                            _uploadImage();
-                          },
-                          child: DottedBorder(
-                            radius: Radius.circular(Constants.size10),
-                            color: AppColor.gainsboro,
-                            child: Container(
-                              width: Constants.size150,
-                              height: Constants.size100,
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Constants.size20,
-                                vertical: Constants.size15,
+                        getIt.get<YourArticleBloc>().add(
+                              GetYourArticleEvent(
+                                yourArticle: yourArticle,
                               ),
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    AppResource.camera,
-                                    width: Constants.size27,
-                                  ),
-                                  SizedBox(
-                                    height: Constants.size10,
-                                  ),
-                                  const TextView(
-                                    text: AppStrings.uploadImage,
-                                    textColor: AppColor.darkSilver,
-                                  ),
-                                ],
+                            );
+                      },
+                    ),
+                    SizedBox(
+                      height: Constants.size20,
+                    ),
+                    TextView(
+                      text: AppStrings.uploadImage,
+                      fontSize: Constants.size17,
+                    ),
+                    SizedBox(
+                      height: Constants.size10,
+                    ),
+                    (imagePath == "" && imagePath.isEmpty)
+                        ? GestureDetector(
+                            onTap: () {
+                              _uploadImage();
+                            },
+                            child: DottedBorder(
+                              radius: Radius.circular(Constants.size10),
+                              color: AppColor.gainsboro,
+                              child: Container(
+                                width: Constants.size150,
+                                height: Constants.size100,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: Constants.size20,
+                                  vertical: Constants.size15,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      AppResource.camera,
+                                      width: Constants.size27,
+                                    ),
+                                    SizedBox(
+                                      height: Constants.size10,
+                                    ),
+                                    const TextView(
+                                      text: AppStrings.uploadImage,
+                                      textColor: AppColor.darkSilver,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
+                          )
+                        : CustomImage(
+                            imageUrl: imagePath,
+                            width: Constants.size150,
+                            height: Constants.size100,
                           ),
-                        )
-                      : CustomImage(
-                          imageUrl: imagePath,
-                          width: Constants.size150,
-                          height: Constants.size100,
-                        ),
-                  SizedBox(
-                    height: Constants.size20,
-                  ),
-                  Button(
-                    bgColor: AppColor.black,
-                    text: AppStrings.postArticle,
-                    textColor: AppColor.white,
-                    onTap: () {
-                      getIt
-                          .get<YourArticleBloc>()
-                          .add(CreateNewYourArticleEvent(yourArticle: yourArticle));
-                    },
-                  )
-                ],
+                    SizedBox(
+                      height: Constants.size20,
+                    ),
+                    Button(
+                      bgColor: AppColor.black,
+                      text: AppStrings.postArticle,
+                      textColor: AppColor.white,
+                      onTap: () {
+                        getIt.get<YourArticleBloc>().add(
+                              CreateNewYourArticleEvent(
+                                yourArticle: yourArticle,
+                              ),
+                            );
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           ),

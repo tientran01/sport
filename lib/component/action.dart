@@ -13,7 +13,7 @@ class ActionComponent {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text(AppStrings.chooseProfilePhoto),
+        title: const Text(AppStrings.uploadImage),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: onCamera,

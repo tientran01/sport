@@ -41,7 +41,7 @@ class RouteName {
     AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),
     AppRouteName.createNewArticle: (BuildContext context) => const CreateNewArticle(),
     AppRouteName.setting: (BuildContext context) => const SettingScreen(),
-    AppRouteName.articleSortByName: (BuildContext context) => ArticleSortByName(),
+    AppRouteName.articleSortByName: (BuildContext context) => const ArticleSortByName(),
     AppRouteName.videoPlayer: (BuildContext context) => const VideoPlayerScreen(),
   };
 }

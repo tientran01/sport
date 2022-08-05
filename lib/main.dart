@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/bloc.dart';
@@ -72,25 +71,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerUp: (_) {
-        if (Platform.isIOS) {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus &&
-              currentFocus.focusedChild != null) {
-            FocusManager.instance.primaryFocus?.unfocus();
-          }
-        }
-      },
-      child: MaterialApp(
-        navigatorKey: NavigationService.navigatorKey,
-        debugShowCheckedModeBanner: false,
-        initialRoute: AppRouteName.splash,
-        routes: RouteName.route,
-        builder: EasyLoading.init(),
-        theme: ThemeData(
-          backgroundColor: AppColor.ghostWhite,
-        ),
+    return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
+      debugShowCheckedModeBanner: false,
+      initialRoute: AppRouteName.splash,
+      routes: RouteName.route,
+      builder: EasyLoading.init(),
+      theme: ThemeData(
+        backgroundColor: AppColor.ghostWhite,
       ),
     );
   }

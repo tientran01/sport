@@ -31,125 +31,133 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomAppBar(
-        title: AppStrings.login,
-      ),
-      body: BlocBuilder<LoginBloc, LoginState>(
-        builder: (_, state) {
-          return Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: Constants.size30),
-                      CustomTextField(
-                        textEditingController: emailController,
-                        type: TextFieldType.email,
-                        title: AppStrings.email,
-                        hintText: AppStrings.emailInput,
-                        onChanged: (email) => getIt.get<LoginBloc>().add(
-                              GetEmailAndPasswordFormTextFieldEvent(
-                                  email: email),
-                            ),
-                      ),
-                      SizedBox(height: Constants.size30),
-                      CustomTextField(
-                        textEditingController: passwordController,
-                        title: AppStrings.password,
-                        type: TextFieldType.password,
-                        hintText: AppStrings.passwordInput,
-                        isPassword: true,
-                        onChanged: (String password) {
-                          getIt.get<LoginBloc>().add(
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.focusedChild?.unfocus();
+          }
+      },
+      child: Scaffold(
+        appBar: const CustomAppBar(
+          title: AppStrings.login,
+        ),
+        body: BlocBuilder<LoginBloc, LoginState>(
+          builder: (_, state) {
+            return Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: Constants.size30),
+                        CustomTextField(
+                          textEditingController: emailController,
+                          type: TextFieldType.email,
+                          title: AppStrings.email,
+                          hintText: AppStrings.emailInput,
+                          onChanged: (email) => getIt.get<LoginBloc>().add(
                                 GetEmailAndPasswordFormTextFieldEvent(
-                                    password: password),
-                              );
-                        },
-                      ),
-                      buildForgetPassword(),
-                      SizedBox(height: Constants.size30),
-                      Button(
-                        text: AppStrings.login,
-                        onTap: () {
-                          tryLogin();
-                        },
-                        textColor: AppColor.white,
-                      ),
-                      SizedBox(height: Constants.size30),
-                      const DividerCustom(
-                        textDisplay: AppStrings.or,
-                      ),
-                      SizedBox(height: Constants.size30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CustomSocialButton(
-                            socialIconPath: AppResource.phoneIcon,
-                            bgColor: AppColor.jetStream,
-                            onTap: () {
-                              getIt
-                                  .get<LoginBloc>()
-                                  .add(SignInWithPhoneNumberEvent());
-                            },
-                          ),
-                          SizedBox(width: Constants.size10),
-                          CustomSocialButton(
-                            socialIconPath: AppResource.facebookIcon,
-                            bgColor: AppColor.blue,
-                            onTap: () {
-                              getIt
-                                  .get<LoginBloc>()
-                                  .add(SignInWithFacebookEvent());
-                            },
-                          ),
-                          SizedBox(width: Constants.size10),
-                          CustomSocialButton(
-                            socialIconPath: AppResource.googleIcon,
-                            bgColor: AppColor.gargoyleGas,
-                            onTap: () {
-                              getIt
-                                  .get<LoginBloc>()
-                                  .add(SignInWithGoogleEvent());
-                            },
-                          ),
-                          SizedBox(width: Constants.size10),
-                        ],
-                      ),
-                      SizedBox(height: Constants.size30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const TextView(
-                            text: AppStrings.noAccount,
-                            textColor: AppColor.gainsboro,
-                          ),
-                          SizedBox(
-                            width: Constants.size5,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              getIt.get<LoginBloc>().add(SignUpEvent());
-                            },
-                            child: const TextView(
-                              text: AppStrings.signUp,
-                              fontWeight: FontWeight.w600,
+                                    email: email),
+                              ),
+                        ),
+                        SizedBox(height: Constants.size30),
+                        CustomTextField(
+                          textEditingController: passwordController,
+                          title: AppStrings.password,
+                          type: TextFieldType.password,
+                          hintText: AppStrings.passwordInput,
+                          isPassword: true,
+                          onChanged: (String password) {
+                            getIt.get<LoginBloc>().add(
+                                  GetEmailAndPasswordFormTextFieldEvent(
+                                      password: password),
+                                );
+                          },
+                        ),
+                        buildForgetPassword(),
+                        SizedBox(height: Constants.size30),
+                        Button(
+                          text: AppStrings.login,
+                          onTap: () {
+                            tryLogin();
+                          },
+                          textColor: AppColor.white,
+                        ),
+                        SizedBox(height: Constants.size30),
+                        const DividerCustom(
+                          textDisplay: AppStrings.or,
+                        ),
+                        SizedBox(height: Constants.size30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomSocialButton(
+                              socialIconPath: AppResource.phoneIcon,
+                              bgColor: AppColor.jetStream,
+                              onTap: () {
+                                getIt
+                                    .get<LoginBloc>()
+                                    .add(SignInWithPhoneNumberEvent());
+                              },
                             ),
-                          )
-                        ],
-                      ),
-                    ],
+                            SizedBox(width: Constants.size10),
+                            CustomSocialButton(
+                              socialIconPath: AppResource.facebookIcon,
+                              bgColor: AppColor.blue,
+                              onTap: () {
+                                getIt
+                                    .get<LoginBloc>()
+                                    .add(SignInWithFacebookEvent());
+                              },
+                            ),
+                            SizedBox(width: Constants.size10),
+                            CustomSocialButton(
+                              socialIconPath: AppResource.googleIcon,
+                              bgColor: AppColor.gargoyleGas,
+                              onTap: () {
+                                getIt
+                                    .get<LoginBloc>()
+                                    .add(SignInWithGoogleEvent());
+                              },
+                            ),
+                            SizedBox(width: Constants.size10),
+                          ],
+                        ),
+                        SizedBox(height: Constants.size30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const TextView(
+                              text: AppStrings.noAccount,
+                              textColor: AppColor.gainsboro,
+                            ),
+                            SizedBox(
+                              width: Constants.size5,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                getIt.get<LoginBloc>().add(SignUpEvent());
+                              },
+                              child: const TextView(
+                                text: AppStrings.signUp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

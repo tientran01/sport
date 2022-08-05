@@ -1,36 +1,25 @@
 import 'package:equatable/equatable.dart';
+import 'package:sport_app/model/users.dart';
 
 class SignUpState extends Equatable {
-  final String? email;
+  final UserInformation? userInformation;
   final String? password;
-  final String? photoUrl;
-  final String? displayName;
-  final String? phoneNumber;
   const SignUpState({
-    this.email,
+    this.userInformation,
     this.password,
-    this.photoUrl,
-    this.displayName,
-    this.phoneNumber,
   });
   const SignUpState.initState() : this();
 
   SignUpState copyWith({
-    String? email,
+    UserInformation? userInformation,
     String? password,
-    String? photoUrl,
-    String? displayName,
-    String? phoneNumber,
   }) {
     return SignUpState(
-      email: email,
+      userInformation: userInformation,
       password: password,
-      photoUrl: photoUrl,
-      displayName: displayName,
-      phoneNumber: phoneNumber,
     );
   }
 
   @override
-  List<Object?> get props => [email, password, photoUrl, displayName, phoneNumber];
+  List<Object?> get props => [userInformation, password];
 }
