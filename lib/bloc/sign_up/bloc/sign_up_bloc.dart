@@ -6,24 +6,24 @@ import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 
 import '../../../router/navigation_service.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc() : super(const SignUpState.initState()) {
-    on<GetEmailAndPasswordFormTextFieldEvent>(
-        _onGetEmailAndPasswordFormTextField);
+    on<GetUserEvent>(_onGetUser);
     on<CreateNewAccountEvent>(_onCreateNewAccount);
   }
 
-  Future<void> _onGetEmailAndPasswordFormTextField(
-      GetEmailAndPasswordFormTextFieldEvent event,
-      Emitter<void> emitter) async {
+  Future<void> _onGetUser(GetUserEvent event, Emitter<void> emitter) async {
     emitter(
       state.copyWith(
         email: event.email ?? state.email,
         password: event.password ?? state.password,
+        displayName: event.displayName ?? state.displayName,
+        photoUrl: event.photoUrl ?? state.photoUrl,
       ),
     );
   }
@@ -38,8 +38,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       );
       if (user != null) {
         Loading.dismiss();
+        UserInformation userInformation = UserInformation(
+          displayName: state.displayName,
+          email: state.email,
+          photoUrl: state.photoUrl,
+          phoneNumber: state.phoneNumber,
+        );
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
-        await FirebaseHelper.shared.createUser();
+        await FirebaseHelper.shared.createUserInformation(userInformation);
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.main,
           arguments: user,

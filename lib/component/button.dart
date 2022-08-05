@@ -5,6 +5,7 @@ import '../resource/resource.dart';
 class Button extends StatelessWidget {
   final Function()? onTap;
   final String text;
+  final Color? textColor;
   final Color? bgColor;
   final double? width;
   final double? height;
@@ -14,7 +15,7 @@ class Button extends StatelessWidget {
     required this.text,
     this.bgColor,
     this.width,
-    this.height,
+    this.height, this.textColor,
   }) : super(key: key);
 
   @override
@@ -37,7 +38,7 @@ class Button extends StatelessWidget {
           child: TextView(
             text: text.toUpperCase(),
             fontWeight: FontWeight.w700,
-            textColor: AppColor.white,
+            textColor: textColor,
           )),
     );
   }

@@ -10,9 +10,10 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String nameCategory = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       appBar: CustomAppBar(
-        title: AppStrings.notification,
+        title: nameCategory,
         onPressedLeft: () => NavigationService.navigatorKey.currentState?.pop(),
       ),
       body: Padding(

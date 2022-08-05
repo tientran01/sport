@@ -45,10 +45,14 @@ class PhoneInputScreen extends StatelessWidget {
                         ),
                     customBorder: const CircleBorder(),
                     splashColor: AppColor.arsenic,
-                    child: Image.asset(
-                      AppResource.sendIcon,
-                      width: Constants.size10,
-                      height: Constants.size10,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Constants.size20),
+                      child: Image.asset(
+                        AppResource.send,
+                        width: Constants.size27,
+                        height: Constants.size27,
+                      ),
                     ),
                   ),
                 ),

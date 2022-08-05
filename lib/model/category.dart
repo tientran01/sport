@@ -1,11 +1,8 @@
-class Category {
-  String? name;
-  String? imagePath;
-  String? color;
+import 'package:flutter/material.dart';
 
-  Category({
-    this.name,
-    this.imagePath,
-    this.color,
-  });
+class Category {
+  String? text;
+  String? imageUrl;
+  Color? color;
+  Category({this.text, this.imageUrl, this.color});
 }

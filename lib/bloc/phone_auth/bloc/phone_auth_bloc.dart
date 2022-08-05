@@ -1,6 +1,7 @@
 import 'package:sport_app/bloc/phone_auth/bloc/phone_auth_event.dart';
 import 'package:sport_app/bloc/phone_auth/bloc/phone_auth_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
+import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,6 +28,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
     SendOtpToPhoneAuthEvent event,
     Emitter<PhoneAuthState> emitter,
   ) async {
+    Loading.show();
     FirebaseHelper.shared.verifyPhoneNumber(
       phoneNumber: state.phoneNumber ?? "",
       onVerificationCompleted: (AuthCredential authCredential) async {},
@@ -34,6 +36,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
         add(VerificationFailedEvent(error: error.code));
       },
       onCodeSent: (String? verificationID, int? resentToken) {
+        Loading.dismiss();
         NavigationService.navigatorKey.currentState?.pushNamed(
           AppRouteName.phoneOtp,
           arguments: state.phoneNumber ?? event.phoneNumber,

@@ -7,19 +7,27 @@ class TextView extends StatelessWidget {
   final Color? textColor;
   final double? fontSize;
   final FontWeight? fontWeight;
-  const TextView(
-      {Key? key, this.text, this.textColor, this.fontSize, this.fontWeight})
-      : super(key: key);
+  final int? lineNumber;
+  const TextView({
+    Key? key,
+    this.text,
+    this.textColor,
+    this.fontSize,
+    this.fontWeight,
+    this.lineNumber,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text ?? "",
-      style: GoogleFonts.lato(
-        fontSize: fontSize ?? Constants.subtitleFontSize,
-        fontWeight: fontWeight ?? FontWeight.w500,
+      style: GoogleFonts.nunito(
+        fontSize: fontSize ?? Constants.size15,
+        fontWeight: fontWeight ?? FontWeight.w600,
         color: textColor ?? AppColor.black,
       ),
+      overflow: TextOverflow.ellipsis,
+      maxLines: lineNumber ,
     );
   }
 }

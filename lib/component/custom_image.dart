@@ -26,16 +26,6 @@ class CustomImage extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Constants.size15),
-        gradient: LinearGradient(
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          colors: [
-            Colors.black,
-            Colors.black45,
-            Colors.black12,
-            Colors.black.withOpacity(0),
-          ],
-        ),
       ),
       child: CachedNetworkImage(
         imageUrl: imageUrl ?? "",
@@ -50,19 +40,21 @@ class CustomImage extends StatelessWidget {
           ),
         ),
         placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: AppColor.gainsboro,
+          ),
         ),
-        errorWidget: (context, url, error) => Image.asset(
-          AppResource.error,
-          width: Constants.sizeIcon,
-          color: AppColor.gainsboro,
+        errorWidget: (context, url, error) => Center(
+          child: Image.asset(
+            AppResource.error,
+            width: Constants.size27,
+            color: AppColor.gainsboro,
+          ),
         ),
       ),
     );
   }
 }
-
-
 
 class ImageCircle extends StatelessWidget {
   final String? imageUrl;
@@ -78,7 +70,8 @@ class ImageCircle extends StatelessWidget {
     this.height,
     this.width,
     this.isEdit,
-    this.iconPath, this.onTap,
+    this.iconPath,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -93,28 +86,41 @@ class ImageCircle extends StatelessWidget {
             color: AppColor.gainsboro,
           ),
           child: CachedNetworkImage(
-            imageUrl: imageUrl ?? "",
-            imageBuilder: (context, imageProvider) => Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColor.white,
-                  width: Constants.size5,
-                ),
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            errorWidget: (context, url, error) => Image.asset(
-              AppResource.profile,
-              width: Constants.sizeIcon,
-            ),
-          ),
+              imageUrl: imageUrl ?? "",
+              imageBuilder: (context, imageProvider) {
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColor.white,
+                      width: Constants.size5,
+                    ),
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                );
+              },
+              placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              errorWidget: (context, url, error) {
+                return Container(
+                  padding: EdgeInsets.all(Constants.size10),
+                  decoration: const BoxDecoration(
+                    color: AppColor.gainsboro,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      AppResource.profile,
+                      fit: BoxFit.fill,
+                      width: Constants.size60,
+                    ),
+                  ),
+                );
+              }),
         ),
         Positioned(
           bottom: 0,
@@ -143,5 +149,3 @@ class ImageCircle extends StatelessWidget {
     );
   }
 }
-
-

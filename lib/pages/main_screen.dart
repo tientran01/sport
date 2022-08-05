@@ -1,10 +1,9 @@
-import 'package:sport_app/pages/chat/chat_screen.dart';
+import 'package:sport_app/pages/article/article_screen.dart';
+import 'package:sport_app/pages/article/your_article_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
-import 'package:sport_app/pages/profile/profile_screen.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_resource.dart';
+import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
-import '../resource/constants.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -15,47 +14,61 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
+  List<Widget> screens = const [
+    HomeScreen(),
+    ArticleScreen(),
+    YourArticleScreen(),
+    SettingScreen()
+  ];
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
+      body: PageView.builder(
         controller: _pageController,
-        children: const [
-          HomeScreen(),
-          ChatScreen(),
-          HomeScreen(),
-          ProfileScreen()
-        ],
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return screens.elementAt(index);
+        },
+        itemCount: screens.length,
         onPageChanged: (pageIndex) {
           pageChanged(pageIndex);
           selectIndex = pageIndex;
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.shifting,
-        elevation: 0.00,
-        backgroundColor: Colors.transparent,
-        currentIndex: selectIndex,
-        onTap: _onTapItem,
-        items: [
-          bottomNavigationBarItem(
-            iconPath: AppResource.home,
-            index: 0,
-          ),
-          bottomNavigationBarItem(
-            iconPath: AppResource.chat,
-            index: 1,
-          ),
-          bottomNavigationBarItem(
-            iconPath: AppResource.chart,
-            index: 2,
-          ),
-          bottomNavigationBarItem(
-            iconPath: AppResource.profile,
-            index: 3,
-          ),
-        ],
+      bottomNavigationBar: SizedBox(
+        height: Constants.size100,
+        child: BottomNavigationBar(
+          selectedItemColor: AppColor.white,
+          unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
+          type: BottomNavigationBarType.fixed,
+          elevation: 0.0,
+          backgroundColor: AppColor.black,
+          currentIndex: selectIndex,
+          onTap: _onTapItem,
+          items: [
+            bottomNavigationBarItem(
+              iconPath: AppResource.home,
+              index: 0,
+              label: AppStrings.home,
+            ),
+            bottomNavigationBarItem(
+              iconPath: AppResource.compass,
+              index: 1,
+              label: AppStrings.news,
+            ),
+            bottomNavigationBarItem(
+              iconPath: AppResource.create,
+              index: 2,
+              label: AppStrings.createNewArticle,
+            ),
+            bottomNavigationBarItem(
+              iconPath: AppResource.setting,
+              index: 3,
+              label: AppStrings.setting,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -63,14 +76,17 @@ class _MainScreenState extends State<MainScreen> {
   BottomNavigationBarItem bottomNavigationBarItem({
     required String iconPath,
     required int index,
+    String? label,
   }) =>
       BottomNavigationBarItem(
         icon: Image.asset(
           iconPath,
-          width: Constants.sizeIcon,
-          color: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
+          width: Constants.size27,
+          color: selectIndex == index
+              ? AppColor.white
+              : AppColor.gainsboro.withOpacity(0.3),
         ),
-        label: "",
+        label: label ?? "",
       );
 
   void _onTapItem(int index) {

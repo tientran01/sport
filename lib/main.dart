@@ -1,18 +1,11 @@
 import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
-import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
-import 'package:sport_app/bloc/notification/bloc/notification_bloc.dart';
-import 'package:sport_app/bloc/phone_auth/bloc/phone_auth_bloc.dart';
-import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
-import 'package:sport_app/bloc/sign_up/bloc/sign_up_bloc.dart';
-import 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
-import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_bloc.dart';
+import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/modules/bloc_module.dart';
-import 'package:sport_app/resource/app_route_name.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:sport_app/router/router_name.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_it/get_it.dart';
-import 'bloc/login/bloc/login_bloc.dart';
 import 'helper/notification_service.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -53,6 +45,8 @@ Future<void> main() async {
           BlocProvider(create: (_) => VerifyOtpBloc()),
           BlocProvider(create: (_) => ForgetPasswordBloc()),
           BlocProvider(create: (_) => NotificationBloc()),
+          BlocProvider(create: (_) => ArticleBloc()),
+          BlocProvider(create: (_) => YourArticleBloc()),
         ],
         child: const MyApp(),
       ),
@@ -83,6 +77,9 @@ class _MyAppState extends State<MyApp> {
       initialRoute: AppRouteName.splash,
       routes: RouteName.route,
       builder: EasyLoading.init(),
+      theme: ThemeData(
+        backgroundColor: AppColor.ghostWhite,
+      ),
     );
   }
 }

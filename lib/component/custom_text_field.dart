@@ -23,6 +23,8 @@ class CustomTextField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextEditingController? textEditingController;
   final bool? isPassword;
+  final bool? isMaxLine;
+  final int? maxLine;
 
   const CustomTextField({
     Key? key,
@@ -38,6 +40,8 @@ class CustomTextField extends StatefulWidget {
     this.textEditingController,
     this.isPassword,
     this.prefix,
+    this.isMaxLine = false,
+    this.maxLine,
   }) : super(key: key);
 
   @override
@@ -99,9 +103,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget suffixIconPassword() {
     if (type == TextFieldType.password) {
       if (isHidden) {
-        return const Icon(Icons.remove_red_eye);
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: Constants.size25),
+          child: Image.asset(
+            AppResource.eye,
+            width: Constants.size20,
+            height: Constants.size20,
+          ),
+        );
       } else {
-        return const Icon(Icons.visibility_off_rounded);
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: Constants.size25),
+          child: Image.asset(
+            AppResource.invisible,
+            width: Constants.size20,
+            height: Constants.size20,
+          ),
+        );
       }
     }
     return Container();

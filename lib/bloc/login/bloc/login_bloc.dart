@@ -99,5 +99,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  static LoginBloc of(BuildContext context) => BlocProvider.of<LoginBloc>(context);
+  static LoginBloc of(BuildContext context) =>
+      BlocProvider.of<LoginBloc>(context);
 }

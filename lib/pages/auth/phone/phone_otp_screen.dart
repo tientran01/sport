@@ -95,7 +95,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                   children: [
                     const TextView(
                       text: AppStrings.sendOTPfail,
-                      textColor: AppColor.darkSilver,
+                      textColor: AppColor.gainsboro,
                     ),
                     IgnorePointer(
                       ignoring: ignoring,
@@ -122,7 +122,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                 SizedBox(height: Constants.size30),
                 Button(
                   text: AppStrings.signUp,
-                  bgColor: AppColor.arsenic,
+                  textColor: AppColor.white,
                   onTap: () => getIt
                       .get<VerifyOtpBloc>()
                       .add(SignUpWithPhoneNumberEvent()),
