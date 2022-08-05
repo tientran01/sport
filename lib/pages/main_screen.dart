@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
           unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
           type: BottomNavigationBarType.fixed,
           elevation: 0.0,
-          backgroundColor: AppColor.black.withOpacity(0.8),
+          backgroundColor: AppColor.black,
           currentIndex: selectIndex,
           onTap: _onTapItem,
           items: [

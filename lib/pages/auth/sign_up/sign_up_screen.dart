@@ -1,7 +1,6 @@
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
-import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,6 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  UserInformation userInformation = UserInformation();
   String? imagePath;
 
   final TextEditingController passwordController = TextEditingController();
@@ -56,12 +54,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         title: AppStrings.displayName,
                         type: TextFieldType.normal,
                         onChanged: (String displayName) {
-                          setState(() {
-                            userInformation.displayName = displayName;
-                          });
                           getIt.get<SignUpBloc>().add(
                                 GetUserEvent(
-                                  userInformation: userInformation,
+                                  displayName: displayName,
                                 ),
                               );
                         },
@@ -72,12 +67,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           title: AppStrings.email,
                           hintText: AppStrings.emailInput,
                           onChanged: (String email) {
-                            setState(() {
-                              userInformation.email = email;
-                            });
                             getIt.get<SignUpBloc>().add(
                                   GetUserEvent(
-                                    userInformation: userInformation,
+                                    email: email,
                                   ),
                                 );
                           }),

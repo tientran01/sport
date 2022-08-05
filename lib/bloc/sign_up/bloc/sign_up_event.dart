@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:sport_app/model/users.dart';
 
 abstract class SignUpEvent extends Equatable {
   @override
@@ -7,14 +6,20 @@ abstract class SignUpEvent extends Equatable {
 }
 
 class GetUserEvent extends SignUpEvent {
-  final UserInformation? userInformation;
+  final String? email;
   final String? password;
+  final String? displayName;
+  final String? photoUrl;
+  final String? phoneNumber;
   GetUserEvent({
-    this.userInformation,
+    this.email,
     this.password,
+    this.displayName,
+    this.photoUrl,
+    this.phoneNumber,
   });
   @override
-  List<Object?> get props => [userInformation, password];
+  List<Object?> get props => [email, password, displayName, photoUrl, phoneNumber];
 }
 
 class CreateNewAccountEvent extends SignUpEvent {

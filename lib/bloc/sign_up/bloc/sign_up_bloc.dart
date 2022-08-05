@@ -20,8 +20,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   Future<void> _onGetUser(GetUserEvent event, Emitter<void> emitter) async {
     emitter(
       state.copyWith(
-        userInformation: state.userInformation ?? event.userInformation,
-        password:  state.password ?? event.password
+        email: event.email ?? state.email,
+        password: event.password ?? state.password,
+        displayName: event.displayName ?? state.displayName,
+        photoUrl: event.photoUrl ?? state.photoUrl,
       ),
     );
   }
@@ -31,15 +33,16 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     try {
       Loading.show();
       User? user = await FirebaseHelper.shared.signUpWithEmailAndPassword(
-        email: event.email ?? state.userInformation?.email,
+        email: event.email ?? state.email,
         password: event.password ?? state.password,
       );
       if (user != null) {
         Loading.dismiss();
         UserInformation userInformation = UserInformation(
-          displayName: state.userInformation?.displayName,
-          email: state.userInformation?.email,
-          photoUrl: state.userInformation?.photoUrl,
+          displayName: state.displayName,
+          email: state.email,
+          photoUrl: state.photoUrl,
+          phoneNumber: state.phoneNumber,
         );
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
         await FirebaseHelper.shared.createUserInformation(userInformation);
