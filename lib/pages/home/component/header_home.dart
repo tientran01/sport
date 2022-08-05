@@ -42,7 +42,7 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         buildNotification(
-          onTap: onTap,
+          onTap: () {},
           notificationCount: notificationCount,
         ),
       ],
@@ -56,8 +56,8 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
     VoidCallback? onTap,
     int? notificationCount,
   }) {
-    return InkWell(
-      onTap: onTap,
+    return GestureDetector(
+      onTap: () {},
       child: Stack(
         children: [
           Container(
