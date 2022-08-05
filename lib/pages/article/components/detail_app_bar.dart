@@ -9,7 +9,8 @@ class DetailAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onTap;
   const DetailAppBar({
     Key? key,
-    this.onTap, this.article,
+    this.onTap,
+    this.article,
   }) : super(key: key);
 
   @override
@@ -48,7 +49,8 @@ class DetailAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       flexibleSpace: CachedNetworkImage(
-        imageUrl: article?.urlToImage ?? AppNetwork.carouselImage_3,
+        imageUrl: article?.urlToImage ?? AppNetwork.imageAvatar,
+        height: Constants.size300,
         fit: BoxFit.fill,
       ),
       backgroundColor: Colors.transparent,

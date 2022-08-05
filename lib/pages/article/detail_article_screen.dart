@@ -64,7 +64,7 @@ class DetailArticleScreen extends StatelessWidget {
                     text: article?.description,
                     textColor: AppColor.darkSilver,
                     fontSize: Constants.size15,
-                    lineNumber: 6,
+                    lineNumber: 10,
                   ),
                   SizedBox(
                     height: Constants.size10,

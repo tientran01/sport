@@ -1,4 +1,5 @@
 import 'package:sport_app/application/application.dart';
+import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/model/news.dart';
 import 'package:sport_app/repositories/network_manager.dart';
 
@@ -11,6 +12,7 @@ class ApiClient {
       Application.countryParamKey: "us",
       Application.apiKey: Application.apiKeyNumber,
     };
+    Loading.show();
     final data =
         await NetWorkManager.shared.get(Application.topHeadlines, param);
     News news = News.fromJson(data);

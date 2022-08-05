@@ -6,6 +6,7 @@ import 'package:sport_app/bloc/home/bloc/home_state.dart';
 import 'package:sport_app/component/name_section.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/article.dart';
+import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
@@ -13,6 +14,7 @@ import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/pages/home/component/search.dart';
+import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
 
@@ -25,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late HomeBloc homeBloc;
+  List<Video> videos = Video.videos;
   @override
   void initState() {
     super.initState();
@@ -84,7 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           List<Article>? articles = articleHomeState.articles;
                           return ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) => ArticleItemOfColumn(
+                            itemBuilder: (context, index) =>
+                                ArticleItemOfColumn(
                               article: articles?.elementAt(index),
                               onTap: () {
                                 NavigationService.navigatorKey.currentState
@@ -113,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     titleSection: AppStrings.mostInterested,
                   ),
                   BlocProvider<ArticleBloc>(
-                    create: (context) => ArticleBloc()
-                      ..add(const GetTopHeadlinesWithSourceEvent()),
+                    create: (context) =>
+                        ArticleBloc()..add(const GetTopHeadlinesEvent()),
                     child: SizedBox(
                       height: Constants.size470,
                       child: BlocBuilder<ArticleBloc, ArticleState>(
@@ -127,9 +131,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   physics: const NeverScrollableScrollPhysics(),
                                   children:
                                       List<int>.generate(3, (index) => index)
-                                          .map((e) => ArticleItemOfRow(
-                                                article: articles?.elementAt(e),
-                                              ))
+                                          .map(
+                                            (e) => ArticleItemOfRow(
+                                              article: articles?.elementAt(e),
+                                              onTap: () {
+                                                NavigationService
+                                                    .navigatorKey.currentState
+                                                    ?.pushNamed(
+                                                  AppRouteName.detailArticle,
+                                                  arguments:
+                                                      articles?.elementAt(e),
+                                                );
+                                              },
+                                            ),
+                                          )
                                           .toList(),
                                 ),
                               ),
@@ -169,7 +184,45 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  
+                  SizedBox(
+                    height: Constants.size20,
+                  ),
+                  const NameSection(
+                    titleSection: AppStrings.hotVideos,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: Constants.size5),
+                    height: Constants.size300,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: videos.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.all(Constants.size5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              Constants.size15,
+                            ),
+                            color: AppColor.gainsboro.withOpacity(0.3),
+                          ),
+                          height: Constants.size270,
+                          width: Constants.size250,
+                          child: VideoThumbnaiLargeItem(
+                            video: videos.elementAt(index),
+                            onTap: () {
+                              NavigationService.navigatorKey.currentState
+                                  ?.pushNamed(AppRouteName.videoPlayer);
+                            },
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          width: Constants.size10,
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -43,4 +43,5 @@ class AppResource {
   static String close = '$componentIcon/ic_close.png';
   static String delete = '$componentIcon/ic_delete.png';
   static String quote = '$componentIcon/ic_quote.png';
+  static String play = '$componentIcon/ic_play.png';
 }

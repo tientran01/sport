@@ -25,8 +25,7 @@ class ArticleSortByName extends StatelessWidget {
         },
       ),
       body: BlocProvider<ArticleBloc>(
-        create: (context) =>
-            ArticleBloc()..add(const GetTopHeadlinesWithSourceEvent()),
+        create: (context) => ArticleBloc()..add(const GetTopHeadlinesEvent()),
         child: BlocBuilder<ArticleBloc, ArticleState>(
           builder: (context, articleHomeState) {
             List<Article>? articles = articleHomeState.articles;

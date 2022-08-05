@@ -11,14 +11,14 @@ class Video {
 
   static List<Video> videos = [
     Video(
-      name: "Elephant Dream",
+      name: "Stocks making the biggest moves premarket: Eli Lilly, Cigna, Restaurant Brands and more - CNBC",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
     ),
     Video(
-      name: "Big Buck Bunny",
+      name: "BOE Raises Rates by Most Since 1995, Warns of Long Recession - Bloomberg",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       thumbnailUrl:
@@ -39,14 +39,14 @@ class Video {
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg",
     ),
     Video(
-      name: "For Bigger Fun",
+      name: "Restaurant Brands International earnings top estimates, fueled by stronger Tim Hortons, Burger King sales - CNBC",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg",
     ),
     Video(
-      name: "For Bigger Joyrides",
+      name: "Alibaba shares pop 5% after earnings beat — but reports first flat revenue growth in history - CNBC",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
       thumbnailUrl:
