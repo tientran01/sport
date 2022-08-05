@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/application/application.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/main.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/articles.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -17,7 +17,9 @@ class ArticleScreen extends StatefulWidget {
 
 class _ArticleScreenState extends State<ArticleScreen>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
+  TabController? tabController;
+  TabController? tabBarController;
+
   int selectIndex = 0;
   List<Category> categories = AppStrings.categories;
   @override
@@ -25,16 +27,40 @@ class _ArticleScreenState extends State<ArticleScreen>
     super.initState();
     tabController =
         TabController(length: categories.length, vsync: this, initialIndex: 0);
-    tabController.animation!.addListener(() {
-      setState(() {
-        selectIndex = tabController.index;
-      });
+    getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
+    tabController?.addListener(() {
+      setState(() => selectIndex = tabController?.index ?? 1);
+      getData(tabController?.index);
     });
+  }
+
+  getData(int? index) {
+    switch (index) {
+      case 0:
+        getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
+        break;
+      case 1:
+        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
+              nameCategory: Application.appleParamValue,
+            ));
+        break;
+      case 2:
+        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
+              nameCategory: Application.bitcoinParamValue,
+            ));
+        break;
+      case 3:
+        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
+              nameCategory: Application.teslaParamValue,
+            ));
+        break;
+    }
   }
 
   @override
   void dispose() {
-    tabController.dispose();
+    tabController?.dispose();
+    tabBarController?.dispose();
     super.dispose();
   }
 
@@ -62,40 +88,7 @@ class _ArticleScreenState extends State<ArticleScreen>
       ),
       body: TabBarView(
         controller: tabController,
-        children: [
-          BlocProvider<ArticleBloc>(
-            create: (context) =>
-                ArticleBloc()..add(const GetTopHeadlinesEvent()),
-            child: const Articles(),
-          ),
-          BlocProvider<ArticleBloc>(
-            create: (context) => ArticleBloc()
-              ..add(
-                GetEverythingEvent(
-                  nameCategory: Application.appleParamValue,
-                ),
-              ),
-            child: const Articles(),
-          ),
-          BlocProvider<ArticleBloc>(
-            create: (context) => ArticleBloc()
-              ..add(
-                GetEverythingEvent(
-                  nameCategory: Application.bitcoinParamValue,
-                ),
-              ),
-            child: const Articles(),
-          ),
-          BlocProvider<ArticleBloc>(
-            create: (context) => ArticleBloc()
-              ..add(
-                GetEverythingEvent(
-                  nameCategory: Application.teslaParamValue,
-                ),
-              ),
-            child: const Articles(),
-          ),
-        ],
+        children: categories.map((e) => const Articles()).toList(),
       ),
     );
   }

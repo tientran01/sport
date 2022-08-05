@@ -25,13 +25,13 @@ class ShowAlertDialog {
           content: Text(content),
           actions: <Widget>[
           
-              FlatButton(
+              InkWell(
                 child: Text(cancelActionText ?? AppStrings.cancel),
-                onPressed: () => Navigator.of(context).pop(false),
+                onTap: () => Navigator.of(context).pop(false),
               ),
-            FlatButton(
+            InkWell(
               child: Text(defaultActionText ?? AppStrings.done),
-              onPressed: () => Navigator.of(context).pop(true),
+              onTap: () => Navigator.of(context).pop(true),
             ),
           ],
         ),

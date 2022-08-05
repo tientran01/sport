@@ -19,10 +19,13 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     GetTopHeadlinesEvent event,
     Emitter<void> emitter,
   ) async {
+    Loading.show();
     News? news = await ApiClient.api.getTopHeadlines();
     if (news != null) {
       Loading.dismiss();
-      emitter(state.copyWith(articles: news.articles));
+      emitter(
+        state.copyWith(articles: news.articles),
+      );
     } else {
       Loading.showError(AppStrings.error);
     }
@@ -32,10 +35,13 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     GetTopHeadlinesWithSourceEvent event,
     Emitter<void> emitter,
   ) async {
+    Loading.show();
     News? news = await ApiClient.api.getTopHeadlinesWithSource();
     if (news != null) {
       Loading.dismiss();
-      emitter(state.copyWith(articles: news.articles));
+      emitter(
+        state.copyWith(articles: news.articles),
+      );
     } else {
       Loading.showError(AppStrings.error);
     }
@@ -46,7 +52,9 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     Emitter<void> emitter,
   ) async {
     emitter(
-      state.copyWith(nameCategory: event.nameCategory ?? state.nameCategory),
+      state.copyWith(
+        nameCategory: event.nameCategory ?? state.nameCategory,
+      ),
     );
   }
 
@@ -55,8 +63,9 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     Emitter<void> emitter,
   ) async {
     Loading.show();
-    News? news =
-        await ApiClient.api.getEverything(endpoint: event.nameCategory ?? "");
+    News? news = await ApiClient.api.getEverything(
+      endpoint: event.nameCategory ?? "",
+    );
     if (news != null) {
       emitter(state.copyWith(articles: news.articles));
       Loading.dismiss();

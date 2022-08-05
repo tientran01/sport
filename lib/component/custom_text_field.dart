@@ -91,7 +91,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputFormatters,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validatorText,
-      maxLines: widget.isMaxLine == true ? widget.maxLine : 1,
     );
   }
 

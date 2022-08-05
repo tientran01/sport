@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       bottomNavigationBar: SizedBox(
-        height: Constants.size65,
+        height: Constants.size100,
         child: BottomNavigationBar(
           selectedItemColor: AppColor.white,
           unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
