@@ -20,6 +20,7 @@ import 'package:sport_app/pages/profile/profile_screen.dart';
 import 'package:sport_app/pages/search/search_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/pages/video_player/video_player_screen.dart';
+import 'package:sport_app/pages/video_player/video_screen.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +39,7 @@ class RouteName {
     AppRouteName.checkEmail: (BuildContext context) => const CheckEmailScreen(),
     AppRouteName.notification: (BuildContext context) => const NotificationScreen(),
     AppRouteName.notificationDetail: (BuildContext context) => const NotificationDetailScreen(),
-    AppRouteName.detailArticle: (BuildContext context) => const DetailArticleScreen(),
+    AppRouteName.detailArticle: (BuildContext context) => DetailArticleScreen(),
     AppRouteName.article: (BuildContext context) => const ArticleScreen(),
     AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),
     AppRouteName.createNewArticle: (BuildContext context) => const CreateNewArticle(),
@@ -47,5 +48,6 @@ class RouteName {
     AppRouteName.videoPlayer: (BuildContext context) => const VideoPlayerScreen(),
     AppRouteName.search: (BuildContext context) => const SearchScreen(),
     AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
+    AppRouteName.video: (BuildContext context) => const VideoScreen(),
   };
 }

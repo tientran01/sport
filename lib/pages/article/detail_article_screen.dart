@@ -10,7 +10,15 @@ import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
 class DetailArticleScreen extends StatelessWidget {
-  const DetailArticleScreen({Key? key}) : super(key: key);
+  final ScrollController scrollController = ScrollController();
+  DetailArticleScreen({Key? key}) : super(key: key);
+  void _scrollDown() {
+    scrollController.animateTo(
+      scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 2),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +34,7 @@ class DetailArticleScreen extends StatelessWidget {
             },
           ),
           body: SingleChildScrollView(
+            controller: scrollController,
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: Constants.size30,
@@ -98,20 +107,9 @@ class DetailArticleScreen extends StatelessWidget {
               children: [
                 FloatingActionButton(
                   heroTag: null,
-                  backgroundColor: AppColor.black,
-                  onPressed: () async {},
-                  child: Image.asset(
-                    AppResource.bookmark,
-                    width: Constants.size30,
-                    color: AppColor.white,
-                  ),
-                ),
-                SizedBox(
-                  height: Constants.size25,
-                ),
-                FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {},
+                  onPressed: () {
+                    _scrollDown();
+                  },
                   backgroundColor: AppColor.white,
                   child: Image.asset(
                     AppResource.comment,

@@ -42,13 +42,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             child: ListView.builder(
               itemCount: favoriteState.videos?.length,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(vertical: Constants.size15),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {},
+                return GestureDetector(
+                  onTap: () {
+                    NavigationService.navigatorKey.currentState?.pushNamed(
+                      AppRouteName.videoPlayer,
+                      arguments: favoriteState.videos?.elementAt(index),
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: Constants.size15),
+                    child: Row(
+                      children: [
+                        Expanded(
                           child: Container(
                               padding: EdgeInsets.only(right: Constants.size10),
                               child: CustomImage(
@@ -59,17 +64,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 height: Constants.size100,
                               )),
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding: EdgeInsets.only(left: Constants.size10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: TextView(
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.only(left: Constants.size10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextView(
                                   text: favoriteState.videos
                                       ?.elementAt(index)
                                       ?.name,
@@ -78,24 +80,25 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   textColor: AppColor.arsenic,
                                   lineNumber: 2,
                                 ),
-                              ),
-                              SizedBox(
-                                height: Constants.size5,
-                              ),
-                              TextView(
-                                text: favoriteState.videos
-                                    ?.elementAt(index)
-                                    ?.description,
-                                textColor: AppColor.darkSilver.withOpacity(.5),
-                                fontSize: Constants.size10,
-                                fontWeight: FontWeight.w600,
-                                lineNumber: 2,
-                              )
-                            ],
+                                SizedBox(
+                                  height: Constants.size5,
+                                ),
+                                TextView(
+                                  text: favoriteState.videos
+                                      ?.elementAt(index)
+                                      ?.description,
+                                  textColor:
+                                      AppColor.darkSilver.withOpacity(.5),
+                                  fontSize: Constants.size10,
+                                  fontWeight: FontWeight.w600,
+                                  lineNumber: 2,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               },

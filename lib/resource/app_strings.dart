@@ -91,6 +91,9 @@ class AppStrings {
   static const String share = "Chia sẻ";
   static const String favorites = "Mục yêu thích";
   static const String bookmark = "Bộ sưu tập của bạn";
+  static const String deleteAllFavorite = "Xoá tất cả bộ sưu tập";
+  static const String addFavorite = "Thêm vào bộ sưu tập";
+  static const String isExistFavorite = "Đã tồn tại";
   static List<Category> categories = [
     Category(
       text: Application.top,
@@ -112,6 +115,7 @@ class AppStrings {
 
   static List<Video> videos = [
     Video(
+      id: 1,
       name:
           "Stocks making the biggest moves premarket: Eli Lilly, Cigna, Restaurant Brands and more - CNBC",
       videoUrl:
@@ -123,6 +127,7 @@ class AppStrings {
           "The hottest place on earth is soaked after record rainfall, trapping visitors, staff and cars for hours.",
     ),
     Video(
+      id: 2,
       name:
           "BOE Raises Rates by Most Since 1995, Warns of Long Recession - Bloomberg",
       videoUrl:
@@ -134,6 +139,7 @@ class AppStrings {
           "WASHINGTON (AP) — The Senate parliamentarian on Saturday dealt a blow to Democrats’ plan for curbing drug prices but left the rest of their sprawling economic bill largely intact as party leaders prepared for first votes on a package containing many of Presid",
     ),
     Video(
+      id: 3,
       name: "For Bigger Blazes",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
@@ -144,6 +150,7 @@ class AppStrings {
           "Chelsea also survived a slog while Aston Villa disappointed for Steven Gerrard",
     ),
     Video(
+      id: 4,
       name: "For Bigger Escape",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
@@ -154,6 +161,7 @@ class AppStrings {
           "Some legal experts said they were surprised by his conduct and questioned whether it was a calculated risk to boost his appeal to fans.",
     ),
     Video(
+      id: 5,
       name:
           "Restaurant Brands International earnings top estimates, fueled by stronger Tim Hortons, Burger King sales - CNBC",
       videoUrl:
@@ -165,6 +173,7 @@ class AppStrings {
           "Elon Musk’s latest shenanigans involve challenging Twitter CEO Parag Agrawal to a “public debate” about how many bots Twitter has on the platform.",
     ),
     Video(
+      id: 6,
       name:
           "Alibaba shares pop 5% after earnings beat — but reports first flat revenue growth in history - CNBC",
       videoUrl:

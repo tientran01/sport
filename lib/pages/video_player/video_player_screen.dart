@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_event.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_state.dart';
@@ -22,11 +21,10 @@ class VideoPlayerScreen extends StatefulWidget {
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  List<Video> videos = AppStrings.videos;
-  int snappedPageIndex = 0;
-
+  bool isFavorite = true;
   @override
   Widget build(BuildContext context) {
+    Video video = ModalRoute.of(context)?.settings.arguments as Video;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
@@ -35,81 +33,64 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         },
         leftIconColor: AppColor.white,
       ),
-      body: PageView.builder(
-        onPageChanged: (int page) {
-          setState(() {
-            snappedPageIndex = page;
-          });
-        },
-        itemCount: videos.length,
-        itemBuilder: (context, index) {
-          return Stack(
-            alignment: Alignment.bottomCenter,
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          VideoTile(
+            video: video,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              VideoTile(
-                video: videos.elementAt(index),
-                currentIndex: index,
-                snappedPageIndex: snappedPageIndex,
+              Expanded(
+                flex: 3,
+                child: SizedBox(
+                  height: Constants.size100,
+                  child: VideoDetail(
+                    video: video,
+                  ),
+                ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: SizedBox(
-                      height: Constants.size100,
-                      child: VideoDetail(
-                        video: videos.elementAt(index),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: Constants.size45),
-                      height: Constants.size350,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          BlocBuilder<FavoriteBloc, FavoriteState>(
-                            bloc: getIt.get<FavoriteBloc>(),
-                            builder: (context, state) {
-                              return VideoButton(
-                                iconPath: AppResource.heart,
-                                onTap: () {
-                                  getIt.get<FavoriteBloc>().add(
-                                        AddVideoToFavoriteEvent(
-                                          video: videos.elementAt(index),
-                                        ),
-                                      );
-                                },
-                                iconColor: Hive.box(AppKeyName.favoritesBox)
-                                        .containsKey(
-                                            videos.elementAt(index).name)
-                                    ? AppColor.carminePink
-                                    : AppColor.white,
-                              );
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: Constants.size45),
+                  height: Constants.size350,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      BlocBuilder<FavoriteBloc, FavoriteState>(
+                        bloc: getIt.get<FavoriteBloc>(),
+                        builder: (context, state) {
+                          return VideoButton(
+                            iconPath: AppResource.heart,
+                            onTap: () {
+                              getIt.get<FavoriteBloc>().add(
+                                    AddVideoToFavoriteEvent(video: video),
+                                  );
                             },
-                          ),
-                          SizedBox(
-                            height: Constants.size25,
-                          ),
-                          ImageCircle(
-                            imageUrl: videos.elementAt(index).thumbnailUrl,
-                            width: Constants.size45,
-                            height: Constants.size45,
-                            isEdit: false,
-                          ),
-                        ],
+                            iconColor: isFavorite
+                                ? AppColor.white
+                                : AppColor.carminePink,
+                          );
+                        },
                       ),
-                    ),
+                      SizedBox(
+                        height: Constants.size25,
+                      ),
+                      ImageCircle(
+                        imageUrl: video.thumbnailUrl,
+                        width: Constants.size45,
+                        height: Constants.size45,
+                        isEdit: false,
+                      ),
+                    ],
                   ),
-                ],
-              )
+                ),
+              ),
             ],
-          );
-        },
-        scrollDirection: Axis.vertical,
+          )
+        ],
       ),
     );
   }

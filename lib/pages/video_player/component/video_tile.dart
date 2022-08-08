@@ -3,17 +3,12 @@ import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:video_player/video_player.dart';
-
 // ignore: must_be_immutable
 class VideoTile extends StatefulWidget {
   Video? video;
-  final int snappedPageIndex;
-  final int currentIndex;
   VideoTile({
     Key? key,
     this.video,
-    required this.snappedPageIndex,
-    required this.currentIndex,
   }) : super(key: key);
 
   @override
@@ -51,7 +46,7 @@ class _VideoTileState extends State<VideoTile> {
 
   @override
   Widget build(BuildContext context) {
-    (widget.currentIndex == widget.currentIndex && isVideoPlaying)
+    (isVideoPlaying)
         ? videoPlayerController.play
         : videoPlayerController.pause();
     return Container(

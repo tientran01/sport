@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/helper/favorite_box.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/modules/bloc_module.dart';
@@ -22,7 +21,6 @@ final GetIt getIt = GetIt.instance;
 Future<void> main() async {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await FavoriteBox.shared.checkFavoriteBoxExists();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );

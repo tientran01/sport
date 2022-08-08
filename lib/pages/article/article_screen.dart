@@ -80,9 +80,6 @@ class _ArticleScreenState extends State<ArticleScreen>
           text: AppStrings.news,
           fontSize: Constants.size17,
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Image.asset(AppResource.filter, width: Constants.size20,))
-        ],
         bottom: TabBar(
           controller: tabController,
           indicatorColor: AppColor.black,

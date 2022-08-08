@@ -21,4 +21,5 @@ class AppRouteName {
   static const String videoPlayer = "/video_player";
   static const String search = "/search";
   static const String favorite = "/favorite";
+  static const String video = "/video";
 }
