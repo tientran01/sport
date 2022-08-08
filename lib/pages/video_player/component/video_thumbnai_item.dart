@@ -123,7 +123,7 @@ class VideoThumbnaiLargeItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(Constants.size10),
                     ),
                     child: TextView(
-                      text: AppStrings.category,
+                      text: video?.time,
                       fontSize: Constants.size10,
                     ),
                   ),

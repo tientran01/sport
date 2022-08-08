@@ -40,19 +40,25 @@ class _ArticleScreenState extends State<ArticleScreen>
         getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
         break;
       case 1:
-        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
-              nameCategory: Application.appleParamValue,
-            ));
+        getIt.get<ArticleBloc>().add(
+              const GetEverythingEvent(
+                nameCategory: Application.appleParamValue,
+              ),
+            );
         break;
       case 2:
-        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
-              nameCategory: Application.bitcoinParamValue,
-            ));
+        getIt.get<ArticleBloc>().add(
+              const GetEverythingEvent(
+                nameCategory: Application.bitcoinParamValue,
+              ),
+            );
         break;
       case 3:
-        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
-              nameCategory: Application.teslaParamValue,
-            ));
+        getIt.get<ArticleBloc>().add(
+              const GetEverythingEvent(
+                nameCategory: Application.teslaParamValue,
+              ),
+            );
         break;
     }
   }
@@ -74,6 +80,9 @@ class _ArticleScreenState extends State<ArticleScreen>
           text: AppStrings.news,
           fontSize: Constants.size17,
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Image.asset(AppResource.filter, width: Constants.size20,))
+        ],
         bottom: TabBar(
           controller: tabController,
           indicatorColor: AppColor.black,

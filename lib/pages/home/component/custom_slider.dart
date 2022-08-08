@@ -38,18 +38,55 @@ class _CustomSliderState extends State<CustomSlider> {
                 itemCount: articles?.length ?? 5,
                 itemBuilder: (context, index, realIndex) {
                   return GestureDetector(
-                    onTap: () {
-                      NavigationService.navigatorKey.currentState?.pushNamed(
-                        AppRouteName.detailArticle,
-                        arguments: articles?.elementAt(index),
-                      );
-                    },
-                    child: buildSliderItem(
-                      articles?.elementAt(index),
-                      size.width,
-                      index,
-                    ),
-                  );
+                      onTap: () {
+                        NavigationService.navigatorKey.currentState?.pushNamed(
+                          AppRouteName.detailArticle,
+                          arguments: articles?.elementAt(index),
+                        );
+                      },
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          CustomImage(
+                            imageUrl: articles?.elementAt(index).urlToImage ?? AppNetwork.imageNewsPlaceholder,
+                            width: size.width,
+                            height: Constants.size200,
+                          ),
+                          Positioned(
+                            left: Constants.size30,
+                            top: Constants.size45,
+                            child: SizedBox(
+                              width: Constants.size200,
+                              child: TextView(
+                                text: articles?.elementAt(index).title,
+                                textColor: AppColor.white,
+                                fontSize: Constants.size17,
+                                fontWeight: FontWeight.w700,
+                                lineNumber: 5,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: Constants.size15,
+                            right: Constants.size15,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: Constants.size5,
+                                horizontal: Constants.size15,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColor.ghostWhite.withOpacity(0.8),
+                                borderRadius:
+                                    BorderRadius.circular(Constants.size15),
+                              ),
+                              child: TextView(
+                                text: articles?.elementAt(index).source?.name,
+                                fontSize: Constants.size10,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ));
                 },
                 options: CarouselOptions(
                   autoPlay: true,
@@ -65,51 +102,6 @@ class _CustomSliderState extends State<CustomSlider> {
           ),
         );
       },
-    );
-  }
-
-  Widget buildSliderItem(Article? article, double width, int index) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        CustomImage(
-          imageUrl: article?.urlToImage,
-          width: width,
-          height: Constants.size200,
-        ),
-        Positioned(
-          left: Constants.size30,
-          top: Constants.size45,
-          child: SizedBox(
-            width: Constants.size200,
-            child: TextView(
-              text: article?.title,
-              textColor: AppColor.white,
-              fontSize: Constants.size17,
-              fontWeight: FontWeight.w700,
-              lineNumber: 5,
-            ),
-          ),
-        ),
-        Positioned(
-          top: Constants.size15,
-          right: Constants.size15,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              vertical: Constants.size5,
-              horizontal: Constants.size15,
-            ),
-            decoration: BoxDecoration(
-              color: AppColor.ghostWhite.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(Constants.size15),
-            ),
-            child: TextView(
-              text: article?.source?.name,
-              fontSize: Constants.size10,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

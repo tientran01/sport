@@ -7,7 +7,6 @@ import 'package:sport_app/component/action.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/component/name_section.dart';
 import 'package:sport_app/component/show_alert_dialog.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
@@ -30,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<ProfileBloc>().add(GetUserProfile());
+    getIt.get<ProfileBloc>().add(GetUserProfileEvent());
   }
 
   @override
@@ -65,6 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onTap: () {
                         _showActionSheet();
                       },
+                      isEdit: true,
                     ),
                   ),
                   SizedBox(
@@ -115,19 +115,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: Constants.size20,
                   ),
-                  NameSection(
-                    titleSection: AppStrings.yourCollections,
-                    onTap: () {},
-                    text: AppStrings.showAll,
-                  ),
                   const Spacer(),
-                  Button(
-                    text: AppStrings.logout,
-                    onTap: () {
-                      getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
-                    },
-                    bgColor: AppColor.arsenic,
-                    textColor: AppColor.white,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Button(
+                        width: Constants.size120,
+                        text: AppStrings.logout,
+                        onTap: () {
+                          getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
+                        },
+                        bgColor: AppColor.arsenic,
+                        textColor: AppColor.white,
+                      ),
+                      Button(
+                        width: Constants.size200,
+                        text: AppStrings.deleteAccount,
+                        onTap: () {
+                          getIt.get<ProfileBloc>().add(DeleteProfileEvent());
+                        },
+                        bgColor: AppColor.white,
+                        textColor: AppColor.black,
+                      ),
+                    ],
                   ),
                   const Spacer(),
                 ],
@@ -169,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     .uploadImageUser(imagePath: imagePath)
                     .then(
                   (value) {
-                    getIt.get<ProfileBloc>().add(GetUserProfile());
+                    getIt.get<ProfileBloc>().add(GetUserProfileEvent());
                   },
                 );
               },

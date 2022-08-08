@@ -16,4 +16,6 @@ class GetDisplayNameFromTextFieldEvent extends ProfileEvent {
 
 class EditDisplayNameEvent extends ProfileEvent {}
 
-class GetUserProfile extends ProfileEvent {}
+class GetUserProfileEvent extends ProfileEvent {}
+
+class DeleteProfileEvent extends ProfileEvent {}

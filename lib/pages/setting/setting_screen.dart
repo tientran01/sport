@@ -22,7 +22,7 @@ class _SettingScreenState extends State<SettingScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<ProfileBloc>().add(GetUserProfile());
+    getIt.get<ProfileBloc>().add(GetUserProfileEvent());
   }
 
   @override
@@ -32,11 +32,9 @@ class _SettingScreenState extends State<SettingScreen> {
         title: AppStrings.setting,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: Constants.size20,
-          vertical: Constants.size10,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: Constants.size20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BlocBuilder<ProfileBloc, ProfileState>(
               bloc: getIt.get<ProfileBloc>(),
@@ -53,7 +51,6 @@ class _SettingScreenState extends State<SettingScreen> {
                           width: Constants.size100,
                           height: Constants.size100,
                           imageUrl: state.user?.photoUrl,
-                          iconPath: AppResource.crown,
                         ),
                       ),
                       SizedBox(
@@ -92,6 +89,75 @@ class _SettingScreenState extends State<SettingScreen> {
                   ),
                 );
               },
+            ),
+            SizedBox(
+              height: Constants.size40,
+            ),
+            TextView(
+              text: AppStrings.justForYou,
+              fontSize: Constants.size17,
+              fontWeight: FontWeight.w700,
+            ),
+            SizedBox(
+              height: Constants.size20,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: Constants.size20,
+              ),
+              height: Constants.size150,
+              decoration: BoxDecoration(
+                color: AppColor.gainsboro,
+                borderRadius: BorderRadius.circular(Constants.size15),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildSettingItem(
+                    context,
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState
+                          ?.pushNamed(AppRouteName.favorite);
+                    },
+                    text: AppStrings.favorites,
+                  ),
+                  SizedBox(
+                    height: Constants.size20,
+                  ),
+                  buildSettingItem(
+                    context,
+                    text: AppStrings.bookmark,
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildSettingItem(BuildContext context,
+      {required String text, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: Constants.size10),
+        child: Row(
+          children: [
+            TextView(
+              text: text,
+              textColor: AppColor.black,
+              fontSize: Constants.size17,
+            ),
+            const Spacer(),
+            GestureDetector(
+              onTap: onTap,
+              child: Image.asset(
+                AppResource.rightArrow,
+                width: Constants.size15,
+              ),
             ),
           ],
         ),

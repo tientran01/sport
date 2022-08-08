@@ -300,6 +300,16 @@ class FirebaseHelper {
     });
   }
 
+  Future<void> deleteUser() async {
+    User? currentUser = auth.currentUser;
+    CollectionReference userCollection =
+        firebaseFirestore.collection(AppCollection.userInformation);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    SharedPreferencesHelper.shared.logout();
+    userDocument.delete();
+    currentUser?.delete();
+  }
+
   Future<String> getImage({String? imagePath, String? folderPath}) async {
     Reference imageReference = FirebaseHelper.firebaseStorage
         .ref()

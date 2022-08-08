@@ -15,11 +15,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ButtonSignOutEvent>(_onButtonSignOut);
     on<GetDisplayNameFromTextFieldEvent>(_onGetDisplayNameFromTextField);
     on<EditDisplayNameEvent>(_onEditDisplayName);
-    on<GetUserProfile>(_onGetUser);
+    on<GetUserProfileEvent>(_onGetUser);
+    on<DeleteProfileEvent>(_onDeleteProfile);
   }
 
   Future<void> _onGetUser(
-    GetUserProfile event,
+    GetUserProfileEvent event,
     Emitter<void> emitter,
   ) async {
     UserInformation? user = await FirebaseHelper.shared.getUserByUid();
@@ -32,6 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     Emitter<void> emitter,
   ) async {
     SharedPreferencesHelper.shared.logout();
+    FirebaseHelper.shared.signOut();
     NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
   }
 
@@ -47,7 +49,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     Emitter<void> emitter,
   ) async {
     FirebaseHelper.shared.updateUser(displayName: state.displayName);
-    getIt.get<ProfileBloc>().add(GetUserProfile());
+    getIt.get<ProfileBloc>().add(GetUserProfileEvent());
+  }
+
+  Future<void> _onDeleteProfile(
+      DeleteProfileEvent event, Emitter<void> emitter) async {
+    FirebaseHelper.shared.deleteUser();
+    Loading.show();
+    NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
+    Loading.dismiss();
   }
 
   static ProfileBloc of(BuildContext context) =>

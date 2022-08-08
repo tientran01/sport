@@ -28,7 +28,11 @@ class ArticleItem extends StatelessWidget {
                 padding: EdgeInsets.only(right: Constants.size10),
                 child:
                     (article?.urlToImage == null || article?.urlToImage == "")
-                        ? Container()
+                        ? CustomImage(
+                          imageUrl: AppNetwork.imageNewsPlaceholder,
+                          width: Constants.size120,
+                            height: Constants.size100,
+                        )
                         : CustomImage(
                             imageUrl: article?.urlToImage,
                             width: Constants.size120,
@@ -94,10 +98,10 @@ class ArticleItem extends StatelessWidget {
   }
 }
 
-class ArticleCustomWidgetItem extends StatelessWidget {
+class ArticleCustomWidthItem extends StatelessWidget {
   final Article? article;
   final VoidCallback? onTap;
-  const ArticleCustomWidgetItem({
+  const ArticleCustomWidthItem({
     Key? key,
     this.article,
     this.onTap,

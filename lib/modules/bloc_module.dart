@@ -15,5 +15,6 @@ class BlocModule {
     getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
     getIt.registerLazySingleton<ArticleBloc>(() => ArticleBloc());
     getIt.registerLazySingleton<YourArticleBloc>(() => YourArticleBloc());
+    getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
   }
 }

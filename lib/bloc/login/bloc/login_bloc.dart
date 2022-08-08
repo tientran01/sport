@@ -1,5 +1,3 @@
-// ignore_for_file: empty_catches
-
 import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';

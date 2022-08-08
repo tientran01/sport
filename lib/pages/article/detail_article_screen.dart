@@ -91,6 +91,38 @@ class DetailArticleScreen extends StatelessWidget {
               ),
             ),
           ),
+          floatingActionButton: Container(
+            margin: EdgeInsets.only(bottom: Constants.size20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FloatingActionButton(
+                  heroTag: null,
+                  backgroundColor: AppColor.black,
+                  onPressed: () async {},
+                  child: Image.asset(
+                    AppResource.bookmark,
+                    width: Constants.size30,
+                    color: AppColor.white,
+                  ),
+                ),
+                SizedBox(
+                  height: Constants.size25,
+                ),
+                FloatingActionButton(
+                  heroTag: null,
+                  onPressed: () {},
+                  backgroundColor: AppColor.white,
+                  child: Image.asset(
+                    AppResource.comment,
+                    width: Constants.size45,
+                    color: AppColor.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         );
       },
     );

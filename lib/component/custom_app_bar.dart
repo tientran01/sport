@@ -1,12 +1,12 @@
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? leadingIconPath;
   final VoidCallback? onPressedLeft;
   final VoidCallback? onPressedRight;
+  final Color? leftIconColor;
   final String? title;
   final String? rightIconPath;
   const CustomAppBar({
@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.rightIconPath,
     this.onPressedLeft,
-    this.onPressedRight,
+    this.onPressedRight, this.leftIconColor,
   }) : super(key: key);
 
   @override
@@ -34,6 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 leadingIconPath ?? AppResource.leftArrow,
                 width: Constants.size27,
                 height: Constants.size27,
+                color: leftIconColor ?? AppColor.black,
               ),
             )
           : Container(),

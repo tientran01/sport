@@ -23,6 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
+    final barHeight = MediaQuery.of(context).size.height * 0.1;
     return Scaffold(
       body: PageView.builder(
         controller: _pageController,
@@ -37,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       bottomNavigationBar: SizedBox(
-        height: Constants.size100,
+        height: barHeight,
         child: BottomNavigationBar(
           selectedItemColor: AppColor.white,
           unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
