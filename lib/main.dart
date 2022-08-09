@@ -33,7 +33,7 @@ Future<void> main() async {
     FirebaseHelper.shared.setupToken();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
-
+    
     runApp(
       MultiBlocProvider(
         providers: [

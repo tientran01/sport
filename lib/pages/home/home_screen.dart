@@ -202,14 +202,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: Constants.size20,
                     ),
-                    NameSection(
+                    const NameSection(
                       titleSection: AppStrings.hotVideos,
-                      text: AppStrings.seeMore,
-                      onTap: () {
-                        NavigationService.navigatorKey.currentState?.pushNamed(
-                          AppRouteName.video,
-                        );
-                      },
                     ),
                     Container(
                       margin: EdgeInsets.only(top: Constants.size5),
