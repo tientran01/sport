@@ -17,20 +17,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchArticleEvent event,
     Emitter<void> emitter,
   ) async {
-    List<Article> articles = [];
+    List<Article> results = [];
     Loading.show();
     News? news = await ApiClient.api.getTopHeadlines();
     if (news != null) {
       Loading.dismiss();
-      var listArticle = news.articles;
-      for (var article in listArticle!) {
-        if (article.title!
-            .toLowerCase()
-            .contains(event.searchText?.toLowerCase() ?? "")) {
-          articles.add(article);
+      var articles = news.articles;
+      if (articles != null) {
+        for (var article in articles) {
+          if (article.title!.toLowerCase().contains(event.searchText?.toLowerCase() ?? "")) {
+            results.add(article);
+          }
         }
       }
-      emitter(state.copyWith(results: articles));
+      emitter(state.copyWith(results: results));
     } else {
       Loading.showError(AppStrings.error);
     }

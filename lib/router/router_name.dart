@@ -17,6 +17,7 @@ import 'package:sport_app/pages/main_screen.dart';
 import 'package:sport_app/pages/notification/notification_detail_screen.dart';
 import 'package:sport_app/pages/notification/notification_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
+import 'package:sport_app/pages/search/search_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/pages/video_player/video_player_screen.dart';
 import 'package:sport_app/pages/video_player/video_screen.dart';
@@ -47,5 +48,6 @@ class RouteName {
     AppRouteName.videoPlayer: (BuildContext context) => const VideoPlayerScreen(),
     AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
     AppRouteName.video: (BuildContext context) => const VideoScreen(),
+    AppRouteName.search: (BuildContext context) => const SearchScreen(),
   };
 }
