@@ -31,6 +31,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         onPressedLeft: () {
           NavigationService.navigatorKey.currentState?.pop();
         },
+        bgColor: Colors.transparent,
         leftIconColor: AppColor.white,
       ),
       body: Stack(

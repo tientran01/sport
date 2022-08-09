@@ -21,7 +21,6 @@ class GetTopHeadlinesWithSourceEvent extends ArticleEvent {
   List<Object?> get props => [article];
 }
 
-
 class GetEverythingEvent extends ArticleEvent {
   final String? nameCategory;
   const GetEverythingEvent({this.nameCategory});

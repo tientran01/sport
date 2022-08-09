@@ -1,4 +1,5 @@
 import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/search/bloc/search_bloc.dart';
 import 'package:sport_app/main.dart';
 
 class BlocModule {
@@ -16,5 +17,6 @@ class BlocModule {
     getIt.registerLazySingleton<ArticleBloc>(() => ArticleBloc());
     getIt.registerLazySingleton<YourArticleBloc>(() => YourArticleBloc());
     getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
+    getIt.registerLazySingleton<SearchBloc>(() => SearchBloc());
   }
 }

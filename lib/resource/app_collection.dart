@@ -12,4 +12,5 @@ class AppFieldName {
   static const String photoUrl = "photoUrl";
   static const String tokens = "tokens";
   static const String displayName = "displayName";
+  static const String author = "author";
 }

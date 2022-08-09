@@ -9,8 +9,6 @@ import 'package:sport_app/model/article.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
-
-// ignore: must_be_immutable
 class ArticleSortByName extends StatefulWidget {
   const ArticleSortByName({Key? key}) : super(key: key);
 
@@ -38,7 +36,18 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
           getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
         });
         break;
+      
       default:
+        {
+          setState(
+            () {
+              getIt
+                  .get<ArticleBloc>()
+                  .add(const GetTopHeadlinesWithSourceEvent());
+            },
+          );
+        }
+        break;
     }
     return Scaffold(
       appBar: CustomAppBar(

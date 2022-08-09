@@ -1,4 +1,3 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
@@ -7,10 +6,7 @@ import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/component/action.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/custom_text_field.dart';
-import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
@@ -63,12 +59,9 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
                       title: AppStrings.titleArticle,
                       hintText: AppStrings.titleArticleInput,
                       onChanged: (String title) {
-                        setState(() {
-                          yourArticle?.title = title;
-                        });
                         getIt.get<YourArticleBloc>().add(
-                              GetYourArticleEvent(
-                                yourArticle: yourArticle,
+                              GetArticleFromTextFieldEvent(
+                                title: title,
                               ),
                             );
                       },
@@ -82,65 +75,13 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
                       isMaxLine: true,
                       maxLine: 5,
                       onChanged: (String description) {
-                        setState(() {
-                          yourArticle?.description = description;
-                        });
-
                         getIt.get<YourArticleBloc>().add(
-                              GetYourArticleEvent(
-                                yourArticle: yourArticle,
+                              GetArticleFromTextFieldEvent(
+                                description: description,
                               ),
                             );
                       },
                     ),
-                    SizedBox(
-                      height: Constants.size20,
-                    ),
-                    TextView(
-                      text: AppStrings.uploadImage,
-                      fontSize: Constants.size17,
-                    ),
-                    SizedBox(
-                      height: Constants.size10,
-                    ),
-                    (imagePath == "" && imagePath.isEmpty)
-                        ? GestureDetector(
-                            onTap: () {
-                              _uploadImage();
-                            },
-                            child: DottedBorder(
-                              radius: Radius.circular(Constants.size10),
-                              color: AppColor.gainsboro,
-                              child: Container(
-                                width: Constants.size150,
-                                height: Constants.size100,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: Constants.size20,
-                                  vertical: Constants.size15,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Image.asset(
-                                      AppResource.camera,
-                                      width: Constants.size27,
-                                    ),
-                                    SizedBox(
-                                      height: Constants.size10,
-                                    ),
-                                    const TextView(
-                                      text: AppStrings.uploadImage,
-                                      textColor: AppColor.darkSilver,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        : CustomImage(
-                            imageUrl: imagePath,
-                            width: Constants.size150,
-                            height: Constants.size100,
-                          ),
                     SizedBox(
                       height: Constants.size20,
                     ),
@@ -149,11 +90,9 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
                       text: AppStrings.postArticle,
                       textColor: AppColor.white,
                       onTap: () {
-                        getIt.get<YourArticleBloc>().add(
-                              CreateNewYourArticleEvent(
-                                yourArticle: yourArticle,
-                              ),
-                            );
+                        getIt
+                            .get<YourArticleBloc>()
+                            .add(CreateNewArticleEvent());
                       },
                     )
                   ],
@@ -185,9 +124,6 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
           value: (String image) {
             setState(() {
               imagePath = image;
-              FirebaseHelper.shared.getImage(
-                imagePath: imagePath,
-              );
               NavigationService.navigatorKey.currentState?.pop();
             });
           },

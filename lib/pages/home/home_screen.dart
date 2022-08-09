@@ -8,15 +8,14 @@ import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/article.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
+import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
 import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/pages/home/component/search.dart';
 import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
-import 'component/custom_slider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,10 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
             appBar: HeaderHome(
-              notificationCount: state.badge,
-              onTap: () => NavigationService.navigatorKey.currentState
-                  ?.pushNamed(AppRouteName.notification),
-            ),
+                notificationCount: state.badge,
+                onTap: () {
+                  NavigationService.navigatorKey.currentState
+                      ?.pushNamed(AppRouteName.notification);
+                }),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Padding(
@@ -61,9 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Column(
                   children: [
-                    const Search(),
                     SizedBox(
-                      height: Constants.size15,
+                      height: Constants.size20,
                     ),
                     BlocProvider<ArticleBloc>(
                       create: (context) => ArticleBloc()

@@ -75,7 +75,7 @@ class _ArticleScreenState extends State<ArticleScreen>
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: TextView(
           text: AppStrings.news,
           fontSize: Constants.size17,

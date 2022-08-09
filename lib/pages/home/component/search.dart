@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/pages/search/custom_search_delegate.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 
 class Search extends StatelessWidget {
   const Search({Key? key}) : super(key: key);
@@ -13,8 +13,10 @@ class Search extends StatelessWidget {
       height: Constants.size60,
       child: TextFormField(
         onTap: () {
-          NavigationService.navigatorKey.currentState
-              ?.pushNamed(AppRouteName.search);
+          showSearch(
+            context: context,
+            delegate: CustomSearchDelegate(),
+          );
         },
         textAlign: TextAlign.center,
         decoration: InputDecoration(

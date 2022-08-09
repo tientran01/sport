@@ -310,37 +310,17 @@ class FirebaseHelper {
     currentUser?.delete();
   }
 
-  Future<String> getImage({String? imagePath, String? folderPath}) async {
-    Reference imageReference = FirebaseHelper.firebaseStorage
-        .ref()
-        .child(folderPath ?? AppFolder.imageArticle);
-    UploadTask uploadTask =
-        imageReference.child("${DateTime.now()}.png").putFile(
-              File(imagePath ?? ""),
-            );
-    var imageUrl = await (await uploadTask).ref.getDownloadURL();
-    return imageUrl;
-  }
-
-  Future<void> createYourArticle({YourArticle? yourArticle}) async {
-    User? currentUser = FirebaseHelper.shared.auth.currentUser;
-    CollectionReference yourArticleCollection = FirebaseHelper.firebaseFirestore
-        .collection(AppCollection.yourArticleCollection);
-    DocumentReference articleDocument =
-        yourArticleCollection.doc("${currentUser?.uid}${DateTime.now()}");
-    final newYourArticle = yourArticle;
-    await articleDocument.set(newYourArticle?.toJson());
-  }
-
-  Future<YourArticle?> getYourArticle() async {
-    CollectionReference articleCollection =
+  Future<void> createNewArticle(YourArticle yourArticle) async {
+    User? currentUser = auth.currentUser;
+    CollectionReference yourArticleCollection =
         firebaseFirestore.collection(AppCollection.yourArticleCollection);
-    YourArticle? yourArticle;
-    DocumentReference articleDocument =
-        articleCollection.doc("2OB1mADhcMFnixwPh1xc");
-    await articleDocument.get().then((DocumentSnapshot doc) {
-      yourArticle = YourArticle.fromJson(doc.data() as Map<String, dynamic>);
-    });
-    return yourArticle;
+    DocumentReference yourArticleDocument = yourArticleCollection.doc();
+    final newYourArticle = YourArticle(
+      title: yourArticle.title,
+      author: currentUser?.uid,
+      description: yourArticle.description,
+      publishedAt: DateTime.now().toString(),
+    );
+    yourArticleDocument.set(newYourArticle.toJson());
   }
 }

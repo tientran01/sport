@@ -10,6 +10,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final String? rightIconPath;
   final Color? titleColor;
+  final Color? bgColor;
   const CustomAppBar({
     Key? key,
     this.leadingIconPath,
@@ -18,14 +19,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onPressedLeft,
     this.onPressedRight,
     this.leftIconColor,
-    this.titleColor,
+    this.titleColor, this.bgColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: bgColor ?? Theme.of(context).backgroundColor,
       title: TextView(
         text: title ?? "",
         fontSize: Constants.size17,

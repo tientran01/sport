@@ -5,18 +5,19 @@ import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/resource/resource.dart';
 
-// ignore: must_be_immutable
 class YourArticleItem extends StatelessWidget {
-  YourArticleItem({Key? key, this.yourArticle}) : super(key: key);
-  YourArticle? yourArticle;
+  const YourArticleItem({Key? key, this.yourArticle}) : super(key: key);
+  final YourArticle? yourArticle;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<ArticleBloc, ArticleState>(
+      bloc: getIt.get<ArticleBloc>(),
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(
@@ -38,8 +39,7 @@ class YourArticleItem extends StatelessWidget {
                 Row(
                   children: [
                     CustomImage(
-                      imageUrl:
-                          yourArticle?.urlToImage ?? AppNetwork.imageAvatar,
+                      imageUrl: yourArticle?.urlToImage ?? AppNetwork.imageAvatar,
                       width: Constants.size100,
                       height: Constants.size100,
                     ),
