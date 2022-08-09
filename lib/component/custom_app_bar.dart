@@ -19,7 +19,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onPressedLeft,
     this.onPressedRight,
     this.leftIconColor,
-    this.titleColor, this.bgColor,
+    this.titleColor,
+    this.bgColor,
   }) : super(key: key);
 
   @override
@@ -49,7 +50,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: onPressedRight,
                 icon: Image.asset(
                   rightIconPath ?? "",
-                  width: Constants.size27,
+                  width: Constants.size25,
                 ),
               )
             : Container()

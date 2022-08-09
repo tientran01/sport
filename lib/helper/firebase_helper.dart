@@ -316,11 +316,39 @@ class FirebaseHelper {
         firebaseFirestore.collection(AppCollection.yourArticleCollection);
     DocumentReference yourArticleDocument = yourArticleCollection.doc();
     final newYourArticle = YourArticle(
+      id: yourArticleDocument.id,
       title: yourArticle.title,
       author: currentUser?.uid,
       description: yourArticle.description,
       publishedAt: DateTime.now().toString(),
     );
     yourArticleDocument.set(newYourArticle.toJson());
+  }
+
+  Future<List<YourArticle>> getYourArticles() async {
+    User? currentUser = auth.currentUser;
+    List<YourArticle> yourArticles = [];
+    CollectionReference yourArticleCollection =
+        firebaseFirestore.collection(AppCollection.yourArticleCollection);
+    var snapshot = await yourArticleCollection
+        .where(AppFieldName.author, isEqualTo: currentUser?.uid)
+        .get();
+    for (var yourArticle in snapshot.docs) {
+      YourArticle newYourArticle =
+          YourArticle.fromJson(yourArticle.data() as Map<String, dynamic>);
+      yourArticles.add(newYourArticle);
+    }
+    yourArticles.sort(
+      (a, b) => b.publishedAt.toString().compareTo(a.publishedAt.toString()),
+    );
+    return yourArticles;
+  }
+
+  Future<void> deleteYourArticle(String? id) async {
+    CollectionReference yourArticleCollection =
+        firebaseFirestore.collection(AppCollection.yourArticleCollection);
+    DocumentReference yourArticleDocument =
+        yourArticleCollection.doc(id);
+    await yourArticleDocument.delete();
   }
 }

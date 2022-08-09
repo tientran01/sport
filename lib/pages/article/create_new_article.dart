@@ -92,7 +92,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
                       onTap: () {
                         getIt
                             .get<YourArticleBloc>()
-                            .add(CreateNewArticleEvent());
+                            .add(CreateNewYourArticleEvent());
                       },
                     )
                   ],
