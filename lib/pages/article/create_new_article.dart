@@ -39,11 +39,9 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
             }
           },
           child: Scaffold(
-            appBar: CustomAppBar(
+            appBar: const CustomAppBar(
               title: AppStrings.createNewArticle,
-              onPressedLeft: () {
-                NavigationService.navigatorKey.currentState?.pop();
-              },
+              
             ),
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),

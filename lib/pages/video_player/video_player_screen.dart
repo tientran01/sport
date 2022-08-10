@@ -11,26 +11,16 @@ import 'package:sport_app/pages/video_player/component/video_button.dart';
 import 'package:sport_app/pages/video_player/component/video_detail.dart';
 import 'package:sport_app/pages/video_player/component/video_tile.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 
-class VideoPlayerScreen extends StatefulWidget {
+class VideoPlayerScreen extends StatelessWidget {
   const VideoPlayerScreen({Key? key}) : super(key: key);
 
-  @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
-}
-
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  bool isFavorite = true;
   @override
   Widget build(BuildContext context) {
     Video video = ModalRoute.of(context)?.settings.arguments as Video;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(
-        onPressedLeft: () {
-          NavigationService.navigatorKey.currentState?.pop();
-        },
+      appBar: const CustomAppBar(
         bgColor: Colors.transparent,
         leftIconColor: AppColor.white,
       ),
@@ -67,12 +57,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                             iconPath: AppResource.heart,
                             onTap: () {
                               getIt.get<FavoriteBloc>().add(
-                                    AddVideoToFavoriteEvent(video: video),
+                                    AddVideoToFavoriteEvent(
+                                      video: video,
+                                    ),
                                   );
                             },
-                            iconColor: isFavorite
-                                ? AppColor.white
-                                : AppColor.carminePink,
+                            iconColor: AppColor.white,
                           );
                         },
                       ),

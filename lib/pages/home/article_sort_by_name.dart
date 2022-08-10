@@ -52,9 +52,7 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
     return Scaffold(
       appBar: CustomAppBar(
         title: nameArticle,
-        onPressedLeft: () {
-          NavigationService.navigatorKey.currentState?.pop();
-        },
+        
       ),
       body: BlocBuilder<ArticleBloc, ArticleState>(
         bloc: getIt.get<ArticleBloc>(),

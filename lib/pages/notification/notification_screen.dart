@@ -3,7 +3,6 @@ import 'package:sport_app/component/button.dart';
 import 'package:sport_app/helper/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -14,7 +13,6 @@ class NotificationScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: nameCategory,
-        onPressedLeft: () => NavigationService.navigatorKey.currentState?.pop(),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Constants.size20),

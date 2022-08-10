@@ -89,7 +89,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     try {
       FirebaseHelper.shared.signOut();
-      SharedPreferencesHelper.shared.logout();
+      SharedPreferencesHelper.shared.removeUid();
       NavigationService.navigatorKey.currentState
           ?.pushNamed(AppRouteName.login);
     } catch (e) {

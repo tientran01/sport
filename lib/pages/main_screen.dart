@@ -23,7 +23,6 @@ class _MainScreenState extends State<MainScreen> {
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
-    final barHeight = MediaQuery.of(context).size.height * 0.1;
     return Scaffold(
       body: PageView.builder(
         controller: _pageController,
@@ -37,39 +36,36 @@ class _MainScreenState extends State<MainScreen> {
           selectIndex = pageIndex;
         },
       ),
-      bottomNavigationBar: SizedBox(
-        height: barHeight,
-        child: BottomNavigationBar(
-          selectedItemColor: AppColor.white,
-          unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
-          type: BottomNavigationBarType.fixed,
-          elevation: 0.0,
-          backgroundColor: AppColor.black,
-          currentIndex: selectIndex,
-          onTap: _onTapItem,
-          items: [
-            bottomNavigationBarItem(
-              iconPath: AppResource.home,
-              index: 0,
-              label: AppStrings.home,
-            ),
-            bottomNavigationBarItem(
-              iconPath: AppResource.compass,
-              index: 1,
-              label: AppStrings.news,
-            ),
-            bottomNavigationBarItem(
-              iconPath: AppResource.create,
-              index: 2,
-              label: AppStrings.createNewArticle,
-            ),
-            bottomNavigationBarItem(
-              iconPath: AppResource.setting,
-              index: 3,
-              label: AppStrings.setting,
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: AppColor.white,
+        unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
+        type: BottomNavigationBarType.fixed,
+        elevation: 0.0,
+        backgroundColor: AppColor.black,
+        currentIndex: selectIndex,
+        onTap: _onTapItem,
+        items: [
+          bottomNavigationBarItem(
+            iconPath: AppResource.home,
+            index: 0,
+            label: AppStrings.home,
+          ),
+          bottomNavigationBarItem(
+            iconPath: AppResource.compass,
+            index: 1,
+            label: AppStrings.news,
+          ),
+          bottomNavigationBarItem(
+            iconPath: AppResource.create,
+            index: 2,
+            label: AppStrings.createNewArticle,
+          ),
+          bottomNavigationBarItem(
+            iconPath: AppResource.setting,
+            index: 3,
+            label: AppStrings.setting,
+          ),
+        ],
       ),
     );
   }

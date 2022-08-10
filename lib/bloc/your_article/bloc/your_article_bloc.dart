@@ -34,11 +34,11 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
       title: state.title,
       description: state.description,
     );
-    FirebaseHelper.shared.createNewArticle(yourArticle);
     Loading.show();
+    FirebaseHelper.shared.createNewArticle(yourArticle);
+    Loading.dismiss();
     NavigationService.navigatorKey.currentState?.pop();
     getIt.get<YourArticleBloc>().add(GetYourArticlesEvent());
-    Loading.dismiss();
   }
 
   Future<void> _onGetYourArticles(

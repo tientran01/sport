@@ -74,6 +74,7 @@ class _ArticleScreenState extends State<ArticleScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         title: TextView(

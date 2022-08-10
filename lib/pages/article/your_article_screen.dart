@@ -32,6 +32,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
     return Scaffold(
       appBar: const CustomAppBar(
         title: AppStrings.yourArticle,
+        isPop: false,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.black,
@@ -51,8 +52,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
       body: BlocBuilder<YourArticleBloc, YourArticleState>(
         bloc: getIt.get<YourArticleBloc>(),
         builder: (context, state) {
-          // ignore: prefer_is_empty
-          if (state.yourArticles?.isEmpty ?? state.yourArticles?.length == 0) {
+          if (state.yourArticles?.isEmpty ?? state.yourArticles == null) {
             return Center(child: Image.asset(AppResource.empty));
           }
           return ListView.builder(

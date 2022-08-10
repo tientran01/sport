@@ -31,7 +31,6 @@ Future<void> main() async {
     NotificationService.shared.setup();
     await SharedPreferencesHelper.shared.setUpSharedPreferences();
     FirebaseHelper.shared.registerNotification();
-    FirebaseHelper.shared.setupToken();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
 

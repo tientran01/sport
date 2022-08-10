@@ -28,11 +28,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: AppStrings.favorites,
-        onPressedLeft: () {
-          NavigationService.navigatorKey.currentState?.pop();
-        },
+        
       ),
       body: BlocBuilder<FavoriteBloc, FavoriteState>(
         bloc: getIt.get<FavoriteBloc>(),

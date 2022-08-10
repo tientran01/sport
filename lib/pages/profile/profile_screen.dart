@@ -38,11 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       bloc: getIt.get<ProfileBloc>(),
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
+          appBar: const CustomAppBar(
             title: AppStrings.profile,
-            onPressedLeft: () {
-              NavigationService.navigatorKey.currentState?.pop();
-            },
+            
           ),
           body: SingleChildScrollView(
             child: Container(

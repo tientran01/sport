@@ -3,7 +3,6 @@ import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 
 import '../../model/video.dart';
 
@@ -21,11 +20,8 @@ class _VideoScreenState extends State<VideoScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: AppStrings.hotVideos,
-        onPressedLeft: () {
-          NavigationService.navigatorKey.currentState?.pop();
-        },
       ),
       body: ListView.builder(
         itemCount: videos.length,

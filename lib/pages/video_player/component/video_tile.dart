@@ -3,10 +3,9 @@ import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:video_player/video_player.dart';
-// ignore: must_be_immutable
 class VideoTile extends StatefulWidget {
-  Video? video;
-  VideoTile({
+  final Video? video;
+  const VideoTile({
     Key? key,
     this.video,
   }) : super(key: key);

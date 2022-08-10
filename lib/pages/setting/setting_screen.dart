@@ -30,6 +30,7 @@ class _SettingScreenState extends State<SettingScreen> {
     return Scaffold(
       appBar: const CustomAppBar(
         title: AppStrings.setting,
+        isPop: false,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Constants.size20),

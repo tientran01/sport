@@ -10,10 +10,11 @@ class NotificationDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: AppStrings.notification,
-        onPressedLeft: () => NavigationService.navigatorKey.currentState
-            ?.pushNamed(AppRouteName.main),
-      ),
+          title: AppStrings.notification,
+          onPressedLeft: () {
+            NavigationService.navigatorKey.currentState
+                ?.pushNamed(AppRouteName.main);
+          }),
       body: const Center(
         child: Text(AppStrings.notification),
       ),

@@ -18,7 +18,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     AddVideoToFavoriteEvent event,
     Emitter<void> emitter,
   ) async {
-    emitter(state.copyWith(video: event.video));
     if (listVideo.contains(event.video ?? state.video) == true) {
       Loading.showError(AppStrings.isExistFavorite);
     } else {
@@ -33,6 +32,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   ) async {
     emitter(state.copyWith(videos: listVideo.toSet()));
   }
+
   static FavoriteBloc of(BuildContext context) =>
       BlocProvider.of<FavoriteBloc>(context);
 }

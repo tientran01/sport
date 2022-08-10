@@ -32,7 +32,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ButtonSignOutEvent event,
     Emitter<void> emitter,
   ) async {
-    SharedPreferencesHelper.shared.logout();
+    SharedPreferencesHelper.shared.removeUid();
     FirebaseHelper.shared.signOut();
     NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
   }

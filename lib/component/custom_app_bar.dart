@@ -1,6 +1,7 @@
 import 'package:sport_app/component/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? leadingIconPath;
@@ -11,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? rightIconPath;
   final Color? titleColor;
   final Color? bgColor;
+  final bool? isPop;
   const CustomAppBar({
     Key? key,
     this.leadingIconPath,
@@ -21,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leftIconColor,
     this.titleColor,
     this.bgColor,
+    this.isPop = true,
   }) : super(key: key);
 
   @override
@@ -33,9 +36,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         fontSize: Constants.size17,
         textColor: titleColor ?? AppColor.black,
       ),
-      leading: onPressedLeft != null
+      leading: isPop == true
           ? IconButton(
-              onPressed: onPressedLeft,
+              onPressed: onPressedLeft ??
+                  () {
+                    NavigationService.navigatorKey.currentState?.pop();
+                  },
               icon: Image.asset(
                 leadingIconPath ?? AppResource.leftArrow,
                 width: Constants.size27,
