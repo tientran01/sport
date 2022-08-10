@@ -52,7 +52,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
       body: BlocBuilder<YourArticleBloc, YourArticleState>(
         bloc: getIt.get<YourArticleBloc>(),
         builder: (context, state) {
-          if (state.yourArticles?.isEmpty ?? state.yourArticles == null) {
+          if (state.yourArticles == null) {
             return Center(child: Image.asset(AppResource.empty));
           }
           return ListView.builder(

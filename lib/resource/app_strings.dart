@@ -66,7 +66,7 @@ class AppStrings {
   static const String yourCollections = "Bộ sưu tập của bạn";
   static const String showAll = "Hiển thị tất cả";
   static const String news = "Tin tức";
-  static const String createNewArticle = "Tạo bài viết mới";
+  static const String createNewArticle = "Tạo bài viết";
   static const String yourArticle = "Bài viết của bạn";
   static const String titleArticle = "Tiêu đề bài viết";
   static const String titleArticleInput = ".....";

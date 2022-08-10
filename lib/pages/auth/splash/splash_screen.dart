@@ -2,7 +2,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
 import 'package:sport_app/bloc/splash/bloc/splash_event.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -60,11 +59,13 @@ class _SplashScreenState extends State<SplashScreen>
             ),
             SlideTransition(
               position: _offsetAnimation,
-              child: TextView(
-                text: AppStrings.logo,
-                textStyle: GoogleFonts.mouseMemoirs(),
-                fontSize: Constants.size45,
-                textColor: AppColor.arsenic,
+              child: Text(
+                AppStrings.logo,
+                style: GoogleFonts.mouseMemoirs(
+                  color: AppColor.arsenic,
+                  fontSize: Constants.size45,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             )
           ],

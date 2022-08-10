@@ -4,7 +4,6 @@ import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
-import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
@@ -38,7 +37,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     FirebaseHelper.shared.createNewArticle(yourArticle);
     Loading.dismiss();
     NavigationService.navigatorKey.currentState?.pop();
-    getIt.get<YourArticleBloc>().add(GetYourArticlesEvent());
+    add(GetYourArticlesEvent());
   }
 
   Future<void> _onGetYourArticles(
@@ -48,14 +47,19 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     Loading.show();
     List<YourArticle> yourArticles =
         await FirebaseHelper.shared.getYourArticles();
-    Loading.dismiss();
-    emitter(state.copyWith(yourArticles: yourArticles));
+    if (yourArticles.isEmpty) {
+      Loading.dismiss();
+      emitter(state.copyWith(yourArticles: null));
+    } else {
+      Loading.dismiss();
+      emitter(state.copyWith(yourArticles: yourArticles));
+    }
   }
 
   Future<void> _onDeleteYourArticle(
       DeleteYourArticleEvent event, Emitter<void> emitter) async {
     FirebaseHelper.shared.deleteYourArticle(event.id ?? state.id);
-    getIt.get<YourArticleBloc>().add(GetYourArticlesEvent());
+    add(GetYourArticlesEvent());
   }
 
   static YourArticleBloc of(BuildContext context) =>

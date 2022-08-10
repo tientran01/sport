@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/search/bloc/search_event.dart';
 import 'package:sport_app/bloc/search/bloc/search_state.dart';
 import 'package:sport_app/helper/loading.dart';
-import 'package:sport_app/model/article.dart';
 import 'package:sport_app/model/news.dart';
 import 'package:sport_app/repositories/api_client.dart';
 import '../../../resource/app_strings.dart';
@@ -17,20 +16,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchArticleEvent event,
     Emitter<void> emitter,
   ) async {
-    List<Article> results = [];
     Loading.show();
     News? news = await ApiClient.api.getTopHeadlines();
     if (news != null) {
       Loading.dismiss();
-      List<Article> articles = news.articles as List<Article>;
-      for (var article in articles) {
-        if ((article.title?.toLowerCase() ?? "")
-            .contains(event.searchText?.toLowerCase() ?? "")) {
-          results.add(article);
-        }
-      }
       emitter(state.copyWith(
-        results: results,
+        results: news.articles
+          ?.expand(
+            (element) => [
+              if ((element.title?.toLowerCase() ?? '').contains(event.searchText?.toLowerCase() ?? ''))
+                element
+            ],
+          )
+          .toList(),
       ));
     } else {
       Loading.showError(AppStrings.error);
