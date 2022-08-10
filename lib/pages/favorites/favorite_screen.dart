@@ -30,11 +30,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
       appBar: const CustomAppBar(
         title: AppStrings.favorites,
-        
       ),
       body: BlocBuilder<FavoriteBloc, FavoriteState>(
         bloc: getIt.get<FavoriteBloc>(),
         builder: (context, favoriteState) {
+          if (favoriteState.videos?.isEmpty ??
+              favoriteState.videos?.length == null) {
+            return Center(
+              child: Image.asset(AppResource.empty),
+            );
+          }
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: Constants.size20),
             child: ListView.builder(
