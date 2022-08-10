@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/helper/timeago_helper.dart';
 import 'package:sport_app/model/article.dart';
 import 'package:sport_app/resource/resource.dart';
 
@@ -29,10 +30,10 @@ class ArticleItem extends StatelessWidget {
                 child:
                     (article?.urlToImage == null || article?.urlToImage == "")
                         ? CustomImage(
-                          imageUrl: AppNetwork.imageNewsPlaceholder,
-                          width: Constants.size120,
+                            imageUrl: AppNetwork.imageNewsPlaceholder,
+                            width: Constants.size120,
                             height: Constants.size100,
-                        )
+                          )
                         : CustomImage(
                             imageUrl: article?.urlToImage,
                             width: Constants.size120,
@@ -82,7 +83,7 @@ class ArticleItem extends StatelessWidget {
                     height: Constants.size5,
                   ),
                   TextView(
-                    text: article?.publishedAt,
+                    text: TimeagoHelper.parseDatetime(article?.publishedAt),
                     textColor: AppColor.darkSilver.withOpacity(.5),
                     fontSize: Constants.size10,
                     fontWeight: FontWeight.w600,
@@ -168,7 +169,8 @@ class ArticleCustomWidthItem extends StatelessWidget {
                             height: Constants.size5,
                           ),
                           TextView(
-                            text: article?.publishedAt,
+                            text: TimeagoHelper.parseDatetime(
+                                article?.publishedAt),
                             fontSize: Constants.size10,
                             textColor: AppColor.darkSilver,
                           )

@@ -7,6 +7,7 @@ import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/helper/timeago_helper.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/create_new_article.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -109,13 +110,11 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                       BorderRadius.circular(Constants.size10),
                                 ),
                                 child: TextView(
-                                  text: timeago.format(
-                                    DateTime.parse(
-                                      state.yourArticles
-                                              ?.elementAt(index)
-                                              .publishedAt ??
-                                          DateTime.now().toString(),
-                                    ),
+                                  text: TimeagoHelper.parseDatetime(
+                                    state.yourArticles
+                                        ?.elementAt(index)
+                                        .publishedAt
+                                        .toString(),
                                   ),
                                   fontSize: Constants.size10,
                                   textColor: AppColor.arsenic,
