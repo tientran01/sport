@@ -64,13 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: Constants.size20,
                     ),
-                    BlocProvider<ArticleBloc>(
-                      create: (context) => ArticleBloc()
-                        ..add(
-                          const GetTopHeadlinesEvent(),
-                        ),
-                      child: const CustomSlider(),
-                    ),
+                    const CustomSlider(),
                     SizedBox(
                       height: Constants.size25,
                     ),
@@ -87,37 +81,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: Constants.size10,
                     ),
-                    BlocProvider<ArticleBloc>(
-                      create: (context) => ArticleBloc()
-                        ..add(const GetTopHeadlinesWithSourceEvent()),
-                      child: SizedBox(
-                        height: Constants.size250,
-                        child: BlocBuilder<ArticleBloc, ArticleState>(
-                          builder: (context, articleHomeState) {
-                            List<Article>? articles = articleHomeState.articles;
-                            return ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  ArticleCustomWidthItem(
-                                article: articles?.elementAt(index),
-                                onTap: () {
-                                  NavigationService.navigatorKey.currentState
-                                      ?.pushNamed(
-                                    AppRouteName.detailArticle,
-                                    arguments: articles?.elementAt(index),
-                                  );
-                                },
-                              ),
-                              itemCount: articleHomeState.articles?.length ?? 0,
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return SizedBox(
-                                  width: Constants.size10,
+                    SizedBox(
+                      height: Constants.size250,
+                      child: BlocBuilder<ArticleBloc, ArticleState>(
+                        bloc: ArticleBloc.of(context)..add(const GetTopHeadlinesWithSourceEvent()),
+                        builder: (context, articleHomeState) {
+                          List<Article>? articles = articleHomeState.articles;
+                          return ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) =>
+                                ArticleCustomWidthItem(
+                              article: articles?.elementAt(index),
+                              onTap: () {
+                                NavigationService.navigatorKey.currentState
+                                    ?.pushNamed(
+                                  AppRouteName.detailArticle,
+                                  arguments: articles?.elementAt(index),
                                 );
                               },
-                            );
-                          },
-                        ),
+                            ),
+                            itemCount: articleHomeState.articles?.length ?? 0,
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                width: Constants.size10,
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                     SizedBox(
@@ -126,76 +117,71 @@ class _HomeScreenState extends State<HomeScreen> {
                     const NameSection(
                       titleSection: AppStrings.mostInterested,
                     ),
-                    BlocProvider<ArticleBloc>(
-                      create: (context) => ArticleBloc()
-                        ..add(
-                          const GetTopHeadlinesEvent(),
-                        ),
-                      child: SizedBox(
-                        height: Constants.size470,
-                        child: BlocBuilder<ArticleBloc, ArticleState>(
-                          builder: (context, articleHomeState) {
-                            List<Article>? articles = articleHomeState.articles;
-                            return Column(
-                              children: [
-                                Expanded(
-                                  child: ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      if (index >= 3) {
-                                        return Container();
-                                      }
-                                      return ArticleItem(
-                                        article: articles?.elementAt(index),
-                                        onTap: () {
-                                          NavigationService
-                                              .navigatorKey.currentState
-                                              ?.pushNamed(
-                                            AppRouteName.detailArticle,
-                                            arguments:
-                                                articles?.elementAt(index),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    itemCount: 3,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: Constants.size10,
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    NavigationService.navigatorKey.currentState
-                                        ?.pushNamed(
-                                      AppRouteName.articleSortByName,
-                                      arguments: AppStrings.mostInterested,
+                    SizedBox(
+                      height: Constants.size470,
+                      child: BlocBuilder<ArticleBloc, ArticleState>(
+                        bloc: ArticleBloc.of(context)..add(const GetTopHeadlinesEvent()),
+                        builder: (context, articleHomeState) {
+                          List<Article>? articles = articleHomeState.articles;
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  physics:
+                                      const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    if (index >= 3) {
+                                      return Container();
+                                    }
+                                    return ArticleItem(
+                                      article: articles?.elementAt(index),
+                                      onTap: () {
+                                        NavigationService
+                                            .navigatorKey.currentState
+                                            ?.pushNamed(
+                                          AppRouteName.detailArticle,
+                                          arguments:
+                                              articles?.elementAt(index),
+                                        );
+                                      },
                                     );
                                   },
-                                  child: Container(
-                                    padding: EdgeInsets.zero,
-                                    height: Constants.size60,
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: const BoxDecoration(
-                                      color: AppColor.gainsboro,
-                                      border: Border.symmetric(
-                                        horizontal: BorderSide(
-                                          color: AppColor.gainsboro,
-                                        ),
-                                      ),
-                                    ),
-                                    child: const Center(
-                                      child: TextView(
-                                        text: AppStrings.seeMore,
+                                  itemCount: 3,
+                                ),
+                              ),
+                              SizedBox(
+                                height: Constants.size10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  NavigationService.navigatorKey.currentState
+                                      ?.pushNamed(
+                                    AppRouteName.articleSortByName,
+                                    arguments: AppStrings.mostInterested,
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.zero,
+                                  height: Constants.size60,
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: const BoxDecoration(
+                                    color: AppColor.gainsboro,
+                                    border: Border.symmetric(
+                                      horizontal: BorderSide(
+                                        color: AppColor.gainsboro,
                                       ),
                                     ),
                                   ),
-                                )
-                              ],
-                            );
-                          },
-                        ),
+                                  child: const Center(
+                                    child: TextView(
+                                      text: AppStrings.seeMore,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
                       ),
                     ),
                     SizedBox(

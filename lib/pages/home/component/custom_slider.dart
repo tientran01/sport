@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/custom_image.dart';
@@ -26,8 +27,8 @@ class _CustomSliderState extends State<CustomSlider> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocConsumer<ArticleBloc, ArticleState>(
-      listener: (BuildContext context, ArticleState state) {},
+    return BlocBuilder<ArticleBloc, ArticleState>(
+      bloc: ArticleBloc.of(context)..add(const GetTopHeadlinesEvent()),
       builder: (context, state) {
         List<Article>? articles = state.articles;
         return SizedBox(

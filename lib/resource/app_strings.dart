@@ -95,6 +95,7 @@ class AppStrings {
   static const String addFavorite = "Thêm vào bộ sưu tập";
   static const String isExistFavorite = "Đã tồn tại";
   static const String suggestionSearch = "Gợi ý tìm kiếm";
+  static const String chooseColor = "Chọn màu";
   static List<Category> categories = [
     Category(
       text: Application.top,

@@ -4,7 +4,6 @@ import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
-import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/timeago_helper.dart';
@@ -12,7 +11,6 @@ import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/create_new_article.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class YourArticleScreen extends StatefulWidget {
   const YourArticleScreen({Key? key}) : super(key: key);
@@ -74,11 +72,6 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                       ),
                       child: Row(
                         children: [
-                          CustomImage(
-                            imageUrl: AppNetwork.imageAvatar,
-                            width: Constants.size100,
-                            height: Constants.size100,
-                          ),
                           SizedBox(
                             width: Constants.size20,
                           ),

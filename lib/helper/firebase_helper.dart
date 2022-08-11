@@ -307,6 +307,7 @@ class FirebaseHelper {
       author: currentUser?.uid,
       description: yourArticle.description,
       publishedAt: DateTime.now().toString(),
+      urlToImage: currentUser?.photoURL,
     );
     yourArticleDocument.set(newYourArticle.toJson());
   }
