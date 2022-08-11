@@ -18,8 +18,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     if (SharedPreferencesHelper.shared.prefs!.getString(AppKeyName.uid) !=
         null) {
       Future.delayed(Duration(seconds: Constants.twoSecondDelay)).then(
-        (value) => NavigationService.navigatorKey.currentState
-            ?.pushNamed(AppRouteName.main),
+        (value) => NavigationService.navigatorKey.currentState?.pushReplacementNamed(AppRouteName.main),
       );
     } else {
       Future.delayed(Duration(seconds: Constants.twoSecondDelay)).then(
