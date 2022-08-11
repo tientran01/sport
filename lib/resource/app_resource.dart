@@ -7,6 +7,11 @@ class AppResource {
   static String home = '$bottomNavigationIcon/ic_home.png';
   static String compass = '$bottomNavigationIcon/ic_compass.png';
   static String create = '$bottomNavigationIcon/ic_create.png';
+  static String heart = '$bottomNavigationIcon/ic_heart.png';
+  static String share = '$bottomNavigationIcon/ic_share.png';
+  static String filter = '$bottomNavigationIcon/ic_filter.png';
+  static String logo = '$bottomNavigationIcon/ic_logo.png';
+  static String comment = '$bottomNavigationIcon/ic_cmt.png';
 
   static String socialIcon = '${baseIconPath}social';
   static String facebookIcon = '$socialIcon/ic_facebook.png';
@@ -27,7 +32,6 @@ class AppResource {
   static String rightArrow = '$componentIcon/ic_right_arrow.png';
   static String search = '$componentIcon/ic_search.png';
   static String send = '$componentIcon/ic_send.png';
-  static String crown = '$componentIcon/ic_crown.png';
   static String eye = '$componentIcon/ic_eye.png';
   static String invisible = '$componentIcon/ic_invisible.png';
   static String bookmark = '$componentIcon/ic_bookmark.png';
@@ -35,4 +39,5 @@ class AppResource {
   static String delete = '$componentIcon/ic_delete.png';
   static String quote = '$componentIcon/ic_quote.png';
   static String play = '$componentIcon/ic_play.png';
+  static String empty = '$componentIcon/ic_empty.png';
 }

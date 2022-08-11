@@ -1,6 +1,10 @@
+import 'package:sport_app/pages/article/apple_article_screen.dart';
 import 'package:sport_app/pages/article/article_screen.dart';
+import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
 import 'package:sport_app/pages/article/create_new_article.dart';
 import 'package:sport_app/pages/article/detail_article_screen.dart';
+import 'package:sport_app/pages/article/tesla_article_screen.dart';
+import 'package:sport_app/pages/article/top_article_screen.dart';
 import 'package:sport_app/pages/article/your_article_screen.dart';
 import 'package:sport_app/pages/auth/password/check_email_screen.dart';
 import 'package:sport_app/pages/auth/password/create_new_password_screen.dart';
@@ -9,6 +13,7 @@ import 'package:sport_app/pages/auth/phone/phone_input_screen.dart';
 import 'package:sport_app/pages/auth/phone/phone_otp_screen.dart';
 import 'package:sport_app/pages/auth/sign_up/sign_up_screen.dart';
 import 'package:sport_app/pages/auth/login/login_screen.dart';
+import 'package:sport_app/pages/favorites/favorite_screen.dart';
 import 'package:sport_app/pages/home/article_sort_by_name.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/auth/splash/splash_screen.dart';
@@ -16,8 +21,10 @@ import 'package:sport_app/pages/main_screen.dart';
 import 'package:sport_app/pages/notification/notification_detail_screen.dart';
 import 'package:sport_app/pages/notification/notification_screen.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
+import 'package:sport_app/pages/search/search_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/pages/video_player/video_player_screen.dart';
+import 'package:sport_app/pages/video_player/video_screen.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -43,5 +50,12 @@ class RouteName {
     AppRouteName.setting: (BuildContext context) => const SettingScreen(),
     AppRouteName.articleSortByName: (BuildContext context) => const ArticleSortByName(),
     AppRouteName.videoPlayer: (BuildContext context) => const VideoPlayerScreen(),
+    AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
+    AppRouteName.video: (BuildContext context) => const VideoScreen(),
+    AppRouteName.search: (BuildContext context) => const SearchScreen(),
+    AppRouteName.topArticle: (BuildContext context) => const TopArticleScreen(),
+    AppRouteName.appleArticle: (BuildContext context) => const AppleArticleScreen(),
+    AppRouteName.bitcoinArticle: (BuildContext context) => const BitcoinArticleScreen(),
+    AppRouteName.teslaArticle: (BuildContext context) => const TeslaArticleScreen(),
   };
 }

@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:sport_app/model/your_article.dart';
 
 abstract class YourArticleEvent extends Equatable {
   const YourArticleEvent();
@@ -7,15 +6,21 @@ abstract class YourArticleEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetYourArticleEvent extends YourArticleEvent {
-  final YourArticle? yourArticle;
-  const GetYourArticleEvent({this.yourArticle});
+class GetArticleFromTextFieldEvent extends YourArticleEvent {
+  final String? title;
+  final String? description;
+  const GetArticleFromTextFieldEvent({this.title, this.description});
   @override
-  List<Object?> get props => [yourArticle];
+  List<Object?> get props => [title, description];
 }
-class CreateNewYourArticleEvent extends YourArticleEvent {
-  final YourArticle? yourArticle;
-  const CreateNewYourArticleEvent({this.yourArticle});
+
+class CreateNewYourArticleEvent extends YourArticleEvent {}
+
+class GetYourArticlesEvent extends YourArticleEvent {}
+
+class DeleteYourArticleEvent extends YourArticleEvent {
+  final String? id;
+  const DeleteYourArticleEvent({this.id});
   @override
-  List<Object?> get props => [yourArticle];
+  List<Object?> get props => [id];
 }

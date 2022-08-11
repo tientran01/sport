@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/helper/timeago_helper.dart';
 import 'package:sport_app/model/article.dart';
 import 'package:sport_app/resource/resource.dart';
 
@@ -28,7 +29,11 @@ class ArticleItem extends StatelessWidget {
                 padding: EdgeInsets.only(right: Constants.size10),
                 child:
                     (article?.urlToImage == null || article?.urlToImage == "")
-                        ? Container()
+                        ? CustomImage(
+                            imageUrl: AppNetwork.imageNewsPlaceholder,
+                            width: Constants.size120,
+                            height: Constants.size100,
+                          )
                         : CustomImage(
                             imageUrl: article?.urlToImage,
                             width: Constants.size120,
@@ -78,7 +83,7 @@ class ArticleItem extends StatelessWidget {
                     height: Constants.size5,
                   ),
                   TextView(
-                    text: article?.publishedAt,
+                    text: TimeagoHelper.parseDatetime(article?.publishedAt),
                     textColor: AppColor.darkSilver.withOpacity(.5),
                     fontSize: Constants.size10,
                     fontWeight: FontWeight.w600,
@@ -94,10 +99,10 @@ class ArticleItem extends StatelessWidget {
   }
 }
 
-class ArticleCustomWidgetItem extends StatelessWidget {
+class ArticleCustomWidthItem extends StatelessWidget {
   final Article? article;
   final VoidCallback? onTap;
-  const ArticleCustomWidgetItem({
+  const ArticleCustomWidthItem({
     Key? key,
     this.article,
     this.onTap,
@@ -164,7 +169,8 @@ class ArticleCustomWidgetItem extends StatelessWidget {
                             height: Constants.size5,
                           ),
                           TextView(
-                            text: article?.publishedAt,
+                            text: TimeagoHelper.parseDatetime(
+                                article?.publishedAt),
                             fontSize: Constants.size10,
                             textColor: AppColor.darkSilver,
                           )

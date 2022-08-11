@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/application/application.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/category.dart';
-import 'package:sport_app/pages/article/articles.dart';
+import 'package:sport_app/pages/article/apple_article_screen.dart';
+import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
+import 'package:sport_app/pages/article/tesla_article_screen.dart';
+import 'package:sport_app/pages/article/top_article_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class ArticleScreen extends StatefulWidget {
@@ -18,49 +20,38 @@ class ArticleScreen extends StatefulWidget {
 class _ArticleScreenState extends State<ArticleScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-  TabController? tabBarController;
+  PageController? pageController;
+  List<Widget> pages = [
+    const TopArticleScreen(),
+    const AppleArticleScreen(),
+    const BitcoinArticleScreen(),
+    const TeslaArticleScreen(),
+  ];
 
   int selectIndex = 0;
   List<Category> categories = AppStrings.categories;
   @override
   void initState() {
     super.initState();
+    pageController = PageController(initialPage: 0);
     tabController =
         TabController(length: categories.length, vsync: this, initialIndex: 0);
     getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
-    tabController?.addListener(() {
-      setState(() => selectIndex = tabController?.index ?? 1);
-      getData(tabController?.index);
-    });
-  }
-
-  getData(int? index) {
-    switch (index) {
-      case 0:
-        getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
-        break;
-      case 1:
-        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
-              nameCategory: Application.appleParamValue,
-            ));
-        break;
-      case 2:
-        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
-              nameCategory: Application.bitcoinParamValue,
-            ));
-        break;
-      case 3:
-        getIt.get<ArticleBloc>().add(const GetEverythingEvent(
-              nameCategory: Application.teslaParamValue,
-            ));
-        break;
-    }
+    tabController?.addListener(
+      () {
+        setState(() => selectIndex = tabController?.index ?? 0);
+        pageController?.animateToPage(
+          selectIndex,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.ease,
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
     tabController?.dispose();
-    tabBarController?.dispose();
     super.dispose();
   }
 
@@ -68,15 +59,16 @@ class _ArticleScreenState extends State<ArticleScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).backgroundColor,
         title: TextView(
           text: AppStrings.news,
           fontSize: Constants.size17,
         ),
         bottom: TabBar(
           controller: tabController,
-          indicatorColor: AppColor.black,
+          indicatorColor: Colors.transparent,
           isScrollable: true,
           tabs: [
             _buildTabBarItem(category: categories.elementAt(0), index: 0),
@@ -86,9 +78,19 @@ class _ArticleScreenState extends State<ArticleScreen>
           ],
         ),
       ),
-      body: TabBarView(
-        controller: tabController,
-        children: categories.map((e) => const Articles()).toList(),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (int index) {
+          setState(() {
+            selectIndex = index;
+          });
+        },
+        children: const [
+          TopArticleScreen(),
+          AppleArticleScreen(),
+          BitcoinArticleScreen(),
+          TeslaArticleScreen(),
+        ],
       ),
     );
   }

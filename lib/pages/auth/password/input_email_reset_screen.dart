@@ -7,7 +7,6 @@ import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 import '../../../bloc/foget_password/bloc/forget_password_state.dart';
 
 class InputEmailResetScreen extends StatelessWidget {
@@ -16,11 +15,9 @@ class InputEmailResetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: AppStrings.forgetPassword,
-        onPressedLeft: () {
-          NavigationService.navigatorKey.currentState?.pop();
-        },
+        
       ),
       body: BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
         builder: (_, state) {

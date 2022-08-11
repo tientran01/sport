@@ -36,39 +36,36 @@ class _MainScreenState extends State<MainScreen> {
           selectIndex = pageIndex;
         },
       ),
-      bottomNavigationBar: SizedBox(
-        height: Constants.size100,
-        child: BottomNavigationBar(
-          selectedItemColor: AppColor.white,
-          unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
-          type: BottomNavigationBarType.fixed,
-          elevation: 0.0,
-          backgroundColor: AppColor.black,
-          currentIndex: selectIndex,
-          onTap: _onTapItem,
-          items: [
-            bottomNavigationBarItem(
-              iconPath: AppResource.home,
-              index: 0,
-              label: AppStrings.home,
-            ),
-            bottomNavigationBarItem(
-              iconPath: AppResource.compass,
-              index: 1,
-              label: AppStrings.news,
-            ),
-            bottomNavigationBarItem(
-              iconPath: AppResource.create,
-              index: 2,
-              label: AppStrings.createNewArticle,
-            ),
-            bottomNavigationBarItem(
-              iconPath: AppResource.setting,
-              index: 3,
-              label: AppStrings.setting,
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: AppColor.white,
+        unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
+        type: BottomNavigationBarType.fixed,
+        elevation: 0.0,
+        backgroundColor: AppColor.black,
+        currentIndex: selectIndex,
+        onTap: _onTapItem,
+        items: [
+          bottomNavigationBarItem(
+            iconPath: AppResource.home,
+            index: 0,
+            label: AppStrings.home,
+          ),
+          bottomNavigationBarItem(
+            iconPath: AppResource.compass,
+            index: 1,
+            label: AppStrings.news,
+          ),
+          bottomNavigationBarItem(
+            iconPath: AppResource.create,
+            index: 2,
+            label: AppStrings.createNewArticle,
+          ),
+          bottomNavigationBarItem(
+            iconPath: AppResource.setting,
+            index: 3,
+            label: AppStrings.setting,
+          ),
+        ],
       ),
     );
   }

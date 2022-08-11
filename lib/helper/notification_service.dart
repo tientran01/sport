@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'dart:io';
 import 'package:sport_app/resource/app_strings.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -16,11 +14,11 @@ class NotificationService {
 
   Future<void> setup() async {
     tz.initializeTimeZones();
-    final AndroidInitializationSettings initializationSettingsAndroid =
+    const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings("");
-    final IOSInitializationSettings initializationSettingsIOS =
+    const IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings();
-    final InitializationSettings initializationSettings =
+    const InitializationSettings initializationSettings =
         InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,

@@ -3,9 +3,9 @@
 import 'package:sport_app/model/source.dart';
 
 class Article {
+  String? title;
   Source? source;
   String? author;
-  String? title;
   String? description;
   String? url;
   String? urlToImage;
@@ -21,7 +21,6 @@ class Article {
       this.urlToImage,
       this.publishedAt,
       this.content});
-
   Article.fromJson(Map<String, dynamic> json) {
     source = json['source'] != null ? Source.fromJson(json['source']) : null;
     author = json['author'];
@@ -32,6 +31,8 @@ class Article {
     publishedAt = json['publishedAt'];
     content = json['content'];
   }
+
+
 
   Map<String, dynamic> toJson() => {
         'author': author,

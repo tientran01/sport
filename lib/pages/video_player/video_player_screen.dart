@@ -1,81 +1,87 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
+import 'package:sport_app/bloc/favorite/bloc/favorite_event.dart';
+import 'package:sport_app/bloc/favorite/bloc/favorite_state.dart';
+import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/main.dart';
 import 'package:sport_app/model/video.dart';
-import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart';
+import 'package:sport_app/pages/video_player/component/video_button.dart';
+import 'package:sport_app/pages/video_player/component/video_detail.dart';
+import 'package:sport_app/pages/video_player/component/video_tile.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 
 class VideoPlayerScreen extends StatelessWidget {
-  final bool? playArea;
-  final Widget? child;
-  const VideoPlayerScreen({Key? key, this.playArea, this.child})
-      : super(key: key);
+  const VideoPlayerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Video> videos = AppStrings.videos;
     Video video = ModalRoute.of(context)?.settings.arguments as Video;
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: false,
-        toolbarHeight: Constants.size300,
-        flexibleSpace: Stack(
-          children: [
-            Positioned(
-              top: Constants.size20,
-              left: Constants.size20,
-              child: GestureDetector(
-                onTap: () {
-                  NavigationService.navigatorKey.currentState?.pop();
-                },
-                child: Image.asset(
-                  AppResource.leftArrow,
-                  width: Constants.size30,
-                  color: AppColor.black,
+      extendBodyBehindAppBar: true,
+      appBar: const CustomAppBar(
+        bgColor: Colors.transparent,
+        leftIconColor: AppColor.white,
+      ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          VideoTile(
+            video: video,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                flex: 3,
+                child: SizedBox(
+                  height: Constants.size100,
+                  child: VideoDetail(
+                    video: video,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                top: Constants.size60,
-                bottom: Constants.size45,
-              ),
-              child:CachedNetworkImage(
-                      imageUrl: video.thumbnailUrl ?? AppNetwork.imageAvatar,
-                      height: Constants.size300,
-                      width: MediaQuery.of(context).size.width,
-                      fit: BoxFit.fill,
-                    )
-                  
-            ),
-          ],
-        ),
-        backgroundColor: Theme.of(context).backgroundColor,
-        elevation: 0.0,
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Constants.size15,
-            vertical: Constants.size10,
-          ),
-          child: Column(
-            children: [
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return VideoThumbnaiSmallItem(
-                    video: videos.elementAt(index),
-                  );
-                },
-                itemCount: videos.length,
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.only(bottom: Constants.size45),
+                  height: Constants.size350,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      BlocBuilder<FavoriteBloc, FavoriteState>(
+                        bloc: getIt.get<FavoriteBloc>(),
+                        builder: (context, state) {
+                          return VideoButton(
+                            iconPath: AppResource.heart,
+                            onTap: () {
+                              getIt.get<FavoriteBloc>().add(
+                                    AddVideoToFavoriteEvent(
+                                      video: video,
+                                    ),
+                                  );
+                            },
+                            iconColor: AppColor.white,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: Constants.size25,
+                      ),
+                      ImageCircle(
+                        imageUrl: video.thumbnailUrl,
+                        width: Constants.size45,
+                        height: Constants.size45,
+                        isEdit: false,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
-          ),
-        ),
+          )
+        ],
       ),
     );
   }

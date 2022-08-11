@@ -1,14 +1,18 @@
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? leadingIconPath;
   final VoidCallback? onPressedLeft;
   final VoidCallback? onPressedRight;
+  final Color? leftIconColor;
   final String? title;
   final String? rightIconPath;
+  final Color? titleColor;
+  final Color? bgColor;
+  final bool? isPop;
   const CustomAppBar({
     Key? key,
     this.leadingIconPath,
@@ -16,24 +20,33 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.rightIconPath,
     this.onPressedLeft,
     this.onPressedRight,
+    this.leftIconColor,
+    this.titleColor,
+    this.bgColor,
+    this.isPop = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: bgColor ?? Theme.of(context).backgroundColor,
       title: TextView(
         text: title ?? "",
         fontSize: Constants.size17,
+        textColor: titleColor ?? AppColor.black,
       ),
-      leading: onPressedLeft != null
+      leading: isPop == true
           ? IconButton(
-              onPressed: onPressedLeft,
+              onPressed: onPressedLeft ??
+                  () {
+                    NavigationService.navigatorKey.currentState?.pop();
+                  },
               icon: Image.asset(
                 leadingIconPath ?? AppResource.leftArrow,
                 width: Constants.size27,
                 height: Constants.size27,
+                color: leftIconColor ?? AppColor.black,
               ),
             )
           : Container(),
@@ -43,7 +56,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: onPressedRight,
                 icon: Image.asset(
                   rightIconPath ?? "",
-                  width: Constants.size27,
+                  width: Constants.size25,
                 ),
               )
             : Container()

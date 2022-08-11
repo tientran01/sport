@@ -76,7 +76,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintStyle: const TextStyle(
           color: AppColor.gainsboro,
         ),
-        prefix: widget.prefix,
+        prefixIcon: widget.prefix,
         suffixIcon: widget.isPassword == true
             ? GestureDetector(
                 onTap: widget.onTapSuffixIcon ?? changeSuffixIcon,

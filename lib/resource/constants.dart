@@ -23,6 +23,7 @@ class Constants {
   static double size19 = 19.0;
   static double size17 = 17.0;
   static double size15 = 15.0;
+  static double size12 = 12.0;
   static double size10 = 10.0;
   static double size5 = 5.0;
 

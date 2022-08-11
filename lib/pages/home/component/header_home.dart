@@ -19,7 +19,7 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       elevation: 0.0,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).backgroundColor,
       centerTitle: false,
       title: GestureDetector(
         child: Row(
@@ -41,10 +41,15 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       actions: [
-        buildNotification(
-          onTap: () {},
-          notificationCount: notificationCount,
-        ),
+        IconButton(
+            onPressed: () {
+              NavigationService.navigatorKey.currentState
+                  ?.pushNamed(AppRouteName.search);
+            },
+            icon: Image.asset(
+              AppResource.search,
+              width: Constants.size25,
+            ))
       ],
     );
   }
@@ -57,7 +62,7 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
     int? notificationCount,
   }) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Stack(
         children: [
           Container(

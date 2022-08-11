@@ -19,4 +19,11 @@ class AppRouteName {
   static const String setting = "/setting";
   static const String articleSortByName = "/article_sort_by_name";
   static const String videoPlayer = "/video_player";
+  static const String search = "/search";
+  static const String favorite = "/favorite";
+  static const String video = "/video";
+  static const String topArticle = "/top_article";
+  static const String appleArticle = "/apple_article";
+  static const String bitcoinArticle = "/bitcoin_article";
+  static const String teslaArticle = "/tesla_article";
 }

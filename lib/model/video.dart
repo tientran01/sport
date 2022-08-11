@@ -1,11 +1,15 @@
 class Video {
+  int? id;
   String? name;
   String? videoUrl;
   String? thumbnailUrl;
-  Video({this.name, this.videoUrl, this.thumbnailUrl});
-  Video.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    videoUrl = json['videoUrl'];
-    thumbnailUrl = json['thumbnailUrl'];
-  }
+  String? time;
+  String? description;
+  Video(
+      {this.id,
+      this.name,
+      this.videoUrl,
+      this.thumbnailUrl,
+      this.time,
+      this.description});
 }

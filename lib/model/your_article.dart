@@ -1,4 +1,5 @@
 class YourArticle {
+  String? id;
   String? title;
   String? author;
   String? publishedAt;
@@ -6,6 +7,7 @@ class YourArticle {
   String? urlToImage;
 
   YourArticle({
+    this.id,
     this.title,
     this.author,
     this.publishedAt,
@@ -14,6 +16,7 @@ class YourArticle {
   });
 
   YourArticle.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     title = json['title'];
     author = json['author'];
     publishedAt = json['publishedAt'];
@@ -22,6 +25,7 @@ class YourArticle {
   }
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'title': title,
         'author': author,
         'publishedAt': publishedAt,

@@ -107,7 +107,7 @@ class FirebaseHelper {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
-    SharedPreferencesHelper.shared.logout();
+    SharedPreferencesHelper.shared.removeUid();
   }
 
   Future<void> resetPasswordWithEmail({String? email}) async {
@@ -198,20 +198,6 @@ class FirebaseHelper {
     print("Authorization status: ${settings.authorizationStatus}");
   }
 
-  Future<void> setupToken() async {
-    String? fcmToken = await FirebaseMessaging.instance.getToken();
-    String userId = FirebaseAuth.instance.currentUser?.uid ?? "";
-
-    await FirebaseFirestore.instance
-        .collection(AppCollection.userInformation)
-        .doc(userId)
-        .update(
-      {
-        AppFieldName.tokens: fcmToken,
-      },
-    );
-  }
-
   Future<void> setupInteractedMessage() async {
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
@@ -300,37 +286,53 @@ class FirebaseHelper {
     });
   }
 
-  Future<String> getImage({String? imagePath, String? folderPath}) async {
-    Reference imageReference = FirebaseHelper.firebaseStorage
-        .ref()
-        .child(folderPath ?? AppFolder.imageArticle);
-    UploadTask uploadTask =
-        imageReference.child("${DateTime.now()}.png").putFile(
-              File(imagePath ?? ""),
-            );
-    var imageUrl = await (await uploadTask).ref.getDownloadURL();
-    return imageUrl;
+  Future<void> deleteUser() async {
+    User? currentUser = auth.currentUser;
+    CollectionReference userCollection =
+        firebaseFirestore.collection(AppCollection.userInformation);
+    DocumentReference userDocument = userCollection.doc(currentUser?.uid);
+    SharedPreferencesHelper.shared.removeUid();
+    userDocument.delete();
+    currentUser?.delete();
   }
 
-  Future<void> createYourArticle({YourArticle? yourArticle}) async {
-    User? currentUser = FirebaseHelper.shared.auth.currentUser;
-    CollectionReference yourArticleCollection = FirebaseHelper.firebaseFirestore
-        .collection(AppCollection.yourArticleCollection);
-    DocumentReference articleDocument =
-        yourArticleCollection.doc("${currentUser?.uid}${DateTime.now()}");
-    final newYourArticle = yourArticle;
-    await articleDocument.set(newYourArticle?.toJson());
-  }
-
-  Future<YourArticle?> getYourArticle() async {
-    CollectionReference articleCollection =
+  Future<void> createNewArticle(YourArticle yourArticle) async {
+    User? currentUser = auth.currentUser;
+    CollectionReference yourArticleCollection =
         firebaseFirestore.collection(AppCollection.yourArticleCollection);
-    YourArticle? yourArticle;
-    DocumentReference articleDocument =
-        articleCollection.doc("2OB1mADhcMFnixwPh1xc");
-    await articleDocument.get().then((DocumentSnapshot doc) {
-      yourArticle = YourArticle.fromJson(doc.data() as Map<String, dynamic>);
-    });
-    return yourArticle;
+    DocumentReference yourArticleDocument = yourArticleCollection.doc();
+    final newYourArticle = YourArticle(
+      id: yourArticleDocument.id,
+      title: yourArticle.title,
+      author: currentUser?.uid,
+      description: yourArticle.description,
+      publishedAt: DateTime.now().toString(),
+      urlToImage: currentUser?.photoURL,
+    );
+    yourArticleDocument.set(newYourArticle.toJson());
+  }
+
+  Future<List<YourArticle>> getYourArticles() async {
+    User? currentUser = auth.currentUser;
+    List<YourArticle> yourArticles = [];
+    CollectionReference yourArticleCollection =
+        firebaseFirestore.collection(AppCollection.yourArticleCollection);
+    var snapshot = await yourArticleCollection
+        .where(AppFieldName.author, isEqualTo: currentUser?.uid)
+        .get();
+    snapshot.docs
+        .map((e) => yourArticles
+            .add(YourArticle.fromJson(e.data() as Map<String, dynamic>)))
+        .toList();
+    yourArticles
+        .sort((a, b) => (b.publishedAt ?? '').compareTo(a.publishedAt ?? ''));
+    return yourArticles;
+  }
+
+  Future<void> deleteYourArticle(String? id) async {
+    CollectionReference yourArticleCollection =
+        firebaseFirestore.collection(AppCollection.yourArticleCollection);
+    DocumentReference yourArticleDocument = yourArticleCollection.doc(id);
+    await yourArticleDocument.delete();
   }
 }

@@ -2,7 +2,6 @@ import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc/sign_up/bloc/sign_up_bloc.dart';
@@ -33,11 +32,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       },
       child: Scaffold(
-        appBar: CustomAppBar(
+        appBar: const CustomAppBar(
           title: AppStrings.signUp,
-          onPressedLeft: () {
-            NavigationService.navigatorKey.currentState?.pop();
-          },
+          
         ),
         body: BlocBuilder<SignUpBloc, SignUpState>(
           builder: (_, state) {
