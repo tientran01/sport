@@ -89,7 +89,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           ..add(const GetTopHeadlinesWithSourceEvent()),
                         builder: (context, articleHomeState) {
                           if (articleHomeState is ArticleLoading) {
-                            return const ShimmerArticleCustomWidth();
+                            return ListView.separated(
+                              itemCount: 5,
+                              itemBuilder: (context, index) {
+                                return const ShimmerArticleCustomWidth();
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return SizedBox(
+                                  width: Constants.size10,
+                                );
+                              },
+                            );
                           }
                           if (articleHomeState is ArticleLoader) {
                             return ListView.separated(

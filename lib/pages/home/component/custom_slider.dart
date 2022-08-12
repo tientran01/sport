@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/component/shimmer.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -31,7 +31,7 @@ class _CustomSliderState extends State<CustomSlider> {
       bloc: ArticleBloc.of(context)..add(const GetTopHeadlinesEvent()),
       builder: (context, state) {
         if (state is ArticleLoading) {
-          return const CircularLoading();
+          return const ShimmerSlider();
         }
         if (state is ArticleLoader) {
           if (state.articles == null) {
@@ -127,7 +127,7 @@ class _CustomSliderState extends State<CustomSlider> {
             );
           }
         }
-        return Text(AppStrings.error404);
+        return const Text(AppStrings.error404);
       },
     );
   }
