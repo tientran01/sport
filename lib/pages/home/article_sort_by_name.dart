@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/bloc/article_bloc.dart';
-import 'package:sport_app/bloc/article/bloc/article_event.dart';
-import 'package:sport_app/bloc/article/bloc/article_state.dart';
+import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_bloc.dart';
+import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_event.dart';
+import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_state.dart';
+import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_bloc.dart';
+import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_event.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/text_view.dart';
@@ -30,66 +32,57 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
     switch (nameArticle) {
       case AppStrings.hotNews:
         setState(() {
-          getIt.get<ArticleBloc>().add(const GetTopHeadlinesWithSourceEvent());
+          getIt.get<HotNewsBloc>().add(const HotNewsLoadApiEvent());
         });
         break;
       case AppStrings.mostInterested:
         setState(() {
-          getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
+          getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
         });
         break;
 
       default:
-        {
-          setState(
-            () {
-              getIt
-                  .get<ArticleBloc>()
-                  .add(const GetTopHeadlinesWithSourceEvent());
-            },
-          );
-        }
         break;
     }
     return Scaffold(
       appBar: CustomAppBar(
         title: nameArticle,
       ),
-      body: BlocBuilder<ArticleBloc, ArticleState>(
-        bloc: getIt.get<ArticleBloc>(),
-        builder: (context, articleHomeState) {
-          if (articleHomeState is ArticleLoading) {
+      body: BlocBuilder<HotNewsBloc, HotNewsState>(
+        bloc: getIt.get<HotNewsBloc>(),
+        builder: (context, state) {
+          if (state is HotNewsLoading) {
             return const CircularLoading();
           }
-          if (articleHomeState is ArticleLoader) {
-            if (articleHomeState.articles == null) {
+          if (state is HotNewsLoader) {
+            if (state.articles == null) {
               return Center(
                 child: Image.asset(AppResource.empty),
               );
             } else {
               return Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: Constants.size15,
-            ),
-            child: ListView.separated(
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) => ArticleItem(
-                article: articleHomeState.articles?.elementAt(index),
-                onTap: () {
-                  NavigationService.navigatorKey.currentState?.pushNamed(
-                    AppRouteName.detailArticle,
-                    arguments: articleHomeState.articles?.elementAt(index),
-                  );
-                },
-              ),
-              itemCount: articleHomeState.articles?.length ?? 0,
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(
-                  width: Constants.size10,
-                );
-              },
-            ),
-          );
+                padding: EdgeInsets.symmetric(
+                  horizontal: Constants.size15,
+                ),
+                child: ListView.separated(
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => ArticleItem(
+                    article: state.articles?.elementAt(index),
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState?.pushNamed(
+                        AppRouteName.detailArticle,
+                        arguments: state.articles?.elementAt(index),
+                      );
+                    },
+                  ),
+                  itemCount: state.articles?.length ?? 0,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      width: Constants.size10,
+                    );
+                  },
+                ),
+              );
             }
           }
           return Center(

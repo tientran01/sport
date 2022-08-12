@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeState extends Equatable {
   final int? badge;
@@ -8,7 +7,6 @@ class HomeState extends Equatable {
   });
   const HomeState.initState() : this();
   HomeState copyWith({
-    User? user,
     int? badge,
   }) {
     return HomeState(
@@ -17,7 +15,5 @@ class HomeState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        badge,
-      ];
+  List<Object?> get props => [badge];
 }

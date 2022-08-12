@@ -1,12 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/bloc/article_event.dart';
-import 'package:sport_app/bloc/article/bloc/article_state.dart';
-import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_bloc.dart';
+import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_event.dart';
+import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_state.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/shimmer.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
@@ -27,13 +28,13 @@ class _CustomSliderState extends State<CustomSlider> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ArticleBloc, ArticleState>(
-      bloc: ArticleBloc.of(context)..add(const GetTopHeadlinesEvent()),
+    return BlocBuilder<MostInterestedNewsBloc, MostInterestedNewsState>(
+      bloc: getIt.get<MostInterestedNewsBloc>()..add(const MostInterestedNewsApiEvent()),
       builder: (context, state) {
-        if (state is ArticleLoading) {
+        if (state is MostInterestedNewsLoading) {
           return const ShimmerSlider();
         }
-        if (state is ArticleLoader) {
+        if (state is MostInterestedNewsLoader) {
           if (state.articles == null) {
             return SizedBox(
               width: size.width,

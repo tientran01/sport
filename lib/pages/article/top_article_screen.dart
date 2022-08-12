@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/bloc/article_event.dart';
-import 'package:sport_app/bloc/article/bloc/article_state.dart';
-import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_bloc.dart';
+import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_event.dart';
+import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_state.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
@@ -21,18 +21,18 @@ class _TopArticleScreenState extends State<TopArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
+    getIt.get<HotNewsBloc>().add(const HotNewsLoadApiEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ArticleBloc, ArticleState>(
-      bloc: getIt.get<ArticleBloc>(),
+    return BlocBuilder<HotNewsBloc, HotNewsState>(
+      bloc: getIt.get<HotNewsBloc>(),
       builder: (context, state) {
-        if (state is ArticleLoading) {
+        if (state is HotNewsLoading) {
           return const CircularLoading();
         }
-        if (state is ArticleLoader) {
+        if (state is HotNewsLoader) {
           if (state.articles == null) {
             return Center(
               child: Image.asset(AppResource.empty),

@@ -21,7 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       badgeCount,
     );
   }
-  
+
   static HomeBloc of(BuildContext context) =>
       BlocProvider.of<HomeBloc>(context);
 }

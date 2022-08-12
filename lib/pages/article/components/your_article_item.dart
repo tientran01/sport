@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/bloc/article_state.dart';
-import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
+import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
@@ -16,8 +16,8 @@ class YourArticleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<ArticleBloc, ArticleState>(
-      bloc: getIt.get<ArticleBloc>(),
+    return BlocBuilder<YourArticleBloc, YourArticleState>(
+      bloc: getIt.get<YourArticleBloc>(),
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(

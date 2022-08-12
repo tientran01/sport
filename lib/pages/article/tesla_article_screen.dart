@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/bloc/article_event.dart';
-import 'package:sport_app/bloc/article/bloc/article_state.dart';
-import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_bloc.dart';
+import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_event.dart';
+import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_state.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
-
-import '../../application/application.dart';
 
 class TeslaArticleScreen extends StatefulWidget {
   const TeslaArticleScreen({Key? key}) : super(key: key);
@@ -23,22 +21,18 @@ class _TeslaArticleScreenState extends State<TeslaArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<ArticleBloc>().add(
-          const GetEverythingEvent(
-            nameCategory: Application.teslaParamValue,
-          ),
-        );
+    getIt.get<TeslaNewsBloc>().add(const TeslaNewsApiEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ArticleBloc, ArticleState>(
-      bloc: getIt.get<ArticleBloc>(),
+    return BlocBuilder<TeslaNewsBloc, TeslaNewsState>(
+      bloc: getIt.get<TeslaNewsBloc>(),
       builder: (context, state) {
-        if (state is ArticleLoading) {
+        if (state is TeslaNewsLoading) {
           return const CircularLoading();
         }
-        if (state is ArticleLoader) {
+        if (state is TeslaNewsLoader) {
           if (state.articles == null) {
             return Center(
               child: Image.asset(AppResource.empty),

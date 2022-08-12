@@ -1,21 +1,18 @@
-import 'package:sport_app/bloc/article/bloc/article_event.dart';
-import 'package:sport_app/bloc/article/bloc/article_state.dart';
+
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/name_section.dart';
-import 'package:sport_app/component/shimmer.dart';
 import 'package:sport_app/model/video.dart';
-import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
 import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/pages/home/most_interested_news_section.dart';
+import 'package:sport_app/pages/home/hot_news_section.dart';
 import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart';
 import 'package:sport_app/resource/resource.dart';
-import '../../component/text_view.dart';
 import '../../router/navigation_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -82,150 +79,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: Constants.size10,
                     ),
-                    SizedBox(
-                      height: Constants.size250,
-                      child: BlocBuilder<ArticleBloc, ArticleState>(
-                        bloc: ArticleBloc.of(context)
-                          ..add(const GetTopHeadlinesWithSourceEvent()),
-                        builder: (context, articleHomeState) {
-                          if (articleHomeState is ArticleLoading) {
-                            return ListView.separated(
-                              itemCount: 5,
-                              itemBuilder: (context, index) {
-                                return const ShimmerArticleCustomWidth();
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return SizedBox(
-                                  width: Constants.size10,
-                                );
-                              },
-                            );
-                          }
-                          if (articleHomeState is ArticleLoader) {
-                            return ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) =>
-                                  ArticleCustomWidthItem(
-                                article:
-                                    articleHomeState.articles?.elementAt(index),
-                                onTap: () {
-                                  NavigationService.navigatorKey.currentState
-                                      ?.pushNamed(
-                                    AppRouteName.detailArticle,
-                                    arguments: articleHomeState.articles
-                                        ?.elementAt(index),
-                                  );
-                                },
-                              ),
-                              itemCount: articleHomeState.articles?.length ?? 0,
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return SizedBox(
-                                  width: Constants.size10,
-                                );
-                              },
-                            );
-                          }
-                          return const Center(
-                            child: Text(AppStrings.error),
-                          );
-                        },
-                      ),
-                    ),
+                    const HotNewsSection(),
                     SizedBox(
                       height: Constants.size20,
                     ),
                     const NameSection(
                       titleSection: AppStrings.mostInterested,
                     ),
-                    SizedBox(
-                      height: Constants.size470,
-                      child: BlocBuilder<ArticleBloc, ArticleState>(
-                        bloc: ArticleBloc.of(context)
-                          ..add(const GetTopHeadlinesEvent()),
-                        builder: (context, articleHomeState) {
-                          if (articleHomeState is ArticleLoading) {
-                            return const CircularLoading();
-                          }
-                          if (articleHomeState is ArticleLoader) {
-                            if (articleHomeState.articles == null) {
-                              return Center(
-                                child: Image.asset(AppResource.empty),
-                              );
-                            } else {
-                              return Column(
-                                children: [
-                                  Expanded(
-                                    child: ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        if (index >= 3) {
-                                          return Container();
-                                        }
-                                        return ArticleItem(
-                                          article: articleHomeState.articles
-                                              ?.elementAt(index),
-                                          onTap: () {
-                                            NavigationService
-                                                .navigatorKey.currentState
-                                                ?.pushNamed(
-                                              AppRouteName.detailArticle,
-                                              arguments: articleHomeState
-                                                  .articles
-                                                  ?.elementAt(index),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      itemCount: 3,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: Constants.size10,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      NavigationService
-                                          .navigatorKey.currentState
-                                          ?.pushNamed(
-                                        AppRouteName.articleSortByName,
-                                        arguments: AppStrings.mostInterested,
-                                      );
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.zero,
-                                      height: Constants.size60,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: const BoxDecoration(
-                                        color: AppColor.gainsboro,
-                                        border: Border.symmetric(
-                                          horizontal: BorderSide(
-                                            color: AppColor.gainsboro,
-                                          ),
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: TextView(
-                                          text: AppStrings.seeMore,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              );
-                            }
-                          }
-                          return Center(
-                            child: TextView(
-                              text: AppStrings.error,
-                              fontSize: Constants.size15,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    const MostInterestedNewsSection(),
                     SizedBox(
                       height: Constants.size20,
                     ),

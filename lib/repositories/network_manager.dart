@@ -23,7 +23,9 @@ class NetWorkManager {
   ) async {
     try {
       Response response = await _dio.get(url, queryParameters: param);
-      return response.data;
+      if (response.statusCode == 200) {
+        return response.data;
+      }
     } catch (e) {
       Loading.showError(AppStrings.error);
     }
