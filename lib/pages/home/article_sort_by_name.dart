@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
+import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/model/article.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
+
 class ArticleSortByName extends StatefulWidget {
   const ArticleSortByName({Key? key}) : super(key: key);
 
@@ -36,7 +38,7 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
           getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
         });
         break;
-      
+
       default:
         {
           setState(
@@ -52,24 +54,31 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
     return Scaffold(
       appBar: CustomAppBar(
         title: nameArticle,
-        
       ),
       body: BlocBuilder<ArticleBloc, ArticleState>(
         bloc: getIt.get<ArticleBloc>(),
         builder: (context, articleHomeState) {
-          List<Article>? articles = articleHomeState.articles;
-          return Padding(
+          if (articleHomeState is ArticleLoading) {
+            return const CircularLoading();
+          }
+          if (articleHomeState is ArticleLoader) {
+            if (articleHomeState.articles == null) {
+              return Center(
+                child: Image.asset(AppResource.empty),
+              );
+            } else {
+              return Padding(
             padding: EdgeInsets.symmetric(
               horizontal: Constants.size15,
             ),
             child: ListView.separated(
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) => ArticleItem(
-                article: articles?.elementAt(index),
+                article: articleHomeState.articles?.elementAt(index),
                 onTap: () {
                   NavigationService.navigatorKey.currentState?.pushNamed(
                     AppRouteName.detailArticle,
-                    arguments: articles?.elementAt(index),
+                    arguments: articleHomeState.articles?.elementAt(index),
                   );
                 },
               ),
@@ -79,6 +88,14 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
                   width: Constants.size10,
                 );
               },
+            ),
+          );
+            }
+          }
+          return Center(
+            child: TextView(
+              text: AppStrings.error,
+              fontSize: Constants.size15,
             ),
           );
         },

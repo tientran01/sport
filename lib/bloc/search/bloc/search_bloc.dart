@@ -17,7 +17,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<void> emitter,
   ) async {
     Loading.show();
-    News? news = await ApiClient.api.getTopHeadlines();
+    News? news = (await ApiClient.api.getTopHeadlines());
     if (news != null) {
       Loading.dismiss();
       emitter(state.copyWith(

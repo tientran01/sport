@@ -11,10 +11,13 @@ class ApiClient {
       Application.countryParamKey: "us",
       Application.apiKey: Application.apiKeyNumber,
     };
-    final data =
+    Map<String, dynamic>? data =
         await NetWorkManager.shared.get(Application.topHeadlines, param);
-    News news = News.fromJson(data);
-    return news;
+    if (data != null) {
+      News news = News.fromJson(data);
+      return news;
+    }
+    return null;
   }
 
   Future<News?> getTopHeadlinesWithSource() async {
@@ -22,10 +25,13 @@ class ApiClient {
       Application.sourcesParamKey: Application.techcrunchParamValue,
       Application.apiKey: Application.apiKeyNumber,
     };
-    final data =
+    Map<String, dynamic>? data =
         await NetWorkManager.shared.get(Application.topHeadlines, param);
-    News news = News.fromJson(data);
-    return news;
+    if (data != null) {
+      News news = News.fromJson(data);
+      return news;
+    }
+    return null;
   }
 
   Future<News?> getEverything({required String endpoint}) async {
@@ -33,8 +39,12 @@ class ApiClient {
       Application.qParamKey: endpoint,
       Application.apiKey: Application.apiKeyNumber,
     };
-    final data = await NetWorkManager.shared.get(Application.everything, param);
-    News news = News.fromJson(data);
-    return news;
+    Map<String, dynamic>? data =
+        await NetWorkManager.shared.get(Application.everything, param);
+    if (data != null) {
+      News news = News.fromJson(data);
+      return news;
+    }
+    return null;
   }
 }

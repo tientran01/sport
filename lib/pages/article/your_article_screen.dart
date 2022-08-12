@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
+import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
@@ -51,102 +52,121 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
       body: BlocBuilder<YourArticleBloc, YourArticleState>(
         bloc: getIt.get<YourArticleBloc>(),
         builder: (context, state) {
-          if (state.yourArticles == null) {
-            return Center(child: Image.asset(AppResource.empty));
+          if (state is YourArticleLoading) {
+            return const CircularLoading();
           }
-          return ListView.builder(
-            itemCount: state.yourArticles?.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: Constants.size10),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: Constants.size120,
-                      padding: EdgeInsets.all(Constants.size10),
-                      margin: EdgeInsets.symmetric(vertical: Constants.size10),
-                      decoration: BoxDecoration(
-                        color: AppColor.gainsboro.withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(Constants.size10),
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: Constants.size20,
+          if (state is YourArticleLoader) {
+            if (state.yourArticles == null) {
+              return Center(
+                child: Image.asset(AppResource.empty),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: state.yourArticles?.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Constants.size10),
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: Constants.size120,
+                          padding: EdgeInsets.all(Constants.size10),
+                          margin:
+                              EdgeInsets.symmetric(vertical: Constants.size10),
+                          decoration: BoxDecoration(
+                            color: AppColor.gainsboro.withOpacity(0.4),
+                            borderRadius:
+                                BorderRadius.circular(Constants.size10),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Row(
                             children: [
-                              TextView(
-                                text:
-                                    state.yourArticles?.elementAt(index).title,
-                                fontSize: Constants.size15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                              TextView(
-                                text: state.yourArticles
-                                    ?.elementAt(index)
-                                    .description,
-                                fontSize: Constants.size15,
-                                textColor: AppColor.darkSilver,
-                              ),
                               SizedBox(
-                                height: Constants.size10,
+                                width: Constants.size20,
                               ),
-                              Container(
-                                padding: EdgeInsets.all(Constants.size5),
-                                decoration: BoxDecoration(
-                                  color: AppColor.gainsboro.withOpacity(0.6),
-                                  borderRadius:
-                                      BorderRadius.circular(Constants.size10),
-                                ),
-                                child: TextView(
-                                  text: TimeagoHelper.parseDatetime(
-                                    state.yourArticles
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextView(
+                                    text: state.yourArticles
                                         ?.elementAt(index)
-                                        .publishedAt
-                                        .toString(),
+                                        .title,
+                                    fontSize: Constants.size15,
+                                    fontWeight: FontWeight.w700,
                                   ),
-                                  fontSize: Constants.size10,
-                                  textColor: AppColor.arsenic,
-                                ),
+                                  TextView(
+                                    text: state.yourArticles
+                                        ?.elementAt(index)
+                                        .description,
+                                    fontSize: Constants.size15,
+                                    textColor: AppColor.darkSilver,
+                                  ),
+                                  SizedBox(
+                                    height: Constants.size10,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(Constants.size5),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          AppColor.gainsboro.withOpacity(0.6),
+                                      borderRadius: BorderRadius.circular(
+                                          Constants.size10),
+                                    ),
+                                    child: TextView(
+                                      text: TimeagoHelper.parseDatetime(
+                                        state.yourArticles
+                                            ?.elementAt(index)
+                                            .publishedAt
+                                            .toString(),
+                                      ),
+                                      fontSize: Constants.size10,
+                                      textColor: AppColor.arsenic,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 30,
-                      right: 10,
-                      child: GestureDetector(
-                        onTap: () {
-                          getIt.get<YourArticleBloc>().add(
-                                DeleteYourArticleEvent(
-                                    id: state.yourArticles
-                                        ?.elementAt(index)
-                                        .id),
-                              );
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(Constants.size5),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColor.white,
-                          ),
-                          child: Image.asset(
-                            AppResource.delete,
-                            width: Constants.size30,
+                        ),
+                        Positioned(
+                          bottom: 30,
+                          right: 10,
+                          child: GestureDetector(
+                            onTap: () {
+                              getIt.get<YourArticleBloc>().add(
+                                    DeleteYourArticleEvent(
+                                        id: state.yourArticles
+                                            ?.elementAt(index)
+                                            .id),
+                                  );
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(Constants.size5),
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColor.white,
+                              ),
+                              child: Image.asset(
+                                AppResource.delete,
+                                width: Constants.size30,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               );
-            },
+            }
+          }
+          return Center(
+            child: TextView(
+              text: AppStrings.error,
+              fontSize: Constants.size15,
+              fontWeight: FontWeight.w700,
+            ),
           );
         },
       ),

@@ -11,23 +11,26 @@ class CircularLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Platform.isIOS
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextView(
-                text: AppStrings.loading,
-                textColor: AppColor.black,
-                fontSize: Constants.size15,
-              ),
-              SizedBox(
-                height: Constants.size5,
-              ),
-              CupertinoActivityIndicator(
-                color: Colors.transparent,
-                radius: Constants.size15,
-              ),
-            ],
-          )
+        ? Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextView(
+                  text: AppStrings.loading,
+                  textColor: AppColor.black,
+                  fontSize: Constants.size15,
+                ),
+                SizedBox(
+                  height: Constants.size5,
+                ),
+                CupertinoActivityIndicator(
+                  color: Colors.transparent,
+                  radius: Constants.size15,
+                ),
+              ],
+            ),
+        )
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -1,20 +1,31 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:sport_app/application/application.dart';
+import 'package:sport_app/helper/loading.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class NetWorkManager {
   static NetWorkManager shared = NetWorkManager._internal();
   NetWorkManager._internal();
+  final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: Application.baseUrl,
+      connectTimeout: 5000,
+      receiveTimeout: 3000,
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+    ),
+  );
 
-  final Dio _dio = Dio();
-
-  Future<Map<String, dynamic>> get(
+  Future<dynamic> get(
     String url,
     Map<String, dynamic>? param,
   ) async {
-    Response response = await _dio.get(
-      '${Application.baseUrl}$url',
-      queryParameters: param,
-    );
-    return response.data;
+    try {
+      Response response = await _dio.get(url, queryParameters: param);
+      return response.data;
+    } catch (e) {
+      Loading.showError(AppStrings.error);
+    }
   }
 }

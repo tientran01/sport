@@ -96,6 +96,8 @@ class AppStrings {
   static const String isExistFavorite = "Đã tồn tại";
   static const String suggestionSearch = "Gợi ý tìm kiếm";
   static const String chooseColor = "Chọn màu";
+  static const String error404 = "Bad Request";
+  static const String error429 = "Too many request";
   static List<Category> categories = [
     Category(
       text: Application.top,

@@ -3,12 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
-import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
 class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
-  YourArticleBloc() : super(const YourArticleState.initState()) {
+  YourArticleBloc() : super(YourArticleLoading()) {
     on<GetArticleFromTextFieldEvent>(_onGetArticleFromTextField);
     on<CreateNewYourArticleEvent>(_onCreateNewYourArticle);
     on<GetYourArticlesEvent>(_onGetYourArticles);
@@ -17,12 +16,14 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
 
   Future<void> _onGetArticleFromTextField(
     GetArticleFromTextFieldEvent event,
-    Emitter<void> emitter,
+    Emitter<YourArticleState> emitter,
   ) async {
-    emitter(state.copyWith(
-      title: event.title ?? state.title,
-      description: event.description ?? state.description,
-    ));
+    emitter(
+      YourArticleLoader(
+        titleYourArticle: event.title ?? state.title,
+        descriptionYourArticle: event.description ?? state.description,
+      ),
+    );
   }
 
   Future<void> _onCreateNewYourArticle(
@@ -33,9 +34,8 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
       title: state.title,
       description: state.description,
     );
-    Loading.show();
+    emitter(YourArticleLoading());
     FirebaseHelper.shared.createNewArticle(yourArticle);
-    Loading.dismiss();
     NavigationService.navigatorKey.currentState?.pop();
     add(GetYourArticlesEvent());
   }
@@ -44,21 +44,18 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     GetYourArticlesEvent event,
     Emitter<void> emitter,
   ) async {
-    Loading.show();
     List<YourArticle> yourArticles =
         await FirebaseHelper.shared.getYourArticles();
     if (yourArticles.isEmpty) {
-      Loading.dismiss();
-      emitter(state.copyWith(yourArticles: null));
+      emitter(const YourArticleLoader(yourArticles: null));
     } else {
-      Loading.dismiss();
-      emitter(state.copyWith(yourArticles: yourArticles));
+      emitter(YourArticleLoader(yourArticles: yourArticles));
     }
   }
 
   Future<void> _onDeleteYourArticle(
       DeleteYourArticleEvent event, Emitter<void> emitter) async {
-    FirebaseHelper.shared.deleteYourArticle(event.id ?? state.id);
+    FirebaseHelper.shared.deleteYourArticle(event.id);
     add(GetYourArticlesEvent());
   }
 

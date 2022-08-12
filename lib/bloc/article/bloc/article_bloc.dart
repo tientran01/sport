@@ -8,7 +8,7 @@ import 'package:sport_app/repositories/api_client.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
-  ArticleBloc() : super(const ArticleState.initState()) {
+  ArticleBloc() : super(ArticleLoading()) {
     on<GetTopHeadlinesEvent>(_onGetTopHeadlines);
     on<GetTopHeadlinesWithSourceEvent>(_onGetTopHeadlinesWithSource);
     on<GetCategoryNameEvent>(_onGetCategoryName);
@@ -17,43 +17,39 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
 
   Future<void> _onGetTopHeadlines(
     GetTopHeadlinesEvent event,
-    Emitter<void> emitter,
+    Emitter<ArticleState> emitter,
   ) async {
-    Loading.show();
-    News? news = await ApiClient.api.getTopHeadlines();
-    if (news != null) {
-      Loading.dismiss();
-      emitter(
-        state.copyWith(articles: news.articles),
-      );
-    } else {
-      Loading.showError(AppStrings.error);
+    try {
+      News? news = (await ApiClient.api.getTopHeadlines());
+      if (news != null) {
+        emitter(ArticleLoader(articles: news.articles));
+      }
+    } catch (e) {
+      emitter( ArticleError(error: e.toString()));
     }
   }
 
   Future<void> _onGetTopHeadlinesWithSource(
     GetTopHeadlinesWithSourceEvent event,
-    Emitter<void> emitter,
+    Emitter<ArticleState> emitter,
   ) async {
-    Loading.show();
     News? news = await ApiClient.api.getTopHeadlinesWithSource();
     if (news != null) {
       Loading.dismiss();
-      emitter(
-        state.copyWith(articles: news.articles),
-      );
+      emitter(ArticleLoader(articles: news.articles));
     } else {
       Loading.showError(AppStrings.error);
+      emitter(const ArticleLoader(articles: null));
     }
   }
 
   Future<void> _onGetCategoryName(
     GetCategoryNameEvent event,
-    Emitter<void> emitter,
+    Emitter<ArticleState> emitter,
   ) async {
     emitter(
-      state.copyWith(
-        nameCategory: event.nameCategory ?? state.nameCategory,
+      ArticleLoader(
+        nameCategory: event.nameCategory,
       ),
     );
   }
@@ -62,15 +58,18 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
     GetEverythingEvent event,
     Emitter<void> emitter,
   ) async {
-    Loading.show();
     News? news = await ApiClient.api.getEverything(
       endpoint: event.nameCategory ?? "",
     );
     if (news != null) {
-      emitter(state.copyWith(articles: news.articles));
+      emitter(ArticleLoader(articles: news.articles));
       Loading.dismiss();
     } else {
-      Loading.showError(AppStrings.error);
+      emitter(
+        const ArticleError(
+          error: AppStrings.error,
+        ),
+      );
     }
   }
 

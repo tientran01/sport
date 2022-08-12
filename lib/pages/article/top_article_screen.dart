@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/article/bloc/article_event.dart';
 import 'package:sport_app/bloc/article/bloc/article_state.dart';
 import 'package:sport_app/bloc/bloc.dart';
+import 'package:sport_app/component/circular_loading.dart';
+import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/model/article.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -28,25 +29,41 @@ class _TopArticleScreenState extends State<TopArticleScreen> {
     return BlocBuilder<ArticleBloc, ArticleState>(
       bloc: getIt.get<ArticleBloc>(),
       builder: (context, state) {
-        List<Article>? articles = state.articles;
-        return ListView.builder(
-          itemCount: articles?.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Constants.size15,
-              ),
-              child: ArticleItem(
-                article: articles?[index],
-                onTap: () {
-                  NavigationService.navigatorKey.currentState?.pushNamed(
-                    AppRouteName.detailArticle,
-                    arguments: articles?[index],
-                  );
-                },
-              ),
+        if (state is ArticleLoading) {
+          return const CircularLoading();
+        }
+        if (state is ArticleLoader) {
+          if (state.articles == null) {
+            return Center(
+              child: Image.asset(AppResource.empty),
             );
-          },
+          } else {
+            return ListView.builder(
+              itemCount: state.articles?.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Constants.size15,
+                  ),
+                  child: ArticleItem(
+                    article: state.articles?[index],
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState?.pushNamed(
+                        AppRouteName.detailArticle,
+                        arguments: state.articles?[index],
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          }
+        }
+        return Center(
+          child: TextView(
+            text: AppStrings.error,
+            fontSize: Constants.size15,
+          ),
         );
       },
     );

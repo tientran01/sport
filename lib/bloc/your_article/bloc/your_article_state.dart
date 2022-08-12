@@ -1,33 +1,29 @@
 import 'package:equatable/equatable.dart';
 import 'package:sport_app/model/your_article.dart';
 
-class YourArticleState extends Equatable {
+abstract class YourArticleState extends Equatable {
   final String? title;
   final String? description;
+  const YourArticleState({this.title, this.description});
+  @override
+  List<Object?> get props => [title, description];
+}
+
+class YourArticleLoading extends YourArticleState {}
+
+class YourArticleLoader extends YourArticleState {
+  final String? titleYourArticle;
+  final String? descriptionYourArticle;
   final List<YourArticle>? yourArticles;
   final String? id;
-  const YourArticleState({
-    this.title,
-    this.description,
+  const YourArticleLoader({
+    this.titleYourArticle,
+    this.descriptionYourArticle,
     this.yourArticles,
     this.id,
   });
-  const YourArticleState.initState() : this();
-
-  YourArticleState copyWith({
-    String? title,
-    String? description,
-    List<YourArticle>? yourArticles,
-    String? id,
-  }) {
-    return YourArticleState(
-      title: title,
-      description: description,
-      yourArticles: yourArticles,
-      id: id,
-    );
-  }
-
   @override
-  List<Object?> get props => [title, description, yourArticles, id];
+  List<Object?> get props => [titleYourArticle, descriptionYourArticle, yourArticles, id];
 }
+
+class YourArticleError extends YourArticleState {}
