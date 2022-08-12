@@ -21,13 +21,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emitter(
         SearchLoader(
           results: news.articles
-              ?.expand(
-                (element) => [
-                  if ((element.title?.toLowerCase() ?? '')
-                      .contains(event.searchText?.toLowerCase() ?? ''))
-                    element,
-                ],
-              )
+              ?.where((element) => (element.title?.toLowerCase() ?? "")
+                  .contains((event.searchText?.toLowerCase()) ?? ""))
               .toList(),
         ),
       );
