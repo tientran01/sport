@@ -18,17 +18,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     News? news = (await ApiClient.api.getTopHeadlines());
     if (news != null) {
       Loading.dismiss();
-      emitter(SearchLoader(
-        results: news.articles
-            ?.expand(
-              (element) => [
-                if ((element.title?.toLowerCase() ?? '')
-                    .contains(event.searchText?.toLowerCase() ?? ''))
-                  element,
-              ],
-            )
-            .toList(),
-      ));
+      emitter(
+        SearchLoader(
+          results: news.articles
+              ?.expand(
+                (element) => [
+                  if ((element.title?.toLowerCase() ?? '')
+                      .contains(event.searchText?.toLowerCase() ?? ''))
+                    element,
+                ],
+              )
+              .toList(),
+        ),
+      );
     } else {
       emitter(const SearchLoader(results: null));
     }

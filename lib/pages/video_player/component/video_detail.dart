@@ -3,10 +3,9 @@ import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 
-// ignore: must_be_immutable
 class VideoDetail extends StatelessWidget {
-  Video? video;
-  VideoDetail({Key? key, required this.video}) : super(key: key);
+  final Video? video;
+  const VideoDetail({Key? key, required this.video}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

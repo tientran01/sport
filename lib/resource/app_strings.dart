@@ -98,6 +98,8 @@ class AppStrings {
   static const String chooseColor = "Chọn màu";
   static const String error404 = "Bad Request";
   static const String error429 = "Too many request";
+  static const String removeAll = "Xoá tất cả";
+  static const String failed = "Thất bại";
   static List<Category> categories = [
     Category(
       text: Application.top,

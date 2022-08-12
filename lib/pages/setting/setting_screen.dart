@@ -122,9 +122,6 @@ class _SettingScreenState extends State<SettingScreen> {
                     },
                     text: AppStrings.favorites,
                   ),
-                  SizedBox(
-                    height: Constants.size20,
-                  ),
                   buildSettingItem(
                     context,
                     text: AppStrings.bookmark,
@@ -141,10 +138,10 @@ class _SettingScreenState extends State<SettingScreen> {
 
   Widget buildSettingItem(BuildContext context,
       {required String text, required VoidCallback onTap}) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: Constants.size10),
+        padding: EdgeInsets.symmetric(vertical: Constants.size20),
         child: Row(
           children: [
             TextView(

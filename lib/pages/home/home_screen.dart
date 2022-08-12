@@ -1,4 +1,3 @@
-
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
@@ -36,101 +35,94 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeBloc, HomeState>(
       bloc: getIt<HomeBloc>(),
       builder: (_, state) {
-        return GestureDetector(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.focusedChild?.unfocus();
-            }
-          },
-          child: Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
-            appBar: HeaderHome(
-                notificationCount: state.badge,
-                onTap: () {
-                  NavigationService.navigatorKey.currentState
-                      ?.pushNamed(AppRouteName.notification);
-                }),
-            body: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size15,
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: Constants.size20,
-                    ),
-                    const CustomSlider(),
-                    SizedBox(
-                      height: Constants.size25,
-                    ),
-                    NameSection(
-                      titleSection: AppStrings.hotNews,
-                      text: AppStrings.seeMore,
-                      onTap: () {
-                        NavigationService.navigatorKey.currentState?.pushNamed(
-                          AppRouteName.articleSortByName,
-                          arguments: AppStrings.hotNews,
+        return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          appBar: HeaderHome(
+            notificationCount: state.badge,
+            onTap: () {
+              NavigationService.navigatorKey.currentState
+                  ?.pushNamed(AppRouteName.notification);
+            },
+          ),
+          body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Constants.size15,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Constants.size20,
+                  ),
+                  const CustomSlider(),
+                  SizedBox(
+                    height: Constants.size25,
+                  ),
+                  NameSection(
+                    titleSection: AppStrings.hotNews,
+                    text: AppStrings.seeMore,
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState?.pushNamed(
+                        AppRouteName.articleSortByName,
+                        arguments: AppStrings.hotNews,
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    height: Constants.size10,
+                  ),
+                  const HotNewsSection(),
+                  SizedBox(
+                    height: Constants.size20,
+                  ),
+                  const NameSection(
+                    titleSection: AppStrings.mostInterested,
+                  ),
+                  const MostInterestedNewsSection(),
+                  SizedBox(
+                    height: Constants.size20,
+                  ),
+                  const NameSection(
+                    titleSection: AppStrings.hotVideos,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: Constants.size5),
+                    height: Constants.size300,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: videos.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.all(Constants.size5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              Constants.size15,
+                            ),
+                            color: AppColor.gainsboro.withOpacity(0.3),
+                          ),
+                          height: Constants.size270,
+                          width: Constants.size250,
+                          child: VideoThumbnaiLargeItem(
+                            video: videos.elementAt(index),
+                            onTap: () {
+                              NavigationService.navigatorKey.currentState
+                                  ?.pushNamed(
+                                AppRouteName.videoPlayer,
+                                arguments: videos.elementAt(index),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          width: Constants.size10,
                         );
                       },
                     ),
-                    SizedBox(
-                      height: Constants.size10,
-                    ),
-                    const HotNewsSection(),
-                    SizedBox(
-                      height: Constants.size20,
-                    ),
-                    const NameSection(
-                      titleSection: AppStrings.mostInterested,
-                    ),
-                    const MostInterestedNewsSection(),
-                    SizedBox(
-                      height: Constants.size20,
-                    ),
-                    const NameSection(
-                      titleSection: AppStrings.hotVideos,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: Constants.size5),
-                      height: Constants.size300,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: videos.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(Constants.size5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                Constants.size15,
-                              ),
-                              color: AppColor.gainsboro.withOpacity(0.3),
-                            ),
-                            height: Constants.size270,
-                            width: Constants.size250,
-                            child: VideoThumbnaiLargeItem(
-                              video: videos.elementAt(index),
-                              onTap: () {
-                                NavigationService.navigatorKey.currentState
-                                    ?.pushNamed(
-                                  AppRouteName.videoPlayer,
-                                  arguments: videos.elementAt(index),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(
-                            width: Constants.size10,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

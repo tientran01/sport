@@ -3,6 +3,7 @@ import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:video_player/video_player.dart';
+
 class VideoTile extends StatefulWidget {
   final Video? video;
   const VideoTile({

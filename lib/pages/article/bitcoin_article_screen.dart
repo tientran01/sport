@@ -32,6 +32,11 @@ class _BitcoinArticleScreenState extends State<BitcoinArticleScreen> {
           return const CircularLoading();
         }
         if (state is HotNewsLoader) {
+          if (state.articles == null) {
+            return Center(
+              child: Image.asset(AppResource.empty),
+            );
+          }
           return ListView.builder(
             itemCount: state.articles?.length,
             itemBuilder: (context, index) {

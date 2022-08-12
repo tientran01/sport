@@ -32,25 +32,31 @@ class _AppleArticleScreenState extends State<AppleArticleScreen> {
           return const CircularLoading();
         }
         if (state is AppleNewsLoader) {
-          return ListView.builder(
-            itemCount: state.articles?.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size15,
-                ),
-                child: ArticleItem(
-                  article: state.articles?[index],
-                  onTap: () {
-                    NavigationService.navigatorKey.currentState?.pushNamed(
-                      AppRouteName.detailArticle,
-                      arguments: state.articles?[index],
-                    );
-                  },
-                ),
-              );
-            },
-          );
+          if (state.articles == null) {
+            return Center(
+              child: Image.asset(AppResource.empty),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: state.articles?.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Constants.size15,
+                  ),
+                  child: ArticleItem(
+                    article: state.articles?[index],
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState?.pushNamed(
+                        AppRouteName.detailArticle,
+                        arguments: state.articles?[index],
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          }
         }
         return Center(
           child: Image.asset(AppResource.empty),

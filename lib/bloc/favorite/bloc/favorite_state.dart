@@ -2,23 +2,28 @@ import 'package:equatable/equatable.dart';
 import 'package:sport_app/model/video.dart';
 
 class FavoriteState extends Equatable {
-  final Set<Video?>? videos;
   final Video? video;
+  final bool? isFavorite;
   const FavoriteState({
-    this.videos,
     this.video,
+    this.isFavorite
   });
-  const FavoriteState.initState() : this();
-  FavoriteState copyWith({
-    Set<Video?>? videos,
-    Video? video,
-  }) {
-    return FavoriteState(
-      videos: videos,
-      video: video,
-    );
-  }
+  @override
+  List<Object?> get props => [video, isFavorite];
+}
+
+class FavoriteLoading extends FavoriteState {}
+
+class FavoriteLoader extends FavoriteState {
+  final Set<Video?>? videos;
+  const FavoriteLoader({
+    this.videos,
+    super.video,
+    super.isFavorite,
+  });
 
   @override
-  List<Object?> get props => [videos, video];
+  List<Object?> get props => [videos, video, isFavorite];
 }
+
+class FavoriteError extends FavoriteState {}

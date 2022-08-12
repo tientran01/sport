@@ -10,12 +10,24 @@ abstract class FavoriteEvent extends Equatable {
 class AddVideoToFavoriteEvent extends FavoriteEvent {
   final Video? video;
   final Set<Video>? videos;
+  final bool? isFavorite;
   const AddVideoToFavoriteEvent({
     this.video,
     this.videos,
+    this.isFavorite,
   });
   @override
-  List<Object?> get props => [video, videos];
+  List<Object?> get props => [video, videos, isFavorite];
 }
 
-class GetFavoritesEvent extends FavoriteEvent {}
+class GetListFavoritesEvent extends FavoriteEvent {}
+
+class ToggleInFavoritesEvent extends FavoriteEvent {
+  final Video? video;
+  final bool? isFavorite;
+  const ToggleInFavoritesEvent({this.video, this.isFavorite});
+  @override
+  List<Object?> get props => [video, isFavorite];
+}
+
+class RemoveAllEvent extends FavoriteEvent {}

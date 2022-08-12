@@ -60,6 +60,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: widget.maxLine ?? 1,
       controller: widget.textEditingController,
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword == true ? !isHidden : isHidden,
@@ -73,9 +74,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fontWeight: FontWeight.w600,
         ),
         hintText: widget.hintText,
-        hintStyle: const TextStyle(
-          color: AppColor.gainsboro,
-        ),
         prefixIcon: widget.prefix,
         suffixIcon: widget.isPassword == true
             ? GestureDetector(
@@ -142,6 +140,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         }
         break;
       case TextFieldType.normal:
+        if (value == null || value.isEmpty) {
+          return AppStrings.required;
+        }
         break;
       case TextFieldType.phoneNumber:
         if (value == null || value.isEmpty) {

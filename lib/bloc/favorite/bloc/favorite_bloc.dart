@@ -7,9 +7,9 @@ import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  FavoriteBloc() : super(const FavoriteState.initState()) {
+  FavoriteBloc() : super(FavoriteLoading()) {
     on<AddVideoToFavoriteEvent>(_onAddVideoToFavorite);
-    on<GetFavoritesEvent>(_onGetFavorites);
+    on<GetListFavoritesEvent>(_onGetListFavorites);
   }
 
   List<Video?> listVideo = <Video>[];
@@ -18,19 +18,20 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     AddVideoToFavoriteEvent event,
     Emitter<void> emitter,
   ) async {
-    if (listVideo.contains(event.video ?? state.video) == true) {
+    if (listVideo.contains(event.video) == true) {
       Loading.showError(AppStrings.isExistFavorite);
     } else {
       Loading.showSuccess(AppStrings.addFavorite);
-      listVideo.add(state.video ?? event.video);
+      listVideo.add(event.video);
+      emitter(FavoriteLoader(isFavorite: event.isFavorite));
     }
   }
 
-  Future<void> _onGetFavorites(
-    GetFavoritesEvent event,
+  Future<void> _onGetListFavorites(
+    GetListFavoritesEvent event,
     Emitter<void> emitter,
   ) async {
-    emitter(state.copyWith(videos: listVideo.toSet()));
+    emitter(FavoriteLoader(videos: listVideo.toSet()));
   }
 
   static FavoriteBloc of(BuildContext context) =>

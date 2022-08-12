@@ -12,9 +12,15 @@ import 'package:sport_app/pages/video_player/component/video_detail.dart';
 import 'package:sport_app/pages/video_player/component/video_tile.dart';
 import 'package:sport_app/resource/resource.dart';
 
-class VideoPlayerScreen extends StatelessWidget {
+class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({Key? key}) : super(key: key);
 
+  @override
+  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+}
+
+class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
     Video video = ModalRoute.of(context)?.settings.arguments as Video;
@@ -34,9 +40,9 @@ class VideoPlayerScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: SizedBox(
-                  height: Constants.size100,
+                  height: Constants.size200,
                   child: VideoDetail(
                     video: video,
                   ),
@@ -56,13 +62,19 @@ class VideoPlayerScreen extends StatelessWidget {
                           return VideoButton(
                             iconPath: AppResource.heart,
                             onTap: () {
+                              setState(() {
+                                isFavorite = !isFavorite;
+                              });
                               getIt.get<FavoriteBloc>().add(
                                     AddVideoToFavoriteEvent(
                                       video: video,
+                                      isFavorite: isFavorite,
                                     ),
                                   );
                             },
-                            iconColor: AppColor.white,
+                            iconColor: isFavorite == true
+                                ? AppColor.carminePink
+                                : AppColor.white,
                           );
                         },
                       ),

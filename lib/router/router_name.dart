@@ -24,7 +24,6 @@ import 'package:sport_app/pages/profile/profile_screen.dart';
 import 'package:sport_app/pages/search/search_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:sport_app/pages/video_player/video_player_screen.dart';
-import 'package:sport_app/pages/video_player/video_screen.dart';
 import 'package:sport_app/resource/app_route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -51,8 +50,7 @@ class RouteName {
     AppRouteName.articleSortByName: (BuildContext context) => const ArticleSortByName(),
     AppRouteName.videoPlayer: (BuildContext context) => const VideoPlayerScreen(),
     AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
-    AppRouteName.video: (BuildContext context) => const VideoScreen(),
-    AppRouteName.search: (BuildContext context) => const SearchScreen(),
+    AppRouteName.search: (BuildContext context) => SearchScreen(),
     AppRouteName.topArticle: (BuildContext context) => const TopArticleScreen(),
     AppRouteName.appleArticle: (BuildContext context) => const AppleArticleScreen(),
     AppRouteName.bitcoinArticle: (BuildContext context) => const BitcoinArticleScreen(),

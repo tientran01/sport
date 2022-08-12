@@ -27,7 +27,7 @@ class TextView extends StatelessWidget {
         color: textColor ?? AppColor.black,
       ),
       overflow: TextOverflow.ellipsis,
-      maxLines: lineNumber,
+      maxLines: lineNumber ?? 1,
     );
   }
 }

@@ -56,7 +56,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: onPressedRight,
                 icon: Image.asset(
                   rightIconPath ?? "",
-                  width: Constants.size25,
+                  width: Constants.size30,
                 ),
               )
             : Container()

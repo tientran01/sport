@@ -70,7 +70,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                       children: [
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: Constants.size120,
+                          height: Constants.size150,
                           padding: EdgeInsets.all(Constants.size10),
                           margin:
                               EdgeInsets.symmetric(vertical: Constants.size10),
@@ -79,52 +79,48 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                             borderRadius:
                                 BorderRadius.circular(Constants.size10),
                           ),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                width: Constants.size20,
+                              TextView(
+                                text:
+                                    state.yourArticles?.elementAt(index).title,
+                                fontSize: Constants.size17,
+                                fontWeight: FontWeight.w700,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  TextView(
-                                    text: state.yourArticles
+                              SizedBox(
+                                height: Constants.size5,
+                              ),
+                              TextView(
+                                text: state.yourArticles
+                                    ?.elementAt(index)
+                                    .description,
+                                fontSize: Constants.size15,
+                                textColor: AppColor.darkSilver,
+                                lineNumber: 3,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              SizedBox(
+                                height: Constants.size10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(Constants.size5),
+                                decoration: BoxDecoration(
+                                  color: AppColor.gainsboro.withOpacity(0.6),
+                                  borderRadius:
+                                      BorderRadius.circular(Constants.size10),
+                                ),
+                                child: TextView(
+                                  text: TimeagoHelper.parseDatetime(
+                                    state.yourArticles
                                         ?.elementAt(index)
-                                        .title,
-                                    fontSize: Constants.size15,
-                                    fontWeight: FontWeight.w700,
+                                        .publishedAt
+                                        .toString(),
                                   ),
-                                  TextView(
-                                    text: state.yourArticles
-                                        ?.elementAt(index)
-                                        .description,
-                                    fontSize: Constants.size15,
-                                    textColor: AppColor.darkSilver,
-                                  ),
-                                  SizedBox(
-                                    height: Constants.size10,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(Constants.size5),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          AppColor.gainsboro.withOpacity(0.6),
-                                      borderRadius: BorderRadius.circular(
-                                          Constants.size10),
-                                    ),
-                                    child: TextView(
-                                      text: TimeagoHelper.parseDatetime(
-                                        state.yourArticles
-                                            ?.elementAt(index)
-                                            .publishedAt
-                                            .toString(),
-                                      ),
-                                      fontSize: Constants.size10,
-                                      textColor: AppColor.arsenic,
-                                    ),
-                                  ),
-                                ],
+                                  fontSize: Constants.size10,
+                                  textColor: AppColor.arsenic,
+                                ),
                               ),
                             ],
                           ),
