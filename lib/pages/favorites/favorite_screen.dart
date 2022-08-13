@@ -1,30 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
-import 'package:sport_app/bloc/favorite/bloc/favorite_event.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
-
 import '../../bloc/favorite/bloc/favorite_state.dart';
 
-class FavoriteScreen extends StatefulWidget {
+class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
-
-  @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
-}
-
-class _FavoriteScreenState extends State<FavoriteScreen> {
-  @override
-  void initState() {
-    super.initState();
-    getIt.get<FavoriteBloc>().add(GetListFavoritesEvent());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +22,13 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         bloc: getIt.get<FavoriteBloc>(),
         builder: (context, favoriteState) {
           if (favoriteState is FavoriteLoading) {
-            return const CircularLoading();
+            return Center(
+              child: Image.asset(AppResource.empty),
+            );
           }
           if (favoriteState is FavoriteLoader) {
-            if (favoriteState.videos == null) {
+            if (favoriteState.videos?.isEmpty ??
+                favoriteState.videos?.length == null) {
               return Center(
                 child: Image.asset(AppResource.empty),
               );
@@ -120,19 +109,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             child: Image.asset(AppResource.empty),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: AppColor.black,
-        onPressed: () {},
-        label: const TextView(
-          text: AppStrings.removeAll,
-          textColor: AppColor.white,
-        ),
-        icon: Image.asset(
-          AppResource.delete,
-          width: Constants.size40,
-          color: AppColor.white,
-        ),
       ),
     );
   }

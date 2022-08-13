@@ -14,7 +14,7 @@ import 'package:sport_app/router/navigation_service.dart';
 class SearchScreen extends StatelessWidget {
   SearchScreen({Key? key}) : super(key: key);
 
-  List<Category> categories = AppStrings.categories;
+  final List<Category> categories = AppStrings.categories;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

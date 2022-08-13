@@ -11,15 +11,15 @@ class VideoDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: Constants.size20,
+        horizontal: Constants.size10,
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextView(
             text: video?.name,
-            fontSize: Constants.size17,
+            fontSize: Constants.size15,
             fontWeight: FontWeight.w700,
             textColor: AppColor.white,
             lineNumber: 2,
@@ -30,10 +30,10 @@ class VideoDetail extends StatelessWidget {
           TextView(
             text: video?.description,
             fontWeight: FontWeight.w600,
-            fontSize: Constants.size15,
+            fontSize: Constants.size12,
             textColor: AppColor.darkSilver,
             lineNumber: 2,
-          )
+          ),
         ],
       ),
     );
