@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/bloc/article/bloc/article_event.dart';
-import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/main.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/apple_article_screen.dart';
 import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
@@ -21,12 +18,7 @@ class _ArticleScreenState extends State<ArticleScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
   PageController? pageController;
-  List<Widget> pages = [
-    const TopArticleScreen(),
-    const AppleArticleScreen(),
-    const BitcoinArticleScreen(),
-    const TeslaArticleScreen(),
-  ];
+  
 
   int selectIndex = 0;
   List<Category> categories = AppStrings.categories;
@@ -36,7 +28,6 @@ class _ArticleScreenState extends State<ArticleScreen>
     pageController = PageController(initialPage: 0);
     tabController =
         TabController(length: categories.length, vsync: this, initialIndex: 0);
-    getIt.get<ArticleBloc>().add(const GetTopHeadlinesEvent());
     tabController?.addListener(
       () {
         setState(() => selectIndex = tabController?.index ?? 0);

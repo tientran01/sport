@@ -6,7 +6,13 @@ class ProfileItem extends StatelessWidget {
   final String? text;
   final String? userInformation;
   final VoidCallback? onTap;
-  const ProfileItem({Key? key, this.text, this.userInformation, this.onTap})
+  final bool? isChange;
+  const ProfileItem(
+      {Key? key,
+      this.text,
+      this.userInformation,
+      this.onTap,
+      this.isChange = false})
       : super(key: key);
 
   @override
@@ -36,12 +42,14 @@ class ProfileItem extends StatelessWidget {
             SizedBox(
               width: Constants.size10,
             ),
-            Image.asset(
-              AppResource.rightArrow,
-              width: Constants.size15,
-              height: Constants.size15,
-              color: AppColor.darkSilver,
-            )
+            isChange == true
+                ? Image.asset(
+                    AppResource.rightArrow,
+                    width: Constants.size15,
+                    height: Constants.size15,
+                    color: AppColor.darkSilver,
+                  )
+                : Container()
           ],
         ),
       ),

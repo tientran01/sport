@@ -7,31 +7,35 @@ import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  FavoriteBloc() : super(const FavoriteState.initState()) {
+  FavoriteBloc() : super(FavoriteLoading()) {
     on<AddVideoToFavoriteEvent>(_onAddVideoToFavorite);
-    on<GetFavoritesEvent>(_onGetFavorites);
   }
-
-  List<Video?> listVideo = <Video>[];
 
   Future<void> _onAddVideoToFavorite(
     AddVideoToFavoriteEvent event,
     Emitter<void> emitter,
   ) async {
-    if (listVideo.contains(event.video ?? state.video) == true) {
-      Loading.showError(AppStrings.isExistFavorite);
-    } else {
+    final int index = (state.videos ?? [])
+        .indexWhere((element) => element?.id == event.video?.id);
+    if (index == -1) {
+      final favorites = List<Video?>.from(state.videos ?? []);
+      favorites.add(event.video);
+      event.video?.isFavorite = true;
       Loading.showSuccess(AppStrings.addFavorite);
-      listVideo.add(state.video ?? event.video);
+      emitter(FavoriteLoader(
+        videos: favorites,
+      ));
+    } else {
+      final favorites = List<Video?>.from(state.videos ?? []);
+      Loading.showError(AppStrings.removeFavorite);
+      favorites.removeAt(index);
+      event.video?.isFavorite = false;
+      emitter(FavoriteLoader(
+        videos: favorites,
+      ));
     }
   }
 
-  Future<void> _onGetFavorites(
-    GetFavoritesEvent event,
-    Emitter<void> emitter,
-  ) async {
-    emitter(state.copyWith(videos: listVideo.toSet()));
-  }
 
   static FavoriteBloc of(BuildContext context) =>
       BlocProvider.of<FavoriteBloc>(context);

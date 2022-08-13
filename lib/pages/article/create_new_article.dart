@@ -6,6 +6,7 @@ import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -22,6 +23,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
   YourArticle? yourArticle = YourArticle(
     publishedAt: DateTime.now().toString(),
   );
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<YourArticleBloc, YourArticleState>(
@@ -42,53 +44,53 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
               physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size30,
-                  vertical: Constants.size45,
+                  horizontal: Constants.size20,
+                  vertical: Constants.size25,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomTextField(
-                      title: AppStrings.titleArticle,
-                      hintText: AppStrings.titleArticleInput,
-                      onChanged: (String title) {
-                        getIt.get<YourArticleBloc>().add(
-                              GetArticleFromTextFieldEvent(
-                                title: title,
-                              ),
-                            );
-                      },
-                    ),
-                    SizedBox(
-                      height: Constants.size25,
-                    ),
-                    CustomTextField(
-                      title: AppStrings.descArticle,
-                      hintText: AppStrings.descArticleInput,
-                      isMaxLine: true,
-                      maxLine: 5,
-                      onChanged: (String description) {
-                        getIt.get<YourArticleBloc>().add(
-                              GetArticleFromTextFieldEvent(
-                                description: description,
-                              ),
-                            );
-                      },
-                    ),
-                    SizedBox(
-                      height: Constants.size20,
-                    ),
-                    Button(
-                      bgColor: AppColor.black,
-                      text: AppStrings.postArticle,
-                      textColor: AppColor.white,
-                      onTap: () {
-                        getIt
-                            .get<YourArticleBloc>()
-                            .add(CreateNewYourArticleEvent());
-                      },
-                    )
-                  ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomTextField(
+                        title: AppStrings.titleArticle,
+                        hintText: AppStrings.titleArticleInput,
+                        onChanged: (String title) {
+                          getIt.get<YourArticleBloc>().add(
+                                GetArticleFromTextFieldEvent(
+                                  title: title,
+                                ),
+                              );
+                        },
+                      ),
+                      SizedBox(
+                        height: Constants.size25,
+                      ),
+                      CustomTextField(
+                        title: AppStrings.descArticle,
+                        hintText: AppStrings.descArticleInput,
+                        maxLine: 5,
+                        onChanged: (String description) {
+                          getIt.get<YourArticleBloc>().add(
+                                GetArticleFromTextFieldEvent(
+                                  description: description,
+                                ),
+                              );
+                        },
+                      ),
+                      SizedBox(
+                        height: Constants.size20,
+                      ),
+                      Button(
+                        bgColor: AppColor.black,
+                        text: AppStrings.postArticle,
+                        textColor: AppColor.white,
+                        onTap: () {
+                          tryCreateNewYourArticle();
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -96,5 +98,13 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
         );
       },
     );
+  }
+
+  void tryCreateNewYourArticle() {
+    if (_formKey.currentState!.validate()) {
+      getIt.get<YourArticleBloc>().add(CreateNewYourArticleEvent());
+    } else {
+      Loading.showError(AppStrings.failed);
+    }
   }
 }

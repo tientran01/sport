@@ -93,11 +93,14 @@ class AppStrings {
   static const String bookmark = "Bộ sưu tập của bạn";
   static const String deleteAllFavorite = "Xoá tất cả bộ sưu tập";
   static const String addFavorite = "Thêm vào bộ sưu tập";
-  static const String isExistFavorite = "Đã tồn tại";
+  static const String removeFavorite = "Xoá khỏi bộ sưu tập";
   static const String suggestionSearch = "Gợi ý tìm kiếm";
   static const String chooseColor = "Chọn màu";
   static const String error404 = "Bad Request";
   static const String error429 = "Too many request";
+  static const String removeAll = "Xoá tất cả";
+  static const String failed = "Thất bại";
+  static const String favorite = "Yêu thích";
   static List<Category> categories = [
     Category(
       text: Application.top,

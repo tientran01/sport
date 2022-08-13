@@ -12,18 +12,16 @@ abstract class YourArticleState extends Equatable {
 class YourArticleLoading extends YourArticleState {}
 
 class YourArticleLoader extends YourArticleState {
-  final String? titleYourArticle;
-  final String? descriptionYourArticle;
   final List<YourArticle>? yourArticles;
   final String? id;
   const YourArticleLoader({
-    this.titleYourArticle,
-    this.descriptionYourArticle,
     this.yourArticles,
     this.id,
+    super.title,
+    super.description,
   });
   @override
-  List<Object?> get props => [titleYourArticle, descriptionYourArticle, yourArticles, id];
+  List<Object?> get props => [title, description, yourArticles, id];
 }
 
 class YourArticleError extends YourArticleState {}

@@ -77,6 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       children: [
                         ProfileItem(
+                          isChange: true,
                           text: AppStrings.nickName,
                           userInformation: state.user?.displayName,
                           onTap: () {

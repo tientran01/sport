@@ -20,8 +20,8 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   ) async {
     emitter(
       YourArticleLoader(
-        titleYourArticle: event.title ?? state.title,
-        descriptionYourArticle: event.description ?? state.description,
+        title: event.title ?? state.title,
+        description: event.description ?? state.description,
       ),
     );
   }

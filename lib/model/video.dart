@@ -5,11 +5,14 @@ class Video {
   String? thumbnailUrl;
   String? time;
   String? description;
-  Video(
-      {this.id,
-      this.name,
-      this.videoUrl,
-      this.thumbnailUrl,
-      this.time,
-      this.description});
+  bool? isFavorite;
+  Video({
+    this.id,
+    this.name,
+    this.videoUrl,
+    this.thumbnailUrl,
+    this.time,
+    this.description,
+    this.isFavorite,
+  });
 }
