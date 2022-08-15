@@ -22,14 +22,15 @@ class _CustomSliderState extends State<CustomSlider> {
   @override
   void initState() {
     super.initState();
+    getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
   }
+
   int activeIndex = 0;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<MostInterestedNewsBloc, MostInterestedNewsState>(
-      bloc: getIt.get<MostInterestedNewsBloc>()
-        ..add(const MostInterestedNewsApiEvent()),
+      bloc: getIt.get<MostInterestedNewsBloc>(),
       builder: (context, state) {
         if (state is MostInterestedNewsLoading) {
           return const ShimmerSlider();

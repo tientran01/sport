@@ -11,8 +11,20 @@ import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getIt.get<ProfileBloc>().add(GetUserProfileEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +38,7 @@ class SettingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BlocBuilder<ProfileBloc, ProfileState>(
-              bloc: getIt.get<ProfileBloc>()..add(GetUserProfileEvent()),
+              bloc: getIt.get<ProfileBloc>(),
               builder: (context, state) {
                 return GestureDetector(
                   onTap: () {

@@ -10,15 +10,27 @@ import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
-class MostInterestedNewsSection extends StatelessWidget {
+class MostInterestedNewsSection extends StatefulWidget {
   const MostInterestedNewsSection({Key? key}) : super(key: key);
+
+  @override
+  State<MostInterestedNewsSection> createState() =>
+      _MostInterestedNewsSectionState();
+}
+
+class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
+  @override
+  void initState() {
+    super.initState();
+    getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: Constants.size470,
       child: BlocBuilder<MostInterestedNewsBloc, MostInterestedNewsState>(
-        bloc: getIt.get<MostInterestedNewsBloc>()..add(const MostInterestedNewsApiEvent()),
+        bloc: getIt.get<MostInterestedNewsBloc>(),
         builder: (context, homeState) {
           if (homeState is MostInterestedNewsLoading) {
             return const CircularLoading();

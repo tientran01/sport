@@ -9,15 +9,26 @@ import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
-class HotNewsSection extends StatelessWidget {
+class HotNewsSection extends StatefulWidget {
   const HotNewsSection({Key? key}) : super(key: key);
+
+  @override
+  State<HotNewsSection> createState() => _HotNewsSectionState();
+}
+
+class _HotNewsSectionState extends State<HotNewsSection> {
+  @override
+  void initState() {
+    super.initState();
+    getIt.get<HotNewsBloc>().add(const HotNewsLoadApiEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: Constants.size250,
       child: BlocBuilder<HotNewsBloc, HotNewsState>(
-        bloc: getIt.get<HotNewsBloc>()..add(const HotNewsLoadApiEvent()),
+        bloc: getIt.get<HotNewsBloc>(),
         builder: (context, state) {
           if (state is HotNewsLoading) {
             return ListView.separated(
