@@ -56,60 +56,7 @@ class SearchScreen extends StatelessWidget {
             bloc: getIt.get<SearchBloc>(),
             builder: (context, state) {
               if (state is SearchLoading) {
-                return Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Constants.size25,
-                        vertical: Constants.size20,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      height: Constants.size150,
-                      decoration: BoxDecoration(
-                        color: AppColor.gainsboro.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(Constants.size10),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextView(
-                            text: AppStrings.suggestionSearch.toUpperCase(),
-                            fontWeight: FontWeight.w700,
-                          ),
-                          SizedBox(
-                            height: Constants.size15,
-                          ),
-                          Wrap(
-                              children: categories.map(
-                            (category) {
-                              return GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.only(right: Constants.size10),
-                                  padding: EdgeInsets.all(Constants.size12),
-                                  decoration: BoxDecoration(
-                                    color: category.color,
-                                    borderRadius:
-                                        BorderRadius.circular(Constants.size5),
-                                  ),
-                                  child: TextView(
-                                    text: category.text,
-                                    fontSize: Constants.size15,
-                                  ),
-                                ),
-                              );
-                            },
-                          ).toList())
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: Constants.size15,
-                    ),
-                  ],
-                );
+                return Container();
               }
               if (state is SearchLoader) {
                 if (state.results == null) {

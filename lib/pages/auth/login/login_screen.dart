@@ -34,13 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.focusedChild?.unfocus();
-          }
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.focusedChild?.unfocus();
+        }
       },
       child: Scaffold(
         appBar: const CustomAppBar(
           title: AppStrings.login,
+          isPop: false,
         ),
         body: BlocBuilder<LoginBloc, LoginState>(
           builder: (_, state) {

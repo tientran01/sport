@@ -46,7 +46,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         );
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
         await FirebaseHelper.shared.createUserInformation(userInformation);
-        NavigationService.navigatorKey.currentState?.pushNamed(
+        NavigationService.navigatorKey.currentState?.pushReplacementNamed(
           AppRouteName.main,
           arguments: user,
         );
