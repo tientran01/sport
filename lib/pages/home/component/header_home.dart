@@ -6,12 +6,8 @@ import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
 class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
-  final int? notificationCount;
-  final VoidCallback? onTap;
   const HeaderHome({
     Key? key,
-    this.notificationCount,
-    this.onTap,
   }) : super(key: key);
 
   @override
@@ -56,43 +52,4 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(Constants.size60);
-
-  Widget buildNotification({
-    VoidCallback? onTap,
-    int? notificationCount,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        children: [
-          Container(
-            padding: EdgeInsets.all(Constants.size10),
-            child: Image.asset(
-              AppResource.notification,
-              width: Constants.size27,
-            ),
-          ),
-          notificationCount != 0
-              ? Positioned(
-                  top: 0,
-                  right: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(Constants.size5),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColor.arsenic,
-                    ),
-                    child: Text(
-                      notificationCount.toString(),
-                      style: const TextStyle(
-                        color: AppColor.white,
-                      ),
-                    ),
-                  ),
-                )
-              : Container(),
-        ],
-      ),
-    );
-  }
 }

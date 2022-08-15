@@ -22,6 +22,7 @@ class _CustomSliderState extends State<CustomSlider> {
   @override
   void initState() {
     super.initState();
+    getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
   }
 
   int activeIndex = 0;
@@ -29,7 +30,7 @@ class _CustomSliderState extends State<CustomSlider> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocBuilder<MostInterestedNewsBloc, MostInterestedNewsState>(
-      bloc: getIt.get<MostInterestedNewsBloc>()..add(const MostInterestedNewsApiEvent()),
+      bloc: getIt.get<MostInterestedNewsBloc>(),
       builder: (context, state) {
         if (state is MostInterestedNewsLoading) {
           return const ShimmerSlider();
@@ -128,7 +129,11 @@ class _CustomSliderState extends State<CustomSlider> {
             );
           }
         }
-        return const Text(AppStrings.error404);
+        return Center(
+          child: Image.asset(
+            AppResource.empty,
+          ),
+        );
       },
     );
   }

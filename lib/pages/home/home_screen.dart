@@ -1,5 +1,4 @@
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
 import 'package:sport_app/component/name_section.dart';
 import 'package:sport_app/model/video.dart';
@@ -14,21 +13,10 @@ import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart'
 import 'package:sport_app/resource/resource.dart';
 import '../../router/navigation_service.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  HomeScreen({Key? key}) : super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late HomeBloc homeBloc;
-  List<Video> videos = AppStrings.videos;
-  @override
-  void initState() {
-    super.initState();
-    getIt.get<HomeBloc>().add(const UpdateBadgeEvent());
-  }
+  final List<Video> videos = AppStrings.videos;
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (_, state) {
         return Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
-          appBar: HeaderHome(
-            notificationCount: state.badge,
-            onTap: () {
-              NavigationService.navigatorKey.currentState
-                  ?.pushNamed(AppRouteName.notification);
-            },
-          ),
+          appBar: const HeaderHome(),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Padding(

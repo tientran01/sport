@@ -46,21 +46,23 @@ class FavoriteScreen extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: Constants.size15),
+                        margin: EdgeInsets.symmetric(
+                          vertical: Constants.size15,
+                        ),
                         child: Row(
                           children: [
                             Expanded(
                               child: Container(
-                                  padding:
-                                      EdgeInsets.only(right: Constants.size10),
-                                  child: CustomImage(
-                                    imageUrl: favoriteState.videos
-                                        ?.elementAt(index)
-                                        ?.thumbnailUrl,
-                                    width: Constants.size120,
-                                    height: Constants.size100,
-                                  )),
+                                padding:
+                                    EdgeInsets.only(right: Constants.size10),
+                                child: CustomImage(
+                                  imageUrl: favoriteState.videos
+                                      ?.elementAt(index)
+                                      ?.thumbnailUrl,
+                                  width: Constants.size120,
+                                  height: Constants.size100,
+                                ),
+                              ),
                             ),
                             Expanded(
                               flex: 2,
