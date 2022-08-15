@@ -33,7 +33,6 @@ Future<void> main() async {
     FirebaseHelper.shared.registerNotification();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
-
     runApp(
       MultiBlocProvider(
         providers: [
@@ -71,8 +70,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // ignore: avoid_print
-    print('isAppbageSupport${FlutterAppBadger.isAppBadgeSupported()}');
   }
 
   @override

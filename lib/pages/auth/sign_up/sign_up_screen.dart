@@ -18,7 +18,6 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? imagePath;
 
   final TextEditingController passwordController = TextEditingController();
 
@@ -34,9 +33,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Scaffold(
         appBar: const CustomAppBar(
           title: AppStrings.signUp,
-          
         ),
         body: BlocBuilder<SignUpBloc, SignUpState>(
+          bloc: getIt.get<SignUpBloc>(),
           builder: (_, state) {
             return SingleChildScrollView(
               child: Container(
@@ -60,16 +59,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       SizedBox(height: Constants.size30),
                       CustomTextField(
-                          type: TextFieldType.email,
-                          title: AppStrings.email,
-                          hintText: AppStrings.emailInput,
-                          onChanged: (String email) {
-                            getIt.get<SignUpBloc>().add(
-                                  GetUserEvent(
-                                    email: email,
-                                  ),
-                                );
-                          }),
+                        type: TextFieldType.email,
+                        title: AppStrings.email,
+                        hintText: AppStrings.emailInput,
+                        onChanged: (String email) {
+                          getIt.get<SignUpBloc>().add(
+                                GetUserEvent(
+                                  email: email,
+                                ),
+                              );
+                        },
+                      ),
                       SizedBox(height: Constants.size30),
                       CustomTextField(
                         textEditingController: passwordController,

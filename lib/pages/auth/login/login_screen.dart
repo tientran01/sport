@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
           isPop: false,
         ),
         body: BlocBuilder<LoginBloc, LoginState>(
+          bloc: getIt.get<LoginBloc>(),
           builder: (_, state) {
             return Center(
               child: SingleChildScrollView(
@@ -63,7 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: AppStrings.emailInput,
                           onChanged: (email) => getIt.get<LoginBloc>().add(
                                 GetEmailAndPasswordFormTextFieldEvent(
-                                    email: email),
+                                  email: email,
+                                ),
                               ),
                         ),
                         SizedBox(height: Constants.size30),
@@ -76,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (String password) {
                             getIt.get<LoginBloc>().add(
                                   GetEmailAndPasswordFormTextFieldEvent(
-                                      password: password),
+                                    password: password,
+                                  ),
                                 );
                           },
                         ),
@@ -101,9 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               socialIconPath: AppResource.phoneIcon,
                               bgColor: AppColor.jetStream,
                               onTap: () {
-                                getIt
-                                    .get<LoginBloc>()
-                                    .add(SignInWithPhoneNumberEvent());
+                                getIt.get<LoginBloc>().add(
+                                      SignInWithPhoneNumberEvent(),
+                                    );
                               },
                             ),
                             SizedBox(width: Constants.size10),
@@ -111,9 +114,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               socialIconPath: AppResource.facebookIcon,
                               bgColor: AppColor.blue,
                               onTap: () {
-                                getIt
-                                    .get<LoginBloc>()
-                                    .add(SignInWithFacebookEvent());
+                                getIt.get<LoginBloc>().add(
+                                      SignInWithFacebookEvent(),
+                                    );
                               },
                             ),
                             SizedBox(width: Constants.size10),
@@ -121,9 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               socialIconPath: AppResource.googleIcon,
                               bgColor: AppColor.gargoyleGas,
                               onTap: () {
-                                getIt
-                                    .get<LoginBloc>()
-                                    .add(SignInWithGoogleEvent());
+                                getIt.get<LoginBloc>().add(
+                                      SignInWithGoogleEvent(),
+                                    );
                               },
                             ),
                             SizedBox(width: Constants.size10),
@@ -163,7 +166,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  //test01@gmail.com - 123456789
   void tryLogin() {
     if (_formKey.currentState!.validate()) {
       getIt.get<LoginBloc>().add(LoginWithFirebaseEvent());

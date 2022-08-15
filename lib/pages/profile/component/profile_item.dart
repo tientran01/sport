@@ -7,13 +7,13 @@ class ProfileItem extends StatelessWidget {
   final String? userInformation;
   final VoidCallback? onTap;
   final bool? isChange;
-  const ProfileItem(
-      {Key? key,
-      this.text,
-      this.userInformation,
-      this.onTap,
-      this.isChange = false})
-      : super(key: key);
+  const ProfileItem({
+    Key? key,
+    this.text,
+    this.userInformation,
+    this.onTap,
+    this.isChange = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Scaffold(
           appBar: const CustomAppBar(
             title: AppStrings.profile,
-            
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -88,7 +87,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               onChanged: (String displayName) {
                                 getIt.get<ProfileBloc>().add(
                                       GetDisplayNameFromTextFieldEvent(
-                                          displayName: displayName),
+                                        displayName: displayName,
+                                      ),
                                     );
                               },
                               onPressed: () {

@@ -33,7 +33,7 @@ class RouteName {
     AppRouteName.login: (BuildContext context) => const LoginScreen(),
     AppRouteName.signUp: (BuildContext context) => const SignUpScreen(),
     AppRouteName.main: (BuildContext context) => const MainScreen(),
-    AppRouteName.home: (BuildContext context) => const HomeScreen(),
+    AppRouteName.home: (BuildContext context) => HomeScreen(),
     AppRouteName.profile: (BuildContext context) => const ProfileScreen(),
     AppRouteName.phoneInput: (BuildContext context) => const PhoneInputScreen(),
     AppRouteName.phoneOtp: (BuildContext context) => const PhoneOTPScreen(),

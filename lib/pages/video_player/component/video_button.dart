@@ -7,9 +7,13 @@ class VideoButton extends StatelessWidget {
   final String? label;
   final VoidCallback? onTap;
   final Color? iconColor;
-  const VideoButton(
-      {Key? key, this.iconPath, this.label, this.onTap, this.iconColor})
-      : super(key: key);
+  const VideoButton({
+    Key? key,
+    this.iconPath,
+    this.label,
+    this.onTap,
+    this.iconColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

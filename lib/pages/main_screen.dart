@@ -14,11 +14,11 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int selectIndex = 0;
-  List<Widget> screens = const [
+  List<Widget> screens = [
     HomeScreen(),
-    ArticleScreen(),
-    YourArticleScreen(),
-    SettingScreen()
+    const ArticleScreen(),
+    const YourArticleScreen(),
+    const SettingScreen()
   ];
   final PageController _pageController = PageController();
   @override

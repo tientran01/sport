@@ -2,6 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
 import 'package:sport_app/bloc/splash/bloc/splash_event.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +14,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  late SplashBloc splashBloc;
   late final AnimationController animationController = AnimationController(
     vsync: this,
     duration: Duration(
@@ -31,8 +31,7 @@ class _SplashScreenState extends State<SplashScreen>
   );
   @override
   void initState() {
-    splashBloc = SplashBloc.of(context);
-    splashBloc.add(const CheckLoginEvent());
+    getIt.get<SplashBloc>().add(const CheckLoginEvent());
     _offsetAnimation;
     super.initState();
   }
@@ -67,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen>
                   fontWeight: FontWeight.w700,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
