@@ -2,26 +2,24 @@ import 'package:equatable/equatable.dart';
 import 'package:sport_app/model/your_article.dart';
 
 abstract class YourArticleState extends Equatable {
-  final String? title;
-  final String? description;
-  const YourArticleState({this.title, this.description});
+  final YourArticle? yourArticle;
+  const YourArticleState({this.yourArticle});
   @override
-  List<Object?> get props => [title, description];
+  List<Object?> get props => [yourArticle];
 }
 
 class YourArticleLoading extends YourArticleState {}
 
 class YourArticleLoader extends YourArticleState {
   final List<YourArticle>? yourArticles;
-  final String? id;
+  final int? id;
   const YourArticleLoader({
     this.yourArticles,
     this.id,
-    super.title,
-    super.description,
+    super.yourArticle,
   });
   @override
-  List<Object?> get props => [title, description, yourArticles, id];
+  List<Object?> get props => [yourArticles, id, yourArticle];
 }
 
 class YourArticleError extends YourArticleState {}

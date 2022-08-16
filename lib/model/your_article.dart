@@ -1,9 +1,9 @@
 class YourArticle {
-  String? id;
+  int? id;
   String? title;
   String? author;
   String? publishedAt;
-  String? description;
+  String? describe;
   String? urlToImage;
 
   YourArticle({
@@ -11,7 +11,7 @@ class YourArticle {
     this.title,
     this.author,
     this.publishedAt,
-    this.description,
+    this.describe,
     this.urlToImage,
   });
 
@@ -20,7 +20,7 @@ class YourArticle {
     title = json['title'];
     author = json['author'];
     publishedAt = json['publishedAt'];
-    description = json['description'];
+    describe = json['describe'];
     urlToImage = json['urlToImage'];
   }
 
@@ -29,7 +29,7 @@ class YourArticle {
         'title': title,
         'author': author,
         'publishedAt': publishedAt,
-        'description': description,
+        'describe': describe,
         'urlToImage': urlToImage,
       };
 }

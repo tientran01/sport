@@ -69,7 +69,7 @@ class AppStrings {
   static const String createNewArticle = "Tạo bài viết";
   static const String yourArticle = "Bài viết của bạn";
   static const String titleArticle = "Tiêu đề bài viết";
-  static const String titleArticleInput = ".....";
+  static const String titleArticleInput = "Tiêu đề bài viết";
   static const String descArticle = "Mô tả bài viết";
   static const String descArticleInput = "Bạn đang nghĩ gì đấy?";
   static const String postArticle = "Đăng";
@@ -101,6 +101,9 @@ class AppStrings {
   static const String removeAll = "Xoá tất cả";
   static const String failed = "Thất bại";
   static const String favorite = "Yêu thích";
+  static const String author = "Tác giả";
+  static const String deleteYourArticle = "Xoá bài viết";
+  static const String editYourArticle = "Chỉnh sửa bài viết";
   static List<Category> categories = [
     Category(
       text: Application.top,
@@ -123,72 +126,72 @@ class AppStrings {
   static List<Video> videos = [
     Video(
       id: 1,
-      name:
+      title:
           "Stocks making the biggest moves premarket: Eli Lilly, Cigna, Restaurant Brands and more - CNBC",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
-      time: "10.53",
-      description:
+      timeline: "10.53",
+      describe:
           "The hottest place on earth is soaked after record rainfall, trapping visitors, staff and cars for hours.",
     ),
     Video(
       id: 2,
-      name:
+      title:
           "BOE Raises Rates by Most Since 1995, Warns of Long Recession - Bloomberg",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
-      time: "09:56",
-      description:
+      timeline: "09:56",
+      describe:
           "WASHINGTON (AP) — The Senate parliamentarian on Saturday dealt a blow to Democrats’ plan for curbing drug prices but left the rest of their sprawling economic bill largely intact as party leaders prepared for first votes on a package containing many of Presid",
     ),
     Video(
       id: 3,
-      name: "For Bigger Blazes",
+      title: "For Bigger Blazes",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
-      time: "0:15",
-      description:
+      timeline: "0:15",
+      describe:
           "Chelsea also survived a slog while Aston Villa disappointed for Steven Gerrard",
     ),
     Video(
       id: 4,
-      name: "For Bigger Escape",
+      title: "For Bigger Escape",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg",
-      time: "0:15",
-      description:
+      timeline: "0:15",
+      describe:
           "Some legal experts said they were surprised by his conduct and questioned whether it was a calculated risk to boost his appeal to fans.",
     ),
     Video(
       id: 5,
-      name:
+      title:
           "Restaurant Brands International earnings top estimates, fueled by stronger Tim Hortons, Burger King sales - CNBC",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg",
-      time: "01:00",
-      description:
+      timeline: "01:00",
+      describe:
           "Elon Musk’s latest shenanigans involve challenging Twitter CEO Parag Agrawal to a “public debate” about how many bots Twitter has on the platform.",
     ),
     Video(
       id: 6,
-      name:
+      title:
           "Alibaba shares pop 5% after earnings beat — but reports first flat revenue growth in history - CNBC",
       videoUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
       thumbnailUrl:
           "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg",
-      time: "0:15",
-      description:
+      timeline: "0:15",
+      describe:
           "Bryant Young received a standing ovation from fans at the Hall of Fame ceremony.",
     ),
   ];

@@ -51,7 +51,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           arguments: user,
         );
       }
-      Loading.showError(AppStrings.error);
     } on FirebaseAuthException catch (e) {
       Loading.showError(e.message ?? '');
     }

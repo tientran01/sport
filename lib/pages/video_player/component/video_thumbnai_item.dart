@@ -50,7 +50,7 @@ class VideoThumbnaiSmallItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextView(
-                  text: video?.name,
+                  text: video?.title,
                   fontSize: Constants.size17,
                   fontWeight: FontWeight.w700,
                 ),
@@ -123,7 +123,7 @@ class VideoThumbnaiLargeItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(Constants.size10),
                     ),
                     child: TextView(
-                      text: video?.time,
+                      text: video?.timeline,
                       fontSize: Constants.size10,
                     ),
                   ),
@@ -140,7 +140,7 @@ class VideoThumbnaiLargeItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextView(
-                    text: video?.name,
+                    text: video?.title,
                     fontSize: Constants.size15,
                     fontWeight: FontWeight.w700,
                     lineNumber: 3,

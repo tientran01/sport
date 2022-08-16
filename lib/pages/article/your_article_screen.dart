@@ -5,6 +5,7 @@ import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/timeago_helper.dart';
@@ -24,7 +25,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<YourArticleBloc>().add(GetYourArticlesEvent());
+    getIt.get<YourArticleBloc>().add(GetAllYourArticleEvent());
   }
 
   @override
@@ -66,40 +67,22 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: Constants.size10),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: Constants.size150,
-                          padding: EdgeInsets.all(Constants.size10),
-                          margin:
-                              EdgeInsets.symmetric(vertical: Constants.size10),
-                          decoration: BoxDecoration(
-                            color: AppColor.gainsboro.withOpacity(0.4),
-                            borderRadius:
-                                BorderRadius.circular(Constants.size10),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.all(Constants.size10),
+                      margin: EdgeInsets.symmetric(vertical: Constants.size10),
+                      decoration: BoxDecoration(
+                        color: AppColor.gainsboro.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(Constants.size10),
+                      ),
+                      child: Row(
+                        children: [
+                          Column(
                             children: [
-                              TextView(
-                                text:
-                                    state.yourArticles?.elementAt(index).title,
-                                fontSize: Constants.size17,
-                                fontWeight: FontWeight.w700,
-                              ),
-                              SizedBox(
-                                height: Constants.size5,
-                              ),
-                              TextView(
-                                text: state.yourArticles
-                                    ?.elementAt(index)
-                                    .description,
-                                fontSize: Constants.size15,
-                                textColor: AppColor.darkSilver,
-                                lineNumber: 3,
-                                fontWeight: FontWeight.w400,
+                              CustomImage(
+                                imageUrl: AppNetwork.imageAvatar,
+                                width: Constants.size100,
+                                height: Constants.size100,
                               ),
                               SizedBox(
                                 height: Constants.size10,
@@ -124,33 +107,119 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                               ),
                             ],
                           ),
-                        ),
-                        Positioned(
-                          bottom: 30,
-                          right: 10,
-                          child: GestureDetector(
-                            onTap: () {
-                              getIt.get<YourArticleBloc>().add(
-                                    DeleteYourArticleEvent(
-                                        id: state.yourArticles
+                          SizedBox(
+                            width: Constants.size10,
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                TextView(
+                                  text: state.yourArticles
+                                      ?.elementAt(index)
+                                      .title,
+                                  fontSize: Constants.size17,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                SizedBox(
+                                  height: Constants.size5,
+                                ),
+                                TextView(
+                                  text: state.yourArticles
+                                      ?.elementAt(index)
+                                      .describe,
+                                  fontSize: Constants.size15,
+                                  textColor: AppColor.darkSilver,
+                                  lineNumber: 3,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                SizedBox(
+                                  height: Constants.size20,
+                                ),
+                                Row(
+                                  children: [
+                                    TextView(
+                                      text: AppStrings.author,
+                                      textColor: AppColor.darkSilver,
+                                      fontSize: Constants.size12,
+                                    ),
+                                    SizedBox(
+                                      width: Constants.size5,
+                                    ),
+                                    SizedBox(
+                                      width: Constants.size150,
+                                      child: TextView(
+                                        text: state.yourArticles
                                             ?.elementAt(index)
-                                            .id),
-                                  );
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(Constants.size5),
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColor.white,
-                              ),
-                              child: Image.asset(
-                                AppResource.delete,
-                                width: Constants.size30,
-                              ),
+                                            .author,
+                                        textColor: AppColor.arsenic,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: Constants.size10,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColor.carminePink
+                                              .withOpacity(0.5),
+                                          borderRadius: BorderRadius.circular(
+                                            Constants.size5,
+                                          ),
+                                        ),
+                                        padding: EdgeInsets.all(
+                                          Constants.size5,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                              AppResource.delete,
+                                              width: Constants.size25,
+                                            ),
+                                            TextView(
+                                              text:
+                                                  AppStrings.deleteYourArticle,
+                                              fontSize: Constants.size12,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: Constants.size15,
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColor.jetStream
+                                              .withOpacity(0.7),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        padding: EdgeInsets.all(
+                                          Constants.size5,
+                                        ),
+                                        child: Image.asset(
+                                          AppResource.edit,
+                                          width: Constants.size20,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

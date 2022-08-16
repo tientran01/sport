@@ -75,7 +75,7 @@ class FavoriteScreen extends StatelessWidget {
                                     TextView(
                                       text: favoriteState.videos
                                           ?.elementAt(index)
-                                          ?.name,
+                                          ?.title,
                                       fontSize: Constants.size17,
                                       fontWeight: FontWeight.w700,
                                       textColor: AppColor.arsenic,
@@ -87,7 +87,7 @@ class FavoriteScreen extends StatelessWidget {
                                     TextView(
                                       text: favoriteState.videos
                                           ?.elementAt(index)
-                                          ?.description,
+                                          ?.describe,
                                       textColor:
                                           AppColor.darkSilver.withOpacity(.5),
                                       fontSize: Constants.size10,
