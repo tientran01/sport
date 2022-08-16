@@ -15,3 +15,18 @@ class CreateNewYourArticleEvent extends YourArticleEvent {
 }
 
 class GetAllYourArticleEvent extends YourArticleEvent {}
+
+class DeleteYourArticleEvent extends YourArticleEvent {
+  final int id;
+  const DeleteYourArticleEvent({required this.id});
+  @override
+  List<Object?> get props => [id];
+}
+
+class UpdateYourArticleEvent extends YourArticleEvent {
+  final int id;
+  final YourArticle yourArticle;
+  const UpdateYourArticleEvent({required this.id, required this.yourArticle});
+   @override
+  List<Object?> get props => [id, yourArticle];
+}

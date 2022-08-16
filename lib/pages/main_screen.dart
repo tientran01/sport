@@ -1,5 +1,5 @@
 import 'package:sport_app/pages/article/article_screen.dart';
-import 'package:sport_app/pages/article/your_article_screen.dart';
+import 'package:sport_app/pages/your_article/your_article_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:flutter/material.dart';

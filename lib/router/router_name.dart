@@ -1,11 +1,12 @@
 import 'package:sport_app/pages/article/apple_article_screen.dart';
 import 'package:sport_app/pages/article/article_screen.dart';
 import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
-import 'package:sport_app/pages/article/create_new_article.dart';
+import 'package:sport_app/pages/your_article/create_new_article.dart';
 import 'package:sport_app/pages/article/detail_article_screen.dart';
 import 'package:sport_app/pages/article/tesla_article_screen.dart';
 import 'package:sport_app/pages/article/top_article_screen.dart';
-import 'package:sport_app/pages/article/your_article_screen.dart';
+import 'package:sport_app/pages/your_article/edit_your_article.dart';
+import 'package:sport_app/pages/your_article/your_article_screen.dart';
 import 'package:sport_app/pages/auth/password/check_email_screen.dart';
 import 'package:sport_app/pages/auth/password/create_new_password_screen.dart';
 import 'package:sport_app/pages/auth/password/input_email_reset_screen.dart';
@@ -37,23 +38,37 @@ class RouteName {
     AppRouteName.profile: (BuildContext context) => const ProfileScreen(),
     AppRouteName.phoneInput: (BuildContext context) => const PhoneInputScreen(),
     AppRouteName.phoneOtp: (BuildContext context) => const PhoneOTPScreen(),
-    AppRouteName.inputEmailReset: (BuildContext context) => const InputEmailResetScreen(),
-    AppRouteName.createNewPassword: (BuildContext context) => const CreateNewPasswordScreen(),
+    AppRouteName.inputEmailReset: (BuildContext context) =>
+        const InputEmailResetScreen(),
+    AppRouteName.createNewPassword: (BuildContext context) =>
+        const CreateNewPasswordScreen(),
     AppRouteName.checkEmail: (BuildContext context) => const CheckEmailScreen(),
-    AppRouteName.notification: (BuildContext context) => const NotificationScreen(),
-    AppRouteName.notificationDetail: (BuildContext context) => const NotificationDetailScreen(),
-    AppRouteName.detailArticle: (BuildContext context) => const DetailArticleScreen(),
+    AppRouteName.notification: (BuildContext context) =>
+        const NotificationScreen(),
+    AppRouteName.notificationDetail: (BuildContext context) =>
+        const NotificationDetailScreen(),
+    AppRouteName.detailArticle: (BuildContext context) =>
+        const DetailArticleScreen(),
     AppRouteName.article: (BuildContext context) => const ArticleScreen(),
-    AppRouteName.yourArticle: (BuildContext context) => const YourArticleScreen(),
-    AppRouteName.createNewArticle: (BuildContext context) => const CreateNewArticle(),
+    AppRouteName.yourArticle: (BuildContext context) =>
+        const YourArticleScreen(),
+    AppRouteName.createNewArticle: (BuildContext context) =>
+        const CreateNewArticle(),
     AppRouteName.setting: (BuildContext context) => const SettingScreen(),
-    AppRouteName.articleSortByName: (BuildContext context) => const ArticleSortByName(),
-    AppRouteName.videoPlayer: (BuildContext context) => const VideoPlayerScreen(),
+    AppRouteName.articleSortByName: (BuildContext context) =>
+        const ArticleSortByName(),
+    AppRouteName.videoPlayer: (BuildContext context) =>
+        const VideoPlayerScreen(),
     AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
     AppRouteName.search: (BuildContext context) => SearchScreen(),
     AppRouteName.topArticle: (BuildContext context) => const TopArticleScreen(),
-    AppRouteName.appleArticle: (BuildContext context) => const AppleArticleScreen(),
-    AppRouteName.bitcoinArticle: (BuildContext context) => const BitcoinArticleScreen(),
-    AppRouteName.teslaArticle: (BuildContext context) => const TeslaArticleScreen(),
+    AppRouteName.appleArticle: (BuildContext context) =>
+        const AppleArticleScreen(),
+    AppRouteName.bitcoinArticle: (BuildContext context) =>
+        const BitcoinArticleScreen(),
+    AppRouteName.teslaArticle: (BuildContext context) =>
+        const TeslaArticleScreen(),
+    AppRouteName.editYourArticle: (BuildContext context) =>
+        const EditYourArticleScreen(),
   };
 }

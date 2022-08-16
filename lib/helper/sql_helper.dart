@@ -27,13 +27,13 @@ class SQLHelper {
       path,
       version: 1,
       onCreate: (Database db, int version) {
-        createVideoTable(db);
+        createTable(db);
       },
     );
     return database;
   }
 
-  Future<void> createVideoTable(Database database) async {
+  Future<void> createTable(Database database) async {
     String? sql = await rootBundle.loadString("assets/sql/init_db.sql");
     database.execute(sql);
   }
@@ -65,5 +65,26 @@ class SQLHelper {
     } catch (e) {
       Loading.showError(e.toString());
     }
+  }
+
+  Future<void> updateYourArticle(YourArticle yourArticle, int id) async {
+    Map<String, dynamic> values = {
+      'title': yourArticle.title,
+      'describe': yourArticle.describe,
+      'publishedAt': yourArticle.publishedAt,
+    };
+    final db = await getDatabase;
+    db.update(
+      AppKeyName.yourArticleTable,
+      values,
+      where: "id = ?",
+      whereArgs: [id],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<void> deleteAll() async {
+    final db = await getDatabase;
+    db.delete(AppKeyName.yourArticleTable);
   }
 }

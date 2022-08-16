@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
+import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/sql_helper.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -10,6 +11,8 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   YourArticleBloc() : super(YourArticleLoading()) {
     on<CreateNewYourArticleEvent>(_onCreateNewYourArticle);
     on<GetAllYourArticleEvent>(_onGetAllYourArticle);
+    on<DeleteYourArticleEvent>(_onDeleteYourArticle);
+    on<UpdateYourArticleEvent>(_onUpdateYourArticle);
   }
 
   Future<void> _onCreateNewYourArticle(
@@ -31,6 +34,24 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     } else {
       emitter(YourArticleLoader(yourArticles: yourArticles));
     }
+  }
+
+  Future<void> _onDeleteYourArticle(
+    DeleteYourArticleEvent event,
+    Emitter<void> emitter,
+  ) async {
+    SQLHelper.shared.deleteYourArticle(event.id);
+    add(GetAllYourArticleEvent());
+  }
+
+  Future<void> _onUpdateYourArticle(
+    UpdateYourArticleEvent event,
+    Emitter<void> emitter,
+  ) async {
+    Loading.show();
+    await SQLHelper.shared.updateYourArticle(event.yourArticle, event.id);
+    Loading.dismiss();
+    NavigationService.navigatorKey.currentState?.pop();
   }
 
   static YourArticleBloc of(BuildContext context) =>
