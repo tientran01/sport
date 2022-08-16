@@ -49,8 +49,8 @@ class SQLHelper {
 
   Future<List<YourArticle>> getAllYourArticle() async {
     final db = await getDatabase;
-    List<Map<String, dynamic>> results = await db.rawQuery(
-        'SELECT title, author, publishedAt, describe, urlToImage FROM YourArticle');
+    List<Map<String, dynamic>> results =
+        await db.rawQuery('SELECT * FROM YourArticle');
     return results.map((e) => YourArticle.fromJson(e)).toList();
   }
 
@@ -67,7 +67,7 @@ class SQLHelper {
     }
   }
 
-  Future<void> updateYourArticle(YourArticle yourArticle, int id) async {
+  Future<void> updateYourArticle(YourArticle yourArticle) async {
     Map<String, dynamic> values = {
       'title': yourArticle.title,
       'describe': yourArticle.describe,
@@ -78,7 +78,7 @@ class SQLHelper {
       AppKeyName.yourArticleTable,
       values,
       where: "id = ?",
-      whereArgs: [id],
+      whereArgs: [yourArticle.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

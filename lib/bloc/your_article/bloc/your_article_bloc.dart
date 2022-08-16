@@ -40,7 +40,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     DeleteYourArticleEvent event,
     Emitter<void> emitter,
   ) async {
-    SQLHelper.shared.deleteYourArticle(event.id);
+    SQLHelper.shared.deleteYourArticle(event.id ?? 0);
     add(GetAllYourArticleEvent());
   }
 
@@ -49,7 +49,8 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     Emitter<void> emitter,
   ) async {
     Loading.show();
-    await SQLHelper.shared.updateYourArticle(event.yourArticle, event.id);
+    await SQLHelper.shared.updateYourArticle(event.yourArticle);
+    add(GetAllYourArticleEvent());
     Loading.dismiss();
     NavigationService.navigatorKey.currentState?.pop();
   }

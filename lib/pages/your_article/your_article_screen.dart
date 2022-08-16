@@ -10,7 +10,6 @@ import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/timeago_helper.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/pages/your_article/create_new_article.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -71,14 +70,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                     onTap: () {
                       NavigationService.navigatorKey.currentState?.pushNamed(
                         AppRouteName.editYourArticle,
-                        arguments: YourArticle(
-                          id: index,
-                          title: state.yourArticles?.elementAt(index).title,
-                          describe:
-                              state.yourArticles?.elementAt(index).describe,
-                          publishedAt:
-                              state.yourArticles?.elementAt(index).publishedAt,
-                        ),
+                        arguments: state.yourArticles?.elementAt(index),
                       );
                     },
                     child: Padding(
@@ -140,6 +132,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         .title,
                                     fontSize: Constants.size17,
                                     fontWeight: FontWeight.w700,
+                                    lineNumber: 2,
                                   ),
                                   SizedBox(
                                     height: Constants.size5,
@@ -187,7 +180,9 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         onTap: () {
                                           getIt.get<YourArticleBloc>().add(
                                                 DeleteYourArticleEvent(
-                                                    id: index),
+                                                    id: state.yourArticles
+                                                        ?.elementAt(index)
+                                                        .id),
                                               );
                                         },
                                         child: Container(
@@ -220,7 +215,15 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         width: Constants.size15,
                                       ),
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          NavigationService
+                                              .navigatorKey.currentState
+                                              ?.pushNamed(
+                                            AppRouteName.editYourArticle,
+                                            arguments: state.yourArticles
+                                                ?.elementAt(index),
+                                          );
+                                        },
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: AppColor.jetStream

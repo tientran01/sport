@@ -97,7 +97,6 @@ class EditYourArticleScreen extends StatelessWidget {
                 onTap: () {
                   getIt.get<YourArticleBloc>().add(
                         UpdateYourArticleEvent(
-                          id: yourArticle.id ?? 0,
                           yourArticle: newYourArticle,
                         ),
                       );

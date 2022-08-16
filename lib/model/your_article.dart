@@ -15,6 +15,24 @@ class YourArticle {
     this.urlToImage,
   });
 
+  YourArticle copyWith({
+    int? id,
+    String? title,
+    String? author,
+    String? publishedAt,
+    String? describe,
+    String? urlToImage,
+  }) {
+    return YourArticle(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      author: author ?? this.author,
+      publishedAt: publishedAt ?? this.publishedAt,
+      describe: describe ?? this.describe,
+      urlToImage: urlToImage ?? this.urlToImage,
+    );
+  }
+
   YourArticle.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
