@@ -1,7 +1,7 @@
 import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_bloc.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/pages/auth/login/components/divider_custom.dart';

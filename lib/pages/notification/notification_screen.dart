@@ -1,4 +1,4 @@
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/helper/notification_service.dart';
 import 'package:flutter/material.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_bloc.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_event.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_state.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/pages/auth/phone/components/custom_otp_field.dart';
 import 'package:flutter/material.dart';

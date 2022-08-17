@@ -18,7 +18,7 @@ class VideoDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextView(
-            text: video?.name,
+            text: video?.title,
             fontSize: Constants.size15,
             fontWeight: FontWeight.w700,
             textColor: AppColor.white,
@@ -28,7 +28,7 @@ class VideoDetail extends StatelessWidget {
             height: Constants.size10,
           ),
           TextView(
-            text: video?.description,
+            text: video?.describe,
             fontWeight: FontWeight.w600,
             fontSize: Constants.size12,
             textColor: AppColor.darkSilver,

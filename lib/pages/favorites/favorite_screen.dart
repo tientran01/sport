@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
@@ -75,7 +75,7 @@ class FavoriteScreen extends StatelessWidget {
                                     TextView(
                                       text: favoriteState.videos
                                           ?.elementAt(index)
-                                          ?.name,
+                                          ?.title,
                                       fontSize: Constants.size17,
                                       fontWeight: FontWeight.w700,
                                       textColor: AppColor.arsenic,
@@ -87,7 +87,7 @@ class FavoriteScreen extends StatelessWidget {
                                     TextView(
                                       text: favoriteState.videos
                                           ?.elementAt(index)
-                                          ?.description,
+                                          ?.describe,
                                       textColor:
                                           AppColor.darkSilver.withOpacity(.5),
                                       fontSize: Constants.size10,

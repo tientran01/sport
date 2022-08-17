@@ -57,7 +57,7 @@ class YourArticleItem extends StatelessWidget {
                           fontSize: Constants.size17,
                         ),
                         TextView(
-                          text: yourArticle?.description,
+                          text: yourArticle?.describe,
                           textColor: AppColor.darkSilver,
                           fontSize: Constants.size10,
                         ),

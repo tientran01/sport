@@ -9,7 +9,6 @@ import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/users.dart';
-import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,8 +34,7 @@ class FirebaseHelper {
     String? password,
   }) async {
     User? user;
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email ?? "",
       password: password ?? "",
     );
@@ -294,45 +292,5 @@ class FirebaseHelper {
     SharedPreferencesHelper.shared.removeUid();
     userDocument.delete();
     currentUser?.delete();
-  }
-
-  Future<void> createNewArticle(YourArticle yourArticle) async {
-    User? currentUser = auth.currentUser;
-    CollectionReference yourArticleCollection =
-        firebaseFirestore.collection(AppCollection.yourArticleCollection);
-    DocumentReference yourArticleDocument = yourArticleCollection.doc();
-    final newYourArticle = YourArticle(
-      id: yourArticleDocument.id,
-      title: yourArticle.title,
-      author: currentUser?.uid,
-      description: yourArticle.description,
-      publishedAt: DateTime.now().toString(),
-      urlToImage: currentUser?.photoURL,
-    );
-    yourArticleDocument.set(newYourArticle.toJson());
-  }
-
-  Future<List<YourArticle>> getYourArticles() async {
-    User? currentUser = auth.currentUser;
-    List<YourArticle> yourArticles = [];
-    CollectionReference yourArticleCollection =
-        firebaseFirestore.collection(AppCollection.yourArticleCollection);
-    var snapshot = await yourArticleCollection
-        .where(AppFieldName.author, isEqualTo: currentUser?.uid)
-        .get();
-    snapshot.docs
-        .map((e) => yourArticles
-            .add(YourArticle.fromJson(e.data() as Map<String, dynamic>)))
-        .toList();
-    yourArticles
-        .sort((a, b) => (b.publishedAt ?? '').compareTo(a.publishedAt ?? ''));
-    return yourArticles;
-  }
-
-  Future<void> deleteYourArticle(String? id) async {
-    CollectionReference yourArticleCollection =
-        firebaseFirestore.collection(AppCollection.yourArticleCollection);
-    DocumentReference yourArticleDocument = yourArticleCollection.doc(id);
-    await yourArticleDocument.delete();
   }
 }

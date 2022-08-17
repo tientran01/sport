@@ -113,9 +113,7 @@ class _VideoTileState extends State<VideoTile> {
                                           ),
                                         );
                                   },
-                                  iconColor: widget.video?.isFavorite == true
-                                      ? AppColor.carminePink
-                                      : AppColor.white,
+                                  iconColor: AppColor.white,
                                 );
                               }
                               return VideoButton(

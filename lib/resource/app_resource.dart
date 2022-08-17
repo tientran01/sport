@@ -40,4 +40,6 @@ class AppResource {
   static String quote = '$componentIcon/ic_quote.png';
   static String play = '$componentIcon/ic_play.png';
   static String empty = '$componentIcon/ic_empty.png';
+  static String sort = '$componentIcon/ic_sort.png';
+  static String sortAlpha = '$componentIcon/ic_sort_alpha.png';
 }

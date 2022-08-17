@@ -5,6 +5,7 @@ import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/search/bloc/search_bloc.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
+import 'package:sport_app/helper/sql_helper.dart';
 import 'package:sport_app/modules/bloc_module.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -33,6 +34,7 @@ Future<void> main() async {
     FirebaseHelper.shared.registerNotification();
     FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
+    await SQLHelper.shared.initDatabase();
     runApp(
       MultiBlocProvider(
         providers: [

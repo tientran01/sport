@@ -25,6 +25,7 @@ class CustomTextField extends StatefulWidget {
   final bool? isPassword;
   final bool? isMaxLine;
   final int? maxLine;
+  final Widget? counter;
 
   const CustomTextField({
     Key? key,
@@ -42,6 +43,7 @@ class CustomTextField extends StatefulWidget {
     this.prefix,
     this.isMaxLine = false,
     this.maxLine,
+    this.counter,
   }) : super(key: key);
 
   @override
@@ -65,6 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       obscureText: widget.isPassword == true ? !isHidden : isHidden,
       decoration: InputDecoration(
+        counter: widget.counter,
         contentPadding: EdgeInsets.symmetric(
           horizontal: Constants.size15,
           vertical: Constants.size20,

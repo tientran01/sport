@@ -7,4 +7,8 @@ class AppKeyName {
   static const String favoritesBox = "favorites";
   static const String article = "article";
   static const String video = "video";
+  static const int version = 1;
+  static const String newsDB = "news.db";
+  static const String videoTable = "Video";
+  static const String yourArticleTable = "YourArticle";
 }
