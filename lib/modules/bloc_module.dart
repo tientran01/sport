@@ -21,7 +21,7 @@ class BlocModule {
     getIt.registerLazySingleton<MostInterestedNewsCubit>(
       () => MostInterestedNewsCubit(),
     );
-    getIt.registerLazySingleton<TeslaNewsBloc>(() => TeslaNewsBloc());
+    getIt.registerLazySingleton<TeslaNewsCubit>(() => TeslaNewsCubit());
     getIt.registerLazySingleton<AppleNewsCubit>(() => AppleNewsCubit());
     getIt.registerLazySingleton<HotNewsCubit>(() => HotNewsCubit());
   }

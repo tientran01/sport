@@ -53,7 +53,7 @@ Future<void> main() async {
           BlocProvider(create: (_) => SearchBloc()),
           BlocProvider(create: (_) => HotNewsCubit()),
           BlocProvider(create: (_) => MostInterestedNewsCubit()),
-          BlocProvider(create: (_) => TeslaNewsBloc()),
+          BlocProvider(create: (_) => TeslaNewsCubit()),
           BlocProvider(create: (_) => AppleNewsCubit()),
         ],
         child: const MyApp(),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_bloc.dart';
-import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_event.dart';
-import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_state.dart';
+import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/cubit/enum_status/status.dart';
+import 'package:sport_app/cubit/news/tesla_news/cubit/tesla_news_state.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -21,23 +21,28 @@ class _TeslaArticleScreenState extends State<TeslaArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<TeslaNewsBloc>().add(const TeslaNewsApiEvent());
+    getIt.get<TeslaNewsCubit>().getTeslaNewsApi();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TeslaNewsBloc, TeslaNewsState>(
-      bloc: getIt.get<TeslaNewsBloc>(),
+    return BlocBuilder<TeslaNewsCubit, TeslaNewsState>(
+      bloc: getIt.get<TeslaNewsCubit>(),
       builder: (context, state) {
-        if (state is TeslaNewsLoading) {
-          return const CircularLoading();
-        }
-        if (state is TeslaNewsLoader) {
-          if (state.articles == null) {
-            return Center(
-              child: Image.asset(AppResource.empty),
+        switch (state.status) {
+          case NewsStatus.error:
+            TextView(
+              text: AppStrings.error,
+              fontSize: Constants.size20,
+              fontWeight: FontWeight.w700,
             );
-          } else {
+            break;
+          case NewsStatus.success:
+            if (state.articles?.isEmpty == true) {
+              return Center(
+                child: Image.asset(AppResource.empty),
+              );
+            }
             return ListView.builder(
               itemCount: state.articles?.length,
               itemBuilder: (context, index) {
@@ -57,14 +62,9 @@ class _TeslaArticleScreenState extends State<TeslaArticleScreen> {
                 );
               },
             );
-          }
+          default:
         }
-        return Center(
-          child: TextView(
-            text: AppStrings.error,
-            fontSize: Constants.size15,
-          ),
-        );
+        return const CircularLoading();
       },
     );
   }

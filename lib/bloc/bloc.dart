@@ -9,6 +9,6 @@ export 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
 export 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_bloc.dart';
 export 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 export 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
-export 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_bloc.dart';
 export 'package:sport_app/cubit/news/apple_news/cubit/apple_news_cubit.dart';
 export 'package:sport_app/cubit/news/hot_news/cubit/hot_news_cubit.dart';
+export 'package:sport_app/cubit/news/tesla_news/cubit/tesla_news_cubit.dart';
