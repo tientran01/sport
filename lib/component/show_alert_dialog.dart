@@ -11,24 +11,23 @@ class ShowAlertDialog {
   static Future showAlertDialog({
     required BuildContext context,
     required String title,
-    required String content,
+    String? content,
     String? cancelActionText,
     String? defaultActionText,
     VoidCallback? onPressed,
-    Function(String)? onChanged
+    Function(String)? onChanged,
   }) {
     if (!Platform.isIOS) {
       return showDialog(
         context: context,
         builder: (_) => AlertDialog(
           title: Text(title),
-          content: Text(content),
+          content: Text(content ?? ""),
           actions: <Widget>[
-          
-              InkWell(
-                child: Text(cancelActionText ?? AppStrings.cancel),
-                onTap: () => Navigator.of(context).pop(false),
-              ),
+            InkWell(
+              child: Text(cancelActionText ?? AppStrings.cancel),
+              onTap: () => Navigator.of(context).pop(false),
+            ),
             InkWell(
               child: Text(defaultActionText ?? AppStrings.done),
               onTap: () => Navigator.of(context).pop(true),
@@ -43,18 +42,20 @@ class ShowAlertDialog {
         title: Text(title),
         content: Container(
           margin: EdgeInsets.only(top: Constants.size15),
-          child: TextFormField(
-            decoration: InputDecoration(
-              hintText: content,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(Constants.size10),
-              ),
-              fillColor: AppColor.gainsboro,
-              filled: true,
-            ),
-            onChanged: onChanged,
-          ),
+          child: content != null
+              ? TextFormField(
+                  decoration: InputDecoration(
+                    hintText: content,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(Constants.size10),
+                    ),
+                    fillColor: AppColor.gainsboro,
+                    filled: true,
+                  ),
+                  onChanged: onChanged,
+                )
+              : Container(),
         ),
         actions: <Widget>[
           CupertinoDialogAction(

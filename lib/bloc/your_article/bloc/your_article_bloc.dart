@@ -29,10 +29,10 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     Emitter<void> emitter,
   ) async {
     List<YourArticle> yourArticles = await SQLHelper.shared.getAllYourArticle();
-    if (yourArticles.isEmpty) {
-      emitter(const YourArticleLoader(yourArticles: null));
-    } else {
+    if (yourArticles.isNotEmpty) {
       emitter(YourArticleLoader(yourArticles: yourArticles));
+    } else {
+      emitter(const YourArticleLoader(yourArticles: null));
     }
   }
 
