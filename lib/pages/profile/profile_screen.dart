@@ -105,8 +105,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           text: AppStrings.email,
                           userInformation: state.user?.email,
                         ),
-                        const ProfileItem(
+                        ProfileItem(
                           text: AppStrings.phone,
+                          userInformation: state.user?.phoneNumber ?? "",
                         ),
                       ],
                     ),

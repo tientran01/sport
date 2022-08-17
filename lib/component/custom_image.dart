@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_app/resource/app_color.dart';
-import 'package:sport_app/resource/app_resource.dart';
-import 'package:sport_app/resource/constants.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class CustomImage extends StatelessWidget {
   final String? imageUrl;
@@ -85,41 +83,44 @@ class ImageCircle extends StatelessWidget {
                   color: AppColor.gainsboro,
                 ),
                 child: CachedNetworkImage(
-                    imageUrl: imageUrl ?? "",
-                    imageBuilder: (context, imageProvider) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColor.white,
-                            width: Constants.size5,
-                          ),
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
+                  imageUrl: imageUrl ?? AppNetwork.imageAvatarPlaceholder,
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColor.white,
+                          width: Constants.size5,
                         ),
-                      );
-                    },
-                    placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
                         ),
-                    errorWidget: (context, url, error) {
-                      return Container(
-                        padding: EdgeInsets.all(Constants.size10),
-                        decoration: const BoxDecoration(
-                          color: AppColor.gainsboro,
-                          shape: BoxShape.circle,
+                      ),
+                    );
+                  },
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColor.ghostWhite,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) {
+                    return Container(
+                      padding: EdgeInsets.all(Constants.size10),
+                      decoration: const BoxDecoration(
+                        color: AppColor.gainsboro,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          AppResource.profile,
+                          fit: BoxFit.fill,
+                          width: Constants.size60,
                         ),
-                        child: Center(
-                          child: Image.asset(
-                            AppResource.profile,
-                            fit: BoxFit.fill,
-                            width: Constants.size60,
-                          ),
-                        ),
-                      );
-                    }),
+                      ),
+                    );
+                  },
+                ),
               ),
               Positioned(
                 bottom: 0,

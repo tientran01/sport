@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/apple_news_bloc/apple_news_bloc.dart';
-import 'package:sport_app/bloc/article/apple_news_bloc/apple_news_event.dart';
-import 'package:sport_app/bloc/article/apple_news_bloc/apple_news_state.dart';
+import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/circular_loading.dart';
+import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/cubit/enum_status/status.dart';
+import 'package:sport_app/cubit/news/apple_news/cubit/apple_news_state.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -20,23 +21,28 @@ class _AppleArticleScreenState extends State<AppleArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<AppleNewsBloc>().add(const AppleNewsApiEvent());
+    getIt.get<AppleNewsCubit>().getAppleNewsApi();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppleNewsBloc, AppleNewsState>(
-      bloc: getIt.get<AppleNewsBloc>(),
+    return BlocBuilder<AppleNewsCubit, AppleNewsState>(
+      bloc: getIt.get<AppleNewsCubit>(),
       builder: (context, state) {
-        if (state is AppleNewsLoading) {
-          return const CircularLoading();
-        }
-        if (state is AppleNewsLoader) {
-          if (state.articles == null) {
-            return Center(
-              child: Image.asset(AppResource.empty),
+        switch (state.status) {
+          case NewsStatus.error:
+            TextView(
+              text: AppStrings.error,
+              fontSize: Constants.size20,
+              fontWeight: FontWeight.w700,
             );
-          } else {
+            break;
+          case NewsStatus.success:
+            if (state.articles?.isEmpty == true) {
+              return Center(
+                child: Image.asset(AppResource.empty),
+              );
+            }
             return ListView.builder(
               itemCount: state.articles?.length,
               itemBuilder: (context, index) {
@@ -56,11 +62,9 @@ class _AppleArticleScreenState extends State<AppleArticleScreen> {
                 );
               },
             );
-          }
+          default:
         }
-        return Center(
-          child: Image.asset(AppResource.empty),
-        );
+        return const CircularLoading();
       },
     );
   }

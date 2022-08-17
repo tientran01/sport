@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_event.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_state.dart';
-import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/cubit/enum_status/status.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_state.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -22,25 +21,30 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
   @override
   void initState() {
     super.initState();
-    getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
+    getIt.get<MostInterestedNewsCubit>().getMostInterestedNewsApi();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: Constants.size470,
-      child: BlocBuilder<MostInterestedNewsBloc, MostInterestedNewsState>(
-        bloc: getIt.get<MostInterestedNewsBloc>(),
-        builder: (context, homeState) {
-          if (homeState is MostInterestedNewsLoading) {
-            return const CircularLoading();
-          }
-          if (homeState is MostInterestedNewsLoader) {
-            if (homeState.articles == null) {
-              return Center(
-                child: Image.asset(AppResource.empty),
+      child: BlocBuilder<MostInterestedNewsCubit, MostInterestedNewsState>(
+        bloc: getIt.get<MostInterestedNewsCubit>(),
+        builder: (context, state) {
+          switch (state.status) {
+            case NewsStatus.error:
+              TextView(
+                text: AppStrings.error,
+                fontSize: Constants.size20,
+                fontWeight: FontWeight.w700,
               );
-            } else {
+              break;
+            case NewsStatus.success:
+              if (state.articles?.isEmpty == true) {
+                return Center(
+                  child: Image.asset(AppResource.empty),
+                );
+              }
               return Column(
                 children: [
                   Expanded(
@@ -51,12 +55,12 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
                           return Container();
                         }
                         return ArticleItem(
-                          article: homeState.articles?.elementAt(index),
+                          article: state.articles?.elementAt(index),
                           onTap: () {
                             NavigationService.navigatorKey.currentState
                                 ?.pushNamed(
                               AppRouteName.detailArticle,
-                              arguments: homeState.articles?.elementAt(index),
+                              arguments: state.articles?.elementAt(index),
                             );
                           },
                         );
@@ -95,7 +99,8 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
                   )
                 ],
               );
-            }
+
+            default:
           }
           return Center(
             child: TextView(

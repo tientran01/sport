@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_bloc.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_event.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_state.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/shimmer.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/cubit/enum_status/status.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_state.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -22,33 +22,30 @@ class _CustomSliderState extends State<CustomSlider> {
   @override
   void initState() {
     super.initState();
-    getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
+    getIt.get<MostInterestedNewsCubit>().getMostInterestedNewsApi();
   }
 
   int activeIndex = 0;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return BlocBuilder<MostInterestedNewsBloc, MostInterestedNewsState>(
-      bloc: getIt.get<MostInterestedNewsBloc>(),
+    return BlocBuilder<MostInterestedNewsCubit, MostInterestedNewsState>(
+      bloc: getIt.get<MostInterestedNewsCubit>(),
       builder: (context, state) {
-        if (state is MostInterestedNewsLoading) {
-          return const ShimmerSlider();
-        }
-        if (state is MostInterestedNewsLoader) {
-          if (state.articles == null) {
-            return SizedBox(
-              width: size.width,
-              height: Constants.size200,
-              child: Center(
-                child: TextView(
-                  text: AppStrings.error,
-                  fontSize: Constants.size20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+        switch (state.status) {
+          case NewsStatus.error:
+            TextView(
+              text: AppStrings.error,
+              fontSize: Constants.size20,
+              fontWeight: FontWeight.w700,
             );
-          } else {
+            break;
+          case NewsStatus.success:
+            if (state.articles?.isEmpty == true) {
+              return Center(
+                child: Image.asset(AppResource.empty),
+              );
+            }
             return SizedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -127,13 +124,9 @@ class _CustomSliderState extends State<CustomSlider> {
                 ],
               ),
             );
-          }
+          default:
         }
-        return Center(
-          child: Image.asset(
-            AppResource.empty,
-          ),
-        );
+        return const ShimmerSlider();
       },
     );
   }

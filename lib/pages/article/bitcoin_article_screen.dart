@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_bloc.dart';
-import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_event.dart';
-import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_state.dart';
+import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/circular_loading.dart';
+import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/cubit/enum_status/status.dart';
+import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_state.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -20,46 +21,50 @@ class _BitcoinArticleScreenState extends State<BitcoinArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<HotNewsBloc>().add(const HotNewsLoadApiEvent());
+    getIt.get<HotNewsCubit>().getHotNewsApi();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HotNewsBloc, HotNewsState>(
-      bloc: getIt.get<HotNewsBloc>(),
+    return BlocBuilder<HotNewsCubit, HotNewsState>(
+      bloc: getIt.get<HotNewsCubit>(),
       builder: (context, state) {
-        if (state is HotNewsLoading) {
-          return const CircularLoading();
-        }
-        if (state is HotNewsLoader) {
-          if (state.articles == null) {
-            return Center(
-              child: Image.asset(AppResource.empty),
+        switch (state.status) {
+          case NewsStatus.error:
+            TextView(
+              text: AppStrings.error,
+              fontSize: Constants.size20,
+              fontWeight: FontWeight.w700,
             );
-          }
-          return ListView.builder(
-            itemCount: state.articles?.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size15,
-                ),
-                child: ArticleItem(
-                  article: state.articles?[index],
-                  onTap: () {
-                    NavigationService.navigatorKey.currentState?.pushNamed(
-                      AppRouteName.detailArticle,
-                      arguments: state.articles?[index],
-                    );
-                  },
-                ),
+            break;
+          case NewsStatus.success:
+            if (state.articles?.isEmpty == true) {
+              return Center(
+                child: Image.asset(AppResource.empty),
               );
-            },
-          );
+            }
+            return ListView.builder(
+              itemCount: state.articles?.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Constants.size15,
+                  ),
+                  child: ArticleItem(
+                    article: state.articles?[index],
+                    onTap: () {
+                      NavigationService.navigatorKey.currentState?.pushNamed(
+                        AppRouteName.detailArticle,
+                        arguments: state.articles?[index],
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          default:
         }
-        return Center(
-          child: Image.asset(AppResource.empty),
-        );
+        return const CircularLoading();
       },
     );
   }

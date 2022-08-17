@@ -2,6 +2,7 @@ import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
+import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,22 +66,66 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     SignInWithPhoneNumberEvent event,
     Emitter<void> emitter,
   ) async {
-    NavigationService.navigatorKey.currentState
-        ?.pushNamed(AppRouteName.phoneInput);
+    NavigationService.navigatorKey.currentState?.pushNamed(
+      AppRouteName.phoneInput,
+    );
   }
 
   Future<void> _onSignInWithGoogle(
     SignInWithGoogleEvent event,
     Emitter<void> emitter,
   ) async {
-    await FirebaseHelper.shared.signInWithGoogle();
+    UserCredential userCredential =
+        await FirebaseHelper.shared.signInWithGoogle();
+    User? user = userCredential.user;
+    try {
+      if (user != null) {
+        final userInformation = UserInformation(
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          phoneNumber: user.phoneNumber,
+        );
+        FirebaseHelper.shared.createUserInformation(userInformation);
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        NavigationService.navigatorKey.currentState?.pushReplacementNamed(
+          AppRouteName.main,
+          arguments: user,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      Loading.showError(e.toString());
+    }
   }
 
   Future<void> _onSignInWithFacebook(
     SignInWithFacebookEvent event,
     Emitter<void> emitter,
   ) async {
-    await FirebaseHelper.shared.signInWithFacebook();
+    UserCredential userCredential =
+        await FirebaseHelper.shared.signInWithFacebook();
+    User? user = userCredential.user;
+    try {
+      if (user != null) {
+        final userInformation = UserInformation(
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          phoneNumber: user.phoneNumber,
+        );
+        FirebaseHelper.shared.createUserInformation(userInformation);
+        SharedPreferencesHelper.shared.setString(
+          AppKeyName.uid,
+          user.uid,
+        );
+        NavigationService.navigatorKey.currentState?.pushReplacementNamed(
+          AppRouteName.main,
+          arguments: user,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      Loading.showError(e.toString());
+    }
   }
 
   Future<void> _onSignOut(
@@ -90,8 +135,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       FirebaseHelper.shared.signOut();
       SharedPreferencesHelper.shared.removeUid();
-      NavigationService.navigatorKey.currentState
-          ?.pushNamed(AppRouteName.login);
+      NavigationService.navigatorKey.currentState?.pushReplacementNamed(
+        AppRouteName.login,
+      );
     } catch (e) {
       Loading.showError(e.toString());
     }

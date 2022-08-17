@@ -8,6 +8,7 @@ import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
+import 'package:sport_app/pages/base/base_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
@@ -17,13 +18,7 @@ class SearchScreen extends StatelessWidget {
   final List<Category> categories = AppStrings.categories;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.focusedChild?.unfocus();
-        }
-      },
+    return BaseScreen(
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: Constants.size80,

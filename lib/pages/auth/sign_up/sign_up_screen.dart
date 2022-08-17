@@ -1,6 +1,7 @@
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/pages/base/base_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,13 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.focusedChild?.unfocus();
-        }
-      },
+    return BaseScreen(
       child: Scaffold(
         appBar: const CustomAppBar(
           title: AppStrings.signUp,

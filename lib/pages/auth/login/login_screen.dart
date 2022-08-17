@@ -7,6 +7,7 @@ import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/pages/auth/login/components/divider_custom.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
+import 'package:sport_app/pages/base/base_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:flutter/material.dart';
@@ -31,13 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.focusedChild?.unfocus();
-        }
-      },
+    return BaseScreen(
       child: Scaffold(
         appBar: const CustomAppBar(
           title: AppStrings.login,

@@ -9,6 +9,7 @@ import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
+import 'package:sport_app/pages/base/base_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class CreateNewArticle extends StatefulWidget {
@@ -28,13 +29,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.focusedChild?.unfocus();
-        }
-      },
+    return BaseScreen(
       child: Scaffold(
         appBar: const CustomAppBar(
           title: AppStrings.createNewArticle,

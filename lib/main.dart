@@ -3,6 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/search/bloc/search_bloc.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
 import 'package:sport_app/helper/sql_helper.dart';
@@ -50,10 +51,10 @@ Future<void> main() async {
           BlocProvider(create: (_) => YourArticleBloc()),
           BlocProvider(create: (_) => FavoriteBloc()),
           BlocProvider(create: (_) => SearchBloc()),
-          BlocProvider(create: (_) => HotNewsBloc()),
-          BlocProvider(create: (_) => MostInterestedNewsBloc()),
+          BlocProvider(create: (_) => HotNewsCubit()),
+          BlocProvider(create: (_) => MostInterestedNewsCubit()),
           BlocProvider(create: (_) => TeslaNewsBloc()),
-          BlocProvider(create: (_) => AppleNewsBloc()),
+          BlocProvider(create: (_) => AppleNewsCubit()),
         ],
         child: const MyApp(),
       ),
