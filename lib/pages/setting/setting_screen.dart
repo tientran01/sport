@@ -4,7 +4,7 @@ import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';

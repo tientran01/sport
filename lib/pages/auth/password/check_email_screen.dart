@@ -1,4 +1,4 @@
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';

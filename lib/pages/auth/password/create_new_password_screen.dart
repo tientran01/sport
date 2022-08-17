@@ -1,5 +1,5 @@
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/component/text_view.dart';

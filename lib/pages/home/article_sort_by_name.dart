@@ -6,7 +6,7 @@ import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_state.dart';
 import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_bloc.dart';
 import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_event.dart';
 import 'package:sport_app/component/circular_loading.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';

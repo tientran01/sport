@@ -17,29 +17,21 @@ class ArticleScreen extends StatefulWidget {
 class _ArticleScreenState extends State<ArticleScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-  PageController? pageController;
-  
 
   int selectIndex = 0;
   List<Category> categories = AppStrings.categories;
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 0);
     tabController =
         TabController(length: categories.length, vsync: this, initialIndex: 0);
-    tabController?.addListener(
-      () {
-        setState(() => selectIndex = tabController?.index ?? 0);
-        pageController?.animateToPage(
-          selectIndex,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.ease,
-        );
-      },
-    );
+    tabController?.animation?.addListener(() {
+      setState(() {
+        selectIndex = (tabController?.animation?.value)?.round() ?? 0;
+      });
+    });
   }
-
+  
   @override
   void dispose() {
     tabController?.dispose();
@@ -69,13 +61,8 @@ class _ArticleScreenState extends State<ArticleScreen>
           ],
         ),
       ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: (int index) {
-          setState(() {
-            selectIndex = index;
-          });
-        },
+      body: TabBarView(
+        controller: tabController,
         children: const [
           TopArticleScreen(),
           AppleArticleScreen(),

@@ -1,3 +1,4 @@
+import 'package:sport_app/component/app_bar/custom_pop_up_menu.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -51,15 +52,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : Container(),
       actions: [
-        rightIconPath != null
-            ? IconButton(
-                onPressed: onPressedRight,
-                icon: Image.asset(
-                  rightIconPath ?? "",
-                  width: Constants.size25,
-                ),
-              )
-            : Container()
+        rightIconPath != null ? const CustomPopupMenuButton() : Container()
       ],
     );
   }

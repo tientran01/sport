@@ -104,6 +104,8 @@ class AppStrings {
   static const String author = "Tác giả";
   static const String deleteYourArticle = "Xoá bài viết";
   static const String editYourArticle = "Chỉnh sửa bài viết";
+  static const String filterNewArticleByDay = "Bài viết mới nhất";
+  static const String filterArticleByAlpha = "Sắp xếp bài viết A-Z";
   static List<Category> categories = [
     Category(
       text: Application.top,

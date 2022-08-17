@@ -1,6 +1,6 @@
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_bloc.dart';
 import 'package:sport_app/bloc/foget_password/bloc/forget_password_event.dart';
-import 'package:sport_app/component/custom_app_bar.dart';
+import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/main.dart';

@@ -20,21 +20,12 @@ class _MainScreenState extends State<MainScreen> {
     const YourArticleScreen(),
     const SettingScreen()
   ];
-  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView.builder(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return screens.elementAt(index);
-        },
-        itemCount: screens.length,
-        onPageChanged: (pageIndex) {
-          pageChanged(pageIndex);
-          selectIndex = pageIndex;
-        },
+      body: IndexedStack(
+        index: selectIndex,
+        children: screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColor.white,
@@ -88,20 +79,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void _onTapItem(int index) {
     setState(
-      () {
-        selectIndex = index;
-        _pageController.animateToPage(
-          index,
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.ease,
-        );
-      },
+      () => selectIndex = index,
     );
-  }
-
-  void pageChanged(int pageIndex) {
-    setState(() {
-      selectIndex = pageIndex;
-    });
   }
 }
