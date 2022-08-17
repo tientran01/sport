@@ -59,7 +59,8 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
             return const CircularLoading();
           }
           if (state is YourArticleLoader) {
-            if (state.yourArticles == null) {
+            if (state.yourArticles == null ||
+                state.yourArticles?.isEmpty == true) {
               return Center(
                 child: Image.asset(AppResource.empty),
               );

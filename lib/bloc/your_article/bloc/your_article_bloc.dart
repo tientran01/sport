@@ -29,11 +29,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     Emitter<void> emitter,
   ) async {
     List<YourArticle> yourArticles = await SQLHelper.shared.getAllYourArticle();
-    if (yourArticles.isNotEmpty) {
-      emitter(YourArticleLoader(yourArticles: yourArticles));
-    } else {
-      emitter(const YourArticleLoader(yourArticles: null));
-    }
+    emitter(YourArticleLoader(yourArticles: yourArticles));
   }
 
   Future<void> _onDeleteYourArticle(
