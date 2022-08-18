@@ -23,10 +23,26 @@ class YourArticleScreen extends StatefulWidget {
 }
 
 class _YourArticleScreenState extends State<YourArticleScreen> {
+  String? selection;
   @override
   void initState() {
     super.initState();
     getIt.get<YourArticleBloc>().add(GetAllYourArticleEvent());
+  }
+
+  void selectionPopMenuItem(String value) {
+    setState(() {
+      selection = value;
+    });
+    switch (selection) {
+      case '1':
+        getIt.get<YourArticleBloc>().add(SortYourArticleByDateEvent());
+        break;
+      case '2':
+        getIt.get<YourArticleBloc>().add(SortYourArticleByAlphabetEvent());
+        break;
+      default:
+    }
   }
 
   @override
@@ -36,6 +52,9 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
         title: AppStrings.yourArticle,
         isPop: false,
         rightIconPath: AppResource.more,
+        onSelected: (String value) {
+          selectionPopMenuItem(value);
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.black,

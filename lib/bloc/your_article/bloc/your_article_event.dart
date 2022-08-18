@@ -29,3 +29,7 @@ class UpdateYourArticleEvent extends YourArticleEvent {
    @override
   List<Object?> get props => [yourArticle];
 }
+
+class SortYourArticleByDateEvent extends YourArticleEvent {}
+
+class SortYourArticleByAlphabetEvent extends YourArticleEvent {}

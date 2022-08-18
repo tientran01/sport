@@ -34,7 +34,8 @@ class FirebaseHelper {
     String? password,
   }) async {
     User? user;
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email ?? "",
       password: password ?? "",
     );
@@ -82,25 +83,14 @@ class FirebaseHelper {
     );
   }
 
-  Future<void> loginWithPhoneNumber(
+  Future<UserCredential> loginWithPhoneNumber(
     String? smsCode,
   ) async {
     phoneAuthCredential = PhoneAuthProvider.credential(
       verificationId: verificationId ?? '',
       smsCode: smsCode ?? '',
     );
-    try {
-      Loading.show(msg: AppStrings.loading);
-      var result =
-          await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
-      if (result.user != null) {
-        Loading.dismiss();
-        NavigationService.navigatorKey.currentState
-            ?.pushNamed(AppRouteName.main);
-      }
-    } on FirebaseAuthException {
-      Loading.showError(AppStrings.error);
-    }
+    return await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
   }
 
   Future<void> signOut() async {

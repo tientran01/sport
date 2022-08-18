@@ -125,7 +125,7 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                   textColor: AppColor.white,
                   onTap: () => getIt
                       .get<VerifyOtpBloc>()
-                      .add(SignUpWithPhoneNumberEvent()),
+                      .add(LoginWithPhoneNumberEvent()),
                 ),
                 SizedBox(height: Constants.size30),
                 Row(

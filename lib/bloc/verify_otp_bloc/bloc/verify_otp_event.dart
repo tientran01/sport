@@ -22,7 +22,7 @@ class ResendOtpCodeEvent extends VerifyOtpEvent {
   List<Object?> get props => [phoneNumber];
 }
 
-class SignUpWithPhoneNumberEvent extends VerifyOtpEvent {}
+class LoginWithPhoneNumberEvent extends VerifyOtpEvent {}
 
 class VerifyOtpFailedEvent extends VerifyOtpEvent {
   final FirebaseExceptionType? error;

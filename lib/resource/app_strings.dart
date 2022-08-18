@@ -1,4 +1,5 @@
-import 'package:sport_app/application/application.dart';
+
+import 'package:sport_app/dio/end_point.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -39,17 +40,17 @@ class AppStrings {
   static const String required = "Bắt buộc";
   static const String home = "Trang chủ";
   static const String phoneGetOtp = "Code is sent to ";
-  static const String loginFail = "Login Fail";
-  static const String loginSuccess = "Login Success";
+  static const String loginFail = "Đăng nhập thất bại";
+  static const String loginSuccess = "Đăng nhập thành công";
   static const String signInWithGoogle = "Sign in with google";
   static const String signInWithPhoneNumber = "Sign In With Phone Number";
   static const String resetPassword = "Reset Password";
   static const String createNewPassword = "Create New Password";
   static const String resendOtpCode = "Send OTP again in";
   static const String sec = "sec";
-  static const String success = "Success";
+  static const String success = "Thành công";
   static const String loading = "Loading";
-  static const String error = "Error";
+  static const String error = "Thất bại";
   static const String profile = "Tài khoản";
   static const String avatar = "Ảnh đại diện";
   static const String nickName = "Biệt danh";
@@ -110,19 +111,19 @@ class AppStrings {
   static const String deleteNow = "Xoá ngay";
   static List<Category> categories = [
     Category(
-      text: Application.top,
+      text: EndPoint.top,
       color: AppColor.gargoyleGas,
     ),
     Category(
-      text: Application.appleParamValue,
+      text: EndPoint.appleParamValue,
       color: AppColor.blue,
     ),
     Category(
-      text: Application.bitcoinParamValue,
+      text: EndPoint.bitcoinParamValue,
       color: AppColor.gainsboro,
     ),
     Category(
-      text: Application.teslaParamValue,
+      text: EndPoint.teslaParamValue,
       color: AppColor.jetStream,
     ),
   ];
