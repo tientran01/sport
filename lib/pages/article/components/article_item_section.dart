@@ -57,7 +57,7 @@ class ArticleItem extends StatelessWidget {
                             vertical: Constants.size5,
                           ),
                           decoration: BoxDecoration(
-                            color: AppColor.gainsboro,
+                            color: AppColor.viridianGreen.withOpacity(0.4),
                             borderRadius: BorderRadius.circular(
                               Constants.size20,
                             ),

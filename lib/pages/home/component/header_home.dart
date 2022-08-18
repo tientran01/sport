@@ -18,15 +18,11 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       centerTitle: false,
       title: GestureDetector(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TextView(
-              text: AppStrings.hello,
-              fontSize: Constants.size17,
-              fontWeight: FontWeight.w700,
-            ),
-          ],
+        child: TextView(
+          text: AppStrings.hello,
+          fontSize: Constants.size20,
+          fontWeight: FontWeight.w900,
+          textColor: AppColor.viridianGreen,
         ),
         onTap: () {
           NavigationService.navigatorKey.currentState?.push(

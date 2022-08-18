@@ -82,17 +82,17 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
                       padding: EdgeInsets.zero,
                       height: Constants.size60,
                       width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: AppColor.gainsboro,
-                        border: Border.symmetric(
-                          horizontal: BorderSide(
-                            color: AppColor.gainsboro,
-                          ),
+                      decoration: BoxDecoration(
+                        color: AppColor.gainsboro.withOpacity(0.8),
+                        border: Border.all(
+                          color: AppColor.gainsboro,
                         ),
                       ),
                       child: const Center(
                         child: TextView(
                           text: AppStrings.seeMore,
+                          fontWeight: FontWeight.w700,
+                          textColor: AppColor.arsenic,
                         ),
                       ),
                     ),

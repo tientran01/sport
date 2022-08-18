@@ -91,6 +91,8 @@ class AppStrings {
   static const String share = "Chia sẻ";
   static const String favorites = "Mục yêu thích";
   static const String bookmark = "Bộ sưu tập của bạn";
+  static const String language = "Ngôn ngữ/ Language";
+  static const String chooseLanguage = "Chọn ngôn ngữ";
   static const String deleteAllFavorite = "Xoá tất cả bộ sưu tập";
   static const String addFavorite = "Thêm vào bộ sưu tập";
   static const String removeFavorite = "Xoá khỏi bộ sưu tập";
@@ -108,6 +110,9 @@ class AppStrings {
   static const String filterArticleByAlpha = "Sắp xếp bài viết A-Z";
   static const String areYouSureDelete = "Bạn muốn xoá bài viết?";
   static const String deleteNow = "Xoá ngay";
+  static const String vietnameseLanguage = "Tiếng Việt";
+  static const String englishLanguage = "Tiếng Anh";
+
   static List<Category> categories = [
     Category(
       text: Application.top,

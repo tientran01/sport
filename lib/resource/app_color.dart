@@ -12,4 +12,8 @@ class AppColor {
   static const blue = Color(0xFF0077C0);
   static const jetStream = Color(0xFFB9E3C6);
   static const azure = Color(0xFFF2FCFC);
+  static const keppel = Color(0xFF319DA0);
+  static const viridianGreen = Color(0xFF069A8E);
+  static const persianGreen = Color(0xFF0EB29A);
+  static const bangladeshGreen = Color(0xFF125B50);
 }

@@ -105,6 +105,17 @@ class FirebaseHelper {
     );
   }
 
+  Future<UserCredential> loginWithPhoneNumber(
+    String? smsCode,
+  ) async {
+    phoneAuthCredential = PhoneAuthProvider.credential(
+      verificationId: verificationId ?? '',
+      smsCode: smsCode ?? '',
+    );
+    return await FirebaseAuth.instance
+        .signInWithCredential(phoneAuthCredential);
+  }
+
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     SharedPreferencesHelper.shared.removeUid();

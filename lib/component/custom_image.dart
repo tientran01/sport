@@ -80,7 +80,7 @@ class ImageCircle extends StatelessWidget {
                 height: height,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColor.gainsboro,
+                  color: AppColor.viridianGreen,
                 ),
                 child: CachedNetworkImage(
                   imageUrl: imageUrl ?? AppNetwork.imageAvatarPlaceholder,

@@ -26,7 +26,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
       ));
     } else {
       final favorites = List<Video?>.from(state.videos ?? []);
-      Loading.showError(AppStrings.removeFavorite);
+      Loading.showError();
       favorites.removeAt(index);
       emitter(FavoriteLoader(
         videos: favorites,

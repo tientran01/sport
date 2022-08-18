@@ -3,7 +3,6 @@ import 'package:sport_app/resource/resource.dart';
 
 class Loading {
   Loading._();
-
   static void show() {
     EasyLoading.show(status: AppStrings.loading);
   }
@@ -12,8 +11,8 @@ class Loading {
     EasyLoading.showSuccess(msg);
   }
 
-  static void showError(String msg) {
-    EasyLoading.showError(msg);
+  static void showError({String? msg}) {
+    EasyLoading.showError(msg ?? AppStrings.error);
   }
 
   static void dismiss() {

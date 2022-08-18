@@ -70,8 +70,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     padding: EdgeInsets.all(Constants.size15),
                     decoration: BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.circular(Constants.size10),
+                      color: AppColor.gainsboro.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(
+                        Constants.size10,
+                      ),
                     ),
                     child: Column(
                       children: [
@@ -125,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onTap: () {
                           getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
                         },
-                        bgColor: AppColor.arsenic,
+                        bgColor: AppColor.viridianGreen,
                         textColor: AppColor.white,
                       ),
                       Button(
@@ -134,8 +136,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         onTap: () {
                           getIt.get<ProfileBloc>().add(DeleteProfileEvent());
                         },
-                        bgColor: AppColor.white,
-                        textColor: AppColor.black,
+                        bgColor: AppColor.viridianGreen.withOpacity(0.5),
+                        textColor: AppColor.white,
                       ),
                     ],
                   ),

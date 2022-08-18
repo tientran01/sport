@@ -91,11 +91,19 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                       text: AppStrings.uploadImage,
                       textColor: AppColor.darkSilver,
                     ),
+                    SizedBox(
+                      height: Constants.size20,
+                    ),
+                    Button(
+                      bgColor: AppColor.viridianGreen,
+                      text: AppStrings.postArticle,
+                      textColor: AppColor.white,
+                      onTap: () {
+                        tryCreateNewYourArticle();
+                      },
+                    )
                   ],
                 ),
-              ),
-              SizedBox(
-                height: Constants.size20,
               ),
               Button(
                 bgColor: AppColor.black,
@@ -118,7 +126,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
           .get<YourArticleBloc>()
           .add(CreateNewYourArticleEvent(yourArticle: yourArticle));
     } else {
-      Loading.showError(AppStrings.failed);
+      Loading.showError();
     }
   }
 }

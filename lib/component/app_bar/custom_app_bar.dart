@@ -14,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? titleColor;
   final Color? bgColor;
   final bool? isPop;
+  final void Function(String)? onSelected;
   const CustomAppBar({
     Key? key,
     this.leadingIconPath,
@@ -25,6 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleColor,
     this.bgColor,
     this.isPop = true,
+    this.onSelected,
   }) : super(key: key);
 
   @override
@@ -52,7 +54,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : Container(),
       actions: [
-        rightIconPath != null ? const CustomPopupMenuButton() : Container()
+        rightIconPath != null
+            ? CustomPopupMenuButton(
+                onSelected: onSelected,
+              )
+            : Container()
       ],
     );
   }
