@@ -28,18 +28,20 @@ class _MainScreenState extends State<MainScreen> {
         children: screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColor.white,
-        unselectedItemColor: AppColor.gainsboro.withOpacity(0.3),
+        selectedItemColor: AppColor.viridianGreen,
+        unselectedItemColor: AppColor.black.withOpacity(0.1),
         type: BottomNavigationBarType.fixed,
-        elevation: 0.0,
-        backgroundColor: AppColor.black,
+        backgroundColor: AppColor.white,
         currentIndex: selectIndex,
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.w700,
+        ),
         onTap: _onTapItem,
         items: [
           bottomNavigationBarItem(
             iconPath: AppResource.home,
             index: 0,
-            label: AppStrings.home,
+            label: '',
           ),
           bottomNavigationBarItem(
             iconPath: AppResource.compass,
@@ -71,8 +73,8 @@ class _MainScreenState extends State<MainScreen> {
           iconPath,
           width: Constants.size27,
           color: selectIndex == index
-              ? AppColor.white
-              : AppColor.gainsboro.withOpacity(0.3),
+              ? AppColor.viridianGreen
+              : AppColor.black.withOpacity(0.1),
         ),
         label: label ?? "",
       );

@@ -26,4 +26,5 @@ class AppRouteName {
   static const String bitcoinArticle = "/bitcoin_article";
   static const String teslaArticle = "/tesla_article";
   static const String editYourArticle = "/edit_your_article";
+  static const String changeLanguage = "/change_language";
 }

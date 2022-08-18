@@ -107,7 +107,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
                     height: Constants.size20,
                   ),
                   Button(
-                    bgColor: AppColor.black,
+                    bgColor: AppColor.viridianGreen,
                     text: AppStrings.postArticle,
                     textColor: AppColor.white,
                     onTap: () {

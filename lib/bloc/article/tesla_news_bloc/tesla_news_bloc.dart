@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/application/application.dart';
 import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_event.dart';
 import 'package:sport_app/bloc/article/tesla_news_bloc/tesla_news_state.dart';
+import 'package:sport_app/dio/dio_client.dart';
 import 'package:sport_app/model/news.dart';
-import 'package:sport_app/repositories/api_client.dart';
 
 class TeslaNewsBloc extends Bloc<TeslaNewsEvent, TeslaNewsState> {
   TeslaNewsBloc() : super(TeslaNewsLoading()) {
@@ -15,7 +15,7 @@ class TeslaNewsBloc extends Bloc<TeslaNewsEvent, TeslaNewsState> {
     TeslaNewsApiEvent event,
     Emitter<void> emitter,
   ) async {
-    News? news = await ApiClient.api
+    News? news = await DioClient.shared
         .getEverything(endpoint: Application.teslaParamValue);
     if (news != null) {
       emitter(TeslaNewsLoader(articles: news.articles));

@@ -31,7 +31,7 @@ class _ArticleScreenState extends State<ArticleScreen>
       });
     });
   }
-  
+
   @override
   void dispose() {
     tabController?.dispose();
@@ -77,7 +77,9 @@ class _ArticleScreenState extends State<ArticleScreen>
     return Tab(
       child: TextView(
         text: category.text,
-        textColor: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
+        textColor:
+            selectIndex == index ? AppColor.viridianGreen : AppColor.gainsboro,
+        fontWeight: FontWeight.w800,
       ),
     );
   }

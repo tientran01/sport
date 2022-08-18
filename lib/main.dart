@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_it/get_it.dart';
 import 'helper/notification_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -85,6 +86,8 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         backgroundColor: AppColor.ghostWhite,
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

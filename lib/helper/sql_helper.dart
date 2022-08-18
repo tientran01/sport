@@ -83,8 +83,17 @@ class SQLHelper {
     );
   }
 
-  Future<void> deleteAll() async {
+  Future<List<YourArticle>> sortYourArticleByDate() async {
     final db = await getDatabase;
-    db.delete(AppKeyName.yourArticleTable);
+    List<Map<String, dynamic>> results = await db.rawQuery(
+        'SELECT * FROM YourArticle ORDER BY datetime(publishedAt) DESC');
+    return results.map((e) => YourArticle.fromJson(e)).toList();
+  }
+
+  Future<List<YourArticle>> sortYourArticleByAlphabet() async {
+    final db = await getDatabase;
+    List<Map<String, dynamic>> results = await db.rawQuery(
+        'SELECT * FROM YourArticle ORDER BY title COLLATE NOCASE ASC');
+    return results.map((e) => YourArticle.fromJson(e)).toList();
   }
 }

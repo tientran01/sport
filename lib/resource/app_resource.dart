@@ -42,4 +42,5 @@ class AppResource {
   static String empty = '$componentIcon/ic_empty.png';
   static String sort = '$componentIcon/ic_sort.png';
   static String sortAlpha = '$componentIcon/ic_sort_alpha.png';
+  static String errorApi = '$componentIcon/ic_error_api.png';
 }

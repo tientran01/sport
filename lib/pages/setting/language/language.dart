@@ -1,0 +1,4 @@
+enum Language {
+  vietnamese,
+  english,
+}

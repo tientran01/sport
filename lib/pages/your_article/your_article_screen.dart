@@ -23,10 +23,26 @@ class YourArticleScreen extends StatefulWidget {
 }
 
 class _YourArticleScreenState extends State<YourArticleScreen> {
+  String? selection;
   @override
   void initState() {
     super.initState();
     getIt.get<YourArticleBloc>().add(GetAllYourArticleEvent());
+  }
+
+  void selectionPopMenuItem(String value) {
+    setState(() {
+      selection = value;
+    });
+    switch (selection) {
+      case '1':
+        getIt.get<YourArticleBloc>().add(SortYourArticleByDateEvent());
+        break;
+      case '2':
+        getIt.get<YourArticleBloc>().add(SortYourArticleByAlphabetEvent());
+        break;
+      default:
+    }
   }
 
   @override
@@ -36,9 +52,12 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
         title: AppStrings.yourArticle,
         isPop: false,
         rightIconPath: AppResource.more,
+        onSelected: (String value) {
+          selectionPopMenuItem(value);
+        },
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColor.black,
+        backgroundColor: AppColor.viridianGreen,
         onPressed: () {
           NavigationService.navigatorKey.currentState?.push(
             SlideBottomRoute(
@@ -85,14 +104,14 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                         margin:
                             EdgeInsets.symmetric(vertical: Constants.size10),
                         decoration: BoxDecoration(
-                          color: AppColor.gainsboro.withOpacity(0.4),
+                          color: AppColor.viridianGreen.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(Constants.size10),
                         ),
                         child: Dismissible(
                           background: Container(
                             alignment: AlignmentDirectional.center,
                             decoration: BoxDecoration(
-                              color: AppColor.carminePink.withOpacity(0.5),
+                              color: AppColor.bangladeshGreen.withOpacity(0.5),
                               borderRadius: BorderRadius.circular(
                                 Constants.size10,
                               ),
@@ -139,8 +158,10 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         height: Constants.size10,
                                       ),
                                       Container(
+                                        padding:
+                                            EdgeInsets.all(Constants.size5),
                                         decoration: BoxDecoration(
-                                          color: AppColor.gainsboro
+                                          color: AppColor.bangladeshGreen
                                               .withOpacity(0.6),
                                           borderRadius: BorderRadius.circular(
                                               Constants.size10),
@@ -153,7 +174,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                                 .toString(),
                                           ),
                                           fontSize: Constants.size10,
-                                          textColor: AppColor.arsenic,
+                                          textColor: AppColor.white,
                                         ),
                                       ),
                                     ],

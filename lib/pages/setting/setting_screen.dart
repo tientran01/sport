@@ -32,105 +32,141 @@ class _SettingScreenState extends State<SettingScreen> {
         title: AppStrings.setting,
         isPop: false,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Constants.size20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocBuilder<ProfileBloc, ProfileState>(
-              bloc: getIt.get<ProfileBloc>(),
-              builder: (context, state) {
-                return GestureDetector(
-                  onTap: () {
-                    NavigationService.navigatorKey.currentState
-                        ?.pushNamed(AppRouteName.profile);
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ImageCircle(
-                          width: Constants.size100,
-                          height: Constants.size100,
-                          imageUrl: state.user?.photoUrl,
-                        ),
-                      ),
-                      SizedBox(
-                        width: Constants.size15,
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextView(
-                              text: state.user?.displayName,
-                              fontSize: Constants.size20,
-                              fontWeight: FontWeight.w800,
-                            ),
-                            TextView(
-                              text: state.user?.email,
-                              fontSize: Constants.size15,
-                              textColor: AppColor.darkSilver,
-                            )
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          NavigationService.navigatorKey.currentState
-                              ?.pushNamed(AppRouteName.profile);
-                        },
-                        child: Image.asset(
-                          AppResource.rightArrow,
-                          width: Constants.size20,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-            SizedBox(
-              height: Constants.size40,
-            ),
-            TextView(
-              text: AppStrings.justForYou,
-              fontSize: Constants.size17,
-              fontWeight: FontWeight.w700,
-            ),
-            SizedBox(
-              height: Constants.size20,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: Constants.size20,
-              ),
-              height: Constants.size150,
-              decoration: BoxDecoration(
-                color: AppColor.gainsboro,
-                borderRadius: BorderRadius.circular(Constants.size15),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildSettingItem(
-                    context,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: Constants.size20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BlocBuilder<ProfileBloc, ProfileState>(
+                bloc: getIt.get<ProfileBloc>(),
+                builder: (context, state) {
+                  return GestureDetector(
                     onTap: () {
                       NavigationService.navigatorKey.currentState
-                          ?.pushNamed(AppRouteName.favorite);
+                          ?.pushNamed(AppRouteName.profile);
                     },
-                    text: AppStrings.favorites,
-                  ),
-                  buildSettingItem(
-                    context,
-                    text: AppStrings.bookmark,
-                    onTap: () {},
-                  ),
-                ],
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ImageCircle(
+                            width: Constants.size100,
+                            height: Constants.size100,
+                            imageUrl: state.user?.photoUrl,
+                          ),
+                        ),
+                        SizedBox(
+                          width: Constants.size15,
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextView(
+                                text: state.user?.displayName,
+                                fontSize: Constants.size20,
+                                fontWeight: FontWeight.w800,
+                              ),
+                              TextView(
+                                text: state.user?.email,
+                                fontSize: Constants.size15,
+                                textColor: AppColor.darkSilver,
+                              )
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            NavigationService.navigatorKey.currentState
+                                ?.pushNamed(AppRouteName.profile);
+                          },
+                          child: Image.asset(
+                            AppResource.rightArrow,
+                            width: Constants.size20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            ),
-          ],
+              SizedBox(
+                height: Constants.size40,
+              ),
+              TextView(
+                text: AppStrings.justForYou,
+                fontSize: Constants.size17,
+                fontWeight: FontWeight.w800,
+                textColor: AppColor.viridianGreen,
+              ),
+              SizedBox(
+                height: Constants.size12,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Constants.size20,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColor.gainsboro.withOpacity(.4),
+                  borderRadius: BorderRadius.circular(Constants.size15),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildSettingItem(
+                      context,
+                      onTap: () {
+                        NavigationService.navigatorKey.currentState
+                            ?.pushNamed(AppRouteName.favorite);
+                      },
+                      text: AppStrings.favorites,
+                    ),
+                    buildSettingItem(
+                      context,
+                      text: AppStrings.bookmark,
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: Constants.size30,
+              ),
+              TextView(
+                text: AppStrings.setting,
+                fontSize: Constants.size17,
+                fontWeight: FontWeight.w800,
+                textColor: AppColor.viridianGreen,
+              ),
+              SizedBox(
+                height: Constants.size12,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: Constants.size20,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColor.gainsboro.withOpacity(.4),
+                  borderRadius: BorderRadius.circular(Constants.size15),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildSettingItem(
+                      context,
+                      text: AppStrings.language,
+                      onTap: () {
+                        NavigationService.navigatorKey.currentState
+                            ?.pushNamed(AppRouteName.changeLanguage);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -139,6 +175,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget buildSettingItem(BuildContext context,
       {required String text, required VoidCallback onTap}) {
     return InkWell(
+      highlightColor: Colors.transparent,
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: Constants.size20),
@@ -146,7 +183,7 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             TextView(
               text: text,
-              textColor: AppColor.black,
+              textColor: AppColor.arsenic,
               fontSize: Constants.size17,
             ),
             const Spacer(),

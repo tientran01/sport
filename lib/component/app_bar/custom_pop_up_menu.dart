@@ -3,12 +3,12 @@ import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class CustomPopupMenuButton extends StatelessWidget {
-  final Function(dynamic)? onSelected;
+  final void Function(String)? onSelected;
   const CustomPopupMenuButton({Key? key, this.onSelected}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
+    return PopupMenuButton<String>(
       icon: Image.asset(
         AppResource.more,
         width: Constants.size20,
@@ -32,13 +32,13 @@ class CustomPopupMenuButton extends StatelessWidget {
   }
 }
 
-PopupMenuItem customPopupMenuItem(
+PopupMenuItem<String> customPopupMenuItem(
   int? value,
   String? iconPath,
   String? text,
 ) {
-  return PopupMenuItem(
-    value: value,
+  return PopupMenuItem<String>(
+    value: value.toString(),
     child: Row(
       children: [
         Image.asset(

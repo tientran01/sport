@@ -1,6 +1,7 @@
 import 'package:sport_app/pages/article/apple_article_screen.dart';
 import 'package:sport_app/pages/article/article_screen.dart';
 import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
+import 'package:sport_app/pages/setting/language/change_language_screen.dart';
 import 'package:sport_app/pages/your_article/create_new_article.dart';
 import 'package:sport_app/pages/article/detail_article_screen.dart';
 import 'package:sport_app/pages/article/tesla_article_screen.dart';
@@ -70,5 +71,6 @@ class RouteName {
         const TeslaArticleScreen(),
     AppRouteName.editYourArticle: (BuildContext context) =>
         const EditYourArticleScreen(),
+    AppRouteName.changeLanguage: (BuildContext context) => const ChangeLanguageScreen()
   };
 }
