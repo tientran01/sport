@@ -5,7 +5,7 @@ import 'package:sport_app/resource/resource.dart';
 
 class AppStrings {
   static const String logo = "Hot News";
-  
+
   static const String confirmPassword = "Xác nhận mật khẩu";
   static const String confirmPasswordInput = "Nhập lại mật khẩu";
   static const String forgetPassword = "Quên mật khẩu?";
@@ -32,17 +32,17 @@ class AppStrings {
   static const String success = "Success";
   static const String loading = "Loading";
   static const String error = "Error";
-  
+
   static const String checkValidEmail = "Verify Your Email";
   static const String messCheckEmail = "Please check your email";
   static const String searchInput = "Tìm kiếm";
   static const String hotNews = "Tin nổi bật";
   static const String mostInterested = "Được quan tâm nhất";
-  
+
   static const String showAll = "Hiển thị tất cả";
   static const String news = "Tin tức";
   static const String createNewArticle = "Tạo bài viết";
-  
+
   static const String channelDescription = "Channel Description";
   static const String channelId = "Channel Id";
   static const String channelName = "Channel Name";
