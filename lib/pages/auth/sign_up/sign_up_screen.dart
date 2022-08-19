@@ -1,6 +1,7 @@
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -31,8 +33,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         }
       },
       child: Scaffold(
-        appBar: const CustomAppBar(
-          title: AppStrings.signUp,
+        appBar: CustomAppBar(
+          title: local.signup,
         ),
         body: BlocBuilder<SignUpBloc, SignUpState>(
           bloc: getIt.get<SignUpBloc>(),
@@ -46,8 +48,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     children: [
                       CustomTextField(
-                        hintText: AppStrings.displayNameInput,
-                        title: AppStrings.displayName,
+                        hintText: local.displayNameInput,
+                        title: local.displayName,
                         type: TextFieldType.normal,
                         onChanged: (String displayName) {
                           getIt.get<SignUpBloc>().add(
@@ -60,8 +62,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(height: Constants.size30),
                       CustomTextField(
                         type: TextFieldType.email,
-                        title: AppStrings.email,
-                        hintText: AppStrings.emailInput,
+                        title: local.email,
+                        hintText: local.emailInput,
                         onChanged: (String email) {
                           getIt.get<SignUpBloc>().add(
                                 GetUserEvent(
@@ -74,9 +76,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       CustomTextField(
                         textEditingController: passwordController,
                         type: TextFieldType.password,
-                        title: AppStrings.password,
+                        title: local.password,
                         isPassword: true,
-                        hintText: AppStrings.passwordInput,
+                        hintText: local.passwordInput,
                         onChanged: (String password) =>
                             getIt.get<SignUpBloc>().add(
                                   GetUserEvent(
@@ -86,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       SizedBox(height: Constants.size30),
                       Button(
-                        text: AppStrings.signUp,
+                        text: local.signup,
                         onTap: () {
                           trySignUp();
                         },

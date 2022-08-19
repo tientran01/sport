@@ -5,6 +5,7 @@ import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -84,9 +85,9 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
                           color: AppColor.gainsboro,
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: TextView(
-                          text: AppStrings.seeMore,
+                          text: AppLocalizations.of(context).seeMore,
                           fontWeight: FontWeight.w700,
                           textColor: AppColor.arsenic,
                         ),

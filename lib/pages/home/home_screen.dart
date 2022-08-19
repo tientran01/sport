@@ -1,4 +1,5 @@
 import 'package:sport_app/component/name_section.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: const HeaderHome(),
@@ -35,8 +37,8 @@ class HomeScreen extends StatelessWidget {
                 height: Constants.size25,
               ),
               NameSection(
-                titleSection: AppStrings.hotNews,
-                text: AppStrings.seeMore,
+                titleSection: local.hotNews,
+                text: local.seeMore,
                 onTap: () {
                   NavigationService.navigatorKey.currentState?.pushNamed(
                     AppRouteName.articleSortByName,
@@ -51,15 +53,15 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: Constants.size20,
               ),
-              const NameSection(
-                titleSection: AppStrings.mostInterested,
+              NameSection(
+                titleSection: local.mostInterested,
               ),
               const MostInterestedNewsSection(),
               SizedBox(
                 height: Constants.size20,
               ),
-              const NameSection(
-                titleSection: AppStrings.hotVideos,
+              NameSection(
+                titleSection: local.featuredVideos,
               ),
               Container(
                 margin: EdgeInsets.only(top: Constants.size5),
