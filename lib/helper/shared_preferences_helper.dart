@@ -25,7 +25,8 @@ class SharedPreferencesHelper {
   setInt(String key, int data) {
     return prefs!.setInt(key, data);
   }
-  removeUid() async{
+
+  removeUid() async {
     prefs!.remove(AppKeyName.uid);
   }
 }

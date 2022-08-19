@@ -11,4 +11,7 @@ class AppKeyName {
   static const String newsDB = "news.db";
   static const String videoTable = "Video";
   static const String yourArticleTable = "YourArticle";
+  static const String languageCode = "languageCode";
+  static const String english = 'en';
+  static const String vietnamese = 'vi';
 }

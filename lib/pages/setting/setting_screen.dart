@@ -134,40 +134,6 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: Constants.size30,
-              ),
-              TextView(
-                text: local.setting,
-                fontSize: Constants.size17,
-                fontWeight: FontWeight.w800,
-                textColor: AppColor.viridianGreen,
-              ),
-              SizedBox(
-                height: Constants.size12,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size20,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColor.gainsboro.withOpacity(.4),
-                  borderRadius: BorderRadius.circular(Constants.size15),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    buildSettingItem(
-                      context,
-                      text: local.language,
-                      onTap: () {
-                        NavigationService.navigatorKey.currentState
-                            ?.pushNamed(AppRouteName.changeLanguage);
-                      },
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
@@ -175,8 +141,11 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  Widget buildSettingItem(BuildContext context,
-      {required String text, required VoidCallback onTap}) {
+  Widget buildSettingItem(
+    BuildContext context, {
+    required String text,
+    required VoidCallback onTap,
+  }) {
     return InkWell(
       highlightColor: Colors.transparent,
       onTap: onTap,
