@@ -7,7 +7,7 @@ class HotNewsState extends Equatable {
   final List<Article>? articles;
   const HotNewsState({
     this.articles,
-    this.status = NewsStatus.initial,
+    this.status = NewsStatus.loading,
   });
   HotNewsState copyWith({
     NewsStatus? status,

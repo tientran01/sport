@@ -7,7 +7,7 @@ class MostInterestedNewsState extends Equatable {
   final List<Article>? articles;
   const MostInterestedNewsState({
     this.articles,
-    this.status = NewsStatus.initial,
+    this.status = NewsStatus.loading,
   });
   MostInterestedNewsState copyWith({
     NewsStatus? status,

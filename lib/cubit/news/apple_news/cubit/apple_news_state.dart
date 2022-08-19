@@ -7,7 +7,7 @@ class AppleNewsState extends Equatable {
   final List<Article>? articles;
   const AppleNewsState({
     this.articles,
-    this.status = NewsStatus.initial,
+    this.status = NewsStatus.loading,
   });
   AppleNewsState copyWith({
     NewsStatus? status,

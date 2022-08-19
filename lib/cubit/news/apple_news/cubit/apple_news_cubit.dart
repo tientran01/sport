@@ -9,15 +9,22 @@ import 'package:sport_app/repositories/api_client.dart';
 class AppleNewsCubit extends Cubit<AppleNewsState> {
   AppleNewsCubit() : super(const AppleNewsState());
   Future<void> getAppleNewsApi() async {
+    emit(state.copyWith(status: NewsStatus.loading));
     News? news = await ApiClient.api.getEverything(
       endpoint: Application.appleParamValue,
     );
-    emit(
-      state.copyWith(
-        status: NewsStatus.success,
-        articles: news?.articles,
-      ),
-    );
+    if (news?.articles?.isNotEmpty == true) {
+      emit(
+        state.copyWith(
+          status: NewsStatus.success,
+          articles: news?.articles,
+        ),
+      );
+    } else {
+      emit(state.copyWith(
+        status: NewsStatus.error,
+      ));
+    }
   }
 
   static AppleNewsCubit of(BuildContext context) =>

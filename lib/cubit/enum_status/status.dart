@@ -1,5 +1,5 @@
 enum NewsStatus {
-  initial,
+  loading,
   success,
   error,
 }

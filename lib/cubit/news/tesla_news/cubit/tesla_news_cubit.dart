@@ -9,13 +9,20 @@ import 'package:sport_app/repositories/api_client.dart';
 class TeslaNewsCubit extends Cubit<TeslaNewsState> {
   TeslaNewsCubit() : super(const TeslaNewsState());
   Future<void> getTeslaNewsApi() async {
+    emit(state.copyWith(status: NewsStatus.loading));
     News? news = await ApiClient.api.getEverything(
       endpoint: Application.teslaParamValue,
     );
-    emit(state.copyWith(
-      status: NewsStatus.success,
-      articles: news?.articles,
-    ));
+    if (news?.articles?.isNotEmpty == true) {
+      emit(
+        state.copyWith(
+          status: NewsStatus.success,
+          articles: news?.articles,
+        ),
+      );
+    } else {
+      emit(state.copyWith(status: NewsStatus.error));
+    }
   }
 
   static TeslaNewsCubit of(BuildContext context) =>
