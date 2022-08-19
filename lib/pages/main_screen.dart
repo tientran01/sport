@@ -4,6 +4,7 @@ import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -41,22 +42,22 @@ class _MainScreenState extends State<MainScreen> {
           bottomNavigationBarItem(
             iconPath: AppResource.home,
             index: 0,
-            label: '',
+            label: AppLocalizations.of(context).home,
           ),
           bottomNavigationBarItem(
             iconPath: AppResource.compass,
             index: 1,
-            label: AppStrings.news,
+            label: AppLocalizations.of(context).news,
           ),
           bottomNavigationBarItem(
             iconPath: AppResource.create,
             index: 2,
-            label: AppStrings.createNewArticle,
+            label: AppLocalizations.of(context).createNewArticle,
           ),
           bottomNavigationBarItem(
             iconPath: AppResource.setting,
             index: 3,
-            label: AppStrings.setting,
+            label: AppLocalizations.of(context).setting,
           ),
         ],
       ),

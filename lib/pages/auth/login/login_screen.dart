@@ -3,6 +3,7 @@ import 'package:sport_app/bloc/login/bloc/login_bloc.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/pages/auth/login/components/divider_custom.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
@@ -26,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
   @override
   String? get titleAppBar => AppStrings.login;
   @override
-  Widget? get body {
+  Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return BlocBuilder<LoginBloc, LoginState>(
       bloc: getIt.get<LoginBloc>(),
       builder: (_, state) {
@@ -44,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     CustomTextField(
                       textEditingController: emailController,
                       type: TextFieldType.email,
-                      title: AppStrings.email,
-                      hintText: AppStrings.emailInput,
+                      title: local.email,
+                      hintText: local.emailInput,
                       onChanged: (email) => getIt.get<LoginBloc>().add(
                             GetEmailAndPasswordFormTextFieldEvent(
                               email: email,
@@ -55,15 +57,13 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     SizedBox(height: Constants.size30),
                     CustomTextField(
                       textEditingController: passwordController,
-                      title: AppStrings.password,
+                      title: local.password,
                       type: TextFieldType.password,
-                      hintText: AppStrings.passwordInput,
+                      hintText: local.passwordInput,
                       isPassword: true,
                       onChanged: (String password) {
                         getIt.get<LoginBloc>().add(
-                              GetEmailAndPasswordFormTextFieldEvent(
-                                password: password,
-                              ),
+                              SignInWithFacebookEvent(),
                             );
                       },
                     ),
@@ -73,7 +73,9 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                       text: AppStrings.login,
                       onTap: () {
                         if (state.isValid) {
-                          getIt.get<LoginBloc>().add(LoginWithEmailAndPasswordEvent());
+                          getIt
+                              .get<LoginBloc>()
+                              .add(LoginWithEmailAndPasswordEvent());
                         } else {
                           showSnackBar(AppStrings.loginFail);
                         }
@@ -119,6 +121,18 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                           },
                         ),
                         SizedBox(width: Constants.size10),
+                        SizedBox(height: Constants.size30),
+                        CustomTextField(
+                          textEditingController: emailController,
+                          type: TextFieldType.email,
+                          title: local.email,
+                          hintText: local.emailInput,
+                          onChanged: (email) => getIt.get<LoginBloc>().add(
+                                GetEmailAndPasswordFormTextFieldEvent(
+                                  email: email,
+                                ),
+                              ),
+                        ),
                       ],
                     ),
                     SizedBox(height: Constants.size30),

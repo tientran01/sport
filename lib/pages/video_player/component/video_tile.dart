@@ -4,6 +4,7 @@ import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_state.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_image.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/video_player/component/video_button.dart';
@@ -118,7 +119,7 @@ class _VideoTileState extends State<VideoTile> {
                               }
                               return VideoButton(
                                 iconPath: AppResource.heart,
-                                label: AppStrings.favorite,
+                                label: AppLocalizations.of(context).favorite,
                                 onTap: () {
                                   getIt.get<FavoriteBloc>().add(
                                         AddVideoToFavoriteEvent(

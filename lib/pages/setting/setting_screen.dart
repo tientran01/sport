@@ -10,6 +10,7 @@ import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -121,7 +122,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         NavigationService.navigatorKey.currentState
                             ?.pushNamed(AppRouteName.favorite);
                       },
-                      text: AppStrings.favorites,
+                      text: AppLocalizations.of(context).favorites,
                     ),
                     buildSettingItem(
                       context,
@@ -156,7 +157,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   children: [
                     buildSettingItem(
                       context,
-                      text: AppStrings.language,
+                      text: AppLocalizations.of(context).language,
                       onTap: () {
                         NavigationService.navigatorKey.currentState
                             ?.pushNamed(AppRouteName.changeLanguage);
