@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class ShowAlertDialog {
@@ -17,6 +18,7 @@ class ShowAlertDialog {
     VoidCallback? onPressed,
     Function(String)? onChanged,
   }) {
+    AppLocalizations local = AppLocalizations.of(context);
     if (!Platform.isIOS) {
       return showDialog(
         context: context,
@@ -25,11 +27,15 @@ class ShowAlertDialog {
           content: Text(content ?? ""),
           actions: <Widget>[
             InkWell(
-              child: Text(cancelActionText ?? AppStrings.cancel),
+              child: Text(
+                cancelActionText ?? local.cancel,
+              ),
               onTap: () => Navigator.of(context).pop(false),
             ),
             InkWell(
-              child: Text(defaultActionText ?? AppStrings.done),
+              child: Text(
+                defaultActionText ?? local.done,
+              ),
               onTap: () => Navigator.of(context).pop(true),
             ),
           ],
@@ -60,11 +66,15 @@ class ShowAlertDialog {
         actions: <Widget>[
           CupertinoDialogAction(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text(cancelActionText ?? AppStrings.cancel),
+            child: Text(
+              cancelActionText ?? local.cancel,
+            ),
           ),
           CupertinoDialogAction(
             onPressed: onPressed,
-            child: Text(defaultActionText ?? AppStrings.done),
+            child: Text(
+              defaultActionText ?? local.done,
+            ),
           ),
         ],
       ),

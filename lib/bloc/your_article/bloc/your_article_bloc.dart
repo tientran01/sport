@@ -5,7 +5,6 @@ import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/sql_helper.dart';
 import 'package:sport_app/model/your_article.dart';
-import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
 class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
@@ -62,7 +61,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     List<YourArticle> yourArticles =
         await SQLHelper.shared.sortYourArticleByDate();
     emitter(YourArticleLoader(yourArticles: yourArticles));
-    Loading.showSuccess(AppStrings.success);
+    Loading.showSuccess();
   }
 
   Future<void> _onSortYourArticleByAlphabet(
@@ -72,7 +71,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     List<YourArticle> yourArticles =
         await SQLHelper.shared.sortYourArticleByAlphabet();
     emitter(YourArticleLoader(yourArticles: yourArticles));
-    Loading.showSuccess(AppStrings.success);
+    Loading.showSuccess();
   }
 
   static YourArticleBloc of(BuildContext context) =>

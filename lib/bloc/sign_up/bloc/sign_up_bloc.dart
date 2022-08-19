@@ -52,7 +52,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      Loading.showError(e.message ?? '');
+      Loading.showError(msg: e.message ?? '');
     }
   }
 

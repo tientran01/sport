@@ -3,6 +3,7 @@ import 'package:sport_app/bloc/foget_password/bloc/forget_password_event.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,8 +31,8 @@ class InputEmailResetScreen extends StatelessWidget {
               children: [
                 CustomTextField(
                   type: TextFieldType.email,
-                  title: AppStrings.email,
-                  hintText: AppStrings.emailInput,
+                  title: AppLocalizations.of(context).email,
+                  hintText: AppLocalizations.of(context).emailInput,
                   suffixIcon: const Icon(Icons.email),
                   onChanged: (String email) {
                     getIt.get<ForgetPasswordBloc>().add(

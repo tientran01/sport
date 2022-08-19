@@ -54,7 +54,7 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 

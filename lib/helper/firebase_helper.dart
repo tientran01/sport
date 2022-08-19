@@ -105,7 +105,7 @@ class FirebaseHelper {
   Future<User?> signInWithGoogle() async {
     User? user;
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    Loading.show(msg: AppStrings.loading);
+    Loading.show();
     if (googleUser != null) {
       Loading.dismiss();
       final GoogleSignInAuthentication googleSignInAuthentication =
@@ -132,7 +132,7 @@ class FirebaseHelper {
           arguments: user,
         );
       } on FirebaseException {
-        Loading.showError(AppStrings.error);
+        Loading.showError();
       }
     }
     return user;
@@ -142,7 +142,7 @@ class FirebaseHelper {
     OAuthCredential facebookAuthCredential;
     final LoginResult loginResult = await FacebookAuth.instance.login();
     if (loginResult.status == LoginStatus.success) {
-      Loading.show(msg: AppStrings.loading);
+      Loading.show();
       facebookAuthCredential = FacebookAuthProvider.credential(
         loginResult.accessToken?.token ?? "",
       );
@@ -150,7 +150,7 @@ class FirebaseHelper {
           .signInWithCredential(facebookAuthCredential);
       User? user = userCredential.user;
       if (user != null) {
-        Loading.showSuccess(AppStrings.success);
+        Loading.showSuccess();
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
         final userInformation = UserInformation(
           email: user.email,
@@ -164,7 +164,7 @@ class FirebaseHelper {
           arguments: user,
         );
       } else {
-        Loading.showError(AppStrings.error);
+        Loading.showError();
       }
     }
   }

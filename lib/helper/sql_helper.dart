@@ -63,7 +63,7 @@ class SQLHelper {
         whereArgs: [id],
       );
     } catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -28,16 +29,21 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     String? nameArticle = ModalRoute.of(context)?.settings.arguments as String;
     switch (nameArticle) {
       case AppStrings.hotNews:
+        nameArticle = local.hotNews;
         setState(() {
           getIt.get<HotNewsBloc>().add(const HotNewsLoadApiEvent());
         });
         break;
       case AppStrings.mostInterested:
+        nameArticle = local.mostInterested;
         setState(() {
-          getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
+          getIt.get<MostInterestedNewsBloc>().add(
+                const MostInterestedNewsApiEvent(),
+              );
         });
         break;
 
@@ -87,7 +93,7 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
           }
           return Center(
             child: TextView(
-              text: AppStrings.error,
+              text: local.error,
               fontSize: Constants.size15,
             ),
           );

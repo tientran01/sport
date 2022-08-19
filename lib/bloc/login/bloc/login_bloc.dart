@@ -36,7 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<void> emitter,
   ) async {
     try {
-      Loading.show(msg: AppStrings.loading);
+      Loading.show();
       User? user = await FirebaseHelper.shared.loginWithEmailAndPassword(
         email: state.email,
         password: state.password,
@@ -50,7 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 
@@ -93,7 +93,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       NavigationService.navigatorKey.currentState
           ?.pushNamed(AppRouteName.login);
     } catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 

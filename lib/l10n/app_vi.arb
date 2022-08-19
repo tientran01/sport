@@ -47,6 +47,12 @@
     "descriptionInput": "Bạn đang nghĩ gì?",
     "editYourArticle": "Chỉnh sửa bài viết",
     "deleteAccount": "Xoá tài khoản",
+    "areYouSureDelete": "Bạn muốn xoá bài viết",
+    "deleteNow": "Xoá ngay",
+    "camera": "Máy ảnh",
+    "gallery": "Bộ sưu tập",
+    "error": "Thất bại",
+    "success": "Thành công",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     }

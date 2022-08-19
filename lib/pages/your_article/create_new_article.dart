@@ -123,7 +123,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
           .get<YourArticleBloc>()
           .add(CreateNewYourArticleEvent(yourArticle: yourArticle));
     } else {
-      Loading.showError(AppStrings.failed);
+      Loading.showError(msg: AppStrings.failed);
     }
   }
 }
