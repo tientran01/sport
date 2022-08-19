@@ -3,7 +3,7 @@
   "hello": "Hello",
   "home": "Home",
   "news": "News",
-  "createNewArticle": "Create new article",
+  "createNewArticle": "Create",
   "setting": "Setting",
   "language": "Language",
   "favorites": "Favorites",
@@ -43,6 +43,10 @@
   "emailInput": "email@gmail.com",
   "passwordInput": "Enter password",
   "displayNameInput": "Enter name",
+  "titleInput": "Enter title",
+  "descriptionInput": "Enter description",
+  "editYourArticle": "Edit your article",
+  "deleteAccount": "Delete account",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }

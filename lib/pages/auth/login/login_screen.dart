@@ -88,15 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         buildForgetPassword(),
                         SizedBox(height: Constants.size30),
                         Button(
-                          text: AppStrings.login,
+                          text: local.signin,
                           onTap: () {
                             tryLogin();
                           },
                           textColor: AppColor.white,
                         ),
                         SizedBox(height: Constants.size30),
-                        const DividerCustom(
-                          textDisplay: AppStrings.or,
+                        DividerCustom(
+                          textDisplay: local.or,
                         ),
                         SizedBox(height: Constants.size30),
                         Row(
@@ -138,8 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const TextView(
-                              text: AppStrings.noAccount,
+                            TextView(
+                              text: local.noAccount,
                               textColor: AppColor.gainsboro,
                             ),
                             SizedBox(
@@ -149,8 +149,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               onTap: () {
                                 getIt.get<LoginBloc>().add(SignUpEvent());
                               },
-                              child: const TextView(
-                                text: AppStrings.signUp,
+                              child: TextView(
+                                text: local.signup,
                                 fontWeight: FontWeight.w600,
                               ),
                             )
@@ -195,8 +195,8 @@ class _LoginScreenState extends State<LoginScreen> {
           right: Constants.size10,
         ),
         alignment: Alignment.bottomRight,
-        child: const TextView(
-          text: AppStrings.forgetPassword,
+        child: TextView(
+          text: AppLocalizations.of(context).forgetPassword,
           textColor: AppColor.gainsboro,
         ),
       ),

@@ -43,6 +43,10 @@
     "emailInput": "Nhập email",
     "passwordInput": "Nhập mật khẩu",
     "displayNameInput": "Nhập tên",
+    "titleInput": "Tiêu đề bài viết",
+    "descriptionInput": "Bạn đang nghĩ gì?",
+    "editYourArticle": "Chỉnh sửa bài viết",
+    "deleteAccount": "Xoá tài khoản",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     }
