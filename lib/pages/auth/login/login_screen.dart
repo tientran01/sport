@@ -143,19 +143,80 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                           text: AppStrings.noAccount,
                           textColor: AppColor.gainsboro,
                         ),
-                        SizedBox(
-                          width: Constants.size5,
-                        ),
-                        GestureDetector(
+                        buildForgetPassword(),
+                        SizedBox(height: Constants.size30),
+                        Button(
+                          text: local.signin,
                           onTap: () {
                             NavigationService.navigatorKey.currentState
                                 ?.pushNamed(AppRouteName.signUp);
                           },
-                          child: const TextView(
-                            text: AppStrings.signUp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
+                          textColor: AppColor.white,
+                        ),
+                        SizedBox(height: Constants.size30),
+                        DividerCustom(
+                          textDisplay: local.or,
+                        ),
+                        SizedBox(height: Constants.size30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CustomSocialButton(
+                              socialIconPath: AppResource.phoneIcon,
+                              bgColor: AppColor.jetStream,
+                              onTap: () {
+                                NavigationService.navigatorKey.currentState
+                                    ?.pushNamed(
+                                  AppRouteName.phoneInput,
+                                );
+                              },
+                            ),
+                            SizedBox(width: Constants.size10),
+                            CustomSocialButton(
+                              socialIconPath: AppResource.facebookIcon,
+                              bgColor: AppColor.blue,
+                              onTap: () {
+                                getIt.get<LoginBloc>().add(
+                                      SignInWithFacebookEvent(),
+                                    );
+                              },
+                            ),
+                            SizedBox(width: Constants.size10),
+                            CustomSocialButton(
+                              socialIconPath: AppResource.googleIcon,
+                              bgColor: AppColor.gargoyleGas,
+                              onTap: () {
+                                getIt.get<LoginBloc>().add(
+                                      SignInWithGoogleEvent(),
+                                    );
+                              },
+                            ),
+                            SizedBox(width: Constants.size10),
+                          ],
+                        ),
+                        SizedBox(height: Constants.size30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextView(
+                              text: local.noAccount,
+                              textColor: AppColor.gainsboro,
+                            ),
+                            SizedBox(
+                              width: Constants.size5,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                NavigationService.navigatorKey.currentState
+                                    ?.pushNamed(AppRouteName.signUp);
+                              },
+                              child: TextView(
+                                text: local.signup,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ],
@@ -186,8 +247,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
           right: Constants.size10,
         ),
         alignment: Alignment.bottomRight,
-        child: const TextView(
-          text: AppStrings.forgetPassword,
+        child: TextView(
+          text: AppLocalizations.of(context).forgetPassword,
           textColor: AppColor.gainsboro,
         ),
       ),

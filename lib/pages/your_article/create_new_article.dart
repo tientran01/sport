@@ -29,7 +29,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
   @override
   String? get titleAppBar => AppStrings.createNewArticle;
   @override
-  Widget? get body {
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(

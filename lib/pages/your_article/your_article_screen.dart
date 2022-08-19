@@ -10,6 +10,7 @@ import 'package:sport_app/component/show_alert_dialog.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/timeago_helper.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/your_article/create_new_article.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -47,9 +48,10 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
       appBar: CustomAppBar(
-        title: AppStrings.yourArticle,
+        title: local.yourArticle,
         isPop: false,
         rightIconPath: AppResource.more,
         onSelected: (String value) {
@@ -217,7 +219,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         child: Row(
                                           children: [
                                             TextView(
-                                              text: AppStrings.author,
+                                              text: local.author,
                                               textColor: AppColor.darkSilver,
                                               fontSize: Constants.size12,
                                             ),
