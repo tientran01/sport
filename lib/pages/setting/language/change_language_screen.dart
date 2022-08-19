@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/pages/setting/language/language.dart';
 import 'package:sport_app/resource/resource.dart';
 
@@ -15,15 +16,16 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
   Language? language = Language.vietnamese;
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: AppStrings.chooseLanguage,
+      appBar:  CustomAppBar(
+        title: local.chooseLanguage,
       ),
       body: Column(
         children: [
           ListTile(
             title: TextView(
-              text: AppStrings.vietnameseLanguage,
+              text: local.vietnamese,
               fontSize: Constants.size15,
             ),
             leading: Radio<Language>(
@@ -39,7 +41,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
           ),
           ListTile(
             title: TextView(
-              text: AppStrings.englishLanguage,
+              text: local.english,
               fontSize: Constants.size15,
             ),
             leading: Radio<Language>(

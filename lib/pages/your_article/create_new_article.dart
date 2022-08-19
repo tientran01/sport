@@ -6,6 +6,7 @@ import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/pages/base/base_view.dart';
@@ -30,6 +31,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
   String? get titleAppBar => AppStrings.createNewArticle;
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
@@ -43,8 +45,8 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                title: AppStrings.titleArticle,
-                hintText: AppStrings.titleArticleInput,
+                title: local.title,
+                hintText: local.titleInput,
                 maxLine: 3,
                 onChanged: (String title) {
                   yourArticle.title = title;
@@ -54,8 +56,8 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                 height: Constants.size25,
               ),
               CustomTextField(
-                title: AppStrings.descArticle,
-                hintText: AppStrings.descArticleInput,
+                title: local.description,
+                hintText: local.descriptionInput,
                 maxLine: 5,
                 onChanged: (String describe) {
                   yourArticle.describe = describe;
@@ -87,8 +89,8 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                     SizedBox(
                       height: Constants.size5,
                     ),
-                    const TextView(
-                      text: AppStrings.uploadImage,
+                     TextView(
+                      text: local.uploadImage,
                       textColor: AppColor.darkSilver,
                     ),
                     SizedBox(
@@ -96,7 +98,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                     ),
                     Button(
                       bgColor: AppColor.viridianGreen,
-                      text: AppStrings.postArticle,
+                      text: local.post,
                       textColor: AppColor.white,
                       onTap: () {
                         tryCreateNewYourArticle();
@@ -107,7 +109,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
               ),
               Button(
                 bgColor: AppColor.black,
-                text: AppStrings.postArticle,
+                text: local.post,
                 textColor: AppColor.white,
                 onTap: () {
                   tryCreateNewYourArticle();
@@ -126,7 +128,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
           .get<YourArticleBloc>()
           .add(CreateNewYourArticleEvent(yourArticle: yourArticle));
     } else {
-      Loading.showError();
+      Loading.showError(msg: AppStrings.failed);
     }
   }
 }

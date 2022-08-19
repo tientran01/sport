@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
   final TextEditingController passwordController = TextEditingController();
 
   @override
-  String? get titleAppBar => AppStrings.signUp;
+  String? get titleAppBar => "";
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +66,9 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                     CustomTextField(
                       textEditingController: passwordController,
                       type: TextFieldType.password,
-                      title: AppStrings.password,
+                      title: local.password,
                       isPassword: true,
-                      hintText: AppStrings.passwordInput,
+                      hintText: local.passwordInput,
                       onChanged: (String password) =>
                           getIt.get<SignUpBloc>().add(
                                 GetUserEvent(
@@ -78,7 +78,7 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                     ),
                     SizedBox(height: Constants.size30),
                     Button(
-                      text: AppStrings.signUp,
+                      text: local.signup,
                       onTap: () {
                         if (state.isValid) {
                           getIt.get<SignUpBloc>().add(CreateNewAccountEvent());

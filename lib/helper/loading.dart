@@ -4,11 +4,13 @@ import 'package:sport_app/resource/resource.dart';
 class Loading {
   Loading._();
   static void show() {
-    EasyLoading.show(status: AppStrings.loading);
+    EasyLoading.show(
+      status: AppStrings.loading,
+    );
   }
 
-  static void showSuccess(String msg) {
-    EasyLoading.showSuccess(msg);
+  static void showSuccess({String? msg}) {
+    EasyLoading.showSuccess(msg ?? AppStrings.success);
   }
 
   static void showError({String? msg}) {

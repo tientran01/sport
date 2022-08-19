@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sport_app/helper/loading.dart';
@@ -13,6 +11,7 @@ class SQLHelper {
   late Future<Database> database;
 
   Future<Database> get getDatabase async {
+    // ignore: unnecessary_null_comparison
     if (database != null) {
       return database;
     }
@@ -63,7 +62,7 @@ class SQLHelper {
         whereArgs: [id],
       );
     } catch (e) {
-      Loading.showError();
+      Loading.showError(msg: e.toString());
     }
   }
 

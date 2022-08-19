@@ -3,6 +3,7 @@ import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/foget_password/bloc/forget_password_state.dart';
 import '../../../component/button.dart';
@@ -13,6 +14,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
       appBar: CustomAppBar(
         leadingIconPath: AppResource.leftArrow,
@@ -33,10 +35,10 @@ class CreateNewPasswordScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Constants.size30),
-                const CustomTextField(
+                CustomTextField(
                   type: TextFieldType.password,
-                  title: AppStrings.password,
-                  hintText: AppStrings.passwordInput,
+                  title: local.password,
+                  hintText: local.passwordInput,
                 ),
                 SizedBox(height: Constants.size10),
                 const CustomTextField(

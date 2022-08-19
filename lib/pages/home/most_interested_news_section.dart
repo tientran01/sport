@@ -105,7 +105,7 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
           }
           return Center(
             child: TextView(
-              text: AppStrings.error,
+              text: AppLocalizations.of(context).error,
               fontSize: Constants.size15,
             ),
           );

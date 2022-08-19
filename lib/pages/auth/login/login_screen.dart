@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
-  String? get titleAppBar => AppStrings.login;
+  String? get titleAppBar => "";
   @override
   Widget build(BuildContext context) {
     AppLocalizations local = AppLocalizations.of(context);
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     buildForgetPassword(),
                     SizedBox(height: Constants.size30),
                     Button(
-                      text: AppStrings.login,
+                      text: local.signin,
                       onTap: () {
                         if (state.isValid) {
                           getIt
@@ -83,8 +83,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                       textColor: AppColor.white,
                     ),
                     SizedBox(height: Constants.size30),
-                    const DividerCustom(
-                      textDisplay: AppStrings.or,
+                    DividerCustom(
+                      textDisplay: local.or,
                     ),
                     SizedBox(height: Constants.size30),
                     Row(
@@ -139,8 +139,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const TextView(
-                          text: AppStrings.noAccount,
+                        TextView(
+                          text: local.noAccount,
                           textColor: AppColor.gainsboro,
                         ),
                         buildForgetPassword(),

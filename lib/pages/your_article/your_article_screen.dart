@@ -129,8 +129,8 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                           confirmDismiss: (DismissDirection direction) async {
                             return await ShowAlertDialog.showAlertDialog(
                               context: context,
-                              title: AppStrings.areYouSureDelete,
-                              defaultActionText: AppStrings.deleteNow,
+                              title: local.areYouSureDelete,
+                              defaultActionText: local.deleteNow,
                               onPressed: () {
                                 getIt.get<YourArticleBloc>().add(
                                       DeleteYourArticleEvent(

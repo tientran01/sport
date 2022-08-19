@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/cubit/enum_status/status.dart';
 import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_cubit.dart';
 import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_state.dart';
 import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -27,14 +27,17 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     String? nameArticle = ModalRoute.of(context)?.settings.arguments as String;
     switch (nameArticle) {
       case AppStrings.hotNews:
+        nameArticle = local.hotNews;
         setState(() {
           getIt.get<HotNewsCubit>().getHotNewsApi();
         });
         break;
       case AppStrings.mostInterested:
+        nameArticle = local.mostInterested;
         setState(() {
           getIt.get<MostInterestedNewsCubit>().getMostInterestedNewsApi();
         });
@@ -85,7 +88,12 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
               );
             default:
           }
-          return const CircularLoading();
+          return Center(
+            child: TextView(
+              text: local.error,
+              fontSize: Constants.size15,
+            ),
+          );
         },
       ),
     );

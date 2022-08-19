@@ -47,6 +47,12 @@
   "descriptionInput": "Enter description",
   "editYourArticle": "Edit your article",
   "deleteAccount": "Delete account",
+  "areYouSureDelete": "Are you sure?",
+  "deleteNow": "Delete now",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "error": "Error",
+  "success": "Success",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }
