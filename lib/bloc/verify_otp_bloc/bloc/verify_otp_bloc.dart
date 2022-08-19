@@ -42,7 +42,7 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
       smsCode: state.otpCode ?? "",
     );
     try {
-      Loading.show(msg: AppStrings.loading);
+      Loading.show();
       var result =
           await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
       if (result.user != null) {

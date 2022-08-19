@@ -19,7 +19,6 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      child: Scaffold(
         appBar: AppBar(
           toolbarHeight: Constants.size80,
           automaticallyImplyLeading: false,
@@ -85,7 +84,6 @@ class SearchScreen extends StatelessWidget {
             },
           ),
         ),
-      ),
     );
   }
 }

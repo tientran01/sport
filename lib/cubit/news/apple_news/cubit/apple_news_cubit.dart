@@ -12,17 +12,12 @@ class AppleNewsCubit extends Cubit<AppleNewsState> {
     News? news = await ApiClient.api.getEverything(
       endpoint: Application.appleParamValue,
     );
-    if (news != null) {
-      return emit(
-        state.copyWith(
-          status: NewsStatus.success,
-          articles: news.articles,
-        ),
-      );
-    }
-    return emit(state.copyWith(
-      status: NewsStatus.error,
-    ));
+    emit(
+      state.copyWith(
+        status: NewsStatus.success,
+        articles: news?.articles,
+      ),
+    );
   }
 
   static AppleNewsCubit of(BuildContext context) =>

@@ -15,8 +15,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<GetEmailAndPasswordFormTextFieldEvent>(
         _onGetEmailAndPasswordFormTextField);
     on<LoginWithFirebaseEvent>(_onLoginWithFirebase);
-    on<SignUpEvent>(_onSignUp);
-    on<SignInWithPhoneNumberEvent>(_onSignInWithPhoneNumber);
     on<SignInWithGoogleEvent>(_onSignInWithGoogle);
     on<SignInWithFacebookEvent>(_onSignInWithFacebook);
     on<SignOutEvent>(_onSignOut);
@@ -37,7 +35,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<void> emitter,
   ) async {
     try {
-      Loading.show(msg: AppStrings.loading);
+      Loading.show();
       User? user = await FirebaseHelper.shared.loginWithEmailAndPassword(
         email: state.email,
         password: state.password,
@@ -53,22 +51,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } on FirebaseAuthException catch (e) {
       Loading.showError(e.toString());
     }
-  }
-
-  Future<void> _onSignUp(
-    SignUpEvent event,
-    Emitter<void> emitter,
-  ) async {
-    NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.signUp);
-  }
-
-  Future<void> _onSignInWithPhoneNumber(
-    SignInWithPhoneNumberEvent event,
-    Emitter<void> emitter,
-  ) async {
-    NavigationService.navigatorKey.currentState?.pushNamed(
-      AppRouteName.phoneInput,
-    );
   }
 
   Future<void> _onSignInWithGoogle(

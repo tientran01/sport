@@ -20,10 +20,6 @@ class GetEmailAndPasswordFormTextFieldEvent extends LoginEvent {
 
 class LoginWithFirebaseEvent extends LoginEvent {}
 
-class SignUpEvent extends LoginEvent {}
-
-class SignInWithPhoneNumberEvent extends LoginEvent {}
-
 class SignInWithGoogleEvent extends LoginEvent {}
 
 class SignInWithFacebookEvent extends LoginEvent {}

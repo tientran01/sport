@@ -9,17 +9,12 @@ class MostInterestedNewsCubit extends Cubit<MostInterestedNewsState> {
   MostInterestedNewsCubit() : super(const MostInterestedNewsState());
   Future<void> getMostInterestedNewsApi() async {
     News? news = await ApiClient.api.getTopHeadlines();
-    if (news != null) {
-      return emit(
-        state.copyWith(
-          status: NewsStatus.success,
-          articles: news.articles,
-        ),
-      );
-    }
-    return emit(state.copyWith(
-      status: NewsStatus.error,
-    ));
+    emit(
+      state.copyWith(
+        status: NewsStatus.success,
+        articles: news?.articles,
+      ),
+    );
   }
 
   static MostInterestedNewsCubit of(BuildContext context) =>

@@ -30,87 +30,85 @@ class _CreateNewArticleState extends State<CreateNewArticle> {
   @override
   Widget build(BuildContext context) {
     return BaseScreen(
-      child: Scaffold(
-        appBar: const CustomAppBar(
-          title: AppStrings.createNewArticle,
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: Constants.size20,
-              vertical: Constants.size25,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomTextField(
-                    title: AppStrings.titleArticle,
-                    hintText: AppStrings.titleArticleInput,
-                    maxLine: 3,
-                    onChanged: (String title) {
-                      yourArticle.title = title;
-                    },
+      appBar: const CustomAppBar(
+        title: AppStrings.createNewArticle,
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: Constants.size20,
+            vertical: Constants.size25,
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextField(
+                  title: AppStrings.titleArticle,
+                  hintText: AppStrings.titleArticleInput,
+                  maxLine: 3,
+                  onChanged: (String title) {
+                    yourArticle.title = title;
+                  },
+                ),
+                SizedBox(
+                  height: Constants.size25,
+                ),
+                CustomTextField(
+                  title: AppStrings.descArticle,
+                  hintText: AppStrings.descArticleInput,
+                  maxLine: 5,
+                  onChanged: (String describe) {
+                    yourArticle.describe = describe;
+                  },
+                ),
+                SizedBox(
+                  height: Constants.size20,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: Constants.size150,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Constants.size20,
                   ),
-                  SizedBox(
-                    height: Constants.size25,
-                  ),
-                  CustomTextField(
-                    title: AppStrings.descArticle,
-                    hintText: AppStrings.descArticleInput,
-                    maxLine: 5,
-                    onChanged: (String describe) {
-                      yourArticle.describe = describe;
-                    },
-                  ),
-                  SizedBox(
-                    height: Constants.size20,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: Constants.size150,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Constants.size20,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColor.darkSilver,
                     ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
+                    borderRadius: BorderRadius.circular(Constants.size10),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        AppResource.camera,
+                        width: Constants.size40,
                         color: AppColor.darkSilver,
                       ),
-                      borderRadius: BorderRadius.circular(Constants.size10),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          AppResource.camera,
-                          width: Constants.size40,
-                          color: AppColor.darkSilver,
-                        ),
-                        SizedBox(
-                          height: Constants.size5,
-                        ),
-                        const TextView(
-                          text: AppStrings.uploadImage,
-                          textColor: AppColor.darkSilver,
-                        ),
-                      ],
-                    ),
+                      SizedBox(
+                        height: Constants.size5,
+                      ),
+                      const TextView(
+                        text: AppStrings.uploadImage,
+                        textColor: AppColor.darkSilver,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: Constants.size20,
-                  ),
-                  Button(
-                    bgColor: AppColor.black,
-                    text: AppStrings.postArticle,
-                    textColor: AppColor.white,
-                    onTap: () {
-                      tryCreateNewYourArticle();
-                    },
-                  )
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: Constants.size20,
+                ),
+                Button(
+                  bgColor: AppColor.black,
+                  text: AppStrings.postArticle,
+                  textColor: AppColor.white,
+                  onTap: () {
+                    tryCreateNewYourArticle();
+                  },
+                )
+              ],
             ),
           ),
         ),

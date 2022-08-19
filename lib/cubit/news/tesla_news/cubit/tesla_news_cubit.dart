@@ -12,16 +12,9 @@ class TeslaNewsCubit extends Cubit<TeslaNewsState> {
     News? news = await ApiClient.api.getEverything(
       endpoint: Application.teslaParamValue,
     );
-    if (news != null) {
-      return emit(
-        state.copyWith(
-          status: NewsStatus.success,
-          articles: news.articles,
-        ),
-      );
-    }
-    return emit(state.copyWith(
-      status: NewsStatus.error,
+    emit(state.copyWith(
+      status: NewsStatus.success,
+      articles: news?.articles,
     ));
   }
 

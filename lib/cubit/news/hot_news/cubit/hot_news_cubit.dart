@@ -9,17 +9,12 @@ class HotNewsCubit extends Cubit<HotNewsState> {
   HotNewsCubit() : super(const HotNewsState());
   Future<void> getHotNewsApi() async {
     News? news = await ApiClient.api.getTopHeadlinesWithSource();
-    if (news != null) {
-      return emit(
-        state.copyWith(
-          status: NewsStatus.success,
-          articles: news.articles,
-        ),
-      );
-    }
-    return emit(state.copyWith(
-      status: NewsStatus.error,
-    ));
+    emit(
+      state.copyWith(
+        status: NewsStatus.success,
+        articles: news?.articles,
+      ),
+    );
   }
 
   static HotNewsCubit of(BuildContext context) =>
