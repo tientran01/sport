@@ -1,6 +1,7 @@
 import 'package:sport_app/pages/article/apple_article_screen.dart';
 import 'package:sport_app/pages/article/article_screen.dart';
 import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
+import 'package:sport_app/pages/base/login_demo.dart';
 import 'package:sport_app/pages/your_article/create_new_article.dart';
 import 'package:sport_app/pages/article/detail_article_screen.dart';
 import 'package:sport_app/pages/article/tesla_article_screen.dart';
@@ -60,7 +61,7 @@ class RouteName {
     AppRouteName.videoPlayer: (BuildContext context) =>
         const VideoPlayerScreen(),
     AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
-    AppRouteName.search: (BuildContext context) => SearchScreen(),
+    AppRouteName.search: (BuildContext context) => const SearchScreen(),
     AppRouteName.topArticle: (BuildContext context) => const TopArticleScreen(),
     AppRouteName.appleArticle: (BuildContext context) =>
         const AppleArticleScreen(),
@@ -70,5 +71,6 @@ class RouteName {
         const TeslaArticleScreen(),
     AppRouteName.editYourArticle: (BuildContext context) =>
         const EditYourArticleScreen(),
+    AppRouteName.loginDemo: (BuildContext context) => const LoginDemo()
   };
 }
