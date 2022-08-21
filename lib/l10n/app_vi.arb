@@ -53,6 +53,7 @@
     "gallery": "Bộ sưu tập",
     "error": "Thất bại",
     "success": "Thành công",
+    "slogan_msg": "A newspaper is a place for people to come together. If you want to know the truth, then ask a journalist",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     }

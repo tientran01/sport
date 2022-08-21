@@ -101,9 +101,6 @@ class ImageCircle extends StatelessWidget {
                         ),
                       );
                     },
-                    placeholder: (context, url) => const Center(
-                          child: CircularProgressIndicator(),
-                        ),
                     errorWidget: (context, url, error) {
                       return Container(
                         padding: EdgeInsets.all(Constants.size10),
@@ -129,7 +126,7 @@ class ImageCircle extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(Constants.size5),
                     decoration: BoxDecoration(
-                      color: AppColor.gainsboro,
+                      color: AppColor.arsenic,
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: AppColor.white,
@@ -138,7 +135,7 @@ class ImageCircle extends StatelessWidget {
                     ),
                     child: Image.asset(
                       iconPath ?? AppResource.edit,
-                      color: AppColor.arsenic,
+                      color: AppColor.white,
                       width: Constants.size20,
                     ),
                   ),

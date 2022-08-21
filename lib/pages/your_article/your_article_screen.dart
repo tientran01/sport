@@ -28,7 +28,6 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
   @override
   void initState() {
     super.initState();
-    getIt.get<YourArticleBloc>().add(GetAllYourArticleEvent());
   }
 
   void selectionPopMenuItem(String value) {
@@ -37,9 +36,6 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
     });
     switch (selection) {
       case '1':
-        getIt.get<YourArticleBloc>().add(SortYourArticleByDateEvent());
-        break;
-      case '2':
         getIt.get<YourArticleBloc>().add(SortYourArticleByAlphabetEvent());
         break;
       default:
