@@ -21,11 +21,6 @@ class CustomPopupMenuButton extends StatelessWidget {
       itemBuilder: (context) => [
         customPopupMenuItem(
           1,
-          AppResource.sort,
-          local.sortArticleByDate,
-        ),
-        customPopupMenuItem(
-          2,
           AppResource.sortAlpha,
           local.sortArticleByAplabet,
         ),

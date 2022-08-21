@@ -14,8 +14,6 @@ class CreateNewYourArticleEvent extends YourArticleEvent {
   List<Object?> get props => [yourArticle];
 }
 
-class GetAllYourArticleEvent extends YourArticleEvent {}
-
 class DeleteYourArticleEvent extends YourArticleEvent {
   final int? id;
   const DeleteYourArticleEvent({this.id});
