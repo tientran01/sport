@@ -52,7 +52,6 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     List<YourArticle> yourArticles =
         await SQLHelper.shared.sortYourArticleByDate();
     emitter(YourArticleLoader(yourArticles: yourArticles));
-    Loading.showSuccess();
   }
 
   Future<void> _onSortYourArticleByAlphabet(
@@ -71,7 +70,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   ) async {
     List<YourArticle> yourArticles =
         await SQLHelper.shared.filterYourArticleByDate(
-      DateTime.now().toIso8601String(),
+      "2022-08-21",
     );
     emitter(YourArticleLoader(yourArticles: yourArticles));
     Loading.showSuccess();
