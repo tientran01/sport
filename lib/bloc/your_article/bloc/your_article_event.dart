@@ -31,3 +31,5 @@ class UpdateYourArticleEvent extends YourArticleEvent {
 class SortYourArticleByDateEvent extends YourArticleEvent {}
 
 class SortYourArticleByAlphabetEvent extends YourArticleEvent {}
+
+class FilterYourArticleByDateEvent extends YourArticleEvent {}
