@@ -4,13 +4,13 @@ import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class CustomPopupMenuButton extends StatelessWidget {
-  final void Function(String)? onSelected;
+  final Function(String)? onSelected;
   const CustomPopupMenuButton({Key? key, this.onSelected}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     AppLocalizations local = AppLocalizations.of(context);
-    return PopupMenuButton<String>(
+    return PopupMenuButton(
       icon: Image.asset(
         AppResource.more,
         width: Constants.size20,
@@ -24,6 +24,11 @@ class CustomPopupMenuButton extends StatelessWidget {
           AppResource.sortAlpha,
           local.sortArticleByAplabet,
         ),
+        customPopupMenuItem(
+          2,
+          AppResource.filter,
+          local.filterArticleByDate,
+        ),
       ],
     );
   }
@@ -34,7 +39,7 @@ PopupMenuItem<String> customPopupMenuItem(
   String? iconPath,
   String? text,
 ) {
-  return PopupMenuItem<String>(
+  return PopupMenuItem(
     value: value.toString(),
     child: Row(
       children: [

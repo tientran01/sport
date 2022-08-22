@@ -70,7 +70,9 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     Emitter<void> emitter,
   ) async {
     List<YourArticle> yourArticles =
-        await SQLHelper.shared.sortYourArticleByAlphabet();
+        await SQLHelper.shared.filterYourArticleByDate(
+      DateTime.now().toIso8601String(),
+    );
     emitter(YourArticleLoader(yourArticles: yourArticles));
     Loading.showSuccess();
   }

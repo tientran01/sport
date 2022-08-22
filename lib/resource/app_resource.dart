@@ -10,7 +10,6 @@ class AppResource {
   static String create = '$bottomNavigationIcon/ic_create.png';
   static String heart = '$bottomNavigationIcon/ic_heart.png';
   static String share = '$bottomNavigationIcon/ic_share.png';
-  static String filter = '$bottomNavigationIcon/ic_filter.png';
   static String logo = '$bottomNavigationIcon/ic_logo.png';
   static String comment = '$bottomNavigationIcon/ic_cmt.png';
 
@@ -45,4 +44,5 @@ class AppResource {
   static String sortAlpha = '$componentIcon/ic_sort_alpha.png';
   static String errorApi = '$componentIcon/ic_error_api.png';
   static String connect = '$componentIcon/ic_connect.png';
+  static String filter = '$componentIcon/ic_filter.png';
 }
