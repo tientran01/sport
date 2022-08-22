@@ -8,7 +8,7 @@ import 'package:sport_app/repositories/api_client.dart';
 class HotNewsCubit extends Cubit<HotNewsState> {
   HotNewsCubit() : super(const HotNewsState());
   Future<void> getHotNewsApi() async {
-    emit(state.copyWith(status: NewsStatus.loading));
+    
     News? news = await ApiClient.api.getTopHeadlinesWithSource();
     if (news?.articles?.isNotEmpty == true) {
       emit(

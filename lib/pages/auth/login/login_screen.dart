@@ -21,7 +21,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with BaseView {
-  final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
@@ -36,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Form(
-                key: _formKey,
+                key: super.formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +72,11 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     Button(
                       text: AppStrings.login,
                       onTap: () {
-                        tryLogin();
+                        if (state.isValid) {
+                          getIt.get<LoginBloc>().add(LoginWithEmailAndPasswordEvent());
+                        } else {
+                          showSnackBar(AppStrings.loginFail);
+                        }
                       },
                       textColor: AppColor.white,
                     ),
@@ -149,15 +152,6 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
         );
       },
     );
-  }
-
-  void tryLogin() {
-    if (_formKey.currentState!.validate()) {
-      getIt.get<LoginBloc>().add(LoginWithFirebaseEvent());
-    } else {
-      showSnackBar(AppStrings.loginFail);
-      passwordController.clear();
-    }
   }
 
   void showSnackBar(String text) {

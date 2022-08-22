@@ -17,7 +17,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> with BaseView {
-
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -78,7 +77,11 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                   Button(
                     text: AppStrings.signUp,
                     onTap: () {
-                      trySignUp();
+                      if (state.isValid) {
+                        getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
+                      } else {
+                        showSnackBar(AppStrings.error);
+                      }
                     },
                     textColor: AppColor.white,
                   ),
@@ -92,11 +95,10 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
     );
   }
 
-  void trySignUp() {
-    if (super.formKey.currentState!.validate()) {
-      getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
-    } else {
-      passwordController.clear();
-    }
+  void showSnackBar(String text) {
+    final snackBar = SnackBar(
+      content: Text(text),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

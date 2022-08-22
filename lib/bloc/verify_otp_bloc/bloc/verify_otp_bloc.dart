@@ -52,7 +52,7 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
         );
         SharedPreferencesHelper.shared.setString(
           AppKeyName.uid,
-          result.user!.uid,
+          result.user?.uid ?? "",
         );
         await FirebaseHelper.shared.createUserInformation(userInformation);
         NavigationService.navigatorKey.currentState?.pushNamed(

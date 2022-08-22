@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoginState.initState()) {
     on<GetEmailAndPasswordFormTextFieldEvent>(
         _onGetEmailAndPasswordFormTextField);
-    on<LoginWithFirebaseEvent>(_onLoginWithFirebase);
+    on<LoginWithEmailAndPasswordEvent>(_onLoginWithEmailAndPassword);
     on<SignInWithGoogleEvent>(_onSignInWithGoogle);
     on<SignInWithFacebookEvent>(_onSignInWithFacebook);
     on<SignOutEvent>(_onSignOut);
@@ -26,12 +26,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       state.copyWith(
         email: event.email ?? state.email,
         password: event.password ?? state.password,
+        isValid: state.email != null || state.password != null,
       ),
     );
   }
 
-  Future<void> _onLoginWithFirebase(
-    LoginWithFirebaseEvent event,
+  Future<void> _onLoginWithEmailAndPassword(
+    LoginWithEmailAndPasswordEvent event,
     Emitter<void> emitter,
   ) async {
     try {

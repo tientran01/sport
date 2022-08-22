@@ -8,7 +8,6 @@ import 'package:sport_app/repositories/api_client.dart';
 class MostInterestedNewsCubit extends Cubit<MostInterestedNewsState> {
   MostInterestedNewsCubit() : super(const MostInterestedNewsState());
   Future<void> getMostInterestedNewsApi() async {
-    emit(state.copyWith(status: NewsStatus.loading));
     News? news = await ApiClient.api.getTopHeadlines();
     if (news?.articles?.isNotEmpty == true) {
       emit(
