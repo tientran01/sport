@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_bloc.dart';
-import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_event.dart';
-import 'package:sport_app/bloc/article/hot_news_bloc/hot_news_state.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_bloc.dart';
-import 'package:sport_app/bloc/article/most_interested_news_bloc/most_interested_news_event.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/cubit/enum_status/status.dart';
+import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_cubit.dart';
+import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_state.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -32,12 +31,12 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
     switch (nameArticle) {
       case AppStrings.hotNews:
         setState(() {
-          getIt.get<HotNewsBloc>().add(const HotNewsLoadApiEvent());
+          getIt.get<HotNewsCubit>().getHotNewsApi();
         });
         break;
       case AppStrings.mostInterested:
         setState(() {
-          getIt.get<MostInterestedNewsBloc>().add(const MostInterestedNewsApiEvent());
+          getIt.get<MostInterestedNewsCubit>().getMostInterestedNewsApi();
         });
         break;
 
@@ -48,49 +47,45 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
       appBar: CustomAppBar(
         title: nameArticle,
       ),
-      body: BlocBuilder<HotNewsBloc, HotNewsState>(
-        bloc: getIt.get<HotNewsBloc>(),
+      body: BlocBuilder<HotNewsCubit, HotNewsState>(
+        bloc: getIt.get<HotNewsCubit>(),
         builder: (context, state) {
-          if (state is HotNewsLoading) {
-            return const CircularLoading();
-          }
-          if (state is HotNewsLoader) {
-            if (state.articles == null) {
-              return Center(
-                child: Image.asset(AppResource.empty),
+          switch (state.status) {
+            case NewsStatus.error:
+              TextView(
+                text: AppStrings.error,
+                fontSize: Constants.size20,
+                fontWeight: FontWeight.w700,
               );
-            } else {
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size15,
-                ),
-                child: ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) => ArticleItem(
-                    article: state.articles?.elementAt(index),
-                    onTap: () {
-                      NavigationService.navigatorKey.currentState?.pushNamed(
-                        AppRouteName.detailArticle,
-                        arguments: state.articles?.elementAt(index),
-                      );
-                    },
-                  ),
-                  itemCount: state.articles?.length ?? 0,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      width: Constants.size10,
-                    );
-                  },
-                ),
+              break;
+            case NewsStatus.success:
+              if (state.articles?.isEmpty == true) {
+                return Center(
+                  child: Image.asset(AppResource.empty),
+                );
+              }
+              return ListView.builder(
+                itemCount: state.articles?.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Constants.size15,
+                    ),
+                    child: ArticleItem(
+                      article: state.articles?[index],
+                      onTap: () {
+                        NavigationService.navigatorKey.currentState?.pushNamed(
+                          AppRouteName.detailArticle,
+                          arguments: state.articles?[index],
+                        );
+                      },
+                    ),
+                  );
+                },
               );
-            }
+            default:
           }
-          return Center(
-            child: TextView(
-              text: AppStrings.error,
-              fontSize: Constants.size15,
-            ),
-          );
+          return const CircularLoading();
         },
       ),
     );

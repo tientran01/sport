@@ -2,6 +2,7 @@ import 'package:sport_app/bloc/login/bloc/login_event.dart';
 import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
+import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,9 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(const LoginState.initState()) {
     on<GetEmailAndPasswordFormTextFieldEvent>(
         _onGetEmailAndPasswordFormTextField);
-    on<LoginWithFirebaseEvent>(_onLoginWithFirebase);
-    on<SignUpEvent>(_onSignUp);
-    on<SignInWithPhoneNumberEvent>(_onSignInWithPhoneNumber);
+    on<LoginWithEmailAndPasswordEvent>(_onLoginWithEmailAndPassword);
     on<SignInWithGoogleEvent>(_onSignInWithGoogle);
     on<SignInWithFacebookEvent>(_onSignInWithFacebook);
     on<SignOutEvent>(_onSignOut);
@@ -27,16 +26,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       state.copyWith(
         email: event.email ?? state.email,
         password: event.password ?? state.password,
+        isValid: state.email != null || state.password != null,
       ),
     );
   }
 
-  Future<void> _onLoginWithFirebase(
-    LoginWithFirebaseEvent event,
+  Future<void> _onLoginWithEmailAndPassword(
+    LoginWithEmailAndPasswordEvent event,
     Emitter<void> emitter,
   ) async {
     try {
-      Loading.show(msg: AppStrings.loading);
+      Loading.show();
       User? user = await FirebaseHelper.shared.loginWithEmailAndPassword(
         email: state.email,
         password: state.password,
@@ -54,33 +54,61 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Future<void> _onSignUp(
-    SignUpEvent event,
-    Emitter<void> emitter,
-  ) async {
-    NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.signUp);
-  }
-
-  Future<void> _onSignInWithPhoneNumber(
-    SignInWithPhoneNumberEvent event,
-    Emitter<void> emitter,
-  ) async {
-    NavigationService.navigatorKey.currentState
-        ?.pushNamed(AppRouteName.phoneInput);
-  }
-
   Future<void> _onSignInWithGoogle(
     SignInWithGoogleEvent event,
     Emitter<void> emitter,
   ) async {
-    await FirebaseHelper.shared.signInWithGoogle();
+    UserCredential userCredential =
+        await FirebaseHelper.shared.signInWithGoogle();
+    User? user = userCredential.user;
+    try {
+      if (user != null) {
+        final userInformation = UserInformation(
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          phoneNumber: user.phoneNumber,
+        );
+        FirebaseHelper.shared.createUserInformation(userInformation);
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        NavigationService.navigatorKey.currentState?.pushReplacementNamed(
+          AppRouteName.main,
+          arguments: user,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      Loading.showError(e.toString());
+    }
   }
 
   Future<void> _onSignInWithFacebook(
     SignInWithFacebookEvent event,
     Emitter<void> emitter,
   ) async {
-    await FirebaseHelper.shared.signInWithFacebook();
+    UserCredential userCredential =
+        await FirebaseHelper.shared.signInWithFacebook();
+    User? user = userCredential.user;
+    try {
+      if (user != null) {
+        final userInformation = UserInformation(
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          phoneNumber: user.phoneNumber,
+        );
+        FirebaseHelper.shared.createUserInformation(userInformation);
+        SharedPreferencesHelper.shared.setString(
+          AppKeyName.uid,
+          user.uid,
+        );
+        NavigationService.navigatorKey.currentState?.pushReplacementNamed(
+          AppRouteName.main,
+          arguments: user,
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      Loading.showError(e.toString());
+    }
   }
 
   Future<void> _onSignOut(
@@ -90,8 +118,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       FirebaseHelper.shared.signOut();
       SharedPreferencesHelper.shared.removeUid();
-      NavigationService.navigatorKey.currentState
-          ?.pushNamed(AppRouteName.login);
+      NavigationService.navigatorKey.currentState?.pushReplacementNamed(
+        AppRouteName.login,
+      );
     } catch (e) {
       Loading.showError(e.toString());
     }

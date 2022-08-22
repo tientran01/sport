@@ -1,5 +1,6 @@
 import 'package:sport_app/bloc/bloc.dart';
 import 'package:sport_app/bloc/search/bloc/search_bloc.dart';
+import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
 import 'package:sport_app/main.dart';
 
 class BlocModule {
@@ -17,10 +18,11 @@ class BlocModule {
     getIt.registerLazySingleton<YourArticleBloc>(() => YourArticleBloc());
     getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
     getIt.registerLazySingleton<SearchBloc>(() => SearchBloc());
-    getIt.registerLazySingleton<HotNewsBloc>(() => HotNewsBloc());
-    getIt.registerLazySingleton<MostInterestedNewsBloc>(
-        () => MostInterestedNewsBloc());
-    getIt.registerLazySingleton<TeslaNewsBloc>(() => TeslaNewsBloc());
-    getIt.registerLazySingleton<AppleNewsBloc>(() => AppleNewsBloc());
+    getIt.registerLazySingleton<MostInterestedNewsCubit>(
+      () => MostInterestedNewsCubit(),
+    );
+    getIt.registerLazySingleton<TeslaNewsCubit>(() => TeslaNewsCubit());
+    getIt.registerLazySingleton<AppleNewsCubit>(() => AppleNewsCubit());
+    getIt.registerLazySingleton<HotNewsCubit>(() => HotNewsCubit());
   }
 }

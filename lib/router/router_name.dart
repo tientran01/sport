@@ -60,7 +60,7 @@ class RouteName {
     AppRouteName.videoPlayer: (BuildContext context) =>
         const VideoPlayerScreen(),
     AppRouteName.favorite: (BuildContext context) => const FavoriteScreen(),
-    AppRouteName.search: (BuildContext context) => SearchScreen(),
+    AppRouteName.search: (BuildContext context) => const SearchScreen(),
     AppRouteName.topArticle: (BuildContext context) => const TopArticleScreen(),
     AppRouteName.appleArticle: (BuildContext context) =>
         const AppleArticleScreen(),
