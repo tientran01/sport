@@ -14,6 +14,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     on<UpdateYourArticleEvent>(_onUpdateYourArticle);
     on<SortYourArticleByDateEvent>(_onSortYourArticleByDate);
     on<SortYourArticleByAlphabetEvent>(_onSortYourArticleByAlphabet);
+    on<FilterYourArticleByDateEvent>(_onFilterYourArticleByDate);
   }
 
   Future<void> _onCreateNewYourArticle(
@@ -56,6 +57,16 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
 
   Future<void> _onSortYourArticleByAlphabet(
     SortYourArticleByAlphabetEvent event,
+    Emitter<void> emitter,
+  ) async {
+    List<YourArticle> yourArticles =
+        await SQLHelper.shared.sortYourArticleByAlphabet();
+    emitter(YourArticleLoader(yourArticles: yourArticles));
+    Loading.showSuccess();
+  }
+
+  Future<void> _onFilterYourArticleByDate(
+    FilterYourArticleByDateEvent event,
     Emitter<void> emitter,
   ) async {
     List<YourArticle> yourArticles =
