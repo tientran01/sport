@@ -9,6 +9,7 @@ import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/show_alert_dialog.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/helper/timeago_helper.dart';
 import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/your_article/create_new_article.dart';
@@ -36,6 +37,9 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
     });
     switch (selection) {
       case '1':
+        getIt.get<YourArticleBloc>().add(SortYourArticleByAlphabetEvent());
+        break;
+      case '2':
         getIt.get<YourArticleBloc>().add(FilterYourArticleByDateEvent());
         break;
       default:
@@ -165,15 +169,12 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                               Constants.size10),
                                         ),
                                         child: TextView(
-                                          // text: TimeagoHelper.parseDatetime(
-                                          //   state.yourArticles
-                                          //       ?.elementAt(index)
-                                          //       .publishedAt
-                                          //       .toString(),
-                                          // ),
-                                          text: state.yourArticles
-                                              ?.elementAt(index)
-                                              .publishedAt,
+                                          text: TimeagoHelper.parseDatetime(
+                                            state.yourArticles
+                                                ?.elementAt(index)
+                                                .publishedAt
+                                                .toString(),
+                                          ),
                                           fontSize: Constants.size10,
                                           textColor: AppColor.white,
                                         ),

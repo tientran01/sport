@@ -96,4 +96,11 @@ class SQLHelper {
         'SELECT * FROM YourArticle ORDER BY title COLLATE NOCASE ASC');
     return results.map((e) => YourArticle.fromJson(e)).toList();
   }
+
+  Future<List<YourArticle>> filterYourArticleByDate(String? date) async {
+    final db = await getDatabase;
+    List<Map<String, dynamic>> results = await db
+        .rawQuery('SELECT * FROM YourArticle WHERE publishedAt = ?', [date]);
+    return results.map((e) => YourArticle.fromJson(e)).toList();
+  }
 }
