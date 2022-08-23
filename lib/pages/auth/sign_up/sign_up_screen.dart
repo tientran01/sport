@@ -78,13 +78,10 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                     Button(
                       text: local.signup,
                       onTap: () {
-                        if (state.isValid) {
-                          getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
-                        } else {
-                          showSnackBar(AppStrings.error);
-                        }
+                        trySignUp();
                       },
                       textColor: AppColor.white,
+                      bgColor: AppColor.viridianGreen,
                     ),
                     SizedBox(height: Constants.size30),
                   ],
@@ -93,5 +90,13 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
         );
       },
     );
+  }
+
+  void trySignUp() {
+    if (super.formKey.currentState?.validate() == true) {
+      getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
+    } else {
+      showSnackBar(AppStrings.error);
+    }
   }
 }

@@ -24,7 +24,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: event.password ?? state.password,
         displayName: event.displayName ?? state.displayName,
         photoUrl: event.photoUrl ?? state.photoUrl,
-        isValid: state.email != null || state.password != null,
       ),
     );
   }

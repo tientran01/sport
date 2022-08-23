@@ -22,7 +22,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with BaseView {
-  final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
@@ -38,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Form(
-                key: _formKey,
+                key: super.formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,17 +72,12 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     buildForgetPassword(local.forgetPassword),
                     SizedBox(height: Constants.size30),
                     Button(
-                      text: local.signin,
-                      onTap: () {
-                        if (state.isValid) {
-                          getIt.get<LoginBloc>().add(
-                                LoginWithEmailAndPasswordEvent(),
-                              );
-                        }
-                      },
-                      textColor: AppColor.white,
-                      bgColor: AppColor.viridianGreen,
-                    ),
+                        text: local.signin,
+                        onTap: () {
+                          tryLogin();
+                        },
+                        textColor: AppColor.white,
+                        bgColor: AppColor.viridianGreen),
                     SizedBox(height: Constants.size30),
                     DividerCustom(
                       textDisplay: local.or,
@@ -173,5 +167,13 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
         ),
       ),
     );
+  }
+
+  void tryLogin() {
+    if (super.formKey.currentState?.validate() == true) {
+      getIt.get<LoginBloc>().add(LoginWithEmailAndPasswordEvent());
+    } else {
+      super.showSnackBar(AppStrings.error);
+    }
   }
 }

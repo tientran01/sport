@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -9,6 +11,7 @@ class SQLHelper {
   static SQLHelper shared = SQLHelper._internal();
   SQLHelper._internal();
   late Future<Database> database;
+  User? user = FirebaseHelper.shared.auth.currentUser;
 
   Future<Database> get getDatabase async {
     // ignore: unnecessary_null_comparison
@@ -46,13 +49,6 @@ class SQLHelper {
     );
   }
 
-  Future<List<YourArticle>> getAllYourArticle() async {
-    final db = await getDatabase;
-    List<Map<String, dynamic>> results =
-        await db.rawQuery('SELECT * FROM YourArticle');
-    return results.map((e) => YourArticle.fromJson(e)).toList();
-  }
-
   Future<void> deleteYourArticle(int id) async {
     final db = await getDatabase;
     try {
@@ -85,21 +81,24 @@ class SQLHelper {
   Future<List<YourArticle>> sortYourArticleByDate() async {
     final db = await getDatabase;
     List<Map<String, dynamic>> results = await db.rawQuery(
-        'SELECT * FROM YourArticle ORDER BY datetime(publishedAt) DESC');
+        'SELECT * FROM YourArticle WHERE author = ? ORDER BY datetime(publishedAt) DESC',
+        [user?.email]);
     return results.map((e) => YourArticle.fromJson(e)).toList();
   }
 
   Future<List<YourArticle>> sortYourArticleByAlphabet() async {
     final db = await getDatabase;
     List<Map<String, dynamic>> results = await db.rawQuery(
-        'SELECT * FROM YourArticle ORDER BY title COLLATE NOCASE ASC');
+        'SELECT * FROM YourArticle WHERE author = ? ORDER BY title COLLATE NOCASE ASC',
+        [user?.email]);
     return results.map((e) => YourArticle.fromJson(e)).toList();
   }
 
   Future<List<YourArticle>> filterYourArticleByDate(String? date) async {
     final db = await getDatabase;
     List<Map<String, dynamic>> results = await db.rawQuery(
-        'SELECT * FROM YourArticle WHERE date(publishedAt) = ?', [date]);
+        'SELECT * FROM YourArticle WHERE date(publishedAt) = ? AND author = ?',
+        [date, user?.email]);
     return results.map((e) => YourArticle.fromJson(e)).toList();
   }
 }
