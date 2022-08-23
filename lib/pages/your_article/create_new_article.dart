@@ -89,7 +89,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                     SizedBox(
                       height: Constants.size5,
                     ),
-                     TextView(
+                    TextView(
                       text: local.uploadImage,
                       textColor: AppColor.darkSilver,
                     ),

@@ -133,15 +133,20 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                                 ),
                               ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: Constants.size30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        TextView(
-                          text: local.noAccount,
-                          textColor: AppColor.gainsboro,
+                        SizedBox(height: Constants.size30),
+                        CustomTextField(
+                          textEditingController: passwordController,
+                          title: local.password,
+                          type: TextFieldType.password,
+                          hintText: local.passwordInput,
+                          isPassword: true,
+                          onChanged: (String password) {
+                            getIt.get<LoginBloc>().add(
+                                  GetEmailAndPasswordFormTextFieldEvent(
+                                    password: password,
+                                  ),
+                                );
+                          },
                         ),
                         buildForgetPassword(),
                         SizedBox(height: Constants.size30),
