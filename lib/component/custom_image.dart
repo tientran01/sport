@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -21,13 +23,13 @@ class CustomImage extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Constants.size15),
+        borderRadius: BorderRadius.circular(Constants.size10),
       ),
       child: CachedNetworkImage(
         imageUrl: imageUrl ?? "",
         imageBuilder: (context, imageProvider) => Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Constants.size15),
+            borderRadius: BorderRadius.circular(Constants.size10),
             image: DecorationImage(
               image: imageProvider,
               fit: BoxFit.cover,
@@ -192,5 +194,30 @@ class ImageCircle extends StatelessWidget {
               },
             ),
           );
+  }
+}
+
+class ImageLocal extends StatelessWidget {
+  final String? imagePath;
+  final double? width;
+  final double? height;
+  const ImageLocal({Key? key, this.imagePath, this.width, this.height})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width ?? MediaQuery.of(context).size.width,
+      height: height ?? Constants.size180,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Constants.size9),
+        image: DecorationImage(
+          image: FileImage(
+            File(imagePath ?? ""),
+          ),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }

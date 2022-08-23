@@ -48,12 +48,22 @@
     "editYourArticle": "Chỉnh sửa bài viết",
     "deleteAccount": "Xoá tài khoản",
     "areYouSureDelete": "Bạn muốn xoá bài viết",
-    "deleteNow": "Xoá ngay",
+    "delete": "Xoá",
     "camera": "Máy ảnh",
     "gallery": "Bộ sưu tập",
     "error": "Thất bại",
     "success": "Thành công",
     "slogan_msg": "A newspaper is a place for people to come together. If you want to know the truth, then ask a journalist",
+    "publishedAt": "Ngày đăng",
+    "createYourArticleError": "Tiêu đề và mô tả không được để trống",
+    "required": "Bắt buộc",
+    "emailInvalid": "Email không đúng định dạng",
+    "phoneInvalid": "Số điện thoại không đúng định dạng",
+    "passwordInvalid": "Mật khẩu không đủ điều kiện",
+    "editDisplayName": "Thay đổi tên hiển thị",
+    "send": "Gửi",
+    "signInWithPhoneNumber": "Đăng nhập bằng số điện thoại",
+    "searchInput": "Bạn đang tìm gì thế nhợ...?",
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     }

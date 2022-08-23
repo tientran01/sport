@@ -19,10 +19,10 @@ class PhoneInputScreen extends StatefulWidget {
 
 class _PhoneInputScreenState extends State<PhoneInputScreen> with BaseView {
   @override
-  String? get titleAppBar => AppStrings.signInWithPhoneNumber;
+  String? get titleAppBar => AppLocalizations.of(context).signInWithPhoneNumber;
 
   @override
-  Widget build(BuildContext context) {
+  Widget get body {
     return BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
       builder: (_, state) {
         return Container(
@@ -60,7 +60,9 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> with BaseView {
                   customBorder: const CircleBorder(),
                   splashColor: AppColor.arsenic,
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: Constants.size20),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: Constants.size20,
+                    ),
                     child: Image.asset(
                       AppResource.send,
                       width: Constants.size27,

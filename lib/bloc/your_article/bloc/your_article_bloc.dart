@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_state.dart';
-import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/helper/sql_helper.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -11,7 +11,6 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   YourArticleBloc() : super(YourArticleLoading()) {
     on<CreateNewYourArticleEvent>(_onCreateNewYourArticle);
     on<DeleteYourArticleEvent>(_onDeleteYourArticle);
-    on<UpdateYourArticleEvent>(_onUpdateYourArticle);
     on<SortYourArticleByDateEvent>(_onSortYourArticleByDate);
     on<SortYourArticleByAlphabetEvent>(_onSortYourArticleByAlphabet);
     on<FilterYourArticleByDateEvent>(_onFilterYourArticleByDate);
@@ -34,17 +33,6 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     add(SortYourArticleByDateEvent());
   }
 
-  Future<void> _onUpdateYourArticle(
-    UpdateYourArticleEvent event,
-    Emitter<void> emitter,
-  ) async {
-    Loading.show();
-    await SQLHelper.shared.updateYourArticle(event.yourArticle);
-    add(SortYourArticleByDateEvent());
-    Loading.dismiss();
-    NavigationService.navigatorKey.currentState?.pop();
-  }
-
   Future<void> _onSortYourArticleByDate(
     SortYourArticleByDateEvent event,
     Emitter<void> emitter,
@@ -61,19 +49,18 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     List<YourArticle> yourArticles =
         await SQLHelper.shared.sortYourArticleByAlphabet();
     emitter(YourArticleLoader(yourArticles: yourArticles));
-    Loading.showSuccess();
   }
 
   Future<void> _onFilterYourArticleByDate(
     FilterYourArticleByDateEvent event,
     Emitter<void> emitter,
   ) async {
-    List<YourArticle> yourArticles =
-        await SQLHelper.shared.filterYourArticleByDate(
-      "2022-08-21",
+    String dateFormat = DateFormat('yyyy-MM-dd').format(
+      event.selectedDate ?? DateTime.now(),
     );
+    List<YourArticle> yourArticles =
+        await SQLHelper.shared.filterYourArticleByDate(dateFormat);
     emitter(YourArticleLoader(yourArticles: yourArticles));
-    Loading.showSuccess();
   }
 
   static YourArticleBloc of(BuildContext context) =>

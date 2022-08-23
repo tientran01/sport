@@ -19,12 +19,10 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> with BaseView {
   final TextEditingController passwordController = TextEditingController();
-
   @override
-  String? get titleAppBar => "";
-
+  String? get titleAppBar => AppLocalizations.of(context).signup;
   @override
-  Widget build(BuildContext context) {
+  Widget get body {
     AppLocalizations local = AppLocalizations.of(context);
     return BlocBuilder<SignUpBloc, SignUpState>(
       bloc: getIt.get<SignUpBloc>(),
@@ -95,12 +93,5 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
         );
       },
     );
-  }
-
-  void showSnackBar(String text) {
-    final snackBar = SnackBar(
-      content: Text(text),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

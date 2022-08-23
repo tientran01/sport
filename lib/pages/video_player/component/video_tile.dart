@@ -57,6 +57,7 @@ class _VideoTileState extends State<VideoTile> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     (isVideoPlaying)
         ? videoPlayerController.play
         : videoPlayerController.pause();
@@ -106,7 +107,7 @@ class _VideoTileState extends State<VideoTile> {
                               if (state is FavoriteLoader) {
                                 return VideoButton(
                                   iconPath: AppResource.heart,
-                                  label: AppStrings.favorite,
+                                  label: local.favorite,
                                   onTap: () {
                                     getIt.get<FavoriteBloc>().add(
                                           AddVideoToFavoriteEvent(
@@ -114,7 +115,9 @@ class _VideoTileState extends State<VideoTile> {
                                           ),
                                         );
                                   },
-                                  iconColor: AppColor.white,
+                                  iconColor: widget.video?.isFavorite == true
+                                      ? AppColor.carminePink
+                                      : AppColor.white,
                                 );
                               }
                               return VideoButton(

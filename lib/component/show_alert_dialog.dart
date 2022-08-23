@@ -17,6 +17,7 @@ class ShowAlertDialog {
     String? defaultActionText,
     VoidCallback? onPressed,
     Function(String)? onChanged,
+    Widget? child,
   }) {
     AppLocalizations local = AppLocalizations.of(context);
     if (!Platform.isIOS) {
@@ -47,6 +48,7 @@ class ShowAlertDialog {
       builder: (_) => CupertinoAlertDialog(
         title: Text(title),
         content: Container(
+          width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(top: Constants.size15),
           child: content != null
               ? TextFormField(
@@ -61,7 +63,7 @@ class ShowAlertDialog {
                   ),
                   onChanged: onChanged,
                 )
-              : Container(),
+              : child,
         ),
         actions: <Widget>[
           CupertinoDialogAction(

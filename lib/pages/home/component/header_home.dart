@@ -33,17 +33,6 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
           );
         },
       ),
-      actions: [
-        IconButton(
-            onPressed: () {
-              NavigationService.navigatorKey.currentState
-                  ?.pushNamed(AppRouteName.search);
-            },
-            icon: Image.asset(
-              AppResource.search,
-              width: Constants.size25,
-            ))
-      ],
     );
   }
 

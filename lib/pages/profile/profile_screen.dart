@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ShowAlertDialog.showAlertDialog(
                               context: context,
                               content: state.user?.displayName ?? "",
-                              title: AppStrings.editDisplayName,
+                              title: local.editDisplayName,
                               onChanged: (String displayName) {
                                 getIt.get<ProfileBloc>().add(
                                       GetDisplayNameFromTextFieldEvent(

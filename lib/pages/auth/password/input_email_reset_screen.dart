@@ -15,10 +15,10 @@ class InputEmailResetScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: AppStrings.forgetPassword,
-        
+      appBar: CustomAppBar(
+        title: local.forgetPassword,
       ),
       body: BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
         builder: (_, state) {
@@ -31,8 +31,8 @@ class InputEmailResetScreen extends StatelessWidget {
               children: [
                 CustomTextField(
                   type: TextFieldType.email,
-                  title: AppLocalizations.of(context).email,
-                  hintText: AppLocalizations.of(context).emailInput,
+                  title: local.email,
+                  hintText: local.emailInput,
                   suffixIcon: const Icon(Icons.email),
                   onChanged: (String email) {
                     getIt.get<ForgetPasswordBloc>().add(
@@ -42,7 +42,7 @@ class InputEmailResetScreen extends StatelessWidget {
                 ),
                 SizedBox(height: Constants.size30),
                 Button(
-                  text: AppStrings.send,
+                  text: local.send,
                   textColor: AppColor.white,
                   onTap: () => getIt.get<ForgetPasswordBloc>().add(
                         SendEmailEvent(),

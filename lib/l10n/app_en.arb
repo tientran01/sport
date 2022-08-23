@@ -48,12 +48,22 @@
   "editYourArticle": "Edit your article",
   "deleteAccount": "Delete account",
   "areYouSureDelete": "Are you sure?",
-  "deleteNow": "Delete now",
+  "delete": "Delete",
   "camera": "Camera",
   "gallery": "Gallery",
   "error": "Error",
   "success": "Success",
   "slogan_msg": "A newspaper is a place for people to come together. If you want to know the truth, then ask a journalist",
+  "publishedAt": "Published at",
+  "createYourArticleError": "Title and description no empty.",
+  "required": "Required",
+  "emailInvalid": "Invalid email",
+  "phoneInvalid": "Invalid phone number",
+  "passwordInvalid": "Invalid password",
+  "editDisplayName": "Edit display name",
+  "send": "Send",
+  "signInWithPhoneNumber": "Sign in with phone number",
+  "searchInput": "What do you looking for...?",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }
