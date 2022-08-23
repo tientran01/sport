@@ -4,6 +4,7 @@ import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_event.dart';
 import 'package:sport_app/bloc/verify_otp_bloc/bloc/verify_otp_state.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/button.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/pages/auth/phone/components/custom_otp_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -121,11 +122,11 @@ class _PhoneOTPScreenState extends State<PhoneOTPScreen> {
                 ),
                 SizedBox(height: Constants.size30),
                 Button(
-                  text: AppStrings.signUp,
+                  text: AppLocalizations.of(context).signup,
                   textColor: AppColor.white,
-                  onTap: () => getIt.get<VerifyOtpBloc>().add(
-                        LoginWithPhoneNumberEvent(),
-                      ),
+                  onTap: () => getIt
+                      .get<VerifyOtpBloc>()
+                      .add(LoginWithPhoneNumberEvent()),
                 ),
                 SizedBox(height: Constants.size30),
                 Row(

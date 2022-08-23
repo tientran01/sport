@@ -4,6 +4,7 @@ import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/cubit/enum_status/status.dart';
 import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
 import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_state.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -82,17 +83,17 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
                       padding: EdgeInsets.zero,
                       height: Constants.size60,
                       width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                        color: AppColor.gainsboro,
-                        border: Border.symmetric(
-                          horizontal: BorderSide(
-                            color: AppColor.gainsboro,
-                          ),
+                      decoration: BoxDecoration(
+                        color: AppColor.gainsboro.withOpacity(0.8),
+                        border: Border.all(
+                          color: AppColor.gainsboro,
                         ),
                       ),
-                      child: const Center(
+                      child: Center(
                         child: TextView(
-                          text: AppStrings.seeMore,
+                          text: AppLocalizations.of(context).seeMore,
+                          fontWeight: FontWeight.w700,
+                          textColor: AppColor.arsenic,
                         ),
                       ),
                     ),
@@ -104,7 +105,7 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
           }
           return Center(
             child: TextView(
-              text: AppStrings.error,
+              text: AppLocalizations.of(context).error,
               fontSize: Constants.size15,
             ),
           );

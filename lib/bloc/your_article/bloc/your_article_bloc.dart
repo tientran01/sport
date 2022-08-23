@@ -10,9 +10,11 @@ import 'package:sport_app/router/navigation_service.dart';
 class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   YourArticleBloc() : super(YourArticleLoading()) {
     on<CreateNewYourArticleEvent>(_onCreateNewYourArticle);
-    on<GetAllYourArticleEvent>(_onGetAllYourArticle);
     on<DeleteYourArticleEvent>(_onDeleteYourArticle);
     on<UpdateYourArticleEvent>(_onUpdateYourArticle);
+    on<SortYourArticleByDateEvent>(_onSortYourArticleByDate);
+    on<SortYourArticleByAlphabetEvent>(_onSortYourArticleByAlphabet);
+    on<FilterYourArticleByDateEvent>(_onFilterYourArticleByDate);
   }
 
   Future<void> _onCreateNewYourArticle(
@@ -21,15 +23,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   ) async {
     SQLHelper.shared.createArticle(event.yourArticle);
     NavigationService.navigatorKey.currentState?.pop();
-    add(GetAllYourArticleEvent());
-  }
-
-  Future<void> _onGetAllYourArticle(
-    GetAllYourArticleEvent event,
-    Emitter<void> emitter,
-  ) async {
-    List<YourArticle> yourArticles = await SQLHelper.shared.getAllYourArticle();
-    emitter(YourArticleLoader(yourArticles: yourArticles));
+    add(SortYourArticleByDateEvent());
   }
 
   Future<void> _onDeleteYourArticle(
@@ -37,7 +31,7 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
     Emitter<void> emitter,
   ) async {
     SQLHelper.shared.deleteYourArticle(event.id ?? 0);
-    add(GetAllYourArticleEvent());
+    add(SortYourArticleByDateEvent());
   }
 
   Future<void> _onUpdateYourArticle(
@@ -46,9 +40,40 @@ class YourArticleBloc extends Bloc<YourArticleEvent, YourArticleState> {
   ) async {
     Loading.show();
     await SQLHelper.shared.updateYourArticle(event.yourArticle);
-    add(GetAllYourArticleEvent());
+    add(SortYourArticleByDateEvent());
     Loading.dismiss();
     NavigationService.navigatorKey.currentState?.pop();
+  }
+
+  Future<void> _onSortYourArticleByDate(
+    SortYourArticleByDateEvent event,
+    Emitter<void> emitter,
+  ) async {
+    List<YourArticle> yourArticles =
+        await SQLHelper.shared.sortYourArticleByDate();
+    emitter(YourArticleLoader(yourArticles: yourArticles));
+  }
+
+  Future<void> _onSortYourArticleByAlphabet(
+    SortYourArticleByAlphabetEvent event,
+    Emitter<void> emitter,
+  ) async {
+    List<YourArticle> yourArticles =
+        await SQLHelper.shared.sortYourArticleByAlphabet();
+    emitter(YourArticleLoader(yourArticles: yourArticles));
+    Loading.showSuccess();
+  }
+
+  Future<void> _onFilterYourArticleByDate(
+    FilterYourArticleByDateEvent event,
+    Emitter<void> emitter,
+  ) async {
+    List<YourArticle> yourArticles =
+        await SQLHelper.shared.filterYourArticleByDate(
+      "2022-08-21",
+    );
+    emitter(YourArticleLoader(yourArticles: yourArticles));
+    Loading.showSuccess();
   }
 
   static YourArticleBloc of(BuildContext context) =>

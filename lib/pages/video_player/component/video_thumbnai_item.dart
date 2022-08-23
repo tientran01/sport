@@ -57,11 +57,6 @@ class VideoThumbnaiSmallItem extends StatelessWidget {
                 SizedBox(
                   height: Constants.size5,
                 ),
-                TextView(
-                  text: AppStrings.category,
-                  fontSize: Constants.size15,
-                  textColor: AppColor.gainsboro,
-                ),
               ],
             ),
           ),

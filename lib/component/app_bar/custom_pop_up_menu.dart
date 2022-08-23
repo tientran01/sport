@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class CustomPopupMenuButton extends StatelessWidget {
-  final Function(dynamic)? onSelected;
+  final Function(String)? onSelected;
   const CustomPopupMenuButton({Key? key, this.onSelected}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return PopupMenuButton(
       icon: Image.asset(
         AppResource.more,
@@ -19,26 +21,26 @@ class CustomPopupMenuButton extends StatelessWidget {
       itemBuilder: (context) => [
         customPopupMenuItem(
           1,
-          AppResource.sort,
-          AppStrings.filterNewArticleByDay,
+          AppResource.sortAlpha,
+          local.sortArticleByAplabet,
         ),
         customPopupMenuItem(
           2,
-          AppResource.sortAlpha,
-          AppStrings.filterArticleByAlpha,
+          AppResource.filter,
+          local.filterArticleByDate,
         ),
       ],
     );
   }
 }
 
-PopupMenuItem customPopupMenuItem(
+PopupMenuItem<String> customPopupMenuItem(
   int? value,
   String? iconPath,
   String? text,
 ) {
   return PopupMenuItem(
-    value: value,
+    value: value.toString(),
     child: Row(
       children: [
         Image.asset(

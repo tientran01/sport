@@ -10,6 +10,7 @@ import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/show_alert_dialog.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/profile/component/profile_item.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
@@ -34,12 +35,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations local = AppLocalizations.of(context);
     return BlocBuilder<ProfileBloc, ProfileState>(
       bloc: getIt.get<ProfileBloc>(),
       builder: (context, state) {
         return Scaffold(
-          appBar: const CustomAppBar(
-            title: AppStrings.profile,
+          appBar: CustomAppBar(
+            title: local.account,
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -70,14 +72,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     padding: EdgeInsets.all(Constants.size15),
                     decoration: BoxDecoration(
-                      color: AppColor.white,
-                      borderRadius: BorderRadius.circular(Constants.size10),
+                      color: AppColor.gainsboro.withOpacity(0.4),
+                      borderRadius: BorderRadius.circular(
+                        Constants.size10,
+                      ),
                     ),
                     child: Column(
                       children: [
                         ProfileItem(
                           isChange: true,
-                          text: AppStrings.nickName,
+                          text: local.displayName,
                           userInformation: state.user?.displayName,
                           onTap: () {
                             ShowAlertDialog.showAlertDialog(
@@ -102,12 +106,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           },
                         ),
                         ProfileItem(
-                          text: AppStrings.email,
+                          text: local.email,
                           userInformation: state.user?.email,
                         ),
                         ProfileItem(
-                          text: AppStrings.phone,
                           userInformation: state.user?.phoneNumber ?? "",
+                          text: local.phoneNumber,
                         ),
                       ],
                     ),
@@ -121,21 +125,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Button(
                         width: Constants.size120,
-                        text: AppStrings.logout,
+                        text: local.logout.toUpperCase(),
                         onTap: () {
                           getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
                         },
-                        bgColor: AppColor.arsenic,
+                        bgColor: AppColor.viridianGreen,
                         textColor: AppColor.white,
                       ),
                       Button(
                         width: Constants.size200,
-                        text: AppStrings.deleteAccount,
+                        text: local.deleteAccount.toUpperCase(),
                         onTap: () {
                           getIt.get<ProfileBloc>().add(DeleteProfileEvent());
                         },
-                        bgColor: AppColor.white,
-                        textColor: AppColor.black,
+                        bgColor: AppColor.viridianGreen.withOpacity(0.5),
+                        textColor: AppColor.white,
                       ),
                     ],
                   ),

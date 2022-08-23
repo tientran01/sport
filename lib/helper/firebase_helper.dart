@@ -1,3 +1,5 @@
+
+import 'dart:core';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -103,6 +105,17 @@ class FirebaseHelper {
     return FirebaseAuth.instance.signInWithCredential(
       facebookAuthCredential,
     );
+  }
+
+  Future<UserCredential> loginWithPhoneNumber(
+    String? smsCode,
+  ) async {
+    phoneAuthCredential = PhoneAuthProvider.credential(
+      verificationId: verificationId ?? '',
+      smsCode: smsCode ?? '',
+    );
+    return await FirebaseAuth.instance
+        .signInWithCredential(phoneAuthCredential);
   }
 
   Future<void> signOut() async {

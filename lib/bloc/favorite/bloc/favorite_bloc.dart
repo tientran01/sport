@@ -20,20 +20,19 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     if (index == -1) {
       final favorites = List<Video?>.from(state.videos ?? []);
       favorites.add(event.video);
-      Loading.showSuccess(AppStrings.addFavorite);
+      Loading.showSuccess(msg: AppStrings.addFavorite);
       emitter(FavoriteLoader(
         videos: favorites,
       ));
     } else {
       final favorites = List<Video?>.from(state.videos ?? []);
-      Loading.showError(AppStrings.removeFavorite);
+      Loading.showError(msg: AppStrings.removeFavorite);
       favorites.removeAt(index);
       emitter(FavoriteLoader(
         videos: favorites,
       ));
     }
   }
-
 
   static FavoriteBloc of(BuildContext context) =>
       BlocProvider.of<FavoriteBloc>(context);

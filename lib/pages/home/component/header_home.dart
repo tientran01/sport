@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/slide_route/slide_right_route.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -18,15 +19,11 @@ class HeaderHome extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       centerTitle: false,
       title: GestureDetector(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TextView(
-              text: AppStrings.hello,
-              fontSize: Constants.size17,
-              fontWeight: FontWeight.w700,
-            ),
-          ],
+        child: TextView(
+          text: AppLocalizations.of(context).hello,
+          fontSize: Constants.size20,
+          fontWeight: FontWeight.w900,
+          textColor: AppColor.viridianGreen,
         ),
         onTap: () {
           NavigationService.navigatorKey.currentState?.push(

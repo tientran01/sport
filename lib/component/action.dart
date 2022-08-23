@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/l10n/lang.dart';
 
 class ActionComponent {
   static final ActionComponent shared = ActionComponent._internal();
@@ -10,21 +10,24 @@ class ActionComponent {
     required VoidCallback onCamera,
     required VoidCallback onGalley,
   }) {
+    AppLocalizations local = AppLocalizations.of(context);
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoActionSheet(
-        title: const Text(AppStrings.uploadImage),
+        title: Text(
+          AppLocalizations.of(context).uploadImage,
+        ),
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
             onPressed: onCamera,
-            child: const Text(
-              AppStrings.camera,
+            child: Text(
+              local.camera,
             ),
           ),
           CupertinoActionSheetAction(
             onPressed: onGalley,
-            child: const Text(
-              AppStrings.gallery,
+            child: Text(
+              local.gallery,
             ),
           ),
           CupertinoActionSheetAction(
@@ -32,7 +35,7 @@ class ActionComponent {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text(AppStrings.cancel),
+            child: Text(local.cancel),
           )
         ],
       ),

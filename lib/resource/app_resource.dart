@@ -2,6 +2,7 @@ class AppResource {
   static String baseImagePath = 'assets/images/';
   static String baseIconPath = 'assets/icons/';
 
+  static String background = '$baseImagePath/im_background.png';
   static String bottomNavigationIcon = '${baseIconPath}bottom_navigation';
   static String setting = '$bottomNavigationIcon/ic_setting.png';
   static String home = '$bottomNavigationIcon/ic_home.png';
@@ -9,7 +10,6 @@ class AppResource {
   static String create = '$bottomNavigationIcon/ic_create.png';
   static String heart = '$bottomNavigationIcon/ic_heart.png';
   static String share = '$bottomNavigationIcon/ic_share.png';
-  static String filter = '$bottomNavigationIcon/ic_filter.png';
   static String logo = '$bottomNavigationIcon/ic_logo.png';
   static String comment = '$bottomNavigationIcon/ic_cmt.png';
 
@@ -42,4 +42,7 @@ class AppResource {
   static String empty = '$componentIcon/ic_empty.png';
   static String sort = '$componentIcon/ic_sort.png';
   static String sortAlpha = '$componentIcon/ic_sort_alpha.png';
+  static String errorApi = '$componentIcon/ic_error_api.png';
+  static String connect = '$componentIcon/ic_connect.png';
+  static String filter = '$componentIcon/ic_filter.png';
 }

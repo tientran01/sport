@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sport_app/helper/loading.dart';
@@ -13,6 +11,7 @@ class SQLHelper {
   late Future<Database> database;
 
   Future<Database> get getDatabase async {
+    // ignore: unnecessary_null_comparison
     if (database != null) {
       return database;
     }
@@ -63,7 +62,7 @@ class SQLHelper {
         whereArgs: [id],
       );
     } catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 
@@ -83,8 +82,24 @@ class SQLHelper {
     );
   }
 
-  Future<void> deleteAll() async {
+  Future<List<YourArticle>> sortYourArticleByDate() async {
     final db = await getDatabase;
-    db.delete(AppKeyName.yourArticleTable);
+    List<Map<String, dynamic>> results = await db.rawQuery(
+        'SELECT * FROM YourArticle ORDER BY datetime(publishedAt) DESC');
+    return results.map((e) => YourArticle.fromJson(e)).toList();
+  }
+
+  Future<List<YourArticle>> sortYourArticleByAlphabet() async {
+    final db = await getDatabase;
+    List<Map<String, dynamic>> results = await db.rawQuery(
+        'SELECT * FROM YourArticle ORDER BY title COLLATE NOCASE ASC');
+    return results.map((e) => YourArticle.fromJson(e)).toList();
+  }
+
+  Future<List<YourArticle>> filterYourArticleByDate(String? date) async {
+    final db = await getDatabase;
+    List<Map<String, dynamic>> results = await db
+        .rawQuery('SELECT * FROM YourArticle WHERE date(publishedAt) = ?', [date]);
+    return results.map((e) => YourArticle.fromJson(e)).toList();
   }
 }

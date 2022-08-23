@@ -50,7 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 
@@ -77,7 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 
@@ -107,7 +107,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
       }
     } on FirebaseAuthException catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 
@@ -122,7 +122,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         AppRouteName.login,
       );
     } catch (e) {
-      Loading.showError(e.toString());
+      Loading.showError(msg: e.toString());
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/apple_article_screen.dart';
 import 'package:sport_app/pages/article/bitcoin_article_screen.dart';
@@ -31,7 +32,7 @@ class _ArticleScreenState extends State<ArticleScreen>
       });
     });
   }
-  
+
   @override
   void dispose() {
     tabController?.dispose();
@@ -46,7 +47,7 @@ class _ArticleScreenState extends State<ArticleScreen>
         elevation: 0.0,
         backgroundColor: Theme.of(context).backgroundColor,
         title: TextView(
-          text: AppStrings.news,
+          text: AppLocalizations.of(context).news,
           fontSize: Constants.size17,
         ),
         bottom: TabBar(
@@ -77,7 +78,9 @@ class _ArticleScreenState extends State<ArticleScreen>
     return Tab(
       child: TextView(
         text: category.text,
-        textColor: selectIndex == index ? AppColor.arsenic : AppColor.gainsboro,
+        textColor:
+            selectIndex == index ? AppColor.viridianGreen : AppColor.gainsboro,
+        fontWeight: FontWeight.w800,
       ),
     );
   }

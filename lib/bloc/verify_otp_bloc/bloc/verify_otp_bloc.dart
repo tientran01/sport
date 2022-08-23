@@ -37,30 +37,26 @@ class VerifyOtpBloc extends Bloc<VerifyOtpEvent, VerifyOtpState> {
     LoginWithPhoneNumberEvent event,
     Emitter<void> emitter,
   ) async {
-    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
-      verificationId: FirebaseHelper.shared.verificationId ?? "",
-      smsCode: state.otpCode ?? "",
-    );
+    UserCredential userCredential =
+        await FirebaseHelper.shared.loginWithPhoneNumber(state.otpCode);
+    User? user = userCredential.user;
     try {
-      Loading.show();
-      var result =
-          await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
-      if (result.user != null) {
-        Loading.dismiss();
-        UserInformation userInformation = UserInformation(
-          phoneNumber: result.user?.phoneNumber,
+      if (user != null) {
+        final userInformation = UserInformation(
+          email: user.email,
+          displayName: user.displayName,
+          photoUrl: user.photoURL,
+          phoneNumber: user.phoneNumber,
         );
-        SharedPreferencesHelper.shared.setString(
-          AppKeyName.uid,
-          result.user?.uid ?? "",
-        );
-        await FirebaseHelper.shared.createUserInformation(userInformation);
-        NavigationService.navigatorKey.currentState?.pushNamed(
+        FirebaseHelper.shared.createUserInformation(userInformation);
+        SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
+        NavigationService.navigatorKey.currentState?.pushReplacementNamed(
           AppRouteName.main,
+          arguments: user,
         );
       }
-    } on FirebaseAuthException {
-      Loading.showError(AppStrings.error);
+    } on FirebaseAuthException catch (e) {
+      Loading.showError(msg: e.toString());
     }
   }
 
