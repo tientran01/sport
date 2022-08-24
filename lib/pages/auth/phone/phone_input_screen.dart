@@ -2,8 +2,8 @@ import 'package:sport_app/component/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/pages/base/base_view.dart';
-import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_bloc.dart';
 import '../../../bloc/phone_auth/bloc/phone_auth_event.dart';
@@ -19,7 +19,7 @@ class PhoneInputScreen extends StatefulWidget {
 
 class _PhoneInputScreenState extends State<PhoneInputScreen> with BaseView {
   @override
-  String? get titleAppBar => AppLocalizations.of(context).signInWithPhoneNumber;
+  String? get titleAppBar => S.of(context).signInWithPhoneNumber;
 
   @override
   Widget get body {
@@ -33,7 +33,7 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> with BaseView {
               SizedBox(height: Constants.size30),
               CustomTextField(
                 type: TextFieldType.phoneNumber,
-                hintText: AppLocalizations.of(context).phoneNumber,
+                hintText: S.of(context).phoneNumber,
                 onChanged: (String phoneNumber) {
                   getIt.get<PhoneAuthBloc>().add(
                         GetPhoneFromFieldAndValidateEvent(

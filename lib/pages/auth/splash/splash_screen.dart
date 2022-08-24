@@ -3,7 +3,7 @@ import 'package:sport_app/bloc/splash/bloc/splash_bloc.dart';
 import 'package:sport_app/bloc/splash/bloc/splash_event.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 
@@ -28,7 +28,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(
@@ -80,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   SizedBox(height: Constants.size15),
                   TextView(
-                    text: local.slogan_msg,
+                    text: S.of(context).slogan_msg,
                     lineNumber: 3,
                     textColor: AppColor.arsenic.withOpacity(0.5),
                   ),

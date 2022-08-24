@@ -5,6 +5,7 @@ import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/pages/base/base_view.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
@@ -22,12 +23,11 @@ class _EditYourArticleScreenState extends State<EditYourArticleScreen>
     with BaseView {
   String? imagePathChange;
   @override
-  String? get titleAppBar => AppLocalizations.of(context).editYourArticle;
+  String? get titleAppBar => S.of(context).editYourArticle;
   @override
   bool? get isPop => true;
   @override
   Widget? get body {
-    AppLocalizations local = AppLocalizations.of(context);
     YourArticle? yourArticle =
         ModalRoute.of(context)?.settings.arguments as YourArticle?;
     return SingleChildScrollView(
@@ -55,7 +55,7 @@ class _EditYourArticleScreenState extends State<EditYourArticleScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextView(
-                  text: "${local.description} :",
+                  text: "${S.of(context).description} :",
                   fontSize: Constants.size15,
                   textColor: AppColor.arsenic.withOpacity(0.5),
                   fontWeight: FontWeight.w800,
@@ -78,7 +78,7 @@ class _EditYourArticleScreenState extends State<EditYourArticleScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextView(
-                  text: "${local.publishedAt} :",
+                  text: "${S.of(context).publishedAt} :",
                   fontSize: Constants.size17,
                   textColor: AppColor.arsenic.withOpacity(0.5),
                   fontWeight: FontWeight.w800,
@@ -103,7 +103,7 @@ class _EditYourArticleScreenState extends State<EditYourArticleScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextView(
-                  text: "${local.author} :",
+                  text: "${S.of(context).author} :",
                   fontSize: Constants.size17,
                   textColor: AppColor.arsenic.withOpacity(0.5),
                   fontWeight: FontWeight.w800,

@@ -11,7 +11,7 @@ import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/slide_route/slide_bottom_route.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/timeago_helper.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/your_article/create_new_article.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -73,10 +73,9 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
       appBar: CustomAppBar(
-        title: local.yourArticle,
+        title: S.of(context).yourArticle,
         isPop: false,
         rightIconPath: AppResource.more,
         onSelected: (String value) {
@@ -154,7 +153,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                               backgroundColor: Colors.transparent,
                               foregroundColor: AppColor.carminePink,
                               icon: Icons.delete,
-                              label: local.delete,
+                              label: S.of(context).delete,
                               autoClose: true,
                             ),
                           ],
@@ -251,7 +250,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         child: Row(
                                           children: [
                                             TextView(
-                                              text: local.author,
+                                              text: S.of(context).author,
                                               textColor: AppColor.darkSilver,
                                               fontSize: Constants.size12,
                                             ),
@@ -277,7 +276,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
                                         child: Row(
                                           children: [
                                             TextView(
-                                              text: local.publishedAt,
+                                              text: S.of(context).publishedAt,
                                               textColor: AppColor.darkSilver,
                                               fontSize: Constants.size10,
                                             ),

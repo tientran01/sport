@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -212,9 +212,7 @@ class ImageLocal extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Constants.size9),
         image: DecorationImage(
-          image: FileImage(
-            File(imagePath ?? ""),
-          ),
+          image: AssetImage(imagePath ?? AppResource.background),
           fit: BoxFit.cover,
         ),
       ),

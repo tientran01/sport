@@ -7,7 +7,7 @@ import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/pages/base/base_view.dart';
@@ -31,12 +31,11 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
   );
 
   @override
-  String? get titleAppBar => AppLocalizations.of(context).createNewArticle;
+  String? get titleAppBar => S.of(context).createNewArticle;
   @override
   bool? get isPop => true;
   @override
   Widget get body {
-    AppLocalizations local = AppLocalizations.of(context);
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
@@ -50,8 +49,8 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
-                title: local.title,
-                hintText: local.titleInput,
+                title: S.of(context).title,
+                hintText: S.of(context).titleInput,
                 maxLine: 3,
                 onChanged: (String title) {
                   yourArticle.title = title;
@@ -61,8 +60,8 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                 height: Constants.size25,
               ),
               CustomTextField(
-                title: local.description,
-                hintText: local.descriptionInput,
+                title: S.of(context).description,
+                hintText: S.of(context).descriptionInput,
                 maxLine: 5,
                 onChanged: (String describe) {
                   yourArticle.describe = describe;
@@ -100,7 +99,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
                                 height: Constants.size5,
                               ),
                               TextView(
-                                text: local.uploadImage,
+                                text: S.of(context).uploadImage,
                                 textColor: AppColor.darkSilver,
                               ),
                             ],
@@ -116,14 +115,14 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
               ),
               Button(
                 bgColor: AppColor.viridianGreen,
-                text: local.post,
+                text: S.of(context).post,
                 textColor: AppColor.white,
                 onTap: () {
                   if (super.formKey.currentState!.validate()) {
                     getIt.get<YourArticleBloc>().add(
                         CreateNewYourArticleEvent(yourArticle: yourArticle));
                   } else {
-                    super.showSnackBar(local.createYourArticleError);
+                    super.showSnackBar(S.of(context).createYourArticleError);
                   }
                 },
               )

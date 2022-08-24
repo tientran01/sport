@@ -5,7 +5,7 @@ import 'package:sport_app/bloc/search/bloc/search_event.dart';
 import 'package:sport_app/bloc/search/bloc/search_state.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
@@ -25,7 +25,6 @@ class _SearchScreenState extends State<SearchScreen> with BaseView {
 
   @override
   PreferredSizeWidget? get appBar {
-    AppLocalizations local = AppLocalizations.of(context);
     return AppBar(
       toolbarHeight: Constants.size80,
       automaticallyImplyLeading: false,
@@ -41,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> with BaseView {
             width: Constants.size20,
           ),
         ),
-        hintText: local.searchInput,
+        hintText: S.of(context).searchInput,
         onChanged: (String searchText) {
           getIt.get<SearchBloc>().add(
                 SearchArticleEvent(

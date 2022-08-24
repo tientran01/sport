@@ -4,6 +4,7 @@ import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/pages/auth/login/components/divider_custom.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
@@ -28,7 +29,6 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
   String? get titleAppBar => AppLocalizations.of(context).signin;
   @override
   Widget get body {
-    AppLocalizations local = AppLocalizations.of(context);
     return BlocBuilder<LoginBloc, LoginState>(
       bloc: getIt.get<LoginBloc>(),
       builder: (_, state) {
@@ -46,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     CustomTextField(
                       textEditingController: emailController,
                       type: TextFieldType.email,
-                      title: local.email,
-                      hintText: local.emailInput,
+                      title: S.of(context).email,
+                      hintText: S.of(context).emailInput,
                       onChanged: (email) => getIt.get<LoginBloc>().add(
                             GetEmailAndPasswordFormTextFieldEvent(
                               email: email,
@@ -57,9 +57,9 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     SizedBox(height: Constants.size30),
                     CustomTextField(
                       textEditingController: passwordController,
-                      title: local.password,
+                      title: S.of(context).password,
                       type: TextFieldType.password,
-                      hintText: local.passwordInput,
+                      hintText: S.of(context).passwordInput,
                       isPassword: true,
                       onChanged: (String password) {
                         getIt.get<LoginBloc>().add(
@@ -69,10 +69,12 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                             );
                       },
                     ),
-                    buildForgetPassword(local.forgetPassword),
+                    buildForgetPassword(
+                      S.of(context).forgetPassword,
+                    ),
                     SizedBox(height: Constants.size30),
                     Button(
-                        text: local.signin,
+                        text: S.of(context).signin,
                         onTap: () {
                           tryLogin();
                         },
@@ -80,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                         bgColor: AppColor.viridianGreen),
                     SizedBox(height: Constants.size30),
                     DividerCustom(
-                      textDisplay: local.or,
+                      textDisplay: S.of(context).or,
                     ),
                     SizedBox(height: Constants.size30),
                     Row(
@@ -122,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextView(
-                          text: local.noAccount,
+                          text: S.of(context).noAccount,
                           textColor: AppColor.gainsboro,
                         ),
                         SizedBox(
@@ -131,10 +133,12 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                         GestureDetector(
                           onTap: () {
                             NavigationService.navigatorKey.currentState
-                                ?.pushNamed(AppRouteName.signUp);
+                                ?.pushNamed(
+                              AppRouteName.signUp,
+                            );
                           },
                           child: TextView(
-                            text: local.signup,
+                            text: S.of(context).signup,
                             fontWeight: FontWeight.w600,
                           ),
                         )

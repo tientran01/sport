@@ -4,13 +4,12 @@ import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_state.dart';
 import 'package:sport_app/component/circular_loading.dart';
 import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/video_player/component/video_button.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../../bloc/favorite/bloc/favorite_event.dart';
 
 class VideoTile extends StatefulWidget {
@@ -57,7 +56,6 @@ class _VideoTileState extends State<VideoTile> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
     (isVideoPlaying)
         ? videoPlayerController.play
         : videoPlayerController.pause();
@@ -107,7 +105,7 @@ class _VideoTileState extends State<VideoTile> {
                               if (state is FavoriteLoader) {
                                 return VideoButton(
                                   iconPath: AppResource.heart,
-                                  label: local.favorite,
+                                  label: S.of(context).favorite,
                                   onTap: () {
                                     getIt.get<FavoriteBloc>().add(
                                           AddVideoToFavoriteEvent(
@@ -122,7 +120,7 @@ class _VideoTileState extends State<VideoTile> {
                               }
                               return VideoButton(
                                 iconPath: AppResource.heart,
-                                label: AppLocalizations.of(context).favorite,
+                                label: S.of(context).favorite,
                                 onTap: () {
                                   getIt.get<FavoriteBloc>().add(
                                         AddVideoToFavoriteEvent(

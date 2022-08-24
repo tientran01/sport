@@ -22,7 +22,7 @@ class NetWorkManager {
       return response.data;
     } on DioError catch (err) {
       final errorMsg = DioExceptionHandle.getDioError(err).toString();
-      return BaseModel(data: null, error: errorMsg);
+      return BaseModel(data: null, error: errorMsg.toString());
     }
   }
 }
