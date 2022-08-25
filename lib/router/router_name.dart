@@ -68,7 +68,6 @@ class RouteName {
         const BitcoinArticleScreen(),
     AppRouteName.teslaArticle: (BuildContext context) =>
         const TeslaArticleScreen(),
-    AppRouteName.editYourArticle: (BuildContext context) =>
-        const EditYourArticleScreen(),
+    AppRouteName.editYourArticle: (BuildContext context) => const EditYourArticleScreen(),
   };
 }

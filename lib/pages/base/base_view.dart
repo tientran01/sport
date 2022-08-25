@@ -6,6 +6,7 @@ mixin BaseView<T extends StatefulWidget> on State<T> {
   bool? isPop;
   PreferredSizeWidget? appBar;
   Widget? body;
+  Widget? floatingActionButton;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> get formKey => _formKey;
 
@@ -31,7 +32,15 @@ mixin BaseView<T extends StatefulWidget> on State<T> {
               isPop: isPop ?? false,
             ),
         body: body,
+        floatingActionButton: floatingActionButton,
       ),
     );
+  }
+
+  void showSnackBar(String text) {
+    final snackBar = SnackBar(
+      content: Text(text),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

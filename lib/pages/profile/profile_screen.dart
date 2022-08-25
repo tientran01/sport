@@ -10,7 +10,7 @@ import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/show_alert_dialog.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/profile/component/profile_item.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
@@ -35,13 +35,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
     return BlocBuilder<ProfileBloc, ProfileState>(
       bloc: getIt.get<ProfileBloc>(),
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: local.account,
+            title: S.of(context).account,
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -81,13 +80,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         ProfileItem(
                           isChange: true,
-                          text: local.displayName,
+                          text: S.of(context).displayName,
                           userInformation: state.user?.displayName,
                           onTap: () {
                             ShowAlertDialog.showAlertDialog(
                               context: context,
                               content: state.user?.displayName ?? "",
-                              title: AppStrings.editDisplayName,
+                              title: S.of(context).editDisplayName,
                               onChanged: (String displayName) {
                                 getIt.get<ProfileBloc>().add(
                                       GetDisplayNameFromTextFieldEvent(
@@ -106,12 +105,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           },
                         ),
                         ProfileItem(
-                          text: local.email,
+                          text: S.of(context).email,
                           userInformation: state.user?.email,
                         ),
                         ProfileItem(
                           userInformation: state.user?.phoneNumber ?? "",
-                          text: local.phoneNumber,
+                          text: S.of(context).phoneNumber,
                         ),
                       ],
                     ),
@@ -125,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Button(
                         width: Constants.size120,
-                        text: local.logout.toUpperCase(),
+                        text: S.of(context).logout.toUpperCase(),
                         onTap: () {
                           getIt.get<ProfileBloc>().add(ButtonSignOutEvent());
                         },
@@ -134,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       Button(
                         width: Constants.size200,
-                        text: local.deleteAccount.toUpperCase(),
+                        text: S.of(context).deleteAccount.toUpperCase(),
                         onTap: () {
                           getIt.get<ProfileBloc>().add(DeleteProfileEvent());
                         },

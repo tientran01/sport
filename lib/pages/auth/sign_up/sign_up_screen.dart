@@ -1,7 +1,7 @@
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/pages/base/base_view.dart';
-import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +19,10 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> with BaseView {
   final TextEditingController passwordController = TextEditingController();
-
   @override
-  String? get titleAppBar => "";
-
+  String? get titleAppBar => S.of(context).signup;
   @override
-  Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
+  Widget get body {
     return BlocBuilder<SignUpBloc, SignUpState>(
       bloc: getIt.get<SignUpBloc>(),
       builder: (_, state) {
@@ -38,8 +35,8 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                 child: Column(
                   children: [
                     CustomTextField(
-                      hintText: local.displayNameInput,
-                      title: local.displayName,
+                      hintText: S.of(context).displayNameInput,
+                      title: S.of(context).displayName,
                       type: TextFieldType.normal,
                       onChanged: (String displayName) {
                         getIt.get<SignUpBloc>().add(
@@ -52,8 +49,8 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                     SizedBox(height: Constants.size30),
                     CustomTextField(
                       type: TextFieldType.email,
-                      title: local.email,
-                      hintText: local.emailInput,
+                      title: S.of(context).email,
+                      hintText: S.of(context).emailInput,
                       onChanged: (String email) {
                         getIt.get<SignUpBloc>().add(
                               GetUserEvent(
@@ -66,9 +63,9 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                     CustomTextField(
                       textEditingController: passwordController,
                       type: TextFieldType.password,
-                      title: local.password,
+                      title: S.of(context).password,
                       isPassword: true,
-                      hintText: local.passwordInput,
+                      hintText: S.of(context).passwordInput,
                       onChanged: (String password) =>
                           getIt.get<SignUpBloc>().add(
                                 GetUserEvent(
@@ -78,15 +75,12 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
                     ),
                     SizedBox(height: Constants.size30),
                     Button(
-                      text: local.signup,
+                      text: S.of(context).signup,
                       onTap: () {
-                        if (state.isValid) {
-                          getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
-                        } else {
-                          showSnackBar(AppStrings.error);
-                        }
+                        trySignUp();
                       },
                       textColor: AppColor.white,
+                      bgColor: AppColor.viridianGreen,
                     ),
                     SizedBox(height: Constants.size30),
                   ],
@@ -97,10 +91,11 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
     );
   }
 
-  void showSnackBar(String text) {
-    final snackBar = SnackBar(
-      content: Text(text),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  void trySignUp() {
+    if (super.formKey.currentState?.validate() == true) {
+      getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
+    } else {
+      showSnackBar(AppStrings.error);
+    }
   }
 }

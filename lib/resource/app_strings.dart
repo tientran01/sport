@@ -4,27 +4,14 @@ import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class AppStrings {
-  static const String logo = "Hot News";
-
   static const String confirmPassword = "Xác nhận mật khẩu";
   static const String confirmPasswordInput = "Nhập lại mật khẩu";
-  static const String forgetPassword = "Quên mật khẩu?";
-  static const String emailInvalid = "Email không đúng định dạng";
-  static const String phoneInvalid = "Số điện thoại không đúng định dạng";
-  static const String passwordInvalid = "Mật khẩu không đủ điều kiện";
-  static const String passwordRequired = "Mật khẩu phải dài từ 8-16 kí tự";
   static const String notification = "Thông báo";
-  static const String send = "Gửi";
   static const String requestInputOTP = "Enter your 6 digit OTP";
   static const String sendOTPfail = "Didn't recieve code? ";
   static const String requestAgain = "Request again";
   static const String verifyPhone = "Verify Phone";
-  static const String required = "Bắt buộc";
   static const String phoneGetOtp = "Code is sent to ";
-  static const String loginFail = "Login Fail";
-  static const String loginSuccess = "Login Success";
-  static const String signInWithGoogle = "Sign in with google";
-  static const String signInWithPhoneNumber = "Sign In With Phone Number";
   static const String resetPassword = "Reset Password";
   static const String createNewPassword = "Create New Password";
   static const String resendOtpCode = "Send OTP again in";
@@ -32,17 +19,10 @@ class AppStrings {
   static const String success = "Success";
   static const String loading = "Loading";
   static const String error = "Error";
-
   static const String checkValidEmail = "Verify Your Email";
   static const String messCheckEmail = "Please check your email";
-  static const String searchInput = "Tìm kiếm";
   static const String hotNews = "Tin nổi bật";
   static const String mostInterested = "Được quan tâm nhất";
-
-  static const String showAll = "Hiển thị tất cả";
-  static const String news = "Tin tức";
-  static const String createNewArticle = "Tạo bài viết";
-
   static const String channelDescription = "Channel Description";
   static const String channelId = "Channel Id";
   static const String channelName = "Channel Name";
@@ -53,25 +33,6 @@ class AppStrings {
   static const String showPushNotification = "Show Push Notification";
   static const String localNotificationTitle = "Bloc Demo";
   static const String localNotificationBody = "Local Notification Body";
-  static const String camera = "Máy ảnh";
-  static const String gallery = "Bộ sưu tập";
-  static const String cancel = "Huỷ bỏ";
-  static const String done = "Xong";
-  static const String editDisplayName = "Thay đổi tên hiển thị";
-  static const String share = "Chia sẻ";
-  static const String deleteAllFavorite = "Xoá tất cả bộ sưu tập";
-  static const String addFavorite = "Thêm vào bộ sưu tập";
-  static const String removeFavorite = "Xoá khỏi bộ sưu tập";
-  static const String suggestionSearch = "Gợi ý tìm kiếm";
-  static const String error404 = "Bad Request";
-  static const String error429 = "Too many request";
-  static const String removeAll = "Xoá tất cả";
-  static const String failed = "Thất bại";
-  static const String favorite = "Yêu thích";
-  static const String author = "Tác giả";
-  static const String deleteYourArticle = "Xoá bài viết";
-  static const String areYouSureDelete = "Bạn muốn xoá bài viết?";
-  static const String deleteNow = "Xoá ngay";
 
   static List<Category> categories = [
     Category(

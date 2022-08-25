@@ -5,6 +5,7 @@ class Video {
   String? thumbnailUrl;
   String? timeline;
   String? describe;
+  bool? isFavorite;
   Video({
     this.id,
     this.title,
@@ -12,6 +13,7 @@ class Video {
     this.thumbnailUrl,
     this.timeline,
     this.describe,
+    this.isFavorite,
   });
 
   Video.fromJson(Map<String, dynamic> json) {

@@ -6,7 +6,7 @@ import 'package:sport_app/cubit/enum_status/status.dart';
 import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_cubit.dart';
 import 'package:sport_app/cubit/news/hot_news/cubit/hot_news_state.dart';
 import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
 import 'package:sport_app/resource/resource.dart';
@@ -27,17 +27,16 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
     String? nameArticle = ModalRoute.of(context)?.settings.arguments as String;
     switch (nameArticle) {
       case AppStrings.hotNews:
-        nameArticle = local.hotNews;
+        nameArticle = S.of(context).hotNews;
         setState(() {
           getIt.get<HotNewsCubit>().getHotNewsApi();
         });
         break;
       case AppStrings.mostInterested:
-        nameArticle = local.mostInterested;
+        nameArticle = S.of(context).mostInterested;
         setState(() {
           getIt.get<MostInterestedNewsCubit>().getMostInterestedNewsApi();
         });
@@ -90,7 +89,7 @@ class _ArticleSortByNameState extends State<ArticleSortByName> {
           }
           return Center(
             child: TextView(
-              text: local.error,
+              text: S.of(context).error,
               fontSize: Constants.size15,
             ),
           );

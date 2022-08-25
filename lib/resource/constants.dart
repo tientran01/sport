@@ -26,6 +26,7 @@ class Constants {
   static double size15 = 15.0;
   static double size12 = 12.0;
   static double size10 = 10.0;
+  static double size9 = 9.0;
   static double size5 = 5.0;
 
   static int oneSecondDelay = 1;

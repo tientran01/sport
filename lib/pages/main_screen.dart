@@ -1,10 +1,10 @@
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/pages/article/article_screen.dart';
 import 'package:sport_app/pages/your_article/your_article_screen.dart';
 import 'package:sport_app/pages/home/home_screen.dart';
 import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -28,38 +28,49 @@ class _MainScreenState extends State<MainScreen> {
         index: selectIndex,
         children: screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: AppColor.viridianGreen,
-        unselectedItemColor: AppColor.black.withOpacity(0.1),
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColor.white,
-        currentIndex: selectIndex,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.w700,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.gainsboro,
+              offset: Offset(0, 0),
+              blurRadius: 40,
+            )
+          ],
         ),
-        onTap: _onTapItem,
-        items: [
-          bottomNavigationBarItem(
-            iconPath: AppResource.home,
-            index: 0,
-            label: AppLocalizations.of(context).home,
+        child: BottomNavigationBar(
+          selectedItemColor: AppColor.viridianGreen,
+          unselectedItemColor: AppColor.black.withOpacity(0.1),
+          type: BottomNavigationBarType.fixed,
+          // backgroundColor: AppColor.white,
+          currentIndex: selectIndex,
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w700,
           ),
-          bottomNavigationBarItem(
-            iconPath: AppResource.compass,
-            index: 1,
-            label: AppLocalizations.of(context).news,
-          ),
-          bottomNavigationBarItem(
-            iconPath: AppResource.create,
-            index: 2,
-            label: AppLocalizations.of(context).createNewArticle,
-          ),
-          bottomNavigationBarItem(
-            iconPath: AppResource.setting,
-            index: 3,
-            label: AppLocalizations.of(context).setting,
-          ),
-        ],
+          onTap: _onTapItem,
+          items: [
+            bottomNavigationBarItem(
+              iconPath: AppResource.home,
+              index: 0,
+              label: S.of(context).home,
+            ),
+            bottomNavigationBarItem(
+              iconPath: AppResource.compass,
+              index: 1,
+              label: S.of(context).news,
+            ),
+            bottomNavigationBarItem(
+              iconPath: AppResource.create,
+              index: 2,
+              label: S.of(context).createNewArticle,
+            ),
+            bottomNavigationBarItem(
+              iconPath: AppResource.setting,
+              index: 3,
+              label: S.of(context).setting,
+            ),
+          ],
+        ),
       ),
     );
   }

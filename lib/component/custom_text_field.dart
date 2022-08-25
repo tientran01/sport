@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/lang.dart';
 import 'package:sport_app/resource/resource.dart';
 
 enum TextFieldType {
@@ -127,31 +128,32 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   String? validatorText(String? value) {
+    AppLocalizations local = AppLocalizations.of(context);
     switch (widget.type) {
       case TextFieldType.email:
         if (value == null || value.isEmpty) {
-          return AppStrings.required;
+          return local.required;
         } else if (!isEmailValid(value)) {
-          return AppStrings.emailInvalid;
+          return local.emailInvalid;
         }
         break;
       case TextFieldType.password:
         if (value == null || value.isEmpty) {
-          return AppStrings.passwordRequired;
+          return local.required;
         } else if (!isPasswordValid(value)) {
-          return AppStrings.passwordInvalid;
+          return local.passwordInvalid;
         }
         break;
       case TextFieldType.normal:
         if (value == null || value.isEmpty) {
-          return AppStrings.required;
+          return local.required;
         }
         break;
       case TextFieldType.phoneNumber:
         if (value == null || value.isEmpty) {
-          return AppStrings.required;
+          return local.required;
         } else if (!isPhoneValid(value)) {
-          return AppStrings.phoneInvalid;
+          return local.phoneInvalid;
         }
         break;
     }

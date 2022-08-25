@@ -1,113 +1,178 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
-import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
+import 'package:intl/intl.dart';
+import 'package:sport_app/component/action.dart';
 import 'package:sport_app/component/button.dart';
-import 'package:sport_app/component/app_bar/custom_app_bar.dart';
+import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/l10n/lang.dart';
-import 'package:sport_app/main.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/model/your_article.dart';
+import 'package:sport_app/pages/base/base_view.dart';
+import 'package:sport_app/permission/open_image_picker.dart';
 import 'package:sport_app/resource/resource.dart';
+import 'package:sport_app/router/navigation_service.dart';
 
-import '../../component/custom_text_field.dart';
-
-class EditYourArticleScreen extends StatelessWidget {
+class EditYourArticleScreen extends StatefulWidget {
   const EditYourArticleScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    YourArticle yourArticle =
-        ModalRoute.of(context)?.settings.arguments as YourArticle;
-    YourArticle newYourArticle = YourArticle(
-      publishedAt: DateTime.now().toString(),
-      id: yourArticle.id,
-    );
-    AppLocalizations local = AppLocalizations.of(context);
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: local.editYourArticle,
-      ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Constants.size20,
-            vertical: Constants.size25,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomTextField(
-                title: local.title,
-                hintText: yourArticle.title ?? local.titleInput,
-                maxLine: 3,
-                onChanged: (String title) {
-                  newYourArticle.title = title;
-                },
-              ),
-              SizedBox(
-                height: Constants.size25,
-              ),
-              CustomTextField(
-                title: local.description,
-                hintText: yourArticle.describe ?? local.descriptionInput,
-                maxLine: 5,
-                onChanged: (String describe) {
-                  newYourArticle.describe = describe;
-                },
-              ),
-              SizedBox(
-                height: Constants.size20,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: Constants.size150,
-                padding: EdgeInsets.symmetric(
-                  horizontal: Constants.size20,
+  State<EditYourArticleScreen> createState() => _EditYourArticleScreenState();
+}
+
+class _EditYourArticleScreenState extends State<EditYourArticleScreen>
+    with BaseView {
+  String? imagePathChange;
+  @override
+  String? get titleAppBar => S.of(context).editYourArticle;
+  @override
+  bool? get isPop => true;
+  @override
+  Widget? get body {
+    YourArticle? yourArticle =
+        ModalRoute.of(context)?.settings.arguments as YourArticle?;
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Constants.size15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ImageLocal(
+              imagePath: imagePathChange ?? yourArticle?.urlToImage,
+            ),
+            SizedBox(
+              height: Constants.size15,
+            ),
+            TextView(
+              text: yourArticle?.title,
+              fontSize: Constants.size17,
+              fontWeight: FontWeight.w800,
+              lineNumber: 3,
+            ),
+            SizedBox(
+              height: Constants.size30,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextView(
+                  text: "${S.of(context).description} :",
+                  fontSize: Constants.size15,
+                  textColor: AppColor.arsenic.withOpacity(0.5),
+                  fontWeight: FontWeight.w800,
                 ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColor.darkSilver,
-                  ),
-                  borderRadius: BorderRadius.circular(Constants.size10),
+                SizedBox(
+                  height: Constants.size5,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AppResource.camera,
-                      width: Constants.size40,
-                      color: AppColor.darkSilver,
-                    ),
-                    SizedBox(
-                      height: Constants.size5,
-                    ),
-                    TextView(
-                      text: local.uploadImage,
-                      textColor: AppColor.darkSilver,
-                    ),
-                  ],
+                TextView(
+                  text: yourArticle?.describe,
+                  fontSize: Constants.size17,
+                  lineNumber: 4,
+                  textColor: AppColor.arsenic,
+                )
+              ],
+            ),
+            SizedBox(
+              height: Constants.size10,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextView(
+                  text: "${S.of(context).publishedAt} :",
+                  fontSize: Constants.size17,
+                  textColor: AppColor.arsenic.withOpacity(0.5),
+                  fontWeight: FontWeight.w800,
                 ),
-              ),
-              SizedBox(
-                height: Constants.size20,
-              ),
-              Button(
-                bgColor: AppColor.black,
-                text: local.editYourArticle,
-                textColor: AppColor.white,
-                onTap: () {
-                  getIt.get<YourArticleBloc>().add(
-                        UpdateYourArticleEvent(
-                          yourArticle: newYourArticle,
-                        ),
-                      );
-                },
-              )
-            ],
-          ),
+                SizedBox(
+                  width: Constants.size10,
+                ),
+                TextView(
+                  text: DateFormat('yyyy-MM-dd').add_jm().format(
+                        DateTime.parse(yourArticle?.publishedAt ?? ""),
+                      ),
+                  fontSize: Constants.size17,
+                  lineNumber: 4,
+                  textColor: AppColor.arsenic,
+                )
+              ],
+            ),
+            SizedBox(
+              height: Constants.size10,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextView(
+                  text: "${S.of(context).author} :",
+                  fontSize: Constants.size17,
+                  textColor: AppColor.arsenic.withOpacity(0.5),
+                  fontWeight: FontWeight.w800,
+                ),
+                SizedBox(
+                  width: Constants.size10,
+                ),
+                TextView(
+                  text: yourArticle?.author,
+                  fontSize: Constants.size17,
+                  lineNumber: 4,
+                  textColor: AppColor.arsenic,
+                )
+              ],
+            ),
+            SizedBox(
+              height: Constants.size30,
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  @override
+  Widget? get floatingActionButton {
+    return Padding(
+      padding: EdgeInsets.only(left: Constants.size30),
+      child: Button(
+        text: AppLocalizations.of(context).done,
+        width: MediaQuery.of(context).size.width,
+        textColor: AppColor.white,
+        bgColor: AppColor.viridianGreen,
+        onTap: () {
+          NavigationService.navigatorKey.currentState?.pop();
+        },
+      ),
+    );
+  }
+
+  void showActionImage() {
+    ActionComponent.shared.showActionUploadImage(
+      context: context,
+      onCamera: () {
+        OpenImagePicker.getImage(
+          getImageFromCamera: true,
+          value: (String image) {
+            setState(
+              () {
+                imagePathChange = image;
+              },
+            );
+            NavigationService.navigatorKey.currentState?.pop();
+          },
+        );
+      },
+      onGalley: () {
+        OpenImagePicker.getImage(
+          getImageFromCamera: false,
+          value: (String image) {
+            setState(
+              () {
+                imagePathChange = image;
+              },
+            );
+            NavigationService.navigatorKey.currentState?.pop();
+          },
+        );
+      },
     );
   }
 }

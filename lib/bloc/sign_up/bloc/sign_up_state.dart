@@ -6,14 +6,12 @@ class SignUpState extends Equatable {
   final String? displayName;
   final String? photoUrl;
   final String? phoneNumber;
-  final bool isValid;
   const SignUpState({
     this.email,
     this.password,
     this.displayName,
     this.photoUrl,
     this.phoneNumber,
-    this.isValid = false,
   });
   const SignUpState.initState() : this();
 
@@ -23,7 +21,6 @@ class SignUpState extends Equatable {
     String? displayName,
     String? photoUrl,
     String? phoneNumber,
-    bool isValid = false,
   }) {
     return SignUpState(
       email: email,
@@ -31,7 +28,6 @@ class SignUpState extends Equatable {
       displayName: displayName,
       photoUrl: photoUrl,
       phoneNumber: phoneNumber,
-      isValid: isValid,
     );
   }
 
@@ -42,6 +38,5 @@ class SignUpState extends Equatable {
         photoUrl,
         displayName,
         phoneNumber,
-        isValid,
       ];
 }

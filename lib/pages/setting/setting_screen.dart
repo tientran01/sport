@@ -7,11 +7,10 @@ import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
 import 'package:sport_app/component/app_bar/custom_app_bar.dart';
 import 'package:sport_app/component/custom_image.dart';
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -29,10 +28,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
     return Scaffold(
       appBar: CustomAppBar(
-        title: local.setting,
+        title: S.of(context).setting,
         isPop: false,
       ),
       body: SingleChildScrollView(
@@ -99,7 +97,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 height: Constants.size40,
               ),
               TextView(
-                text: local.forYou,
+                text: S.of(context).forYou,
                 fontSize: Constants.size17,
                 fontWeight: FontWeight.w800,
                 textColor: AppColor.viridianGreen,
@@ -124,11 +122,11 @@ class _SettingScreenState extends State<SettingScreen> {
                         NavigationService.navigatorKey.currentState
                             ?.pushNamed(AppRouteName.favorite);
                       },
-                      text: local.favorites,
+                      text: S.of(context).favorites,
                     ),
                     buildSettingItem(
                       context,
-                      text: local.collections,
+                      text: S.of(context).collections,
                       onTap: () {},
                     ),
                   ],

@@ -13,13 +13,15 @@ class YourArticleLoading extends YourArticleState {}
 class YourArticleLoader extends YourArticleState {
   final List<YourArticle>? yourArticles;
   final int? id;
+  final DateTime? selectedDate;
   const YourArticleLoader({
     this.yourArticles,
     this.id,
     super.yourArticle,
+    this.selectedDate,
   });
   @override
-  List<Object?> get props => [yourArticles, id, yourArticle];
+  List<Object?> get props => [yourArticles, id, yourArticle, selectedDate];
 }
 
 class YourArticleError extends YourArticleState {}

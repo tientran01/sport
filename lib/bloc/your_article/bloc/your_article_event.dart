@@ -21,15 +21,13 @@ class DeleteYourArticleEvent extends YourArticleEvent {
   List<Object?> get props => [id];
 }
 
-class UpdateYourArticleEvent extends YourArticleEvent {
-  final YourArticle yourArticle;
-  const UpdateYourArticleEvent({required this.yourArticle});
-   @override
-  List<Object?> get props => [yourArticle];
-}
-
 class SortYourArticleByDateEvent extends YourArticleEvent {}
 
 class SortYourArticleByAlphabetEvent extends YourArticleEvent {}
 
-class FilterYourArticleByDateEvent extends YourArticleEvent {}
+class FilterYourArticleByDateEvent extends YourArticleEvent {
+  final DateTime? selectedDate;
+  const FilterYourArticleByDateEvent({this.selectedDate});
+  @override
+  List<Object?> get props => [selectedDate];
+}

@@ -26,7 +26,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       state.copyWith(
         email: event.email ?? state.email,
         password: event.password ?? state.password,
-        isValid: state.email != null || state.password != null,
       ),
     );
   }

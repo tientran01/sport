@@ -4,6 +4,7 @@ import 'package:sport_app/bloc/login/bloc/login_state.dart';
 import 'package:sport_app/component/button.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/pages/auth/login/components/divider_custom.dart';
 import 'package:sport_app/component/text_view.dart';
 import 'package:sport_app/main.dart';
@@ -25,10 +26,9 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
-  String? get titleAppBar => "";
+  String? get titleAppBar => AppLocalizations.of(context).signin;
   @override
-  Widget build(BuildContext context) {
-    AppLocalizations local = AppLocalizations.of(context);
+  Widget get body {
     return BlocBuilder<LoginBloc, LoginState>(
       bloc: getIt.get<LoginBloc>(),
       builder: (_, state) {
@@ -46,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     CustomTextField(
                       textEditingController: emailController,
                       type: TextFieldType.email,
-                      title: local.email,
-                      hintText: local.emailInput,
+                      title: S.of(context).email,
+                      hintText: S.of(context).emailInput,
                       onChanged: (email) => getIt.get<LoginBloc>().add(
                             GetEmailAndPasswordFormTextFieldEvent(
                               email: email,
@@ -57,34 +57,32 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     SizedBox(height: Constants.size30),
                     CustomTextField(
                       textEditingController: passwordController,
-                      title: local.password,
+                      title: S.of(context).password,
                       type: TextFieldType.password,
-                      hintText: local.passwordInput,
+                      hintText: S.of(context).passwordInput,
                       isPassword: true,
                       onChanged: (String password) {
                         getIt.get<LoginBloc>().add(
-                              SignInWithFacebookEvent(),
+                              GetEmailAndPasswordFormTextFieldEvent(
+                                password: password,
+                              ),
                             );
                       },
                     ),
-                    buildForgetPassword(),
-                    SizedBox(height: Constants.size30),
-                    Button(
-                      text: local.signin,
-                      onTap: () {
-                        if (state.isValid) {
-                          getIt
-                              .get<LoginBloc>()
-                              .add(LoginWithEmailAndPasswordEvent());
-                        } else {
-                          showSnackBar(AppStrings.loginFail);
-                        }
-                      },
-                      textColor: AppColor.white,
+                    buildForgetPassword(
+                      S.of(context).forgetPassword,
                     ),
                     SizedBox(height: Constants.size30),
+                    Button(
+                        text: S.of(context).signin,
+                        onTap: () {
+                          tryLogin();
+                        },
+                        textColor: AppColor.white,
+                        bgColor: AppColor.viridianGreen),
+                    SizedBox(height: Constants.size30),
                     DividerCustom(
-                      textDisplay: local.or,
+                      textDisplay: S.of(context).or,
                     ),
                     SizedBox(height: Constants.size30),
                     Row(
@@ -95,9 +93,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                           bgColor: AppColor.jetStream,
                           onTap: () {
                             NavigationService.navigatorKey.currentState
-                                ?.pushNamed(
-                              AppRouteName.phoneInput,
-                            );
+                                ?.pushNamed(AppRouteName.phoneInput);
                           },
                         ),
                         SizedBox(width: Constants.size10),
@@ -121,107 +117,31 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                           },
                         ),
                         SizedBox(width: Constants.size10),
-                        SizedBox(height: Constants.size30),
-                        CustomTextField(
-                          textEditingController: emailController,
-                          type: TextFieldType.email,
-                          title: local.email,
-                          hintText: local.emailInput,
-                          onChanged: (email) => getIt.get<LoginBloc>().add(
-                                GetEmailAndPasswordFormTextFieldEvent(
-                                  email: email,
-                                ),
-                              ),
+                      ],
+                    ),
+                    SizedBox(height: Constants.size30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextView(
+                          text: S.of(context).noAccount,
+                          textColor: AppColor.gainsboro,
                         ),
-                        SizedBox(height: Constants.size30),
-                        CustomTextField(
-                          textEditingController: passwordController,
-                          title: local.password,
-                          type: TextFieldType.password,
-                          hintText: local.passwordInput,
-                          isPassword: true,
-                          onChanged: (String password) {
-                            getIt.get<LoginBloc>().add(
-                                  GetEmailAndPasswordFormTextFieldEvent(
-                                    password: password,
-                                  ),
-                                );
-                          },
+                        SizedBox(
+                          width: Constants.size5,
                         ),
-                        buildForgetPassword(),
-                        SizedBox(height: Constants.size30),
-                        Button(
-                          text: local.signin,
+                        GestureDetector(
                           onTap: () {
                             NavigationService.navigatorKey.currentState
-                                ?.pushNamed(AppRouteName.signUp);
+                                ?.pushNamed(
+                              AppRouteName.signUp,
+                            );
                           },
-                          textColor: AppColor.white,
-                        ),
-                        SizedBox(height: Constants.size30),
-                        DividerCustom(
-                          textDisplay: local.or,
-                        ),
-                        SizedBox(height: Constants.size30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CustomSocialButton(
-                              socialIconPath: AppResource.phoneIcon,
-                              bgColor: AppColor.jetStream,
-                              onTap: () {
-                                NavigationService.navigatorKey.currentState
-                                    ?.pushNamed(
-                                  AppRouteName.phoneInput,
-                                );
-                              },
-                            ),
-                            SizedBox(width: Constants.size10),
-                            CustomSocialButton(
-                              socialIconPath: AppResource.facebookIcon,
-                              bgColor: AppColor.blue,
-                              onTap: () {
-                                getIt.get<LoginBloc>().add(
-                                      SignInWithFacebookEvent(),
-                                    );
-                              },
-                            ),
-                            SizedBox(width: Constants.size10),
-                            CustomSocialButton(
-                              socialIconPath: AppResource.googleIcon,
-                              bgColor: AppColor.gargoyleGas,
-                              onTap: () {
-                                getIt.get<LoginBloc>().add(
-                                      SignInWithGoogleEvent(),
-                                    );
-                              },
-                            ),
-                            SizedBox(width: Constants.size10),
-                          ],
-                        ),
-                        SizedBox(height: Constants.size30),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextView(
-                              text: local.noAccount,
-                              textColor: AppColor.gainsboro,
-                            ),
-                            SizedBox(
-                              width: Constants.size5,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                NavigationService.navigatorKey.currentState
-                                    ?.pushNamed(AppRouteName.signUp);
-                              },
-                              child: TextView(
-                                text: local.signup,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )
-                          ],
-                        ),
+                          child: TextView(
+                            text: S.of(context).signup,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
                       ],
                     ),
                   ],
@@ -234,14 +154,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
     );
   }
 
-  void showSnackBar(String text) {
-    final snackBar = SnackBar(
-      content: Text(text),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
-  Widget buildForgetPassword() {
+  Widget buildForgetPassword(String text) {
     return GestureDetector(
       onTap: () => NavigationService.navigatorKey.currentState?.pushNamed(
         AppRouteName.inputEmailReset,
@@ -253,10 +166,18 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
         ),
         alignment: Alignment.bottomRight,
         child: TextView(
-          text: AppLocalizations.of(context).forgetPassword,
+          text: text,
           textColor: AppColor.gainsboro,
         ),
       ),
     );
+  }
+
+  void tryLogin() {
+    if (super.formKey.currentState?.validate() == true) {
+      getIt.get<LoginBloc>().add(LoginWithEmailAndPasswordEvent());
+    } else {
+      super.showSnackBar(AppStrings.error);
+    }
   }
 }

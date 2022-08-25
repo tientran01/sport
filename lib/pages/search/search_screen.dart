@@ -5,6 +5,7 @@ import 'package:sport_app/bloc/search/bloc/search_event.dart';
 import 'package:sport_app/bloc/search/bloc/search_state.dart';
 import 'package:sport_app/component/custom_text_field.dart';
 import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/pages/article/components/article_item_section.dart';
@@ -39,7 +40,7 @@ class _SearchScreenState extends State<SearchScreen> with BaseView {
             width: Constants.size20,
           ),
         ),
-        hintText: AppStrings.searchInput,
+        hintText: S.of(context).searchInput,
         onChanged: (String searchText) {
           getIt.get<SearchBloc>().add(
                 SearchArticleEvent(
@@ -54,7 +55,9 @@ class _SearchScreenState extends State<SearchScreen> with BaseView {
   @override
   Widget? get body {
     return Padding(
-      padding: EdgeInsets.all(Constants.size15),
+      padding: EdgeInsets.all(
+        Constants.size15,
+      ),
       child: BlocBuilder<SearchBloc, SearchState>(
         bloc: getIt.get<SearchBloc>(),
         builder: (context, state) {
