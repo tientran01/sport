@@ -59,11 +59,15 @@
   "required": "Required",
   "emailInvalid": "Invalid email",
   "phoneInvalid": "Invalid phone number",
-  "passwordInvalid": "Invalid password",
+  "passwordInvalid": "Password has minimum 8 characters, at least one letter and one number",
   "editDisplayName": "Edit display name",
   "send": "Send",
   "signInWithPhoneNumber": "Sign in with phone number",
   "searchInput": "What do you looking for...?",
+  "emailRequired": "Email cannot be empty",
+  "passwordRequired": "Password cannot be empty",
+  "phoneRequired": "Phone number cannot be empty",
+  "deleteAccountConfirm": "Are you sure to delete account",
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   }

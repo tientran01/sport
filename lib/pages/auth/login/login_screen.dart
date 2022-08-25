@@ -74,12 +74,13 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
                     ),
                     SizedBox(height: Constants.size30),
                     Button(
-                        text: S.of(context).signin,
-                        onTap: () {
-                          tryLogin();
-                        },
-                        textColor: AppColor.white,
-                        bgColor: AppColor.viridianGreen),
+                      text: S.of(context).signin,
+                      onTap: () {
+                        tryLogin();
+                      },
+                      textColor: AppColor.white,
+                      bgColor: AppColor.viridianGreen,
+                    ),
                     SizedBox(height: Constants.size30),
                     DividerCustom(
                       textDisplay: S.of(context).or,
@@ -176,6 +177,7 @@ class _LoginScreenState extends State<LoginScreen> with BaseView {
   void tryLogin() {
     if (super.formKey.currentState?.validate() == true) {
       getIt.get<LoginBloc>().add(LoginWithEmailAndPasswordEvent());
+      super.unfocus(context);
     } else {
       super.showSnackBar(AppStrings.error);
     }

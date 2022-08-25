@@ -94,6 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> with BaseView {
   void trySignUp() {
     if (super.formKey.currentState?.validate() == true) {
       getIt.get<SignUpBloc>().add(CreateNewAccountEvent());
+      super.unfocus(context);
     } else {
       showSnackBar(AppStrings.error);
     }

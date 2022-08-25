@@ -86,7 +86,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : widget.suffixIcon,
         border: outlineInputBorder(color: Colors.transparent),
-        focusedBorder: outlineInputBorder(color: AppColor.arsenic),
+        focusedBorder: outlineInputBorder(color: AppColor.viridianGreen),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onChanged: widget.onChanged,
@@ -132,14 +132,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
     switch (widget.type) {
       case TextFieldType.email:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return local.emailRequired;
         } else if (!isEmailValid(value)) {
           return local.emailInvalid;
         }
         break;
       case TextFieldType.password:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return local.passwordRequired;
         } else if (!isPasswordValid(value)) {
           return local.passwordInvalid;
         }
@@ -151,7 +151,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         break;
       case TextFieldType.phoneNumber:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return local.phoneRequired;
         } else if (!isPhoneValid(value)) {
           return local.phoneInvalid;
         }
@@ -169,7 +169,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   bool isPasswordValid(String password) {
     final RegExp passwordRegExp = RegExp(
-      r'^(?=.*\d).{8,15}$',
+      r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$',
     );
     return passwordRegExp.hasMatch(password);
   }
@@ -181,11 +181,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return phoneRegExp.hasMatch(phone);
   }
 
-  OutlineInputBorder outlineInputBorder({Color? color}) {
+  OutlineInputBorder outlineInputBorder({Color? color, double? width}) {
     return OutlineInputBorder(
       borderSide: BorderSide(
         color: color ?? AppColor.darkSilver,
-        width: 1.0,
+        width: width ?? 1.0,
       ),
       borderRadius: BorderRadius.circular(
         Constants.size5,

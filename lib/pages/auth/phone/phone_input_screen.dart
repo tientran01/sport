@@ -27,51 +27,61 @@ class _PhoneInputScreenState extends State<PhoneInputScreen> with BaseView {
       builder: (_, state) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: Constants.size30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: Constants.size30),
-              CustomTextField(
-                type: TextFieldType.phoneNumber,
-                hintText: S.of(context).phoneNumber,
-                onChanged: (String phoneNumber) {
-                  getIt.get<PhoneAuthBloc>().add(
-                        GetPhoneFromFieldAndValidateEvent(
-                          phoneNumber: phoneNumber,
-                        ),
-                      );
-                },
-                prefix: Padding(
-                  padding: EdgeInsets.only(
-                    top: Constants.size20,
-                    left: Constants.size10,
-                    bottom: Constants.size20,
+          child: Form(
+            key: super.formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: Constants.size30),
+                CustomTextField(
+                  keyboardType: TextInputType.number,
+                  type: TextFieldType.phoneNumber,
+                  hintText: S.of(context).phoneNumber,
+                  onChanged: (String phoneNumber) {
+                    getIt.get<PhoneAuthBloc>().add(
+                          GetPhoneFromFieldAndValidateEvent(
+                            phoneNumber: phoneNumber,
+                          ),
+                        );
+                  },
+                  prefix: Padding(
+                    padding: EdgeInsets.only(
+                      top: Constants.size20,
+                      left: Constants.size10,
+                      bottom: Constants.size20,
+                    ),
+                    child: const TextView(
+                      text: "+84 ",
+                      textColor: AppColor.black,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                  child: const TextView(
-                    text: "+84 ",
-                    textColor: AppColor.black,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                suffixIcon: InkWell(
-                  onTap: () => getIt.get<PhoneAuthBloc>().add(
-                        const SendOtpToPhoneAuthEvent(),
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      if (super.formKey.currentState?.validate() == true) {
+                        getIt.get<PhoneAuthBloc>().add(
+                              SendOtpToPhoneAuthEvent(
+                                  phoneNumber: state.phoneNumber),
+                            );
+                      }
+                    },
+                    customBorder: const CircleBorder(),
+                    splashColor: AppColor.arsenic,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Constants.size20,
                       ),
-                  customBorder: const CircleBorder(),
-                  splashColor: AppColor.arsenic,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: Constants.size20,
-                    ),
-                    child: Image.asset(
-                      AppResource.send,
-                      width: Constants.size27,
-                      height: Constants.size27,
+                      child: Image.asset(
+                        AppResource.send,
+                        width: Constants.size27,
+                        height: Constants.size27,
+                        color: AppColor.viridianGreen,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

@@ -19,7 +19,7 @@ class PhoneAuthBloc extends Bloc<PhoneAuthEvent, PhoneAuthState> {
   ) async {
     emitter(
       state.copyWith(
-        phoneNumber: event.phoneNumber ?? "",
+        phoneNumber: event.phoneNumber ?? state.phoneNumber,
       ),
     );
   }

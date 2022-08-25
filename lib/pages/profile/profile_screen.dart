@@ -135,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         width: Constants.size200,
                         text: S.of(context).deleteAccount.toUpperCase(),
                         onTap: () {
-                          getIt.get<ProfileBloc>().add(DeleteProfileEvent());
+                          _showAlertDeleteAccount(context);
                         },
                         bgColor: AppColor.viridianGreen.withOpacity(0.5),
                         textColor: AppColor.white,
@@ -189,6 +189,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           },
         );
+      },
+    );
+  }
+
+  void _showAlertDeleteAccount(BuildContext context) {
+    ShowAlertDialog.showAlertDialog(
+      context: context,
+      title: S.of(context).deleteAccountConfirm,
+      defaultActionText: S.of(context).delete,
+      onPressed: () {
+        getIt.get<ProfileBloc>().add(DeleteAccountEvent());
       },
     );
   }
