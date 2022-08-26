@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:sport_app/component/action.dart';
-import 'package:sport_app/component/button.dart';
-import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/model/your_article.dart';
 import 'package:sport_app/pages/base/base_view.dart';
@@ -133,7 +129,7 @@ class _EditYourArticleScreenState extends State<EditYourArticleScreen>
     return Padding(
       padding: EdgeInsets.only(left: Constants.size30),
       child: Button(
-        text: AppLocalizations.of(context).done,
+        text: S.of(context).done,
         width: MediaQuery.of(context).size.width,
         textColor: AppColor.white,
         bgColor: AppColor.viridianGreen,

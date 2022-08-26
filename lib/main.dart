@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_it/get_it.dart';
-import 'helper/notification_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -31,10 +30,8 @@ Future<void> main() async {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     BlocModule.provider();
-    NotificationService.shared.setup();
     await SharedPreferencesHelper.shared.setUpSharedPreferences();
     FirebaseHelper.shared.registerNotification();
-    FirebaseHelper.shared.setupInteractedMessage();
     FlutterAppBadger.removeBadge();
     await SQLHelper.shared.initDatabase();
     runApp(
@@ -45,9 +42,6 @@ Future<void> main() async {
           BlocProvider(create: (_) => SignUpBloc()),
           BlocProvider(create: (_) => HomeBloc()),
           BlocProvider(create: (_) => ProfileBloc()),
-          BlocProvider(create: (_) => PhoneAuthBloc()),
-          BlocProvider(create: (_) => VerifyOtpBloc()),
-          BlocProvider(create: (_) => ForgetPasswordBloc()),
           BlocProvider(create: (_) => NotificationBloc()),
           BlocProvider(create: (_) => YourArticleBloc()),
           BlocProvider(create: (_) => FavoriteBloc()),

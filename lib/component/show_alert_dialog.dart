@@ -1,10 +1,8 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class ShowAlertDialog {
@@ -19,7 +17,6 @@ class ShowAlertDialog {
     Function(String)? onChanged,
     Widget? child,
   }) {
-    AppLocalizations local = AppLocalizations.of(context);
     if (!Platform.isIOS) {
       return showDialog(
         context: context,
@@ -29,13 +26,13 @@ class ShowAlertDialog {
           actions: <Widget>[
             InkWell(
               child: Text(
-                cancelActionText ?? local.cancel,
+                cancelActionText ?? S.of(context).cancel,
               ),
               onTap: () => Navigator.of(context).pop(false),
             ),
             InkWell(
               child: Text(
-                defaultActionText ?? local.done,
+                defaultActionText ?? S.of(context).done,
               ),
               onTap: () => Navigator.of(context).pop(true),
             ),
@@ -69,13 +66,13 @@ class ShowAlertDialog {
           CupertinoDialogAction(
             onPressed: () => Navigator.of(context).pop(false),
             child: Text(
-              cancelActionText ?? local.cancel,
+              cancelActionText ?? S.of(context).cancel,
             ),
           ),
           CupertinoDialogAction(
             onPressed: onPressed,
             child: Text(
-              defaultActionText ?? local.done,
+              defaultActionText ?? S.of(context).done,
             ),
           ),
         ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/bloc.dart';
-import 'package:sport_app/component/circular_loading.dart';
-import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/cubit/enum_status/status.dart';
 import 'package:sport_app/cubit/news/apple_news/cubit/apple_news_state.dart';
 import 'package:sport_app/main.dart';

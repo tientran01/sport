@@ -6,13 +6,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:sport_app/bloc/home/bloc/home_bloc.dart';
-import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
-import 'package:sport_app/main.dart';
 import 'package:sport_app/model/users.dart';
 import 'package:sport_app/resource/resource.dart';
-import 'package:sport_app/router/navigation_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -144,32 +140,7 @@ class FirebaseHelper {
     print("Authorization status: ${settings.authorizationStatus}");
   }
 
-  Future<void> setupInteractedMessage() async {
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
-    if (initialMessage != null) {}
-
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (RemoteMessage message) {
-        NavigationService.navigatorKey.currentState?.pushNamed(
-          AppRouteName.notificationDetail,
-          arguments: message,
-        );
-      },
-    );
-
-    FirebaseMessaging.onMessage.listen(
-      (RemoteMessage message) {
-        number++;
-        addBadge(number);
-        getIt.get<HomeBloc>().add(
-              UpdateBadgeEvent(
-                badgeCount: number,
-              ),
-            );
-      },
-    );
-  }
+  
 
   void addBadge(int count) async {
     FlutterAppBadger.updateBadgeCount(count);

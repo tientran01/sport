@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import '../resource/app_key_name.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class SharedPreferencesHelper {
   static SharedPreferencesHelper shared = SharedPreferencesHelper._internal();

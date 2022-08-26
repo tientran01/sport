@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/component/app_bar/custom_app_bar.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/pages/video_player/component/video_detail.dart';
 import 'package:sport_app/pages/video_player/component/video_tile.dart';

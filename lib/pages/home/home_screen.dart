@@ -1,9 +1,9 @@
 import 'package:sport_app/component/name_section.dart';
 import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/model/video.dart';
+import 'package:flutter/material.dart';
 import 'package:sport_app/pages/home/component/custom_slider.dart';
 import 'package:sport_app/pages/home/component/header_home.dart';
-import 'package:flutter/material.dart';
 import 'package:sport_app/pages/home/most_interested_news_section.dart';
 import 'package:sport_app/pages/home/hot_news_section.dart';
 import 'package:sport_app/pages/video_player/component/video_thumbnai_item.dart';
