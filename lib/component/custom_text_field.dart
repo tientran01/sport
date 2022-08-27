@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sport_app/component/text_view.dart';
-import 'package:sport_app/l10n/lang.dart';
+import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/resource/resource.dart';
 
 enum TextFieldType {
@@ -86,7 +86,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               )
             : widget.suffixIcon,
         border: outlineInputBorder(color: Colors.transparent),
-        focusedBorder: outlineInputBorder(color: AppColor.arsenic),
+        focusedBorder: outlineInputBorder(color: AppColor.viridianGreen),
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onChanged: widget.onChanged,
@@ -128,32 +128,31 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   String? validatorText(String? value) {
-    AppLocalizations local = AppLocalizations.of(context);
     switch (widget.type) {
       case TextFieldType.email:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return S.of(context).emailRequired;
         } else if (!isEmailValid(value)) {
-          return local.emailInvalid;
+          return S.of(context).emailInvalid;
         }
         break;
       case TextFieldType.password:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return S.of(context).passwordRequired;
         } else if (!isPasswordValid(value)) {
-          return local.passwordInvalid;
+          return S.of(context).passwordInvalid;
         }
         break;
       case TextFieldType.normal:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return S.of(context).required;
         }
         break;
       case TextFieldType.phoneNumber:
         if (value == null || value.isEmpty) {
-          return local.required;
+          return S.of(context).phoneRequired;
         } else if (!isPhoneValid(value)) {
-          return local.phoneInvalid;
+          return S.of(context).phoneInvalid;
         }
         break;
     }
@@ -169,7 +168,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   bool isPasswordValid(String password) {
     final RegExp passwordRegExp = RegExp(
-      r'^(?=.*\d).{8,15}$',
+      r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$',
     );
     return passwordRegExp.hasMatch(password);
   }
@@ -181,11 +180,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return phoneRegExp.hasMatch(phone);
   }
 
-  OutlineInputBorder outlineInputBorder({Color? color}) {
+  OutlineInputBorder outlineInputBorder({Color? color, double? width}) {
     return OutlineInputBorder(
       borderSide: BorderSide(
         color: color ?? AppColor.darkSilver,
-        width: 1.0,
+        width: width ?? 1.0,
       ),
       borderRadius: BorderRadius.circular(
         Constants.size5,

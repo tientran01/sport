@@ -3,16 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_bloc.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_event.dart';
 import 'package:sport_app/bloc/profile/bloc/profile_state.dart';
-import 'package:sport_app/component/action.dart';
-import 'package:sport_app/component/button.dart';
-import 'package:sport_app/component/app_bar/custom_app_bar.dart';
-import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/component/show_alert_dialog.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/helper/loading.dart';
 import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
-import 'package:sport_app/pages/profile/component/profile_item.dart';
+import 'package:sport_app/pages/profile/profile_item.dart';
 import 'package:sport_app/permission/open_image_picker.dart';
 import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
@@ -135,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         width: Constants.size200,
                         text: S.of(context).deleteAccount.toUpperCase(),
                         onTap: () {
-                          getIt.get<ProfileBloc>().add(DeleteProfileEvent());
+                          _showAlertDeleteAccount(context);
                         },
                         bgColor: AppColor.viridianGreen.withOpacity(0.5),
                         textColor: AppColor.white,
@@ -189,6 +185,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           },
         );
+      },
+    );
+  }
+
+  void _showAlertDeleteAccount(BuildContext context) {
+    ShowAlertDialog.showAlertDialog(
+      context: context,
+      title: S.of(context).deleteAccountConfirm,
+      defaultActionText: S.of(context).delete,
+      onPressed: () {
+        getIt.get<ProfileBloc>().add(DeleteAccountEvent());
       },
     );
   }

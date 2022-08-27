@@ -11,16 +11,11 @@ class BlocModule {
     getIt.registerLazySingleton<SignUpBloc>(() => SignUpBloc());
     getIt.registerLazySingleton<HomeBloc>(() => HomeBloc());
     getIt.registerLazySingleton<ProfileBloc>(() => ProfileBloc());
-    getIt.registerLazySingleton<PhoneAuthBloc>(() => PhoneAuthBloc());
-    getIt.registerLazySingleton<VerifyOtpBloc>(() => VerifyOtpBloc());
-    getIt.registerLazySingleton<ForgetPasswordBloc>(() => ForgetPasswordBloc());
     getIt.registerLazySingleton<NotificationBloc>(() => NotificationBloc());
     getIt.registerLazySingleton<YourArticleBloc>(() => YourArticleBloc());
     getIt.registerLazySingleton<FavoriteBloc>(() => FavoriteBloc());
     getIt.registerLazySingleton<SearchBloc>(() => SearchBloc());
-    getIt.registerLazySingleton<MostInterestedNewsCubit>(
-      () => MostInterestedNewsCubit(),
-    );
+    getIt.registerLazySingleton<MostInterestedNewsCubit>(() => MostInterestedNewsCubit());
     getIt.registerLazySingleton<TeslaNewsCubit>(() => TeslaNewsCubit());
     getIt.registerLazySingleton<AppleNewsCubit>(() => AppleNewsCubit());
     getIt.registerLazySingleton<HotNewsCubit>(() => HotNewsCubit());

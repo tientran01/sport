@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_bloc.dart';
 import 'package:sport_app/bloc/your_article/bloc/your_article_event.dart';
-import 'package:sport_app/component/action.dart';
-import 'package:sport_app/component/button.dart';
-import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/component/custom_text_field.dart';
-import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/helper/firebase_helper.dart';
 import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';

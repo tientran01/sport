@@ -9,9 +9,7 @@ class AppResource {
   static String compass = '$bottomNavigationIcon/ic_compass.png';
   static String create = '$bottomNavigationIcon/ic_create.png';
   static String heart = '$bottomNavigationIcon/ic_heart.png';
-  static String share = '$bottomNavigationIcon/ic_share.png';
   static String logo = '$bottomNavigationIcon/ic_logo.png';
-  static String comment = '$bottomNavigationIcon/ic_cmt.png';
 
   static String socialIcon = '${baseIconPath}social';
   static String facebookIcon = '$socialIcon/ic_facebook.png';
@@ -34,7 +32,6 @@ class AppResource {
   static String send = '$componentIcon/ic_send.png';
   static String eye = '$componentIcon/ic_eye.png';
   static String invisible = '$componentIcon/ic_invisible.png';
-  static String bookmark = '$componentIcon/ic_bookmark.png';
   static String close = '$componentIcon/ic_close.png';
   static String delete = '$componentIcon/ic_delete.png';
   static String quote = '$componentIcon/ic_quote.png';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 

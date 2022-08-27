@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/component/slide_route/slide_right_route.dart';
-import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/pages/profile/profile_screen.dart';
 import 'package:sport_app/resource/resource.dart';

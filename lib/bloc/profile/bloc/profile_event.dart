@@ -18,4 +18,4 @@ class EditDisplayNameEvent extends ProfileEvent {}
 
 class GetUserProfileEvent extends ProfileEvent {}
 
-class DeleteProfileEvent extends ProfileEvent {}
+class DeleteAccountEvent extends ProfileEvent {}

@@ -1,38 +1,13 @@
-import 'package:sport_app/application/application.dart';
 import 'package:sport_app/model/category.dart';
 import 'package:sport_app/model/video.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class AppStrings {
-  static const String confirmPassword = "Xác nhận mật khẩu";
-  static const String confirmPasswordInput = "Nhập lại mật khẩu";
-  static const String notification = "Thông báo";
-  static const String requestInputOTP = "Enter your 6 digit OTP";
-  static const String sendOTPfail = "Didn't recieve code? ";
-  static const String requestAgain = "Request again";
-  static const String verifyPhone = "Verify Phone";
-  static const String phoneGetOtp = "Code is sent to ";
-  static const String resetPassword = "Reset Password";
-  static const String createNewPassword = "Create New Password";
-  static const String resendOtpCode = "Send OTP again in";
-  static const String sec = "sec";
   static const String success = "Success";
   static const String loading = "Loading";
   static const String error = "Error";
-  static const String checkValidEmail = "Verify Your Email";
-  static const String messCheckEmail = "Please check your email";
   static const String hotNews = "Tin nổi bật";
   static const String mostInterested = "Được quan tâm nhất";
-  static const String channelDescription = "Channel Description";
-  static const String channelId = "Channel Id";
-  static const String channelName = "Channel Name";
-  static const String showLocalNotification = "Show Local Notification";
-  static const String showScheduledNotification = "Show Scheduled Notification";
-  static const String showNotificationWithPayload =
-      "Show Notification With Payload";
-  static const String showPushNotification = "Show Push Notification";
-  static const String localNotificationTitle = "Bloc Demo";
-  static const String localNotificationBody = "Local Notification Body";
 
   static List<Category> categories = [
     Category(
@@ -125,4 +100,51 @@ class AppStrings {
           "Bryant Young received a standing ovation from fans at the Hall of Fame ceremony.",
     ),
   ];
+}
+
+class AppCollection {
+  static const String userInformation = "users";
+}
+
+class AppFolder {
+  static const String imageUser = "imageUser/";
+}
+
+class AppFieldName {
+  static const String photoUrl = "photoUrl";
+  static const String tokens = "tokens";
+  static const String displayName = "displayName";
+}
+
+class AppKeyName {
+  static const String uid = "uid";
+  static const String count = "count";
+  static const String badge = "badge";
+  static const String badgeCount = 'badgeCount';
+  static const String token = "token";
+  static const String favoritesBox = "favorites";
+  static const String article = "article";
+  static const String video = "video";
+  static const int version = 1;
+  static const String newsDB = "news.db";
+  static const String videoTable = "Video";
+  static const String yourArticleTable = "YourArticle";
+  static const String languageCode = "languageCode";
+  static const String english = 'en';
+  static const String vietnamese = 'vi';
+}
+
+class Application {
+  static const String topHeadlines = "/top-headlines";
+  static const String everything = "/everything";
+  static const String apiKey = "apiKey";
+  static const String apiKeyNumber = "e883f1216079444a8a8867c06341edd6";
+  static const String countryParamKey = "country";
+  static const String sourcesParamKey = "sources";
+  static const String techcrunchParamValue = "techcrunch";
+  static const String qParamKey = "q";
+  static const String appleParamValue = "apple";
+  static const String teslaParamValue = "tesla";
+  static const String bitcoinParamValue = "bitcoin";
+  static const String top = "top";
 }

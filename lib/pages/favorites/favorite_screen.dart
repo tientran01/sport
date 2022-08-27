@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/bloc/favorite/bloc/favorite_bloc.dart';
-import 'package:sport_app/component/app_bar/custom_app_bar.dart';
-import 'package:sport_app/component/custom_image.dart';
-import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/l10n/s.dart';
 import 'package:sport_app/main.dart';
 import 'package:sport_app/resource/resource.dart';

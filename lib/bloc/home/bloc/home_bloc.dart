@@ -1,8 +1,8 @@
 import 'package:sport_app/bloc/home/bloc/home_event.dart';
 import 'package:sport_app/bloc/home/bloc/home_state.dart';
-import 'package:sport_app/resource/app_key_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/resource/resource.dart';
 import '../../../helper/shared_preferences_helper.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {

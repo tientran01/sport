@@ -1,6 +1,7 @@
-import 'package:sport_app/application/application.dart';
+
 import 'package:sport_app/dio/network_manager.dart';
 import 'package:sport_app/model/news.dart';
+import 'package:sport_app/resource/resource.dart';
 
 class DioClient {
   static DioClient shared = DioClient._internal();

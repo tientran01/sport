@@ -6,14 +6,14 @@ import 'package:sport_app/pages/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<App> createState() => _AppState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _AppState extends State<App> {
   int selectIndex = 0;
   List<Widget> screens = [
     HomeScreen(),

@@ -15,6 +15,10 @@ mixin BaseView<T extends StatefulWidget> on State<T> {
     super.initState();
   }
 
+  void unfocus(BuildContext context) {
+    FocusScope.of(context).unfocus();
+  }
+
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);

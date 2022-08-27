@@ -3,9 +3,7 @@ import 'package:sport_app/bloc/splash/bloc/splash_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/helper/shared_preferences_helper.dart';
-import 'package:sport_app/resource/app_key_name.dart';
-import 'package:sport_app/resource/app_route_name.dart';
-import 'package:sport_app/resource/constants.dart';
+import 'package:sport_app/resource/resource.dart';
 import 'package:sport_app/router/navigation_service.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
@@ -19,7 +17,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         null) {
       Future.delayed(Duration(seconds: Constants.twoSecondDelay)).then(
         (value) => NavigationService.navigatorKey.currentState
-            ?.pushReplacementNamed(AppRouteName.main),
+            ?.pushReplacementNamed(AppRouteName.app),
       );
     } else {
       Future.delayed(Duration(seconds: Constants.twoSecondDelay)).then(

@@ -27,15 +27,15 @@ class NameSection extends StatelessWidget {
                 TextView(
                   text: text,
                   fontSize: Constants.size15,
-                  fontWeight: FontWeight.w500,
-                  textColor: AppColor.blue,
+                  fontWeight: FontWeight.w700,
+                  textColor: AppColor.viridianGreen,
                 ),
                 Container(
                   padding: EdgeInsets.only(left: Constants.size5),
                   child: Image.asset(
                     AppResource.rightArrow,
                     width: Constants.size15,
-                    color: AppColor.blue,
+                    color: AppColor.viridianGreen,
                   ),
                 ),
               ],

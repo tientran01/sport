@@ -44,7 +44,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         Loading.dismiss();
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
         NavigationService.navigatorKey.currentState?.pushReplacementNamed(
-          AppRouteName.main,
+          AppRouteName.app,
           arguments: user,
         );
       }
@@ -71,7 +71,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         FirebaseHelper.shared.createUserInformation(userInformation);
         SharedPreferencesHelper.shared.setString(AppKeyName.uid, user.uid);
         NavigationService.navigatorKey.currentState?.pushReplacementNamed(
-          AppRouteName.main,
+          AppRouteName.app,
           arguments: user,
         );
       }
@@ -101,7 +101,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           user.uid,
         );
         NavigationService.navigatorKey.currentState?.pushReplacementNamed(
-          AppRouteName.main,
+          AppRouteName.app,
           arguments: user,
         );
       }

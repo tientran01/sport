@@ -16,7 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetDisplayNameFromTextFieldEvent>(_onGetDisplayNameFromTextField);
     on<EditDisplayNameEvent>(_onEditDisplayName);
     on<GetUserProfileEvent>(_onGetUser);
-    on<DeleteProfileEvent>(_onDeleteProfile);
+    on<DeleteAccountEvent>(_onDeleteAccount);
   }
 
   Future<void> _onGetUser(
@@ -52,8 +52,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     getIt.get<ProfileBloc>().add(GetUserProfileEvent());
   }
 
-  Future<void> _onDeleteProfile(
-      DeleteProfileEvent event, Emitter<void> emitter) async {
+  Future<void> _onDeleteAccount(
+      DeleteAccountEvent event, Emitter<void> emitter) async {
     FirebaseHelper.shared.deleteUser();
     Loading.show();
     NavigationService.navigatorKey.currentState?.pushNamed(AppRouteName.login);
