@@ -148,9 +148,7 @@ class _VideoTileState extends State<VideoTile> {
               ),
             );
           }
-          return const CircularLoading(
-            color: AppColor.white,
-          );
+          return const LoadingIndicator();
         },
       ),
     );

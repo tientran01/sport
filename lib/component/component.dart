@@ -1,6 +1,6 @@
 export 'package:sport_app/component/action.dart';
 export 'package:sport_app/component/button.dart';
-export 'package:sport_app/component/circular_loading.dart';
+export 'package:sport_app/component/loading_indicator.dart';
 export 'package:sport_app/component/app_bar/custom_app_bar.dart';
 export 'package:sport_app/component/custom_image.dart';
 export 'package:sport_app/component/slide_route/slide_bottom_route.dart';

@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: NavigationService.navigatorKey,
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouteName.splash,
+      initialRoute: AppRouteName.app,
       routes: RouteName.route,
       builder: EasyLoading.init(),
       theme: ThemeData(

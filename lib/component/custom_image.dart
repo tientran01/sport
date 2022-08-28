@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/component/loading_indicator.dart';
 import 'package:sport_app/resource/resource.dart';
 
 class CustomImage extends StatelessWidget {
@@ -38,9 +39,7 @@ class CustomImage extends StatelessWidget {
           ),
         ),
         placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(
-            color: AppColor.gainsboro,
-          ),
+          child: LoadingIndicator(),
         ),
         errorWidget: (context, url, error) => Center(
           child: Image.asset(

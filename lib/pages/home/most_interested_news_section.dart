@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sport_app/component/text_view.dart';
+import 'package:sport_app/component/component.dart';
 import 'package:sport_app/cubit/enum_status/status.dart';
 import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_cubit.dart';
 import 'package:sport_app/cubit/news/most_interested_news/cubit/most_interested_news_state.dart';
@@ -34,12 +34,9 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
         builder: (context, state) {
           switch (state.status) {
             case NewsStatus.error:
-              TextView(
-                text: AppStrings.error,
-                fontSize: Constants.size20,
-                fontWeight: FontWeight.w700,
+              return Center(
+                child: Image.asset(AppResource.error),
               );
-              break;
             case NewsStatus.success:
               if (state.articles?.isEmpty == true) {
                 return Center(
@@ -103,11 +100,15 @@ class _MostInterestedNewsSectionState extends State<MostInterestedNewsSection> {
 
             default:
           }
-          return Center(
-            child: TextView(
-              text: S.of(context).error,
-              fontSize: Constants.size15,
-            ),
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              if (index >= 3) {
+                return Container();
+              }
+              return const ShimmerArticle();
+            },
+            itemCount: 3,
           );
         },
       ),

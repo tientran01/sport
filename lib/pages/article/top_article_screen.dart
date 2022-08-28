@@ -62,7 +62,17 @@ class _TopArticleScreenState extends State<TopArticleScreen> {
             );
           default:
         }
-        return const CircularLoading();
+        return ListView.builder(
+              itemCount: state.articles?.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Constants.size15,
+                  ),
+                  child: const ShimmerArticle(),
+                );
+              },
+            );
       },
     );
   }

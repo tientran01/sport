@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:sport_app/resource/resource.dart';
 
+class ShimmerItem extends StatelessWidget {
+  final Color? color;
+  final double? width;
+  final double? height;
+  const ShimmerItem({Key? key, this.color, this.width, this.height})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: Constants.size5),
+      width: width ?? Constants.size120,
+      height: height ?? Constants.size20,
+      decoration: BoxDecoration(
+        color: color ?? AppColor.gainsboro.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(Constants.size20),
+      ),
+    );
+  }
+}
+
 class ShimmerSlider extends StatelessWidget {
   const ShimmerSlider({Key? key}) : super(key: key);
 
@@ -106,22 +127,58 @@ class ShimmerArticleCustomWidth extends StatelessWidget {
     );
   }
 }
-class ShimmerItem extends StatelessWidget {
-  final Color? color;
-  final double? width;
-  final double? height;
-  const ShimmerItem({Key? key, this.color, this.width, this.height})
-      : super(key: key);
+
+class ShimmerArticle extends StatelessWidget {
+  const ShimmerArticle({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: Constants.size5),
-      width: width ?? Constants.size120,
-      height: height ?? Constants.size20,
-      decoration: BoxDecoration(
-        color: color ?? AppColor.gainsboro.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(Constants.size20),
+      height: Constants.size135,
+      padding: EdgeInsets.symmetric(
+        vertical: Constants.size15,
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            child: ShimmerItem(
+              width: Constants.size120,
+              height: Constants.size100,
+            ),
+          ),
+          SizedBox(
+            width: Constants.size10,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShimmerItem(
+                  height: Constants.size12,
+                  width: Constants.size40,
+                ),
+                SizedBox(
+                  height: Constants.size10,
+                ),
+                ShimmerItem(
+                  height: Constants.size20,
+                  width: Constants.size350,
+                ),
+                ShimmerItem(
+                  height: Constants.size20,
+                  width: Constants.size150,
+                ),
+                SizedBox(
+                  height: Constants.size10,
+                ),
+                ShimmerItem(
+                  height: Constants.size10,
+                  width: Constants.size40,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

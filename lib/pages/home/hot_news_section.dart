@@ -32,12 +32,9 @@ class _HotNewsSectionState extends State<HotNewsSection> {
         builder: (context, state) {
           switch (state.status) {
             case NewsStatus.error:
-              TextView(
-                text: AppStrings.error,
-                fontSize: Constants.size20,
-                fontWeight: FontWeight.w700,
+              return Center(
+                child: Image.asset(AppResource.error),
               );
-              break;
             case NewsStatus.success:
               if (state.articles?.isEmpty == true) {
                 return Center(
@@ -64,7 +61,16 @@ class _HotNewsSectionState extends State<HotNewsSection> {
               );
             default:
           }
-          return const CircularLoading();
+          return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) => const ShimmerArticleCustomWidth(),
+            itemCount: state.articles?.length ?? 10,
+            separatorBuilder: (BuildContext context, int index) {
+              return SizedBox(
+                width: Constants.size10,
+              );
+            },
+          );
         },
       ),
     );
