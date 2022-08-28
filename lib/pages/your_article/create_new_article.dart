@@ -153,6 +153,7 @@ class _CreateNewArticleState extends State<CreateNewArticle> with BaseView {
               () {
                 imagePath = image;
                 NavigationService.navigatorKey.currentState?.pop();
+                super.unfocus(context);
               },
             );
             yourArticle.urlToImage = imagePath;

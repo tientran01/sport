@@ -97,7 +97,7 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
         bloc: getIt.get<YourArticleBloc>(),
         builder: (context, state) {
           if (state is YourArticleLoading) {
-            return const CircularLoading();
+            return const LoadingIndicator();
           }
           if (state is YourArticleLoader) {
             if (state.yourArticles == null ||
@@ -309,10 +309,8 @@ class _YourArticleScreenState extends State<YourArticleScreen> {
             }
           }
           return Center(
-            child: TextView(
-              text: AppStrings.error,
-              fontSize: Constants.size15,
-              fontWeight: FontWeight.w700,
+            child: Image.asset(
+              AppResource.error,
             ),
           );
         },
